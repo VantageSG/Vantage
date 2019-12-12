@@ -1,3 +1,14 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      get 'users/index'
+      post 'users/create'
+      get 'users/show'
+      delete 'users/destroy'
+
+      post '/login' => 'sessions#create'
+      delete '/logout' => 'sessions#destroy'
+      get '/logged_in' => 'sessions#is_logged_in?'
+    end
+  end
 end

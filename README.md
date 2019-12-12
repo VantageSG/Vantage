@@ -17,3 +17,11 @@ sudo apt-get install mysql-client
 ```
 4. Setup MySql with your own password
 5. Install yarn `brew install yarn`
+6. Set your password in a file, the rails database.yml file will read it from there to initiate a connection. [More info](https://github.com/bkeepers/dotenv). Create a .env file in the repo root and add the root passwords:
+DB_... should point to your local database. By default the `DB_USERNAME = root` unless you made changes to it.
+
+```
+DB_USERNAME = root
+DB_PASSWORD = ...
+DB_HOST = 127.0.0.1
+```

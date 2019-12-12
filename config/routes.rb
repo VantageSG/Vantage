@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'pages#index'
   namespace :api do
     namespace :v1 do
       get 'users/index'
@@ -11,4 +12,5 @@ Rails.application.routes.draw do
       get '/logged_in' => 'sessions#is_logged_in?'
     end
   end
+  get "*path", to: "pages#index"
 end

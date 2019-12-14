@@ -10,7 +10,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
     it 'returns users' do
       # Note `json` is a custom helper to parse JSON responses
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
+      expect(json["users"].size).to eq(10)
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
     context 'when the record exists' do
       it 'returns the User' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(user_id)
+        expect(json['user']['id']).to eq(user_id)
       end
 
       it 'returns status code 200' do
@@ -42,17 +42,17 @@ RSpec.describe Api::V1::UsersController, type: :request do
    # Test suite for POST api/v1/users
   describe 'POST api/v1/users' do
     # valid payload
-    let(:valid_attributes) { { username: 'Jason Yip', email: 'jasonyip@dsc.com', password: 'foobar' } }
+    let(:valid_attributes) { { username: 'Jason Yip', email: 'jasonyip@dsc.com', password: 'foobar', password_confirmation: 'foobar' } }
 
     context 'when the request is valid' do
       before { post '/api/v1/users', params: valid_attributes }
 
       it 'creates a user' do
-        expect(json['username']).to eq('Jason Yip')
+        expect(json['user']['username']).to eq('Jason Yip')
       end
 
       it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+        expect(json["status"]).to eq(201)
       end
     end
 
@@ -60,12 +60,12 @@ RSpec.describe Api::V1::UsersController, type: :request do
       before { post '/api/v1/users', params: { username: 'Jason Yip' } }
 
       it 'returns status code 400' do
-        expect(response).to have_http_status(400)
+        expect(json["status"]).to eq(400)
       end
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: Created by can't be blank/)
+          .to match(/Password can't be blank/)
       end
     end
   end

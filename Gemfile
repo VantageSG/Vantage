@@ -14,6 +14,7 @@ gem 'bcrypt'
 gem 'rack-cors'
 gem "dotenv-rails" # for ENV vars
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'rubocop', '~> 0.77.0', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -20,7 +20,7 @@ class Api::V1::UsersController < ApplicationController
       }
     else
       render json: {
-        status: 500,
+        status: 404,
         errors: ['user not found']
       }
     end
@@ -31,12 +31,12 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       login!
       render json: {
-        status: :created,
+        status: 201,
         user: @user
       }
     else 
       render json: {
-        status: 500,
+        status: 400,
         errors: @user.errors.full_messages
       }
     end

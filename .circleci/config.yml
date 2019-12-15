@@ -25,15 +25,15 @@ jobs: # a collection of steps
 
       # Which version of bundler?
       - run:
-          name: Which bundler?
+          name: Install bundler
           command: sudo gem install bundler -v 2.0.2
 
       # Restore bundle cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - rails-demo-bundle-v2-
+            - rails-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-v2-
 
       - run: # Install Ruby dependencies
           name: Bundle Install
@@ -41,15 +41,15 @@ jobs: # a collection of steps
 
       # Store bundle cache for Ruby dependencies
       - save_cache:
-          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: rails-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - rails-demo-yarn-{{ checksum "yarn.lock" }}
-            - rails-demo-yarn-
+            - rails-yarn-{{ checksum "yarn.lock" }}
+            - rails-yarn-
 
       - run:
           name: Yarn Install

@@ -17,6 +17,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rubocop', '~> 0.77.0', require: false
 
 group :test do
+  gem 'rspec_junit_formatter'
   gem 'database_cleaner'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker'

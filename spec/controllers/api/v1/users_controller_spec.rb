@@ -41,8 +41,12 @@ RSpec.describe Api::V1::UsersController, type: :request do
   # Test suite for POST api/v1/users
   describe 'POST api/v1/users' do
     # valid payload
-    let(:valid_attributes) { { username: 'Jason Yip', email: 'jasonyip@dsc.com', 
-    password: 'foobar', password_confirmation: 'foobar' } }
+    let(:valid_attributes) { { 
+      username: 'Jason Yip', 
+      email: 'jasonyip@dsc.com', 
+      password: 'foobar', 
+      password_confirmation: 'foobar' 
+    } }
 
     context 'when the request is valid' do
       before { post '/api/v1/users', params: valid_attributes }

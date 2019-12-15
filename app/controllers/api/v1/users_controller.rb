@@ -17,8 +17,8 @@ class Api::V1::UsersController < ApplicationController
     render json: {
       user: @user
     }
-    rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, 'user not found'
+  rescue ActiveRecord::RecordNotFound
+    raise ActiveRecord::RecordNotFound, 'user not found'
   end
 
   def create

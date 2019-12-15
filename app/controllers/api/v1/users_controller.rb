@@ -26,7 +26,6 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       login!
       render json: {
-        
         user: @user
       }, status: 201
     else 
@@ -38,6 +37,7 @@ class Api::V1::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    params.require(:user)
+    .permit(:username, :email, :password, :password_confirmation)
   end
 end

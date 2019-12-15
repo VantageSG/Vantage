@@ -41,8 +41,8 @@ RSpec.describe Api::V1::UsersController, type: :request do
   # Test suite for POST api/v1/users
   describe 'POST api/v1/users' do
     # valid payload
-    let(:valid_attributes) {
-      { 
+    let(:valid_attributes) do
+      {
         user: {
           username: 'Jason Yip',
           email: 'jasonyip@dsc.com',
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
           password_confirmation: 'foobar'
         }
       }
-    }
+    end
 
     context 'when the request is valid' do
       before { post '/api/v1/users', params: valid_attributes }
@@ -65,7 +65,8 @@ RSpec.describe Api::V1::UsersController, type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/v1/users', params: { user: { username: 'Jason Yip' } } }
+      before { post '/api/v1/users', 
+      params: { user: { username: 'Jason Yip' } } }
 
       it 'returns status code 400' do
         expect(response).to have_http_status(400)

@@ -14,16 +14,11 @@ class Api::V1::UsersController < ApplicationController
   end
   def show
     @user = User.find(params[:id])
-    if @user
-      render json: {
-        user: @user
-      }
-    else
-      render json: {
-        status: 500,
-        errors: ['user not found']
-      }
-    end
+    render json: {
+      user: @user
+    }
+  rescue ActiveRecord::RecordNotFound
+    raise ActiveRecord::RecordNotFound, 'user not found'
   end
 
   def create
@@ -31,12 +26,12 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       login!
       render json: {
-        status: :created,
+        status: 201,
         user: @user
       }
     else 
       render json: {
-        status: 500,
+        status: 400,
         errors: @user.errors.full_messages
       }
     end
@@ -44,6 +39,6 @@ class Api::V1::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    params.permit(:username, :email, :password, :password_confirmation)
   end
 end

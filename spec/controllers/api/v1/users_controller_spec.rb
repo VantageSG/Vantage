@@ -1,7 +1,7 @@
-# spec/controllers/api/v1/users_controller_spec.rb
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController, type: :request do
+RSpec.describe Api::V1::UsersController, 
+type: :request do
   let!(:users) { create_list(:user, 10) }
   let(:user_id) { users.first.id }
 
@@ -10,7 +10,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
     it 'returns users' do
       # Note `json` is a custom helper to parse JSON responses
       expect(json).not_to be_empty
-      expect(json["users"].size).to eq(10)
+      expect(json['users'].size).to eq(10)
     end
   end
 
@@ -39,10 +39,11 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
   end
-   # Test suite for POST api/v1/users
+  # Test suite for POST api/v1/users
   describe 'POST api/v1/users' do
     # valid payload
-    let(:valid_attributes) { { username: 'Jason Yip', email: 'jasonyip@dsc.com', password: 'foobar', password_confirmation: 'foobar' } }
+    let(:valid_attributes) { { username: 'Jason Yip', email: 'jasonyip@dsc.com', 
+    password: 'foobar', password_confirmation: 'foobar' } }
 
     context 'when the request is valid' do
       before { post '/api/v1/users', params: valid_attributes }
@@ -52,7 +53,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
 
       it 'returns status code 201' do
-        expect(json["status"]).to eq(201)
+        expect(json['status']).to eq(201)
       end
     end
 
@@ -60,7 +61,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       before { post '/api/v1/users', params: { username: 'Jason Yip' } }
 
       it 'returns status code 400' do
-        expect(json["status"]).to eq(400)
+        expect(json['status']).to eq(400)
       end
 
       it 'returns a validation failure message' do
@@ -70,4 +71,3 @@ RSpec.describe Api::V1::UsersController, type: :request do
     end
   end
 end
-  

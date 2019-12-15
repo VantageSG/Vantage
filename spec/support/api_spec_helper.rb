@@ -1,4 +1,4 @@
-# spec/support/api_spec_helper
+# frozen_string_literal: true
 module ApiSpecHelper
   # Parse JSON response to ruby hash
   def json

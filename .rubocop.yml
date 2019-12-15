@@ -1,0 +1,31 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'db/*'
+    - 'db/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+    - 'builds/**/*'
+    - '**.html.haml'
+    - 'Rakefile'
+Documentation:
+  Enabled: false
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Enabled: false
+  Max: 20
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never

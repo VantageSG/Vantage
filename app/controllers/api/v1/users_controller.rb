@@ -13,19 +13,16 @@ class Api::V1::UsersController < ApplicationController
       end
   end
   def show
-    begin 
-      @user = User.find(params[:id])
-      render json: {
-        user: @user
-      }
-    rescue ActiveRecord::RecordNotFound => e
-      raise ActiveRecord::RecordNotFound, "user not found"
-    end
+    @user = User.find(params[:id])
+    render json: {
+      user: @user
+    }
+    rescue ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound, 'user not found'
   end
 
   def create
     @user = User.new(user_params)
-    
     if @user.save
       login!
       render json: {

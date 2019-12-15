@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, with: :render_500_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_404_error
   rescue_from ActiveRecord::RecordInvalid, with: :render_json_error
-  
   def login!
     session[:user_id] = @user.id
   end
@@ -20,15 +19,16 @@ class ApplicationController < ActionController::Base
   
   def authorized_user?
      @user == current_user
-   end
+  end
+
   def logout!
      session.clear
   end
 
   def render_500_error(error)
-      render json: {
-        error: error.message
-      }, status: 500 # Internal Server Error
+    render json: {
+      error: error.message
+    }, status: 500 # Internal Server Error
   end
 
   def render_json_error(error)

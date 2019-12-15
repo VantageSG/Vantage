@@ -38,7 +38,7 @@ jobs:
       - restore_cache:
           keys:
             - v2-bundle-{{ checksum "package.json" }}-selenium
-      - run: yarn install
+      - run: npm install
       - save_cache:
           key: v2-bundle-{{ checksum "package.json" }}-selenium
           paths:

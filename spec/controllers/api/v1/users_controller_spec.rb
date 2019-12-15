@@ -50,7 +50,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
           password_confirmation: 'foobar'
         }
       }
-    end
+    
 
     context 'when the request is valid' do
       before { post '/api/v1/users', params: valid_attributes }
@@ -65,8 +65,10 @@ RSpec.describe Api::V1::UsersController, type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/v1/users', 
-      params: { user: { username: 'Jason Yip' } } }
+    
+      before do 
+        post '/api/v1/users', params: { user: { username: 'Jason Yip' } } 
+      end
 
       it 'returns status code 400' do
         expect(response).to have_http_status(400)

@@ -14,6 +14,7 @@ jobs: # a collection of steps
       - image: circleci/mysql:8.0.18 # database image
         command: [--default-authentication-plugin=mysql_native_password]
         environment: # environment variables for database
+          MYSQL_DATABASE: Vantage_test
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_ROOT_PASSWORD: root
           MYSQL_ROOT_USER: root

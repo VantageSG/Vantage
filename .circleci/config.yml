@@ -9,6 +9,7 @@ ruby: &ruby
     TEST_DB_NAME: circle_test
     TEST_DB_PWD: root
 mysql: &mysql
+  image: mysql:8.0.18
   environment:
     MYSQL_ALLOW_EMPTY_PASSWORD: true
     MYSQL_ROOT_PASSWORD: root

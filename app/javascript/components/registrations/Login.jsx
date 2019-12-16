@@ -1,67 +1,131 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import {Link} from 'react-router-dom'
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment,
+  Icon
+} from "semantic-ui-react";
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      username: '',
-      email: '',
-      password: '',
-      errors: ''
-     };
+    this.state = {
+      username: "",
+      email: "",
+      password: "",
+      errors: ""
+    };
   }
   componentWillMount() {
-    return this.props.loggedInStatus ? this.redirect() : null
+    return this.props.loggedInStatus ? this.redirect() : null;
   }
-handleChange = (event) => {
-    const {name, value} = event.target
+  handleChange = event => {
+    const { name, value } = event.target;
     this.setState({
       [name]: value
-    })
+    });
   };
-handleSubmit = (event) => {
-    event.preventDefault()
-    const {username, email, password} = this.state
-let user = {
+  handleSubmit = event => {
+    event.preventDefault();
+    const { username, email, password } = this.state;
+    let user = {
       username: username,
       email: email,
       password: password
-    }
-    
-    axios.post('http://localhost:3000/api/v1/login', {user}, {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        this.props.handleLogin(response.data)
-        this.redirect()
-      } else {
-        this.setState({
-          errors: response.data.errors
-        })
-      }
-    })
-    .catch(error => console.log('api errors:', error))
+    };
+
+    axios
+      .post(
+        "http://localhost:3000/api/v1/login",
+        { user },
+        { withCredentials: true }
+      )
+      .then(response => {
+        if (response.data.logged_in) {
+          this.props.handleLogin(response.data);
+          this.redirect();
+        } else {
+          this.setState({
+            errors: response.data.errors
+          });
+        }
+      })
+      .catch(error => console.log("api errors:", error));
   };
-redirect = () => {
-    this.props.history.push('/')
-  }
-handleErrors = () => {
+  redirect = () => {
+    this.props.history.push("/");
+  };
+  handleErrors = () => {
     return (
       <div>
         <ul>
-        {this.state.errors.map(error => {
-        return <li key={error}>{error}</li>
-          })
-        }
+          {this.state.errors.map(error => {
+            return <li key={error}>{error}</li>;
+          })}
         </ul>
       </div>
-    )
-  }
-render() {
-    const {username, email, password} = this.state
-return (
+    );
+  };
+  render() {
+    const { username, email, password } = this.state;
+    return (
       <div>
-        <h1>Log In</h1>
+        <Grid
+          textAlign="center"
+          style={{ height: "100vh" }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Icon loading name="user" size="massive" />
+            <Header as="h2" color="teal" textAlign="center">
+              Log In
+            </Header>
+            <Form size="large" onSubmit={this.handleSubmit}>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon="user"
+                  iconPosition="left"
+                  placeholder="Username"
+                  value={username}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  fluid
+                  icon="mail"
+                  iconPosition="left"
+                  placeholder="Email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  fluid
+                  icon="lock"
+                  iconPosition="left"
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+
+                <Button color="teal" fluid size="large" type="submit">
+                  submit
+                </Button>
+                <Message>
+                  <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
+                </Message>
+              </Segment>
+            </Form>
+          </Grid.Column>
+        </Grid>
+        <div>{this.state.errors ? this.handleErrors() : null}</div>
+
+        {/* <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             placeholder="username"
@@ -88,15 +152,9 @@ return (
             Log In
           </button>
           <div>
-            or <Link to='/signup'>sign up</Link>
+            or <Link to="/signup">sign up</Link>
           </div>
-          
-          </form>
-          <div>
-          {
-            this.state.errors ? this.handleErrors() : null
-          }
-        </div>
+        </form>*/}
       </div>
     );
   }

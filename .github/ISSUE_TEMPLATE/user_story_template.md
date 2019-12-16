@@ -1,7 +1,8 @@
 ---
 name: User story
 about: A valuable increment of functionality, testable by the users
-
+title: [User Story]
+labels: User Story
 ---
 
 As a ‹role›, I'd like to ‹feature short description› [ , in order to ‹value it adds›. ]

@@ -5,6 +5,8 @@ import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
 import Aboutus from "./registrations/Aboutus";
+import NavBar from "./navbar/NavBar";
+import UserPage from "./userprofiles/UserPage";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -44,42 +46,44 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <Home
-                  {...props}
-                  handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.isLoggedIn}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/login"
-              render={props => (
-                <Login
-                  {...props}
-                  handleLogin={this.handleLogin}
-                  loggedInStatus={this.state.isLoggedIn}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/signup"
-              render={props => (
-                <Signup
-                  {...props}
-                  handleLogin={this.handleLogin}
-                  loggedInStatus={this.state.isLoggedIn}
-                />
-              )}
-            />
-            <Route exact path="/aboutus" render={props => <Aboutus />} />
-          </Switch>
+          <NavBar>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <Home
+                    {...props}
+                    handleLogout={this.handleLogout}
+                    loggedInStatus={this.state.isLoggedIn}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/login"
+                render={props => (
+                  <Login
+                    {...props}
+                    handleLogin={this.handleLogin}
+                    loggedInStatus={this.state.isLoggedIn}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={props => (
+                  <Signup
+                    {...props}
+                    handleLogin={this.handleLogin}
+                    loggedInStatus={this.state.isLoggedIn}
+                  />
+                )}
+              />
+              <Route exact path="/UserProfiles" render={props => <UserPage />} />
+            </Switch>
+          </NavBar>
         </BrowserRouter>
       </div>
     );

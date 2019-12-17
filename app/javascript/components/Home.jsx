@@ -1,11 +1,15 @@
 import React from "react";
+import TitleCard from "./Titlecard";
 
-import Landing from "./Landing";
+
 const Home = () => {
   return (
     <div>
-      <Landing></Landing>
+      <TitleCard></TitleCard>
     </div>
   );
 };
+
+
+
 export default Home;

@@ -7,6 +7,8 @@ import Signup from "./registrations/Signup";
 import Aboutus from "./registrations/Aboutus";
 import NavBar from "./navbar/NavBar";
 import UserPage from "./userprofiles/UserPage";
+import { Animated } from "react-animated-css";
+
 class App extends Component {
   constructor(props) {
     super(props);

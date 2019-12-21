@@ -11,6 +11,7 @@ import {
   Link,
   Icon
 } from "semantic-ui-react";
+import { Animated } from 'react-animated-css';
 
 class Signup extends Component {
   constructor(props) {
@@ -78,68 +79,70 @@ class Signup extends Component {
     const { username, email, password, password_confirmation } = this.state;
     return (
       <div>
-        <Grid
-          textAlign="center"
-          style={{ marginTop: "2em"}}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Icon loading name="edit" size="massive" />
+        <Animated animationIn="fadeIn" isVisible={true}>
+          <Grid
+            textAlign="center"
+            style={{ marginTop: "2em" }}
+            verticalAlign="middle"
+          >
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Icon loading name="edit" size="massive" />
 
-            <Header as="h2" color="teal" textAlign="center">
-              Sign Up
+              <Header as="h2" color="teal" textAlign="center">
+                Sign Up
             </Header>
-            <Form size="large" onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  value={username}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  placeholder="Email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  placeholder="password confirmation"
-                  type="password"
-                  name="password_confirmation"
-                  value={password_confirmation}
-                  onChange={this.handleChange}
-                />
+              <Form size="large" onSubmit={this.handleSubmit}>
+                <Segment stacked>
+                  <Form.Input
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="Username"
+                    value={username}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    fluid
+                    icon="mail"
+                    iconPosition="left"
+                    placeholder="Email"
+                    value={email}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    fluid
+                    icon="lock"
+                    iconPosition="left"
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    placeholder="password confirmation"
+                    type="password"
+                    name="password_confirmation"
+                    value={password_confirmation}
+                    onChange={this.handleChange}
+                  />
 
-                <Button color="teal" fluid size="large" type="submit">
-                  Sign Up
+                  <Button color="teal" fluid size="large" type="submit">
+                    Sign Up
                 </Button>
-                <br></br>
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  icon="home"
-                  content="home"
-                  onClick={this.goHome}
-                ></Button>
-              </Segment>
-            </Form>
-          </Grid.Column>
-        </Grid>
+                  <br></br>
+                  <Button
+                    color="teal"
+                    fluid
+                    size="large"
+                    icon="home"
+                    content="home"
+                    onClick={this.goHome}
+                  ></Button>
+                </Segment>
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </Animated>
         {/*
         <h1>Sign Up</h1>
         <form onSubmit={this.handleSubmit}>

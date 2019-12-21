@@ -11,6 +11,8 @@ import {
   Segment,
   Icon
 } from "semantic-ui-react";
+
+import { Animated } from "react-animated-css";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -75,54 +77,56 @@ class Login extends Component {
     const { username, email, password } = this.state;
     return (
       <div>
-        <Grid
-          textAlign="center"
-          style={{ marginTop: "2em" }}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Icon loading name="user" size="massive" />
-            <Header as="h2" color="teal" textAlign="center">
-              Log In
-            </Header>
-            <Form size="large" onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  value={username}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  placeholder="Email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
+        <Animated animationIn="fadeIn" isVisible={true}>
+          <Grid
+            textAlign="center"
+            style={{ marginTop: "2em" }}
+            verticalAlign="middle"
+          >
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Icon loading name="user" size="massive" />
+              <Header as="h2" color="teal" textAlign="center">
+                Log In
+              </Header>
+              <Form size="large" onSubmit={this.handleSubmit}>
+                <Segment stacked>
+                  <Form.Input
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="Username"
+                    value={username}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    fluid
+                    icon="mail"
+                    iconPosition="left"
+                    placeholder="Email"
+                    value={email}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    fluid
+                    icon="lock"
+                    iconPosition="left"
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={this.handleChange}
+                  />
 
-                <Button color="teal" fluid size="large" type="submit">
-                  submit
-                </Button>
-                <Message>
-                  <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
-                </Message>
-              </Segment>
-            </Form>
-          </Grid.Column>
-        </Grid>
+                  <Button color="teal" fluid size="large" type="submit">
+                    submit
+                  </Button>
+                  <Message>
+                    <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
+                  </Message>
+                </Segment>
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </Animated>
         <div>{this.state.errors ? this.handleErrors() : null}</div>
 
         {/* <h1>Log In</h1>

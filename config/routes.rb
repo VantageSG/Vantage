@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   root 'pages#index'
   namespace :api do
     namespace :v1 do
-      get '/users' => 'users#index'
-      post '/users' => 'users#create'
-      get '/users/:id' => 'users#show'
+      resources :users, only: [:index, :create, :show] do
+        resource :userprofiles, only: [:create, :show, :update]
+      end
 
       post '/login' => 'sessions#create'
       delete '/logout' => 'sessions#destroy'

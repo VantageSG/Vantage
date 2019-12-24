@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import HomepageLayout from "./HomepageLayout.jsx";
+import HomepageLayout from "./HomepageLayout";
 
 class Aboutus extends Component {
   render() {

@@ -4,10 +4,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import Aboutus from "./registrations/Aboutus";
 import NavBar from "./navbar/NavBar";
 import UserPage from "./userprofiles/UserPage";
-import { Animated } from "react-animated-css";
 
 class App extends Component {
   constructor(props) {

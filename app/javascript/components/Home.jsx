@@ -1,11 +1,11 @@
 import React from "react";
-import TitleCard from "./Titlecard";
+import LandingPage from "./registrations/LandingPage";
 
 
 const Home = () => {
   return (
     <div>
-      <TitleCard></TitleCard>
+      <LandingPage></LandingPage>
     </div>
   );
 };

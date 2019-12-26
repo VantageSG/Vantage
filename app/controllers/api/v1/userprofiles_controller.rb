@@ -4,26 +4,38 @@ class Api::V1::UserprofilesController < ApplicationController
 
   def show
     if @user_profile
-      render json: {
-        user_profile: @user_profile
-      }
+      render json: @user_profile
     else
       render json: {
-        errors: ['no user_profile found']
+        errors: ['No user profile found']
       }, status: 500
     end
   end
 
   def create
-    @user_profile = @user.build_user_profile(user_profile_params)
-
-    if @user_profile.save
+    if @user.user_profile
       render json: {
-        user_profile: @user_profile
-      }, status: 201
+        errors: ["User profile already exists."]
+      }, status: 400
+    else
+      @user_profile = @user.build_user_profile(user_profile_params)
+      if @user_profile.save
+        render json: @user_profile, status: 201
+      else
+        render json: {
+          errors: @user_profile.errors.full_messages
+        }, status: 400
+      end
+    end
+  end
+
+  def update
+    if @user_profile
+      @user_profile.update(user_profile_params)
+      render json: @user_profile
     else
       render json: {
-        errors: @user_profile.errors.full_messages
+        errors: ['No user profile found.']
       }, status: 400
     end
   end
@@ -40,6 +52,6 @@ class Api::V1::UserprofilesController < ApplicationController
   def user_profile_params
     params
     .require(:user_profile)
-    .permit(:first_name, :last_name, :email, :cvurl)
+    .permit(:first_name, :last_name, :cv)
   end
 end

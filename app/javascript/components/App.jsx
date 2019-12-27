@@ -5,6 +5,7 @@ import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
 import NavBar from "./navbar/NavBar";
+import ResponsiveContainer from "../components/navbar/NavBar";
 import UserPage from "./userprofiles/UserPage";
 
 class App extends Component {
@@ -46,7 +47,7 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <NavBar>
+          <ResponsiveContainer>
             <Switch>
               <Route
                 exact
@@ -83,7 +84,7 @@ class App extends Component {
               />
               <Route exact path="/UserProfiles" render={props => <UserPage />} />
             </Switch>
-          </NavBar>
+          </ResponsiveContainer>
         </BrowserRouter>
       </div>
     );

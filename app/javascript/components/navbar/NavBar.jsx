@@ -46,14 +46,13 @@ class MobileNavBar extends Component {
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item as="a" active>
+          <Menu.Item as={Link} to="/">
             Home
-          </Menu.Item>
-          <Menu.Item as="a">Work</Menu.Item>
-          <Menu.Item as="a">Company</Menu.Item>
-          <Menu.Item as="a">Careers</Menu.Item>
-          <Menu.Item as="a">Log in</Menu.Item>
-          <Menu.Item as="a">Sign Up</Menu.Item>
+                  </Menu.Item>
+          <Menu.Item as={Link} to="/UserProfiles">
+            User Profiles
+                  </Menu.Item>
+
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -91,14 +90,21 @@ class MobileNavBar extends Component {
               </Menu>
             </Container>
           </Segment>
+          {children}
         </Sidebar.Pusher>
-        {children}
       </Responsive>
     );
   }
 }
 
-class NavBar extends Component {
+const ResponsiveContainer = ({ children }) => (
+  <div>
+    <DesktopNavBar>{children}</DesktopNavBar>
+    <MobileNavBar>{children}</MobileNavBar>
+  </div>
+);
+
+class DesktopNavBar extends Component {
   state = {};
 
   hideFixedMenu = () => this.setState({ fixed: false });
@@ -110,17 +116,13 @@ class NavBar extends Component {
 
     return (
       <div>
-        <MobileNavBar>
-          {children}
-        </MobileNavBar>
-
         <Responsive
           getWidth={getWidth}
           minWidth={Responsive.onlyTablet.minWidth}
         >
           <Visibility
-            once={false}
-            onBottomPassed={this.showFixedMenu}
+            once={true}
+            //onBottomPassed={this.showFixedMenu}
             onBottomPassedReverse={this.hideFixedMenu}
           >
             <Segment
@@ -178,4 +180,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default ResponsiveContainer;

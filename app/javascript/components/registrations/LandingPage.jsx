@@ -46,11 +46,11 @@ class LandingPage extends Component {
                   </p>
                   <Header as="h3" style={{ fontSize: "2em" }}>
                     We Make Bananas That Can Dance
-            </Header>
+                  </Header>
                   <p style={{ fontSize: "1.33em" }}>
-                    Yes that's right, you thought it was the stuff of dreams, but even
-                    bananas can be bioengineered.
-            </p>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
                 </Grid.Column>
               </Grid.Row>
             </Grid.Column>

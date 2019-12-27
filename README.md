@@ -37,6 +37,19 @@ RAILS_ENV=test rake db:create db:schema:load
 8. `rails s` to start the application
 
 # Testing
+
+## Frontend
+We use `jest` as our front end testing framework and `react-testing-library` for testing the components. All test front end cases are under the `jest` directory in root. Run `npm test` to execute all test cases. File needs to end with `*.test.js` to be identified by `jest`. Execute `npm run test` to execute all test cases
+
+Include this at the top of every file:
+```
+import React from 'react'
+import { render, screen } from 'test-utils';
+import '@testing-library/jest-dom/extend-expect'
+import App from 'components/App.jsx'
+```
+
+## Backend
 We use `rspec` as our testing framework. Everything that has to do with testing is under the `spec` directory. Refer [here](https://rspec.info) for more information.
 ```
 #Execute all test cases

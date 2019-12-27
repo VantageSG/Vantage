@@ -7,11 +7,6 @@ module.exports = {
 
   coverageDirectory: "coverage",
 
-  roots: [
-    "<rootDir>",
-    "jest"
-  ],
-
   modulePathIgnorePatterns: [
     "<rootDir>/config/webpack/test.js"
   ],

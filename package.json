@@ -20,6 +20,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "babel-jest": "^24.9.0",
     "eslint": "^6.7.2",
@@ -42,7 +43,10 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "app/javascript/"
+      "app/javascript/components"
+    ],
+    "setupFilesAfterEnv": [
+      "./jest/jest.setup.js"
     ]
   }
 }

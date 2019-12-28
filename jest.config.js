@@ -7,6 +7,15 @@ module.exports = {
 
   coverageDirectory: "coverage",
 
+  moduleFileExtensions: [
+    "js",
+    "json", 
+    "jsx", 
+    "ts", 
+    "tsx", 
+    "node"
+  ],
+  
   modulePathIgnorePatterns: [
     "<rootDir>/config/webpack/test.js"
   ],

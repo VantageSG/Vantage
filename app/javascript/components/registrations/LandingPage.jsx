@@ -19,12 +19,6 @@ class LandingPage extends Component {
     };
   }
 
-  componentWillMount() {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then(response => this.setState({ posts: response.data }));
-  }
-
   render() {
     return (
       <div>

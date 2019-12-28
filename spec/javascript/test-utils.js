@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react'
 
-const customRender = (ui) =>
-  render(ui)
+function customRender(ui) {
+  render(ui);
+}
 
 // re-export everything
 export * from '@testing-library/react'

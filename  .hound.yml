@@ -1,6 +1,7 @@
-eshint:
+eslint:
   enabled: true
   config_file: .eslintrc.yml
+  extends: "eslint:recommended"
 
 jshint:
   enabled: false

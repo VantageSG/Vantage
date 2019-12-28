@@ -17,7 +17,7 @@ module.exports = {
   ],
   
   modulePathIgnorePatterns: [
-    "<rootDir>/config/webpack/test.js"
+    "<rootDir>/config"
   ],
 
   modulePaths: [

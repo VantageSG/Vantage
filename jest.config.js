@@ -20,5 +20,7 @@ module.exports = {
      "node_modules",
   ],
 
+  reporters: ["default", "jest-junit"],
+
   setupFiles: ["<rootDir>/jest/test-utils.js"],
 };

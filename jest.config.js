@@ -15,6 +15,8 @@ module.exports = {
     "tsx", 
     "node"
   ],
+
+  testRegex: "((\\.|/)(test|spec))\\.[jt]sx?$",
   
   modulePathIgnorePatterns: [
     "<rootDir>/config"

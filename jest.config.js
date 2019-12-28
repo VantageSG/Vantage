@@ -16,7 +16,7 @@ module.exports = {
     "node"
   ],
 
-  testRegex: "((\\.|/)(test|spec))\\.[jt]sx?$",
+  testMatch: [ "**/?(*_spec).[jt]s?(x)" ],
   
   modulePathIgnorePatterns: [
     "<rootDir>/config"
@@ -24,7 +24,7 @@ module.exports = {
 
   modulePaths: [
     "<rootDir>/app/javascript/",
-    "<rootDir>/jest/"
+    "<rootDir>/spec/javascript"
   ],
 
   moduleDirectories: [
@@ -33,5 +33,5 @@ module.exports = {
 
   reporters: ["default", "jest-junit"],
 
-  setupFiles: ["<rootDir>/jest/test-utils.js"],
+  setupFiles: ["<rootDir>/spec/javascript/test-utils.js"],
 };

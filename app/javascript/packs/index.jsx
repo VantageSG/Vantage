@@ -3,7 +3,7 @@
 // of the page.
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as BRouter, Route } from "react-router-dom";
 import App from "../components/App";
 import "../../assets/dist/semantic.min.css";
 import { createBrowserHistory } from "history";
@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const history = createBrowserHistory();
   ReactDOM.render(
-    <Router history = {history}>
-      <Route path="/" component={App}  />
-    </Router>,
+    <BRouter history={history}>
+      <Route path="/" component={App} />
+    </BRouter>,
     document.body.appendChild(document.createElement("div"))
   );
 });

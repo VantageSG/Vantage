@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import UserProfile from "./UserProfile";
+import AddPost from "./AddPost";
 import {
     Header,
     Grid,
@@ -41,7 +41,9 @@ class UserPage extends Component {
         return (
             <div>
                 <Segment textAlign="center" vertical>
+                    <AddPost></AddPost>
                     <p>This is the list of users page</p>
+                    <hr></hr>
                     <List selection divided verticalAlign='middle' style={{ margin: '2em' }}>
                         {userList}
                     </List>

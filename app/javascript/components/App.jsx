@@ -29,7 +29,7 @@ class App extends Component {
           this.handleLogout();
         }
       })
-      .catch(error => console.log("api errors:", error));
+      .catch();
   };
   handleLogin = data => {
     this.setState({
@@ -46,6 +46,11 @@ class App extends Component {
   render() {
     return (
       <div>
+        <div 
+        className = "IsloggedIn"
+        >
+          Logged in: {String(this.state.isLoggedIn)}
+        </div>
         <BrowserRouter>
           <ResponsiveContainer>
             <Switch>

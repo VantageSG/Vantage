@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" time="1.536">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2019-12-28T07:54:44" time="0.756" tests="1">
-    <testcase classname=" Should not be signed in initially" name=" Should not be signed in initially" time="0.033">
+<testsuites name="jest tests" tests="1" failures="0" time="2.74">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2019-12-29T08:13:18" time="1.501" tests="1">
+    <testcase classname=" Should not be signed in initially" name=" Should not be signed in initially" time="0.088">
     </testcase>
   </testsuite>
 </testsuites>

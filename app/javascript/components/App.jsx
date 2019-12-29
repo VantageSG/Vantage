@@ -46,11 +46,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div 
-        className = "IsloggedIn"
-        >
-          Logged in: {String(this.state.isLoggedIn)}
-        </div>
         <BrowserRouter>
           <ResponsiveContainer>
             <Switch>

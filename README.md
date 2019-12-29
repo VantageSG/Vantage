@@ -35,6 +35,7 @@ rake db:setup
 RAILS_ENV=test rake db:create db:schema:load
 ```
 8. `rails s` to start the application
+9. `ruby bin/webpack-dev-server` to run webpacker for hot reload
 
 # Testing
 

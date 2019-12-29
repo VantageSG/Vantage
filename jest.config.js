@@ -16,6 +16,8 @@ module.exports = {
     "node"
   ],
 
+  verbose: true,
+
   testMatch: [ "**/?(*_spec).[jt]s?(x)" ],
   
   modulePathIgnorePatterns: [

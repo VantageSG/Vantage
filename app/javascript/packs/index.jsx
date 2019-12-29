@@ -7,14 +7,20 @@ import { BrowserRouter as BRouter, Route } from "react-router-dom";
 import App from "../components/App";
 import "../../assets/dist/semantic.min.css";
 import { createBrowserHistory } from "history";
+import { Provider } from 'react-redux';
+import store from '../redux/store.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
+
   const history = createBrowserHistory();
   ReactDOM.render(
-    <BRouter history={history}>
-      <Route path="/" component={App} />
-    </BRouter>,
+    <Provider store={store}>
+      <BRouter history={history}>
+        <Route path="/" component={App} />
+      </BRouter>
+    </Provider>,
     document.body.appendChild(document.createElement("div"))
   );
 });

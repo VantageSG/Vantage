@@ -11,29 +11,24 @@ import {
     Divider,
     List
 } from "semantic-ui-react";
-class UserPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            listOfUsers: []
+import { connect } from 'react-redux'; //connect component to redux store
+import { fetchPosts } from '../../redux/actions/postActions';
 
-        }
-    }
+
+class UserPage extends Component {
+
 
     componentWillMount() {
-        axios
-            .get("https://jsonplaceholder.typicode.com/users")
-            .then(response => this.setState({ listOfUsers: response.data })
-            );
+        this.props.fetchPosts();
     }
 
     render() {
-        const userList = this.state.listOfUsers.map(user => (
+        const userList = this.props.posts.map(user => (
             <List.Item key={user.id}>
                 <List.Content>
-                    <List.Header>{user.name}</List.Header>
-                    <List.Description>{user.email}</List.Description>
-                    <List.Description>{user.phone}</List.Description>
+                    <List.Header>{user.title}</List.Header>
+                    <List.Description>{user.body}</List.Description>
+                    <List.Description>{user.body}</List.Description>
                 </List.Content>
             </List.Item>
 
@@ -52,4 +47,8 @@ class UserPage extends Component {
     }
 }
 
-export default UserPage;
+const mapStateToProps = state => ({
+    posts: state.posts.items
+});
+
+export default connect(mapStateToProps, { fetchPosts })(UserPage);

@@ -18,11 +18,11 @@ class ApplicationController < ActionController::Base
   end
   
   def authorized_user?
-     @user == current_user
+    @user == current_user
   end
 
   def logout!
-     session.clear
+    session_reset
   end
 
   def render_500_error(error)

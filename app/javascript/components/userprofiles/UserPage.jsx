@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import PropTypes from 'prop-types';
 import AddPost from "./AddPost";
 import {
     Header,
@@ -18,17 +18,24 @@ import { fetchPosts } from '../../redux/actions/postActions';
 class UserPage extends Component {
 
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchPosts();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.newPost) {
+            this.props.posts.push(nextProps.newPost);
+            //console.log(this.props.posts);
+        }
+    }
+
     render() {
-        const userList = this.props.posts.map(user => (
+        const postList = this.props.posts.map(user => (
             <List.Item key={user.id}>
-                <List.Content>
+                <List.Content key={user.id}>
                     <List.Header>{user.title}</List.Header>
                     <List.Description>{user.body}</List.Description>
-                    <List.Description>{user.body}</List.Description>
+
                 </List.Content>
             </List.Item>
 
@@ -40,15 +47,22 @@ class UserPage extends Component {
                     <p>This is the list of users page</p>
                     <hr></hr>
                     <List selection divided verticalAlign='middle' style={{ margin: '2em' }}>
-                        {userList}
+                        {postList}
                     </List>
                 </Segment>
             </div>);
     }
 }
 
-const mapStateToProps = state => ({
-    posts: state.posts.items
-});
+UserPage.propsTypes = {
+    fetchPosts: PropTypes.func.isRequired,
+    posts: PropTypes.array.isRequired,
+    newPost: PropTypes.object//add new post to list 
+};
 
-export default connect(mapStateToProps, { fetchPosts })(UserPage);
+const mapStateToProps = state => ({
+    posts: state.posts.items, // posts here cause defined in root reducer in reducers folder
+    newPost: state.posts.item
+}); // get state from redux then map it to the state of the components 
+
+export default connect(mapStateToProps, { fetchPosts })(UserPage); // second one is component first one is where we map state to property

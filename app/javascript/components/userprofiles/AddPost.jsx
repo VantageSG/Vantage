@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
 import axios from "axios";
+import PropTypes from 'prop-types';
+import { createPost } from "../../redux/actions/postActions";
+import { connect } from "react-redux";
 
 class AddPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            number: ''
+            title: '',
+            body: '',
+            userId: 0,
         };
 
         this.onChange = this.onChange.bind(this);
@@ -21,22 +25,25 @@ class AddPost extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const user = {
-            username: this.state.username,
-            number: this.state.number
+        const post = {
+            title: this.state.title,
+            body: this.state.title,
+            userId: 0
         };
 
         const headers = {
             "content-type": "application/json"
         };
 
+        this.props.createPost(post)
+        /*
         axios
             .post(
                 "https://jsonplaceholder.typicode.com/posts",
                 JSON.stringify(user),
                 { headers: headers }
             )
-            .then(response => console.log(response.data));
+            .then(response => console.log(response.data));*/
     }
 
     render() {
@@ -49,18 +56,18 @@ class AddPost extends Component {
                             <label> Name</label>
                             <Form.Input
                                 type='text'
-                                placeholder="username"
-                                name="username"
-                                value={this.state.username}
+                                placeholder="title"
+                                name="title"
+                                value={this.state.title}
                                 onChange={this.onChange}
                             />
                         </Form.Field>
                         <Form.Field>
                             <label> number</label>
                             <Form.Input
-                                placeholder="number"
-                                name="number"
-                                value={this.state.number}
+                                placeholder="body"
+                                name="body"
+                                value={this.state.body}
                                 onChange={this.onChange}
                             />
                         </Form.Field>
@@ -73,4 +80,9 @@ class AddPost extends Component {
     }
 }
 
-export default AddPost;
+AddPost.propTypes = {
+    createPost: PropTypes.func.isRequired,
+
+};
+
+export default connect(null, { createPost })(AddPost);

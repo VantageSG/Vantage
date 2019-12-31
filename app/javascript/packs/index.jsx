@@ -8,7 +8,7 @@ import App from "../components/App";
 import "../../assets/dist/semantic.min.css";
 import { createBrowserHistory } from "history";
 import { Provider } from 'react-redux';
-import store from '../redux/store.js';
+import store from 'store.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 

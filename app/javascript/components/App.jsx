@@ -6,7 +6,7 @@ import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
 import NavBar from "./navbar/NavBar";
 import ResponsiveContainer from "../components/navbar/NavBar";
-import UserPage from "./userprofiles/UserPage";
+import UserContainer from "../container/usersContainer";
 
 class App extends Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/UserProfiles" render={props => <UserPage />} />
+              <Route exact path="/UserProfiles" render={props => <UserContainer />} />
             </Switch>
           </ResponsiveContainer>
         </BrowserRouter>

@@ -5,6 +5,10 @@ const initialState = {
   item: {}
 };
 
+// ... operator is ES6, basically saying I intialize a new state each time
+// known as spread operator 
+
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case NEW_POST:

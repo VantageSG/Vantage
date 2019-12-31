@@ -1,8 +1,13 @@
 import { FETCH_POSTS, NEW_POST } from "./types";
 import axios from "axios";
 
-//each action creator is a function
+//each action js object with a type
+//action has the type, dispatch data to state
+//state returns new state object to UI
+//network callbacks dont directly write to state (state is read only)
+//always get new state object back
 
+//only required proprety on an action is type
 export const fetchPosts = () => dispatch => {
   console.log("fetching");
   axios
@@ -16,8 +21,6 @@ export const createPost = postData => dispatch => {
   const headers = {
     "content-type": "application/json"
   };
-
-  
 
   axios
     .post(

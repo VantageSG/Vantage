@@ -13,7 +13,13 @@ AllCops:
     - 'Rakefile'
 Documentation:
   Enabled: false
+  
 Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/BlockLength:
+  Enabled: false
   Exclude:
     - 'spec/**/*'
 

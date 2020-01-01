@@ -1,12 +1,12 @@
-class Api::V1::SessionsController < ApplicationController
+class Api::V1::SessionsController < Api::V1::BaseController
   def create
-    @user = User.find_by(email: session_params[:email])
+    user = User.find_by(email: session_params[:email])
   
-    if @user && @user.authenticate(session_params[:password])
-      login!
+    if user && user.authenticate(session_params[:password])
+      session[:user_id] = user.id
       render json: {
         logged_in: true,
-        user: @user
+        user: user
       }
     else
       render json: { 
@@ -14,11 +14,12 @@ class Api::V1::SessionsController < ApplicationController
       }, status: 401
     end
   end
+
   def is_logged_in?
-    if logged_in? && current_user
+    if @current_user
       render json: {
         logged_in: true,
-        user: current_user
+        user: @current_user
       }
     else
       render json: {
@@ -28,7 +29,7 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
   def destroy
-    logout!
+    reset_session
     render json: {
       logged_out: true
     }

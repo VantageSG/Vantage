@@ -69,42 +69,34 @@ RSpec.describe Api::V1::SessionsController, type: :request do
         expect(json['user']['email']).to eq('JasonYip@gmail.com')
         expect(json['user']['username']).to eq('JasonYip')
       end
-
     end
 
     context 'user not logged in' do
-
       it 'should return user is not logged_in' do
         get '/api/v1/logged_in'
         expect(json['logged_in']).to eq(false)
       end
-      
     end
-
   end
 
   describe 'POST /api/v1/logout' do
-    
     context 'user is originally logged in' do
-
-      before {
+      before do
         post '/api/v1/login', params: typical_user_jason_credentials
         request.cookies['_Vantage'] = response.cookies['_Vantage']
         delete '/api/v1/logout'
-      }
+      end
 
       it 'should successfully logout' do
         expect(response.status).to eq(200)
         expect(json['logged_out']).to eq(true)
-      end 
+      end
 
       it 'should not be logged in' do
         request.cookies['_Vantage'] = response.cookies['_Vantage']
         get '/api/v1/logged_in'
         expect(json['logged_in']).to eq(false)
-      end 
-
-    end 
-
+      end
+    end
   end
 end

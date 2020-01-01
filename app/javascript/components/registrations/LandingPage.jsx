@@ -9,7 +9,6 @@ import {
   Divider
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-import axios from "axios";
 
 class LandingPage extends Component {
   constructor(props) {

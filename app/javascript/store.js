@@ -1,14 +1,19 @@
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 //import thunk from "redux-thunk";
 import createPromise from "redux-promise-middleware";
 import createLogger from "redux-logger";
-import rootReducer from "./redux/reducers/rootReducer.js";
 
+import userProfile from "./redux/reducers/userProfile";
+import userReducer from "./redux/reducers/userReducer";
 
 const middleware = [createPromise, createLogger];
 
 const store = createStore(
-  rootReducer,
+  combineReducers({
+    userReducer, // user reducer
+    userProfile
+  }),
+
   compose(
     applyMiddleware(...middleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

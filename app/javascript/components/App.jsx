@@ -6,7 +6,8 @@ import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
 import NavBar from "./navbar/NavBar";
 import ResponsiveContainer from "../components/navbar/NavBar";
-import UserContainer from "../container/usersContainer";
+import UserContainer from "../container/UsersContainer";
+import UserProfile from '../container/UserProfile';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
       user: {}
     };
   }
+
   componentDidMount() {
     this.loginStatus();
   }
@@ -31,6 +33,7 @@ class App extends Component {
       })
       .catch(error => console.log("api errors:", error));
   };
+
   handleLogin = data => {
     this.setState({
       isLoggedIn: true,
@@ -83,7 +86,8 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/UserProfiles" render={props => <UserContainer />} />
+              <Route exact path="/UserProfiles" render={props => <UserContainer {...props} />} />
+              <Route exact path='/user:userName' component={UserProfile} />
             </Switch>
           </ResponsiveContainer>
         </BrowserRouter>

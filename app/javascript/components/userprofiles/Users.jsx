@@ -1,14 +1,30 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import AddPost from "./AddPost";
-import { Segment, List, Button } from "semantic-ui-react";
+import AddPost from "../templates/AddPost";
+import { Image, Segment, List, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { setUser } from "../../redux/actions/userActions";
 
 const UserButton = props => (
     <Button onClick={props.onClick} className={props.className}>
         {props.text}
     </Button>
 );
+
+const UserItem = props => (
+    <Link
+        onClick={props.onClick}
+        to={`/user:${props.user.login.username}`}
+    >
+        <List.Item>
+            <Image avatar src={props.user.picture.thumbnail}>
+            </Image>
+            <List.Header>{props.user.login.username}</List.Header>
+            <List.Header>{props.user.login.email}</List.Header>
+        </List.Item>
+    </Link>
+)
 
 class Users extends Component {
     constructor(props) {
@@ -19,22 +35,7 @@ class Users extends Component {
     }
 
     render() {
-        const { data, fetchUsers } = this.props;
-
-        let userList = data.userReducer.users.map((user, i) => (
-            <List.Item key={i}>
-                <List.Content >
-                    <List.Header>{user.login.username}</List.Header>
-                    <List.Header>{user.email}</List.Header>
-                    <List.Description>
-                        <img src={user.picture.thumbnail}></img>
-                    </List.Description>
-                </List.Content>
-            </List.Item>
-        ));
-
-
-
+        const { data, fetchUsers, setUser } = this.props;
         return (
             <div>
                 <Segment textAlign="center" vertical>
@@ -42,12 +43,20 @@ class Users extends Component {
                     <p>This is the list of users page</p>
                     <hr></hr>
                     <List
+                        link
+                        animated
                         selection
                         divided
                         verticalAlign="middle"
                         style={{ margin: "2em" }}
                     >
-                        {userList}
+                        {data.users.map((user, i) => {
+                            return <UserItem
+                                key={i}
+                                user={user}
+                                onClick={() => setUser(user)}
+                            />
+                        })}
                     </List>
                 </Segment>
             </div>

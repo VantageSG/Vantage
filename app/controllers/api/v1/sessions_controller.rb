@@ -10,7 +10,7 @@ class Api::V1::SessionsController < ApplicationController
       }
     else
       render json: { 
-        errors: ['no such user', 'verify credentials and try again or signup']
+        errors: 'verify credentials and try again or signup'
       }, status: 401
     end
   end
@@ -24,13 +24,12 @@ class Api::V1::SessionsController < ApplicationController
       render json: {
         logged_in: false,
         message: 'no such user'
-      }
+      }, status: 404
     end
   end
   def destroy
     logout!
     render json: {
-      status: 200,
       logged_out: true
     }
   end

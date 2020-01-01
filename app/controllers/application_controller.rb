@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logout!
-    session_reset
+    reset_session
   end
 
   def render_500_error(error)

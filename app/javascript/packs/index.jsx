@@ -7,20 +7,13 @@ import { BrowserRouter, Route } from "react-router-dom";
 import App from "../components/App";
 import "../../assets/dist/semantic.min.css";
 import { createBrowserHistory } from "history";
-import { Provider } from 'react-redux';
-import store from 'store.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-
-
-
   const history = createBrowserHistory();
   ReactDOM.render(
-    <Provider store={store}>
-      <BrowserRouter >
-        <Route path="/" component={App} />
-      </BrowserRouter>
-    </Provider>,
+    <BrowserRouter forceRefresh={true} >
+      <Route path="/" component={App} />
+    </BrowserRouter>,
     document.body.appendChild(document.createElement("div"))
   );
 });

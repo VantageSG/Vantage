@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import NavBar from "./navbar/NavBar";
 import ResponsiveContainer from "../components/navbar/NavBar";
-import UserContainer from "../container/UsersContainer";
-import UserProfile from '../container/UserProfile';
+import Users from '../components/userprofiles/Users';
+import UserProfile from '../components/userprofiles/UserProfile';
 
 class App extends Component {
   constructor(props) {
@@ -47,10 +46,11 @@ class App extends Component {
     });
   };
   render() {
+
     return (
 
       <div>
-        <BrowserRouter>
+        <BrowserRouter >
           <ResponsiveContainer>
             <Switch>
               <Route
@@ -86,8 +86,13 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/UserProfiles" render={props => <UserContainer {...props} />} />
-              <Route exact path='/user:userName' component={UserProfile} />
+              <Route exact path="/UserProfiles" render={props => <Users {...props} />} />
+              <Route exact path='/user:userName' render={props => {
+
+                console.log(props.location.userProfile);
+                return <UserProfile userProfile={props.location.userProfile}  {...props} />
+              }} />
+              <Redirect from='*' to='/' />
             </Switch>
           </ResponsiveContainer>
         </BrowserRouter>

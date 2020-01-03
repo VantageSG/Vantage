@@ -14,7 +14,7 @@ RSpec.describe Api::V1::SessionsController, type: :request do
   describe 'POST /api/v1/login' do
     context 'successful logged in' do
       before do
-       post '/api/v1/login', params: typical_user_jason_credentials
+        post '/api/v1/login', params: typical_user_jason_credentials
       end
 
       it 'should be logged in' do
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::SessionsController, type: :request do
       end
 
       it 'should return error message' do
-        expect(json['errors']).to 
+        expect(json['errors']).to
           eq('verify credentials and try again or signup')
       end
     end
@@ -60,8 +60,8 @@ RSpec.describe Api::V1::SessionsController, type: :request do
       it 'should return valid user is credentials' do
         request.cookies['_Vantage'] = response.cookies['_Vantage']
         get '/api/v1/logged_in'
-        expect(json['user']['id']).to 
-        eq(User.find_by(email: 'JasonYip@gmail.com').id)
+        expect(json['user']['id']).to
+          eq(User.find_by(email: 'JasonYip@gmail.com').id)
         expect(json['user']['email']).to eq('JasonYip@gmail.com')
         expect(json['user']['username']).to eq('JasonYip')
       end

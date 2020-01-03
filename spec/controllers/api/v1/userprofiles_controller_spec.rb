@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UserprofilesController, type: :request do
   # Initialize the test data
-  let!(:users) { create_list(:user, 10) }
+  let!(:users) { create_list(:typical_user, 10) }
   let!(:userprofile) { create(:userprofile, user_id: user_id) }
   let(:user_id) { users.first.id }
   let(:user_id_wo_profile) { users.last.id }

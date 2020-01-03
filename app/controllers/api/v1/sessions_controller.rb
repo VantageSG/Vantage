@@ -1,15 +1,16 @@
+#Controller for all sessions
 class Api::V1::SessionsController < Api::V1::BaseController
   def create
     user = User.find_by(email: session_params[:email])
-  
-    if user && user.authenticate(session_params[:password])
+
+    if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       render json: {
         logged_in: true,
         user: user
       }
     else
-      render json: { 
+      render json: {
         errors: 'verify credentials and try again or signup'
       }, status: 401
     end
@@ -28,6 +29,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
       }, status: 404
     end
   end
+
   def destroy
     reset_session
     render json: {
@@ -38,4 +40,4 @@ class Api::V1::SessionsController < Api::V1::BaseController
   def session_params
     params.require(:user).permit(:username, :email, :password)
   end
-end 
+end

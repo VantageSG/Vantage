@@ -1,3 +1,4 @@
+#Parent class for all API controllers
 class Api::V1::BaseController < ActionController::Base
   skip_before_action :verify_authenticity_token
   helper_method :authenticate
@@ -13,7 +14,7 @@ class Api::V1::BaseController < ActionController::Base
   end
 
   def authenticate
-    raise AuthenticationError, 'User not logged in' unless !!@current_user
+    raise AuthenticationError, 'User not logged in' if @current_user.nil?
     user = nil
     user = User.find(params[:user_id]) if params[:user_id]
     raise AuthenticationError, 'User not authorized' if @current_user != user
@@ -36,7 +37,6 @@ class Api::V1::BaseController < ActionController::Base
       error: error.message
     }, status: 500 # Internal Server Error
   end
-
 
   def render_404_error(error)
     render json: {

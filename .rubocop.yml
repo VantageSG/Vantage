@@ -33,12 +33,8 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Enabled: false
   Max: 20
-  Exclude:
-    - 'spec/**/*'
 Metrics/BlockLength:
   Enabled: false
-  Exclude:
-    - 'spec/**/*'
 ###############################################
 
 Metrics/LineLength:

@@ -194,6 +194,9 @@ class DesktopNavBar extends Component {
           </Visibility>
 
           {children}
+
+
+
           <Segment inverted style={{ margin: '5em 0em 0em', padding: '5em 0em' }} vertical>
             <Container textAlign='center'>
               <List horizontal inverted divided link size='small'>

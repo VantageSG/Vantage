@@ -30,7 +30,7 @@ class App extends Component {
           this.handleLogout();
         }
       })
-      .catch(error => console.log("api errors:", error));
+      .catch();
   };
 
   handleLogin = data => {

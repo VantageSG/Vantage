@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :request do
-  let!(:users) { create_list(:user, 10) }
+  let!(:users) { create_list(:typical_user, 10) }
   let(:user_id) { users.first.id }
 
   describe 'GET /api/v1/users' do
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
     context 'when the record does not exist' do
-      let(:user_id) { 100 }
+      let(:user_id) { 'ABX1234' }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -44,10 +44,10 @@ RSpec.describe Api::V1::UsersController, type: :request do
     let(:valid_attributes) do
       {
         user: {
-          username: 'Jason Yip',
-          email: 'jasonyip@dsc.com',
-          password: 'foobar',
-          password_confirmation: 'foobar'
+          username: 'JasonYip',
+          email: 'JasonYip@gmail.com',
+          password: 'password',
+          password_confirmation: 'password'
         }
       }
     end
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       before { post '/api/v1/users', params: valid_attributes }
 
       it 'creates a user' do
-        expect(json['user']['username']).to eq('Jason Yip')
+        expect(json['user']['username']).to eq('JasonYip')
       end
 
       it 'returns status code 201' do
@@ -66,7 +66,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
 
     context 'when the request is invalid' do
       before do
-        post '/api/v1/users', params: { user: { username: 'Jason Yip' } }
+        post '/api/v1/users', params: { user: { username: 'JasonYip' } }
       end
 
       it 'returns status code 400' do

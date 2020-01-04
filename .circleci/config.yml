@@ -45,21 +45,22 @@ jobs: # a collection of steps
           paths:
             - vendor/bundle
 
-      # Only necessary if app uses webpacker or yarn in some other way
-      - restore_cache:
-          keys:
-            - rails-yarn-{{ checksum "yarn.lock" }}
-            - rails-yarn-
-
       - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
 
+      - restore_cache: # special step to restore the dependency cache
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          
+      - run:
+          name: install-npm-wee
+          command: npm install
       # Store yarn / webpacker cache
-      - save_cache:
-          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - ~/.cache/yarn
+            - ./node_modules
 
       - run:
           name: Wait for DB
@@ -77,6 +78,10 @@ jobs: # a collection of steps
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - run: # run tests
+          name: test
+          command: npm test
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/

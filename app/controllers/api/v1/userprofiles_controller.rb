@@ -1,15 +1,9 @@
-class Api::V1::UserprofilesController < ApplicationController
+class Api::V1::UserprofilesController < Api::V1::BaseController
   before_action :get_user
   before_action :set_user_profile, only: [:show, :update]
 
   def show
-    if @user_profile
-      render json: @user_profile
-    else
-      render json: {
-        errors: ['No user profile found']
-      }, status: 500
-    end
+    render json: @user_profile
   end
 
   def create
@@ -30,14 +24,8 @@ class Api::V1::UserprofilesController < ApplicationController
   end
 
   def update
-    if @user_profile
-      @user_profile.update(user_profile_params)
-      render json: @user_profile
-    else
-      render json: {
-        errors: ['No user profile found.']
-      }, status: 400
-    end
+    @user_profile.update(user_profile_params)
+    render json: @user_profile
   end
   
   private
@@ -47,6 +35,11 @@ class Api::V1::UserprofilesController < ApplicationController
 
   def set_user_profile
     @user_profile = @user.user_profile
+    if !@user_profile
+      render json: {
+        errors: ['No user profile found.']
+      }, status: 404
+    end
   end
 
   def user_profile_params

@@ -1,8 +1,10 @@
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
+    - '_todelete/**/*'
     - 'vendor/**/*'
     - 'db/schema.rb'
+    - 'client_app/node_modules/**/*'
     - 'node_modules/**/*'
     - 'db/*'
     - 'db/fixtures/**/*'
@@ -17,15 +19,98 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
+#### Turning these off for now.
+#### These are useful but are hard to fix now
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+  Max: 1000
 Metrics/MethodLength:
   Enabled: false
   Max: 20
-  Exclude:
-    - 'spec/**/*'
+Metrics/BlockLength:
+  Enabled: false
+###############################################
 
 Metrics/LineLength:
   Enabled: true
   Max: 120
 
+## Style
+Style/RedundantSelf:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+# this causes the 0 -> 0o issue when passing numbers prefixed
+# with 0 into arguments (eg. chmod(0777) -> chmod(0o777))
+Style/NumericLiteralPrefix:
+  Enabled: false
+# Removing redundant hash braces breaks rspec tests
+Style/BracesAroundHashParameters:
+  Enabled: false
+# This below cop may have potential bug, bbatsov/rubocop#4118
+Style/TernaryParentheses:
+  Enabled: false
+Style/AccessModifierDeclarations:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/Semicolon:
+  Enabled: false
+Style/Alias:
+  Enabled: false
+
+## Layout
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+Layout/IndentFirstArgument:
+  Enabled: true
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: new_line
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: new_line
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: symmetrical
+Layout/MultilineMethodDefinitionBraceLayout:
+  EnforcedStyle: new_line
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/FirstArrayElementLineBreak:
+  Enabled: true
+Layout/FirstHashElementLineBreak:
+  Enabled: true
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
+Layout/FirstMethodParameterLineBreak:
+  Enabled: true
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/RescueEnsureAlignment:
+  Enabled: false

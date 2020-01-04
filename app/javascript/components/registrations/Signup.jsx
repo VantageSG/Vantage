@@ -98,6 +98,7 @@ class Signup extends Component {
                     icon="user"
                     iconPosition="left"
                     placeholder="Username"
+                    name="username"
                     value={username}
                     onChange={this.handleChange}
                   />
@@ -106,6 +107,7 @@ class Signup extends Component {
                     icon="mail"
                     iconPosition="left"
                     placeholder="Email"
+                    name="email"
                     value={email}
                     onChange={this.handleChange}
                   />
@@ -115,6 +117,7 @@ class Signup extends Component {
                     iconPosition="left"
                     placeholder="Password"
                     type="password"
+                    name="password"
                     value={password}
                     onChange={this.handleChange}
                   />

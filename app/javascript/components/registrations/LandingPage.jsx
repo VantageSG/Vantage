@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 
+
 class LandingPage extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,7 @@ class LandingPage extends Component {
             textAlign="center"
             style={{ marginBottom: "auto" }}
           >
-            <Segment inverted style={{ height: "50vh" }}>
+            <Segment style={{ height: "50vh" }}>
 
               <Icon name="home" size="massive" />
               <Header
@@ -36,6 +37,10 @@ class LandingPage extends Component {
                 textAlign="center"
                 content="Welcome To Vantage"
               ></Header>
+              <Container style={{ height: '20vh' }}>
+              </Container>
+
+
             </Segment>
 
           </Container>

@@ -35,7 +35,7 @@ class UserProfile extends Component {
                                     <Card.Content extra>
                                         <Button disabled={loading} primary>
                                             Add
-                </Button>
+                                        </Button>
                                         <Button disabled={loading}>Delete</Button>
                                     </Card.Content>
                                 </Card>

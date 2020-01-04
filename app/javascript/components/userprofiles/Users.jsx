@@ -9,8 +9,11 @@ import {
     Container,
     Divider,
     Card,
-    Placeholder
-} from "semantic-ui-react";
+    Placeholder,
+    Transition,
+    Loader,
+}
+    from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Animated } from "react-animated-css";
@@ -95,31 +98,61 @@ class Users extends Component {
         })
         return (
             <Animated animationIn="fadeIn" isVisible={true}>
+                <Container text>
+                    <Grid centered columns={1}>
+                        <Grid.Column>
+                            <Placeholder fluid>
+                                <Placeholder.Header image>
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                </Placeholder.Header>
+                                <Placeholder.Line length='full' />
+                                <Placeholder.Line length='very long' />
+                                <Placeholder.Line length='long' />
+                                <Placeholder.Line length='medium' />
+                                <Placeholder.Line length='short' />
+                                <Placeholder.Line length='very short' />
+                                <Placeholder.Paragraph>
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                </Placeholder.Paragraph>
+                                <Placeholder.Paragraph>
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                    <Placeholder.Line />
+                                </Placeholder.Paragraph>
+                            </Placeholder>
+                        </Grid.Column>
+
+                    </Grid>
+                </Container>
+
                 {loading ?
-                    <Container>
-                        <Placeholder>
-                            <Placeholder.Paragraph />
-                        </Placeholder>
-                    </Container> :
+                    <Segment style={{ height: "50vh", marginLeft: 'auto', marginRight: 'auto' }} inverted>
+                        <Loader active />
+                    </Segment>
+                    :
                     <Fragment>
-                        <Container>
-                            <Grid textAlign="center" verticalAlign="middle">
-                                <Grid.Column>
-                                    <Button content="Fetch users" onClick={this.fetchUsers}></Button>
-                                    <p>This is the list of users page</p>
-                                </Grid.Column>
-                            </Grid>
-                        </Container>
-                        <Animated animationIn="fadeUp" isVisible={true}>
-                            <Container fluid>
-                                <Divider />
-                                <Container>
-                                    <List ordered link animated selection divided size="large">
-                                        {posts}
-                                    </List>
-                                </Container>
+                        <Container fluid>
+                            <Divider />
+                            <Container>
+
+                                <Transition.Group
+                                    as={List}
+                                    duration={2000}
+                                    divided
+                                    ordered link animated selection divided size="large"
+                                >
+                                    {posts}
+                                </Transition.Group>
+
                             </Container>
-                        </Animated>
+                        </Container>
                     </Fragment>
                 }
 

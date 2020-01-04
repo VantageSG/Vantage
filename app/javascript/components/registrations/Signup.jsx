@@ -128,7 +128,7 @@ class Signup extends Component {
 
                   <Button color="teal" fluid size="large" type="submit">
                     Sign Up
-                </Button>
+                  </Button>
                   <br></br>
                   <Button
                     color="teal"

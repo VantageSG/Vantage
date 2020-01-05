@@ -9,7 +9,7 @@ import {
   Divider
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-import axios from "axios";
+
 
 class LandingPage extends Component {
   constructor(props) {
@@ -19,31 +19,31 @@ class LandingPage extends Component {
     };
   }
 
-  componentWillMount() {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then(response => this.setState({ posts: response.data }));
-  }
-
   render() {
     return (
       <div>
         <Animated animationIn="fadeIn" isVisible={true}>
-          <Segment vertical style={{ height: "50vh" }} inverted>
-            <Container
-              fluid
-              textAlign="center"
-              style={{ marginTop: "10vh", marginBottom: "auto" }}
-            >
-              <Icon loading name="home" size="massive" />
+          <Container
+            fluid
+            textAlign="center"
+            style={{ marginBottom: "auto" }}
+          >
+            <Segment style={{ height: "50vh" }}>
+
+              <Icon name="home" size="massive" />
               <Header
                 as="h2"
                 color="teal"
                 textAlign="center"
                 content="Welcome To Vantage"
               ></Header>
-            </Container>
-          </Segment>
+              <Container style={{ height: '20vh' }}>
+              </Container>
+
+
+            </Segment>
+
+          </Container>
           <Segment vertical style={{ paddingTop: "3em" }}>
             <Grid container stackable textAlign="center" verticalAlign="middle">
               <Grid.Row>
@@ -184,7 +184,7 @@ class LandingPage extends Component {
             </Container>
           </Segment>
         </Animated>
-      </div>
+      </div >
     );
   }
 }

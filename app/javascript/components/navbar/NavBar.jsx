@@ -91,7 +91,27 @@ class MobileNavBar extends Component {
             </Container>
           </Segment>
           {children}
+          <Segment inverted style={{ margin: '5em 0em 0em', padding: '5em 0em' }} vertical>
+            <Container textAlign='center'>
+              <List horizontal inverted divided link size='small'>
+                <List.Item as='a' href='#'>
+                  Site Map
+              </List.Item>
+                <List.Item as='a' href='#'>
+                  Contact Us
+              </List.Item>
+                <List.Item as='a' href='#'>
+                  Terms and Conditions
+              </List.Item>
+                <List.Item as='a' href='#'>
+                  Privacy Policy
+              </List.Item>
+              </List>
+
+            </Container>
+          </Segment>
         </Sidebar.Pusher>
+
       </Responsive>
     );
   }
@@ -174,6 +194,28 @@ class DesktopNavBar extends Component {
           </Visibility>
 
           {children}
+
+
+
+          <Segment inverted style={{ margin: '5em 0em 0em', padding: '5em 0em' }} vertical>
+            <Container textAlign='center'>
+              <List horizontal inverted divided link size='small'>
+                <List.Item as='a' href='#'>
+                  Site Map
+              </List.Item>
+                <List.Item as='a' href='#'>
+                  Contact Us
+              </List.Item>
+                <List.Item as='a' href='#'>
+                  Terms and Conditions
+              </List.Item>
+                <List.Item as='a' href='#'>
+                  Privacy Policy
+              </List.Item>
+              </List>
+
+            </Container>
+          </Segment>
         </Responsive>
       </div>
     );

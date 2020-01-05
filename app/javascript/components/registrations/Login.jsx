@@ -17,7 +17,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      username: '',
       email: "",
       password: "",
       errors: ""
@@ -26,8 +26,10 @@ class Login extends Component {
   componentWillMount() {
     return this.props.loggedInStatus ? this.redirect() : null;
   }
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(name);
+    console.log(name + " " + value);
     this.setState({
       [name]: value
     });
@@ -95,6 +97,7 @@ class Login extends Component {
                     icon="user"
                     iconPosition="left"
                     placeholder="Username"
+                    name="username"
                     value={username}
                     onChange={this.handleChange}
                   />
@@ -103,6 +106,7 @@ class Login extends Component {
                     icon="mail"
                     iconPosition="left"
                     placeholder="Email"
+                    name="email"
                     value={email}
                     onChange={this.handleChange}
                   />
@@ -111,6 +115,7 @@ class Login extends Component {
                     icon="lock"
                     iconPosition="left"
                     placeholder="Password"
+                    name="password"
                     type="password"
                     value={password}
                     onChange={this.handleChange}

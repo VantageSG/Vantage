@@ -6,10 +6,10 @@ import {
   Segment,
   Container,
   Button,
-  Divider
+  Divider,
+  Placeholder
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-
 
 class LandingPage extends Component {
   constructor(props) {
@@ -26,23 +26,18 @@ class LandingPage extends Component {
           <Container
             fluid
             textAlign="center"
-            style={{ marginBottom: "auto" }}
+            style={{
+              marginBottom: "auto",
+              minHeight: "50vh",
+              backgroundColor: "#1b1c1d"
+            }}
           >
-            <Segment style={{ height: "50vh" }}>
-
-              <Icon name="home" size="massive" />
-              <Header
-                as="h2"
-                color="teal"
-                textAlign="center"
-                content="Welcome To Vantage"
-              ></Header>
-              <Container style={{ height: '20vh' }}>
-              </Container>
-
-
+            <Segment placeholder style={{ minHeight: "50vh" }} inverted>
+              <Header as="h2" color="teal" textAlign="center" icon>
+                <Icon name="home" />
+                Welcome To Vantage
+              </Header>
             </Segment>
-
           </Container>
           <Segment vertical style={{ paddingTop: "3em" }}>
             <Grid container stackable textAlign="center" verticalAlign="middle">
@@ -184,7 +179,7 @@ class LandingPage extends Component {
             </Container>
           </Segment>
         </Animated>
-      </div >
+      </div>
     );
   }
 }

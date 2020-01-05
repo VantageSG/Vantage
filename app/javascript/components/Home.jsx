@@ -1,6 +1,5 @@
 import React from "react";
-import LandingPage from "./registrations/LandingPage";
-
+import LandingPage from "./landingpage/LandingPage";
 
 const Home = () => {
   return (
@@ -9,7 +8,5 @@ const Home = () => {
     </div>
   );
 };
-
-
 
 export default Home;

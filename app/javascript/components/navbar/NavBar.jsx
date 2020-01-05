@@ -48,11 +48,13 @@ class MobileNavBar extends Component {
         >
           <Menu.Item as={Link} to="/">
             Home
-                  </Menu.Item>
+          </Menu.Item>
           <Menu.Item as={Link} to="/UserProfiles">
             User Profiles
-                  </Menu.Item>
-
+          </Menu.Item>
+          <Menu.Item as={Link} to="/ResumeBuilder">
+            Resume Builder
+          </Menu.Item>
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -90,28 +92,33 @@ class MobileNavBar extends Component {
               </Menu>
             </Container>
           </Segment>
-          {children}
-          <Segment inverted style={{ margin: '5em 0em 0em', padding: '5em 0em' }} vertical>
-            <Container textAlign='center'>
-              <List horizontal inverted divided link size='small'>
-                <List.Item as='a' href='#'>
+          <Container fluid style={{ minHeight: "100vh" }}>
+            {" "}
+            {children}
+          </Container>
+          <Segment
+            inverted
+            style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+            vertical
+          >
+            <Container textAlign="center">
+              <List horizontal inverted divided link size="small">
+                <List.Item as="a" href="#">
                   Site Map
-              </List.Item>
-                <List.Item as='a' href='#'>
+                </List.Item>
+                <List.Item as="a" href="#">
                   Contact Us
-              </List.Item>
-                <List.Item as='a' href='#'>
+                </List.Item>
+                <List.Item as="a" href="#">
                   Terms and Conditions
-              </List.Item>
-                <List.Item as='a' href='#'>
+                </List.Item>
+                <List.Item as="a" href="#">
                   Privacy Policy
-              </List.Item>
+                </List.Item>
               </List>
-
             </Container>
           </Segment>
         </Sidebar.Pusher>
-
       </Responsive>
     );
   }
@@ -133,6 +140,7 @@ class DesktopNavBar extends Component {
   render() {
     const { children } = this.props;
     const { fixed } = this.state;
+    console.log(children);
 
     return (
       <div>
@@ -165,6 +173,9 @@ class DesktopNavBar extends Component {
                   <Menu.Item as={Link} to="/UserProfiles">
                     User Profiles
                   </Menu.Item>
+                  <Menu.Item as={Link} to="/ResumeBuilder">
+                    Resume Builder
+                  </Menu.Item>
 
                   <Menu.Item position="right">
                     <Button
@@ -192,28 +203,29 @@ class DesktopNavBar extends Component {
               </Menu>
             </Segment>
           </Visibility>
-
-          {children}
-
-
-
-          <Segment inverted style={{ margin: '5em 0em 0em', padding: '5em 0em' }} vertical>
-            <Container textAlign='center'>
-              <List horizontal inverted divided link size='small'>
-                <List.Item as='a' href='#'>
+          <Container fluid style={{ minHeight: "100vh" }}>
+            {children}
+          </Container>
+          <Segment
+            inverted
+            style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+            vertical
+          >
+            <Container textAlign="center">
+              <List horizontal inverted divided link size="small">
+                <List.Item as="a" href="#">
                   Site Map
-              </List.Item>
-                <List.Item as='a' href='#'>
+                </List.Item>
+                <List.Item as="a" href="#">
                   Contact Us
-              </List.Item>
-                <List.Item as='a' href='#'>
+                </List.Item>
+                <List.Item as="a" href="#">
                   Terms and Conditions
-              </List.Item>
-                <List.Item as='a' href='#'>
+                </List.Item>
+                <List.Item as="a" href="#">
                   Privacy Policy
-              </List.Item>
+                </List.Item>
               </List>
-
             </Container>
           </Segment>
         </Responsive>

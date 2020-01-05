@@ -41,7 +41,7 @@ class Signup extends Component {
     };
     axios
       .post(
-        "http://localhost:3000/api/v1/users/create",
+        process.env.BACKEND_PORT + '/api/v1/users/',
         { user },
         { withCredentials: true }
       )

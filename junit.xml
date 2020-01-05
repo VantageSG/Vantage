@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="9" failures="0" time="2.206">
-  <testsuite name="Login page" errors="0" failures="0" skipped="0" timestamp="2020-01-04T19:46:53" time="1.069" tests="3">
-    <testcase classname="Login page should have email form" name="Login page should have email form" time="0.005">
-    </testcase>
-    <testcase classname="Login page should have email form" name="Login page should have email form" time="0">
-    </testcase>
-    <testcase classname="Login page should have password confirmation" name="Login page should have password confirmation" time="0">
+<testsuites name="jest tests" tests="7" failures="1" time="3.391">
+  <testsuite name="Login page" errors="0" failures="1" skipped="0" timestamp="2020-01-05T05:08:48" time="1.373" tests="1">
+    <testcase classname="Login page encountered a declaration exception" name="Login page encountered a declaration exception" time="0.002">
+      <failure>ReferenceError: createMemoryHistory is not defined
+    at renderWithRouter (/Users/tandeningklement/Desktop/codes/dsc/Vantage/spec/javascript/test-utils.js:11:5)
+    at Suite.&lt;anonymous&gt; (/Users/tandeningklement/Desktop/codes/dsc/Vantage/spec/javascript/components/registrations/Signup_spec.jsx:11:3)
+    at addSpecsToSuite (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/jasmine/Env.js:496:51)
+    at Env.describe (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/jasmine/Env.js:466:11)
+    at describe (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/jasmine/jasmineLight.js:81:18)
+    at Object.&lt;anonymous&gt; (/Users/tandeningklement/Desktop/codes/dsc/Vantage/spec/javascript/components/registrations/Signup_spec.jsx:10:1)
+    at Runtime._execModule (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-runtime/build/index.js:867:68)
+    at Runtime._loadModule (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-runtime/build/index.js:577:12)
+    at Runtime.requireModule (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-runtime/build/index.js:433:10)
+    at /Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:202:13
+    at Generator.next (&lt;anonymous&gt;)
+    at asyncGeneratorStep (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:27:24)
+    at _next (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:47:9)
+    at /Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:52:7
+    at new Promise (&lt;anonymous&gt;)
+    at /Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:44:12
+    at _jasmine (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:207:19)
+    at jasmine2 (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-jasmine2/build/index.js:60:19)
+    at /Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-runner/build/runTest.js:385:24
+    at Generator.next (&lt;anonymous&gt;)
+    at asyncGeneratorStep (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-runner/build/runTest.js:161:24)
+    at _next (/Users/tandeningklement/Desktop/codes/dsc/Vantage/node_modules/jest-runner/build/runTest.js:181:9)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)</failure>
     </testcase>
   </testsuite>
-  <testsuite name="Default Login page" errors="0" failures="0" skipped="0" timestamp="2020-01-04T19:46:53" time="1.071" tests="3">
-    <testcase classname="Default Login page should have email form" name="Default Login page should have email form" time="0.005">
+  <testsuite name="Default Login page" errors="0" failures="0" skipped="0" timestamp="2020-01-05T05:08:48" time="1.391" tests="3">
+    <testcase classname="Default Login page should have email form" name="Default Login page should have email form" time="0.004">
     </testcase>
     <testcase classname="Default Login page should have Password" name="Default Login page should have Password" time="0.001">
     </testcase>
     <testcase classname="Default Login page should have Submit button" name="Default Login page should have Submit button" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="Homepage" errors="0" failures="0" skipped="0" timestamp="2020-01-04T19:46:53" time="1.111" tests="3">
+  <testsuite name="Homepage" errors="0" failures="0" skipped="0" timestamp="2020-01-05T05:08:48" time="1.419" tests="3">
     <testcase classname="Homepage should have home button" name="Homepage should have home button" time="0.008">
     </testcase>
     <testcase classname="Homepage should have login button" name="Homepage should have login button" time="0.002">

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import Login from 'components/registrations/Login.jsx';
-import { render, screen } from 'test-utils';
+import { renderWithRouter, screen } from '../../test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('Default Login page', () => {
-  render(<Router><Login></Login></Router>);
+  renderWithRouter(<Login/>);
   it('should have email form', () => {
     expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
   });

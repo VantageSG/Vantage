@@ -45,7 +45,7 @@ class Login extends Component {
 
     axios
       .post(
-        process.env.BACKEND_PORT + '/api/v1/users/',
+        process.env.BACKEND_PORT + '/api/v1/login/',
         { user },
         { withCredentials: true }
       )

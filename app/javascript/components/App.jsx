@@ -7,6 +7,7 @@ import Signup from "./registrations/Signup";
 import ResponsiveContainer from "../components/navbar/NavBar";
 import Users from "../components/userprofiles/Users";
 import UserProfile from "../components/userprofiles/UserProfile";
+import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 
 class App extends Component {
@@ -108,7 +109,7 @@ class App extends Component {
                   );
                 }}
               />
-              <Redirect from="*" to="/" />
+              <Route component={Error404Page} />
             </Switch>
           </ResponsiveContainer>
         </BrowserRouter>

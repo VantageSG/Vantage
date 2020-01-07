@@ -23,11 +23,50 @@ const getWidth = () => {
 };
 
 class MobileNavBar extends Component {
-  state = {};
+  constructor(props){
+    super(props);
+    this.state={
+    }
+  }
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false });
-
   handleToggle = () => this.setState({ sidebarOpened: true });
+
+  renderRegistrationButton = (loggedInStatus, user) => {
+    return loggedInStatus ? 
+      <Menu.Item position="right">
+        <Button
+          disabled
+          color="facebook"
+          size="large"
+          content={user.username}
+          inverted={!this.state.fixed}
+          primary={this.state.fixed}
+          style={{ marginLeft: "0.5em" }}
+        ></Button>
+      </Menu.Item> :
+      <Menu.Item position="right">
+        <Button
+          color="green"
+          inverted={!this.state.fixed}
+          size="large"
+          as={Link}
+          to="/login"
+          icon="sign in alternate"
+        ></Button>
+        <Button
+          color="blue"
+          size="large"
+          as={Link}
+          to="/signup"
+          icon="registered"
+          inverted={!this.state.fixed}
+          primary={this.state.fixed}
+          style={{ marginLeft: "0.5em" }}
+        ></Button>
+      </Menu.Item>
+  }
+
   render() {
     const { children } = this.props;
     const { sidebarOpened, fixed } = this.state;
@@ -66,29 +105,7 @@ class MobileNavBar extends Component {
           >
             <Container>
               <Menu inverted pointing secondary size="large">
-                <Menu.Item onClick={this.handleToggle}>
-                  <Icon name="sidebar" />
-                </Menu.Item>
-                <Menu.Item position="right">
-                  <Button
-                    color="green"
-                    inverted={!fixed}
-                    size="large"
-                    as={Link}
-                    to="/login"
-                    icon="sign in alternate"
-                  ></Button>
-                  <Button
-                    color="blue"
-                    size="large"
-                    as={Link}
-                    to="/signup"
-                    icon="registered"
-                    inverted={!fixed}
-                    primary={fixed}
-                    style={{ marginLeft: "0.5em" }}
-                  ></Button>
-                </Menu.Item>
+              {this.renderRegistrationButton(this.props.loggedInStatus, this.props.user)}
               </Menu>
             </Container>
           </Segment>
@@ -124,24 +141,76 @@ class MobileNavBar extends Component {
   }
 }
 
-const ResponsiveContainer = ({ children }) => (
-  <div>
-    <DesktopNavBar>{children}</DesktopNavBar>
-    <MobileNavBar>{children}</MobileNavBar>
-  </div>
-);
+class ResponsiveContainer extends Component {
+  constructor(props){
+    super(props);
+  }
+  render() {
+    return(
+      <div>
+        <DesktopNavBar
+        loggedInStatus={this.props.loggedInStatus}
+        user={this.props.user}
+        >{this.props.children}</DesktopNavBar>
+        <MobileNavBar
+        loggedInStatus={this.props.loggedInStatus}
+        user={this.props.user}
+        >{this.props.children}</MobileNavBar>
+      </div>
+    )
+  }
+}
 
 class DesktopNavBar extends Component {
-  state = {};
+  constructor(props){
+    super(props);
+    this.state={
+    }
+  }
 
   hideFixedMenu = () => this.setState({ fixed: false });
   showFixedMenu = () => this.setState({ fixed: true });
 
+  renderRegistrationButton = (loggedInStatus, user) => {
+    return loggedInStatus ? 
+      <Menu.Item position="right">
+        <Button
+          disabled
+          color="facebook"
+          size="large"
+          content={user.username}
+          inverted={!this.state.fixed}
+          primary={this.state.fixed}
+          style={{ marginLeft: "0.5em" }}
+        ></Button>
+      </Menu.Item> :
+      <Menu.Item position="right">
+        <Button
+          color="green"
+          inverted={!this.state.fixed}
+          size="large"
+          as={Link}
+          to="/login"
+          icon="sign in alternate"
+          content="Login"
+        ></Button>
+        <Button
+          color="blue"
+          size="large"
+          as={Link}
+          to="/signup"
+          icon="registered"
+          content="Sign up"
+          inverted={!this.state.fixed}
+          primary={this.state.fixed}
+          style={{ marginLeft: "0.5em" }}
+        ></Button>
+      </Menu.Item>
+  }
+
   render() {
     const { children } = this.props;
     const { fixed } = this.state;
-    console.log(children);
-
     return (
       <div>
         <Responsive
@@ -177,28 +246,7 @@ class DesktopNavBar extends Component {
                     Resume Builder
                   </Menu.Item>
 
-                  <Menu.Item position="right">
-                    <Button
-                      color="green"
-                      inverted={!fixed}
-                      size="large"
-                      as={Link}
-                      to="/login"
-                      icon="sign in alternate"
-                      content="Login"
-                    ></Button>
-                    <Button
-                      color="blue"
-                      size="large"
-                      as={Link}
-                      to="/signup"
-                      icon="registered"
-                      content="Sign up"
-                      inverted={!fixed}
-                      primary={fixed}
-                      style={{ marginLeft: "0.5em" }}
-                    ></Button>
-                  </Menu.Item>
+                  {this.renderRegistrationButton(this.props.loggedInStatus, this.props.user)}
                 </Container>
               </Menu>
             </Segment>

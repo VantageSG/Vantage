@@ -4,7 +4,6 @@ import {
   Divider,
   Dropdown,
   Grid,
-  Link,
   Header,
   Icon,
   Image,
@@ -15,7 +14,7 @@ import {
   Placeholder,
   Button
 } from "semantic-ui-react";
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory, withRouter, Link } from "react-router-dom";
 
 class Error404Page extends Component {
   render() {

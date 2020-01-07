@@ -5,8 +5,10 @@ import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
 import ResponsiveContainer from "../components/navbar/NavBar";
-import Users from '../components/userprofiles/Users';
-import UserProfile from '../components/userprofiles/UserProfile';
+import Users from "../components/userprofiles/Users";
+import UserProfile from "../components/userprofiles/UserProfile";
+import Error404Page from "../components/error/Error404Page";
+import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 
 class App extends Component {
   constructor(props) {
@@ -46,11 +48,9 @@ class App extends Component {
     });
   };
   render() {
-
     return (
-
       <div>
-        <BrowserRouter >
+        <BrowserRouter>
           <ResponsiveContainer>
             <Switch>
               <Route
@@ -86,13 +86,30 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/UserProfiles" render={props => <Users {...props} />} />
-              <Route exact path='/user:userName' render={props => {
-
-                console.log(props.location.userProfile);
-                return <UserProfile userProfile={props.location.userProfile}  {...props} />
-              }} />
-              <Redirect from='*' to='/' />
+              <Route
+                exact
+                path="/UserProfiles"
+                render={props => <Users {...props} />}
+              />
+              <Route
+                exact
+                path="/ResumeBuilder"
+                render={props => <ResumeBuilder {...props} />}
+              />
+              <Route
+                exact
+                path="/user:userName"
+                render={props => {
+                  console.log(props.location.userProfile);
+                  return (
+                    <UserProfile
+                      userProfile={props.location.userProfile}
+                      {...props}
+                    />
+                  );
+                }}
+              />
+              <Route component={Error404Page} />
             </Switch>
           </ResponsiveContainer>
         </BrowserRouter>

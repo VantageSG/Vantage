@@ -7,7 +7,8 @@ import {
   Container,
   Button,
   Divider,
-  Placeholder
+  Placeholder,
+  Card
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 
@@ -39,7 +40,163 @@ class LandingPage extends Component {
               </Header>
             </Segment>
           </Container>
-          <Segment vertical style={{ paddingTop: "3em" }}>
+
+          <Container
+            text
+            textAlign="center"
+            style={{ marginTop: "2vh", marginBottom: "2vh" }}
+          >
+            <Grid centered columns={1}>
+              <Grid.Column>
+                <Container fluid textAlign="center">
+                  {" "}
+                  <Header as="h1" style={{ fontSize: "4em" }}>
+                    VANTAGE
+                  </Header>
+                </Container>
+
+                <Card centered fluid style={{ height: "30vh" }}>
+                  <Placeholder fluid>
+                    <Placeholder.Image square />
+                  </Placeholder>
+                  <Card.Content>
+                    <Card.Description>logo will be here</Card.Description>
+                  </Card.Content>
+                </Card>
+                <Container fluid textAlign="center">
+                  <Header as="h3" style={{ fontSize: "2em" }}>
+                    Some slogan that amelia will come up with
+                  </Header>
+                </Container>
+              </Grid.Column>
+            </Grid>
+          </Container>
+
+          <Divider></Divider>
+
+          <Container text textAlign="center" style={{}}>
+            <Grid centered columns={1}>
+              <Grid.Column>
+                <Container fluid textAlign="center">
+                  <Header as="h1" style={{ fontSize: "3.5em" }}>
+                    About Us
+                  </Header>
+
+                  <Divider
+                    as="h3"
+                    className="header"
+                    horizontal
+                    style={{
+                      margin: "1em 0em ",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    <p>We Help Companies and Companions</p>
+                  </Divider>
+                  <p style={{ fontSize: "1.33em" }}>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
+                  <Divider
+                    as="h3"
+                    className="header"
+                    horizontal
+                    style={{
+                      margin: "1em 0em ",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    <p>We empower students to be better than themselves</p>
+                  </Divider>
+
+                  <p style={{ fontSize: "1.33em" }}>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
+
+                  <Divider
+                    as="h3"
+                    className="header"
+                    horizontal
+                    style={{
+                      margin: "1em 0em ",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    <p>We Make Bananas That Can Dance</p>
+                  </Divider>
+                  <p style={{ fontSize: "1.33em" }}>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
+                </Container>
+              </Grid.Column>
+            </Grid>
+          </Container>
+
+          <Divider></Divider>
+
+          <Container text textAlign="center" style={{}}>
+            <Grid centered columns={1}>
+              <Grid.Column>
+                <Container fluid textAlign="center">
+                  <Header as="h1" style={{ fontSize: "3.5em" }}>
+                    Our Mission
+                  </Header>
+
+                  <Divider
+                    as="h3"
+                    className="header"
+                    horizontal
+                    style={{
+                      margin: "1em 0em ",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    <p>We Help Companies and Companions</p>
+                  </Divider>
+                  <p style={{ fontSize: "1.33em" }}>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
+                  <Divider
+                    as="h3"
+                    className="header"
+                    horizontal
+                    style={{
+                      margin: "1em 0em ",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    <p>We empower students to be better than themselves</p>
+                  </Divider>
+
+                  <p style={{ fontSize: "1.33em" }}>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
+
+                  <Divider
+                    as="h3"
+                    className="header"
+                    horizontal
+                    style={{
+                      margin: "1em 0em ",
+                      textTransform: "uppercase"
+                    }}
+                  >
+                    <p>We Make Bananas That Can Dance</p>
+                  </Divider>
+                  <p style={{ fontSize: "1.33em" }}>
+                    Yes that's right, you thought it was the stuff of dreams,
+                    but even bananas can be bioengineered.
+                  </p>
+                </Container>
+              </Grid.Column>
+            </Grid>
+          </Container>
+
+          <Segment vertical>
             <Grid container stackable textAlign="center" verticalAlign="middle">
               <Grid.Row>
                 <Grid.Column width={4}>
@@ -76,14 +233,19 @@ class LandingPage extends Component {
               </Grid.Row>
             </Grid>
           </Segment>
-          <Segment style={{ padding: "1em" }} vertical>
+
+          <Container text textAlign="center" style={{}}>
+            {" "}
             <Grid celled="internally" columns="equal" stackable>
               <Grid.Row textAlign="center">
                 <Grid.Column
                   style={{ paddingBottom: "5em", paddingTop: "5em" }}
                 >
                   <Header as="h3" style={{ fontSize: "2em" }}>
-                    "What a Company"
+                    "What a TechLead this team have"
+                  </Header>
+                  <Header as="h3" style={{ fontSize: "2em" }}>
+                    "Absolutely Amazing"
                   </Header>
                   <p style={{ fontSize: "1.33em" }}>
                     That is what they all say about us
@@ -95,35 +257,25 @@ class LandingPage extends Component {
                   <Header as="h3" style={{ fontSize: "2em" }}>
                     "I shouldn't have gone with their competitor."
                   </Header>
-                  <p style={{ fontSize: "1.33em" }}>
-                    <b>Nan</b> Chief Fun Officer Acme Toys
-                  </p>
+                  <Header as="h3" style={{ fontSize: "2em" }}>
+                    "I should have connected with them on linkedin"
+                  </Header>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </Segment>
-          <Segment vertical style={{ paddingTop: "3em" }}>
-            <Grid container stackable textAlign="center" verticalAlign="middle">
-              <Grid.Row>
-                <Grid.Column width={8}>
-                  <Header as="h3" style={{ fontSize: "2em" }}>
-                    We Help Companies and Companions
+          </Container>
+
+          <Divider></Divider>
+
+          <Container text textAlign="center" style={{}}>
+            <Grid centered columns={1}>
+              <Grid.Column>
+                <Container fluid textAlign="center">
+                  <Header as="h1" style={{ fontSize: "3.5em" }}>
+                    Our Vision
                   </Header>
-                  <p style={{ fontSize: "1.33em" }}>
-                    We empower students to be better than themselves
-                  </p>
                   <Header as="h3" style={{ fontSize: "2em" }}>
-                    We Make Bananas That Can Dance
-                  </Header>
-                  <p style={{ fontSize: "1.33em" }}>
-                    Yes that's right, you thought it was the stuff of dreams,
-                    but even bananas can be bioengineered.
-                  </p>
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {" "}
-                  <Header as="h3" style={{ fontSize: "2em" }}>
-                    Loreum iptsum head
+                    Lorem ipsum dolor sit amet,
                   </Header>
                   <p style={{ fontSize: "1.33em" }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -135,49 +287,13 @@ class LandingPage extends Component {
                     occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
                   </p>
-                </Grid.Column>
-              </Grid.Row>
+                  <Button as="a" size="large">
+                    I'm Still Quite Interested
+                  </Button>
+                </Container>
+              </Grid.Column>
             </Grid>
-          </Segment>
-          <Segment style={{ padding: "8em 0em" }} vertical>
-            <Container text>
-              <Header as="h3" style={{ fontSize: "2em" }}>
-                Lorem ipsum dolor sit amet,
-              </Header>
-              <p style={{ fontSize: "1.33em" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-              </p>
-              <Button as="a" size="large">
-                Read More
-              </Button>
-              <Divider
-                as="h3"
-                className="header"
-                horizontal
-                style={{ margin: "3em 0em", textTransform: "uppercase" }}
-              >
-                <a href="#">Case Studies</a>
-              </Divider>
-              <Header as="h3" style={{ fontSize: "2em" }}>
-                Lorem ipsum dolor sit amet,
-              </Header>
-              <p style={{ fontSize: "1.33em" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-              <Button as="a" size="large">
-                I'm Still Quite Interested
-              </Button>
-            </Container>
-          </Segment>
+          </Container>
         </Animated>
       </div>
     );

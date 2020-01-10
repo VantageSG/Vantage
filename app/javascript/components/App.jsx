@@ -40,7 +40,6 @@ class App extends Component {
         }
       })
       .catch(error => {
-        console.log('unknown error')
       })
   };
 

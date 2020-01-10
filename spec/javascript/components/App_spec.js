@@ -15,5 +15,3 @@ describe('Homepage', () => {
     expect(screen.getByText(/sign up/i)).toBeInTheDocument();
   })
 })
-
-

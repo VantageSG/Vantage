@@ -35,7 +35,7 @@ class Api::V1::BaseController < ActionController::Base
   def render_401_error(error)
     render json: {
       error: error.message
-    }, status: 500 # Internal Server Error
+    }, status: 401 # Internal Server Error
   end
 
   def render_404_error(error)

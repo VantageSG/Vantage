@@ -10,9 +10,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
         user: user
       }
     else
-      render json: {
-        errors: 'verify credentials and try again or signup'
-      }, status: 401
+      raise AuthenticationError, 'verify credentials and try again or signup'
     end
   end
 
@@ -23,10 +21,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
         user: @current_user
       }
     else
-      render json: {
-        logged_in: false,
-        message: 'no such user'
-      }, status: 404
+      raise AuthenticationError, 'User not logged in'
     end
   end
 

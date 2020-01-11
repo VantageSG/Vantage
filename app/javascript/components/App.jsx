@@ -24,15 +24,23 @@ class App extends Component {
   }
   loginStatus = () => {
     axios
-      .get("http://localhost:3000/api/v1/logged_in", { withCredentials: true })
+      .get(process.env.BACKEND_PORT + "/api/v1/logged_in", { 
+        withCredentials: true,
+        validateStatus: function (status) {
+          return status >= 200 && status < 300 || status === 401; //error status 401 is expected for user not logged in
+        },
+      })
       .then(response => {
-        if (response.data.logged_in) {
+        if (response.status === 200){
           this.handleLogin(response);
-        } else {
+        } else if (response.status === 401 && response.data.error === "User not logged in") {
           this.handleLogout();
+        } else {
+          console.log('unknown error')
         }
       })
-      .catch();
+      .catch(error => {
+      })
   };
 
   handleLogin = data => {

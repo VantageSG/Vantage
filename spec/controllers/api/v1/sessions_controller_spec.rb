@@ -39,7 +39,7 @@ RSpec.describe Api::V1::SessionsController, type: :request do
       end
 
       it 'should return error message' do
-        expect(json['errors'])
+        expect(json['error'])
           .to eq('verify credentials and try again or signup')
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::SessionsController, type: :request do
     context 'user not logged in' do
       it 'should return user is not logged_in' do
         get '/api/v1/logged_in'
-        expect(json['logged_in']).to eq(false)
+        expect(response).to have_http_status(401)
       end
     end
   end
@@ -91,7 +91,7 @@ RSpec.describe Api::V1::SessionsController, type: :request do
       it 'should not be logged in' do
         request.cookies['_Vantage'] = response.cookies['_Vantage']
         get '/api/v1/logged_in'
-        expect(json['logged_in']).to eq(false)
+        expect(response).to have_http_status(401)
       end
     end
   end

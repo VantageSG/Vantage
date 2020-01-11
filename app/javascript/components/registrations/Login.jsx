@@ -23,13 +23,11 @@ class Login extends Component {
       errors: ""
     };
   }
-  componentWillMount() {
+  componentDidUpdate() {
     return this.props.loggedInStatus ? this.redirect() : null;
   }
   handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name);
-    console.log(name + " " + value);
     this.setState({
       [name]: value
     });
@@ -47,11 +45,14 @@ class Login extends Component {
       .post(
         process.env.BACKEND_PORT + '/api/v1/login/',
         { user },
-        { withCredentials: true }
+        { 
+          withCredentials: true
+        },
+        
       )
       .then(response => {
         if (response.data.logged_in) {
-          this.props.handleLogin(response.data);
+          this.props.handleLogin(response);
           this.redirect();
         } else {
           this.setState({

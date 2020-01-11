@@ -33,7 +33,7 @@ class App extends Component {
       .then(response => {
         if (response.status === 200){
           this.handleLogin(response);
-        } else if (response.status === 401) {
+        } else if (response.status === 401 && response.data.error === "User not logged in") {
           this.handleLogout();
         } else {
           console.log('unknown error')

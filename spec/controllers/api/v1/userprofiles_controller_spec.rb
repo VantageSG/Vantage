@@ -9,6 +9,11 @@ RSpec.describe Api::V1::UserprofilesController, type: :request do
   let(:user_id_wo_profile) { users.last.id }
   let(:id) { userprofile.id }
 
+  # skip authentication
+  before :each do
+    Api::V1::UserprofilesController.any_instance.stub(:authenticate)
+  end
+
   # TEST suite for SHOW userprofile
   describe 'GET api/v1/users/:user_id/userprofiles' do
 

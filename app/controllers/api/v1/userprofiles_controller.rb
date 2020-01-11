@@ -1,6 +1,7 @@
 class Api::V1::UserprofilesController < Api::V1::BaseController
   before_action :get_user
   before_action :set_user_profile, only: [:show, :update]
+  before_action :authenticate, only: [:create, :update]
 
   def show
     render json: @user_profile

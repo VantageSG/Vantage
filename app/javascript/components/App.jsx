@@ -61,8 +61,8 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <ResponsiveContainer
-          loggedInStatus={false}
-          user={{}}
+          loggedInStatus={this.state.isLoggedIn}
+          user={this.state.user}
           >
             <Switch>
               <Route

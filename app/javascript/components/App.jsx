@@ -56,12 +56,13 @@ class App extends Component {
     });
   };
   render() {
+    
     return (
       <div>
         <BrowserRouter>
           <ResponsiveContainer
-          loggedInStatus={this.state.isLoggedIn}
-          user={this.state.user}
+          loggedInStatus={false}
+          user={{}}
           >
             <Switch>
               <Route

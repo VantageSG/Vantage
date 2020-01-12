@@ -9,7 +9,6 @@ import "../../assets/dist/semantic.min.css";
 import { createBrowserHistory } from "history";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const history = createBrowserHistory();
   ReactDOM.render(
     <BrowserRouter forceRefresh={true} >
       <Route path="/" component={App} />

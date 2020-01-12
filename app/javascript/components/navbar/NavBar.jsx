@@ -77,8 +77,6 @@ class MobileNavBar extends Component {
         getWidth={getWidth}
         maxWidth={Responsive.onlyMobile.maxWidth}
       >
-        {console.log("render mobile")}
-        {console.log(getWidth())}
         <Sidebar
           as={Menu}
           animation="push"
@@ -150,7 +148,6 @@ class ResponsiveContainer extends Component {
   render() {
     return(
       <div>
-        {console.log(window.innerWidth)}
         <DesktopNavBar
         loggedInStatus={this.props.loggedInStatus}
         user={this.props.user}
@@ -220,8 +217,6 @@ class DesktopNavBar extends Component {
           getWidth={getWidth}
           minWidth={Responsive.onlyTablet.minWidth}
         >
-          {console.log("render desktop")}
-          {console.log(getWidth())}
           <Visibility
             once={true}
             //onBottomPassed={this.showFixedMenu}

@@ -1,12 +1,11 @@
 import React from 'react';
 import App from 'components/App.jsx';
 import axios from 'axios';
-import { render, renderWithRouter, screen, wait } from 'test-utils';
+import { render, renderWithRouter, screen, wait, setDesktopWindow } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('axios');
 
 describe('User not logged in', () => {
-  
   it('fetches user not logged in data from an API and render Login and Sign up button', async () => {
     const data = {
       data: {

@@ -25,10 +25,25 @@ function renderWithRouter(
     history,
   }
 }
+function resizeWindow(x, y) {
+    window.innerWidth = x
+    window.innerHeight = y
+    window.dispatchEvent(new Event('resize'))
+}
+
+function setMobileWindow() {
+  resizeWindow(375, 812)
+}
+
+function setDesktopWindow() {
+  resizeWindow(1024, 768)
+}
 
 // re-export everything
 export * from '@testing-library/react';
 
 // override render method
+export { setDesktopWindow as setDesktopWindow};
+export { setMobileWindow as setMobileWindow};
 export { customRender as render };
 export { renderWithRouter as renderWithRouter };

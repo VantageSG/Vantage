@@ -1,7 +1,7 @@
 import React from 'react';
 import App from 'components/App.jsx';
 import axios from 'axios';
-import { render, renderWithRouter, screen, wait, setDesktopWindow } from 'test-utils';
+import { renderWithRouter, screen, wait } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('axios');
 

@@ -18,7 +18,7 @@ import {
 
 const getWidth = () => {
   const isSSR = typeof window === "undefined";
-  return isSSR ? Responsive.onlyTablet.minWidth : Math.min(window.screen.width, window.innerWidth);
+  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
 };
 
 class MobileNavBar extends Component {

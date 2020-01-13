@@ -13,6 +13,7 @@ import {
   Visibility,
   Placeholder
 } from "semantic-ui-react";
+import Stepper from './Stepper';
 
 export default class ResumeBuilder extends Component {
   constructor(props) {
@@ -46,40 +47,12 @@ export default class ResumeBuilder extends Component {
             a simple text container
           </p>
         </Container>
-        <Visibility
-          onBottomPassed={this.stickTopMenu}
-          onBottomVisible={this.unStickTopMenu}
-          once={false}
-        >
-          <Menu borderless fixed={menuFixed ? "top" : undefined}>
-            <Container text>
-              <Menu.Item header>Project Name</Menu.Item>
-              <Menu.Item as="a">Blog</Menu.Item>
-              <Menu.Item as="a">Articles</Menu.Item>
 
-              <Menu.Menu position="right">
-                <Dropdown text="Dropdown" pointing className="link item">
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Header>Header Item</Dropdown.Header>
-                    <Dropdown.Item>
-                      <i className="dropdown icon" />
-                      <span className="text">Submenu</span>
-                      <Dropdown.Menu>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Menu.Menu>
-            </Container>
-          </Menu>
-        </Visibility>
+        
+    
+     
         <Container text style={{ minHeight: "200vh" }}>
+          <Stepper/>
           <Placeholder fluid>
             <Placeholder.Header image>
               <Placeholder.Line />

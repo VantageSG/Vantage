@@ -64,6 +64,55 @@ rspec spec/models/user_spec.rb
 
 # Vantage - Developer Guide
 
+## Vantage-Resume-Spec(vrs)
+This is Vantage own self-defined resume specification and it would be used to communicate the details of the resume between the front end and back end. Here is the format of the specification.
+
+```
+//VRS FORMAT
+{
+  "about": {
+    "name": "USER'S FULL NAME: str",
+    "email": "USER'S EMAIL: str",
+    "contactNumber": "USER'S CONTACT NUMBER: int",
+    "aboutMe": "SHORT WRITE UP OF USER: str"
+  },
+  "education": [
+    {
+      "program": "EDUCATION PROGRAMME: str",
+      "institution": "USER SCHOOL/ITE/PRIVATE SCHOOL ETC: str",
+      "start": "EDUCATION START DATE: int(DDMMYYYY)",
+      "end": "EDUCATION START DATE: int(DDMMYYYY)",
+      "grade": "EDUCATION GRADE: str"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "JOB TITLE: str",
+      "company": "COMPANY WORKING AT: str",
+      "start": "EDUCATION START DATE: int(DDMMYYYY)",
+      "end": "EDUCATION START DATE: int(DDMMYYYY)",
+      "achievements": ["SHORT WRITE UP ABOUT ACHIEVEMENTS IN THE COMPANY"],
+      "referee": {
+        "name": "NAME OF REFEREE: str",
+        "email": "EMAIL OF REFEREE: str"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "NAME OF SKILL: str",
+      "description": "short write up about skill",
+      "link": "External link to photo/video of the skill"
+    }
+  ],
+  "interest": [
+    {
+      "name": "NAME OF INTEREST: str"
+    }
+  ]
+}
+```
+
 ## Design
 Here contains the details of the design for the code base
 

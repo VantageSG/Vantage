@@ -116,9 +116,12 @@ class MobileNavBar extends Component {
           </Container>
         </Segment>
         </Visibility>
-
-          {children}
+        <Container fluid style={{ minHeight: "100vh" }}>
+        {children}
+        </Container>
    
+  
+         
         <Segment
           inverted
           style={{ margin: "5em 0em 0em", padding: "5em 0em" }}

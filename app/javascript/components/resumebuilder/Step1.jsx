@@ -15,6 +15,7 @@ const Step1 = (vertical) => {
     event.preventDefault();
     resolve("step1 resolved data");
   }
+  
 
 
   return (

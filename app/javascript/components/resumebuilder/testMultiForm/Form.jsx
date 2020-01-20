@@ -16,60 +16,6 @@ import Skills from "./formPages/Skills";
 import Interests from "./formPages/Interests";
 import { Animated } from "react-animated-css";
 
-const FormActionButtons = props => {
-  return (
-    <div className="ui two buttons">
-      <Button
-        color="red"
-        onClick={props.previousStep}
-        content="previous"
-      ></Button>
-      <Button.Or />
-
-      {props.step === props.maxStep ? (
-        <ModalConfirm
-          props={props}
-          color="green"
-          onClick={props.submitAndContinue}
-          content="Confirm and Submit"
-        ></ModalConfirm>
-      ) : (
-        <Button color="orange" onClick={props.nextStep} content="next"></Button>
-      )}
-    </div>
-  );
-};
-
-const ModalConfirm = props => {
-  console.log(props);
-  return (
-    <Modal
-      trigger={
-        <Button
-          color="green"
-          onClick={props.submitAndContinue}
-          content="Confirm and Submit"
-        ></Button>
-      }
-      centered={false}
-    >
-      <Modal.Header>Please Confirm your details!</Modal.Header>
-      <Modal.Content image>
-        <Image
-          wrapped
-          size="medium"
-          src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-        />
-        <Modal.Description>
-          <Header>The following are your details!</Header>
-
-          <p>Is it okay?</p>
-        </Modal.Description>
-      </Modal.Content>
-    </Modal>
-  );
-};
-
 export default class FormStep extends Component {
   constructor(props) {
     super(props);
@@ -190,138 +136,68 @@ export default class FormStep extends Component {
       achievements
     };
 
-    const { skills, skillName, description, link } = this.state;
-    const skillsValue = { skills, skillName, description, link };
-
-    const { interests, interestName } = this.state;
-    const interestsValue = { interests, interestName };
-
     {
       switch (step) {
         case 0:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <About
-                    aboutValues={aboutValues}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  />
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <About
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              />
             </Container>
           );
 
         case 1:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <Education
-                    educationValues={educationValues}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></Education>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <Education
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></Education>
             </Container>
           );
         case 2:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <WorkExperience
-                    workExperienceValues={workExperienceValues}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></WorkExperience>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <WorkExperience
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></WorkExperience>
             </Container>
           );
         case 3:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <Skills
-                    skillsValue={skillsValue}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></Skills>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <Skills
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></Skills>
             </Container>
           );
 
         case 4:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <Interests
-                    interestsValue={interestsValue}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></Interests>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    interestsValue={interestsValue}
-                    submitAndContinue={this.submitAndContinue}
-                    workExperienceValues={workExperienceValues}
-                    skillsValue={skillsValue}
-                    educationValues={educationValues}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <Interests
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></Interests>
             </Container>
           );
       }

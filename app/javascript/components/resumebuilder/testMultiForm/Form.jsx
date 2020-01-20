@@ -16,29 +16,29 @@ import Skills from "./formPages/Skills";
 import Interests from "./formPages/Interests";
 import { Animated } from "react-animated-css";
 
-const FormActionButtons = props => {
-  return (
-    <div className="ui two buttons">
-      <Button
-        color="red"
-        onClick={props.previousStep}
-        content="previous"
-      ></Button>
-      <Button.Or />
+// const FormActionButtons = props => {
+//   return (
+//     <div className="ui two buttons">
+//       <Button
+//         color="red"
+//         onClick={props.previousStep}
+//         content="previous"
+//       ></Button>
+//       <Button.Or />
 
-      {props.step === props.maxStep ? (
-        <ModalConfirm
-          props={props}
-          color="green"
-          onClick={props.submitAndContinue}
-          content="Confirm and Submit"
-        ></ModalConfirm>
-      ) : (
-        <Button color="orange" onClick={props.nextStep} content="next"></Button>
-      )}
-    </div>
-  );
-};
+//       {props.step === props.maxStep ? (
+//         <ModalConfirm
+//           props={props}
+//           color="green"
+//           onClick={props.submitAndContinue}
+//           content="Confirm and Submit"
+//         ></ModalConfirm>
+//       ) : (
+//         <Button color="orange" onClick={props.nextStep} content="next"></Button>
+//       )}
+//     </div>
+//   );
+// };
 
 const ModalConfirm = props => {
   console.log(props);
@@ -203,9 +203,6 @@ export default class FormStep extends Component {
             <Container text>
               <About
                 aboutValues={aboutValues}
-                handleChange={this.handleChange}
-                previousStep={this.previousStep}
-                nextStep={this.nextStep}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -220,9 +217,6 @@ export default class FormStep extends Component {
             <Container text>
               <Education
                 educationValues={educationValues}
-                handleChange={this.handleChange}
-                previousStep={this.previousStep}
-                nextStep={this.nextStep}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -236,9 +230,6 @@ export default class FormStep extends Component {
             <Container text>
               <WorkExperience
                 workExperienceValues={workExperienceValues}
-                handleChange={this.handleChange}
-                previousStep={this.previousStep}
-                nextStep={this.nextStep}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -250,54 +241,27 @@ export default class FormStep extends Component {
         case 3:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <Skills
-                    skillsValue={skillsValue}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></Skills>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <Skills
+                skillsValue={skillsValue}
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></Skills>
             </Container>
           );
 
         case 4:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <Interests
-                    interestsValue={interestsValue}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></Interests>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    interestsValue={interestsValue}
-                    submitAndContinue={this.submitAndContinue}
-                    workExperienceValues={workExperienceValues}
-                    skillsValue={skillsValue}
-                    educationValues={educationValues}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <Interests
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></Interests>
             </Container>
           );
       }

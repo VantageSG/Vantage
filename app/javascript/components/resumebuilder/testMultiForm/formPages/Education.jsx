@@ -17,86 +17,120 @@ export default class Education extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      education: {
+      educations: [{
         program: "",
         institution: "",
         startEdu: "",
         endEdu: "",
         grade: "",
-      }
+      }]
     }
   }
 
-  handleFormChange = event => {
-    const { name, value } = event.target;
-    console.log(this.state.education);
+  handleFormChange(event, index){
+    const { name, value } = event.target
+    const { educations } = this.state;
+    educations[index][name] = value;
     this.setState({
-      education: {
-        ...this.state.education,
-        [name]: value
-      }
+      educations
     });
+    console.log(this.state.educations)
+
+  }
+
+  handleAddForm = () => {
+    this.setState({educations:[...this.state.educations, {
+      program: "",
+      institution: "",
+      startEdu: "",
+      endEdu: "",
+      grade: "",
+    }]})
+  }
+
+  handleRemoveForm(index) {
+    this.state.educations.splice(index, 1)
+    this.setState({educations: this.state.educations})
   }
 
   nextStepWApiReq = () => {
     this.props.nextStep()
     //Call post backend api /api/v1/education...
   }
+  
+
+
 
   render() {
-    const educationValues = this.state.education
-    const { handleChange } = this.props;
+    const educations = this.state.educations
     return (
       <Card centered fluid>
+        {
+          this.state.educations.map((education, index)=>{
+            return (
+              <Segment key={index}>
+                <Animated animationIn="fadeInRight" animationOut="fadeOutRight">
+                  <Button
+                    icon="x"
+                    floated="right"
+                    onClick={()=>this.handleRemoveForm(index)}
+                  />
+                  <Header as="h3">Where did u study?</Header>
+                  <Form>
+                    <Form.Input
+                      fluid
+                      icon="address card"
+                      iconPosition="left"
+                      label="Instituition Name"
+                      placeholder="Instituition Name"
+                      name="institution"
+                      value={education.instituition}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                    />
+                    <Form.Input
+                      fluid
+                      icon="book"
+                      iconPosition="left"
+                      label="Program"
+                      placeholder="Program"
+                      name="program"
+                      value={education.program}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                    />
+                    <Form.Group widths="equal">
+                      {" "}
+                      <Form.Input
+                        fluid
+                        icon="calendar"
+                        iconPosition="left"
+                      label="Start date"
+                        placeholder="Start date"
+                        name="startEdu"
+                        value={education.startEdu}
+                        onChange={(event) => this.handleFormChange(event, index)}
+                      />
+                      <Form.Input
+                        fluid
+                        icon="calendar"
+                        iconPosition="left"
+                        placeholder="End date"
+                        label="End date"
+                        name="endEdu"
+                        value={education.endEdu}
+                        onChange={(event) => this.handleFormChange(event, index)}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Animated>
+              </Segment>
+            )
+          })
+        }
         <Segment>
-          <Animated animationIn="fadeInRight" animationOut="fadeOutRight">
-            <Header as="h3">Where did u study?</Header>
-            <Form>
-              <Form.Input
-                fluid
-                icon="address card"
-                iconPosition="left"
-                label="Instituition Name"
-                placeholder="Instituition Name"
-                name="institution"
-                value={educationValues.instituition}
-                onChange={this.handleFormChange}
-              />
-              <Form.Input
-                fluid
-                icon="book"
-                iconPosition="left"
-                label="Program"
-                placeholder="Program"
-                name="program"
-                value={educationValues.program}
-                onChange={this.handleFormChange}
-              />
-              <Form.Group widths="equal">
-                {" "}
-                <Form.Input
-                  fluid
-                  icon="calendar"
-                  iconPosition="left"
-                label="Start date"
-                  placeholder="Start date"
-                  name="startEdu"
-                  value={educationValues.startEdu}
-                  onChange={this.handleFormChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="calendar"
-                  iconPosition="left"
-                  placeholder="End date"
-                  label="End date"
-                  name="endEdu"
-                  value={educationValues.endEdu}
-                  onChange={this.handleFormChange}
-                />
-              </Form.Group>
-            </Form>
-          </Animated>
+          <Button
+          icon="add"
+          onClick={this.handleAddForm}
+          />
         </Segment>
         <Card.Content extra>
           <FormActionButtons

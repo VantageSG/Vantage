@@ -27,10 +27,11 @@ export default class Interests extends Component {
   handleFormChange = event => {
     const { name, value } = event.target;
     console.log(this.state.interests);
-    var stateInterests = this.state.interests;
-    stateInterests[name] = value;
     this.setState({
-      interests: stateInterests
+      interests: {
+        ...this.state.interests,
+        [name]: value
+      }
     });
   }
 

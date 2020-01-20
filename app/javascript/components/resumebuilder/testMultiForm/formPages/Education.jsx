@@ -30,10 +30,11 @@ export default class Education extends Component {
   handleFormChange = event => {
     const { name, value } = event.target;
     console.log(this.state.education);
-    var stateEducation = this.state.education;
-    stateEducation[name] = value;
     this.setState({
-      about: stateEducation
+      education: {
+        ...this.state.education,
+        [name]: value
+      }
     });
   }
 

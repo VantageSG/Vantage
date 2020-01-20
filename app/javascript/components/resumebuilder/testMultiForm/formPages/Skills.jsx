@@ -29,10 +29,11 @@ export default class Skills extends Component {
   handleFormChange = event => {
     const { name, value } = event.target;
     console.log(this.state.skills);
-    var stateSkills = this.state.skills;
-    stateSkills[name] = value;
     this.setState({
-      skills: stateSkills
+      skills: {
+        ...this.state.skills,
+        [name]: value
+      }
     });
   }
 

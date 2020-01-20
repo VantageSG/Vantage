@@ -13,26 +13,28 @@ import {
 import FormActionButtons from "../FormActionButtons"
 import { Animated } from "react-animated-css";
 
+const aboutSchema = {
+  name: "",
+  email: "",
+  contactNumber: "",
+  aboutMe: ""
+}
 export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      about: {
-        name: "",
-        email: "",
-        contactNumber: "",
-        aboutMe: ""
-      }
+      about: aboutSchema
     };
   }
 
   handleFormChange = event => {
     const { name, value } = event.target;
-    console.log(this.state.about);
-    var stateAbout = this.state.about;
-    stateAbout[name] = value;
+    console.log(this.state.about)
     this.setState({
-      about: stateAbout
+      about: {
+        ...this.state.about,
+        [name]: value,
+      }
     });
   }
 

@@ -31,10 +31,11 @@ export default class WorkExperience extends Component {
   handleFormChange = event => {
     const { name, value } = event.target;
     console.log(this.state.workExperience);
-    var stateWorkExperience = this.state.workExperience;
-    stateWorkExperience[name] = value;
     this.setState({
-      workExperience: stateWorkExperience
+      workExperience: {
+        ...this.state.workExperience,
+        [name]: value
+      }
     });
   }
 

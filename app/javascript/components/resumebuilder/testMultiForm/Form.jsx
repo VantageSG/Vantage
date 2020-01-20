@@ -201,50 +201,34 @@ export default class FormStep extends Component {
         case 0:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <About
-                    aboutValues={aboutValues}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  />
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <About
+                aboutValues={aboutValues}
+                handleChange={this.handleChange}
+                previousStep={this.previousStep}
+                nextStep={this.nextStep}
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              />
             </Container>
           );
 
         case 1:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <Education
-                    educationValues={educationValues}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></Education>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <Education
+                educationValues={educationValues}
+                handleChange={this.handleChange}
+                previousStep={this.previousStep}
+                nextStep={this.nextStep}
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></Education>
             </Container>
           );
         case 2:

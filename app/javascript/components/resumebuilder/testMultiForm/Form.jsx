@@ -234,25 +234,17 @@ export default class FormStep extends Component {
         case 2:
           return (
             <Container text>
-              <Card centered fluid>
-                <Segment>
-                  <WorkExperience
-                    workExperienceValues={workExperienceValues}
-                    handleChange={this.handleChange}
-                    previousStep={this.previousStep}
-                    nextStep={this.nextStep}
-                  ></WorkExperience>
-                </Segment>
-                <Card.Content extra>
-                  <FormActionButtons
-                    submitAndContinue={this.submitAndContinue}
-                    step={step}
-                    maxStep={maxStep}
-                    nextStep={this.nextStep}
-                    previousStep={this.previousStep}
-                  />
-                </Card.Content>
-              </Card>
+              <WorkExperience
+                workExperienceValues={workExperienceValues}
+                handleChange={this.handleChange}
+                previousStep={this.previousStep}
+                nextStep={this.nextStep}
+                submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+              ></WorkExperience>
             </Container>
           );
         case 3:

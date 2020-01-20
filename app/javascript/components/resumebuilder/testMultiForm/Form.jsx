@@ -189,20 +189,13 @@ export default class FormStep extends Component {
       end,
       achievements
     };
-
-    const { skills, skillName, description, link } = this.state;
-    const skillsValue = { skills, skillName, description, link };
-
-    const { interests, interestName } = this.state;
-    const interestsValue = { interests, interestName };
-
+    
     {
       switch (step) {
         case 0:
           return (
             <Container text>
               <About
-                aboutValues={aboutValues}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -216,7 +209,6 @@ export default class FormStep extends Component {
           return (
             <Container text>
               <Education
-                educationValues={educationValues}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -229,7 +221,6 @@ export default class FormStep extends Component {
           return (
             <Container text>
               <WorkExperience
-                workExperienceValues={workExperienceValues}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -242,7 +233,6 @@ export default class FormStep extends Component {
           return (
             <Container text>
               <Skills
-                skillsValue={skillsValue}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}

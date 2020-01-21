@@ -13,17 +13,20 @@ import {
 import FormActionButtons from "../FormActionButtons"
 import { Animated } from "react-animated-css";
 
+const educationSchema = {
+  program: "",
+  institution: "",
+  startEdu: "",
+  endEdu: "",
+  grade: "",
+}
+
 export default class Education extends Component {
   constructor(props) {
     super(props);
+    var cloneEducationSchema = Object.assign({}, educationSchema)
     this.state = {
-      educations: [{
-        program: "",
-        institution: "",
-        startEdu: "",
-        endEdu: "",
-        grade: "",
-      }]
+      educations: [cloneEducationSchema]
     }
   }
 
@@ -37,13 +40,8 @@ export default class Education extends Component {
   }
 
   handleAddForm = () => {
-    this.setState({educations:[...this.state.educations, {
-      program: "",
-      institution: "",
-      startEdu: "",
-      endEdu: "",
-      grade: "",
-    }]})
+    var cloneEducationSchema = Object.assign({}, educationSchema)
+    this.setState({educations:[...this.state.educations, cloneEducationSchema]})
   }
 
   handleRemoveForm(index) {
@@ -53,6 +51,8 @@ export default class Education extends Component {
 
   nextStepWApiReq = () => {
     this.props.nextStep()
+    console.log("Sending back end: ")
+    console.log(this.state.educations)
     //Call post backend api /api/v1/education...
   }
   
@@ -60,7 +60,6 @@ export default class Education extends Component {
 
 
   render() {
-    console.log(this.state.educations)
     return (
       <Card centered fluid>
         {
@@ -68,11 +67,14 @@ export default class Education extends Component {
             return (
               <Segment key={index}>
                 <Animated animationIn="fadeInRight" animationOut="fadeOutRight">
-                  <Button
-                    icon="x"
-                    floated="right"
-                    onClick={()=>this.handleRemoveForm(index)}
-                  />
+                  {
+                    this.state.educations.length > 1 &&
+                    <Button
+                      icon="x"
+                      floated="right"
+                      onClick={()=>this.handleRemoveForm(index)}
+                    />
+                  }
                   <Header as="h3">Where did u study?</Header>
                   <Form>
                     <Form.Input

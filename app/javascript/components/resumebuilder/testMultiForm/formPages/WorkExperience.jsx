@@ -13,105 +13,133 @@ import {
 import FormActionButtons from "../FormActionButtons"
 import { Animated } from "react-animated-css";
 
+const workExperienceSchema = {
+  title: "",
+  company: "",
+  start: "",
+  end: "",
+  achievements: "",
+}
 
 export default class WorkExperience extends Component {
   constructor(props) {
     super(props);
+    var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
     this.state = {
-      workExperience: {
-        title: "",
-        company: "",
-        start: "",
-        end: "",
-        achievements: "",
-      }
+      workExperiences: [cloneWorkExperienceSchema]
     };
   }
 
-  handleFormChange = event => {
+  handleFormChange(event, index){
     const { name, value } = event.target;
-    console.log(this.state.workExperience);
+    const { workExperiences } = this.state;
+    workExperiences[index][name] = value;
     this.setState({
-      workExperience: {
-        ...this.state.workExperience,
-        [name]: value
-      }
+      workExperiences
     });
+  }
+
+  handleAddForm = () => {
+    var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
+    this.setState({workExperiences:[...this.state.workExperiences, cloneWorkExperienceSchema]})
+  }
+
+  handleRemoveForm(index) {
+    this.state.workExperiences.splice(index, 1)
+    this.setState({workExperiences: this.state.workExperiences})
   }
 
   nextStepWApiReq = () => {
     this.props.nextStep()
-    //Call post backend api /api/v1/about...
+    console.log("Sending back end: ")
+    console.log(this.state.workExperiences)
+    //Call post backend api /api/v1/education...
   }
 
 
   render() {
-    const workExperienceValues = this.state.workExperience
     return (
-      <div>
-        <Card centered fluid>
-          <Segment>
-            <Animated animationIn="fadeInLeft" animationOut="fadeOutDown">
-              <Form>
-                <Header as='h3'>Where have you worked before?</Header>
-              
-                <Form.Input
-                  fluid
-                  icon="address card"
-                  label="Name of Position"
-                  iconPosition="left"
-                  placeholder="Name of Position"
-                  name="title"
-                  value={workExperienceValues.instituition}
-                  onChange={this.handleFormChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="book"
-                  label="Company"
-                  iconPosition="left"
-                  placeholder="Company"
-                  name="company"
-                  value={workExperienceValues.program}
-                  onChange={this.handleFormChange}
-                />
-                <Form.Group widths="equal">
-                  {" "}
-                  <Form.Input
-                    fluid
-                    icon="calendar"
-                    label="Start Date"
-                    iconPosition="left"
-                    placeholder="Start date"
-                    name="start"
-                    value={workExperienceValues.start}
-                    onChange={this.handleFormChange}
-                  />
-                  <Form.Input
-                    fluid
-                    icon="calendar"
-                    iconPosition="left"
-                    label="End date"
-                    placeholder="End date"
-                    name="end"
-                    value={workExperienceValues.end}
-                    onChange={this.handleFormChange}
-                  />
-                </Form.Group>
-              </Form>
-            </Animated>
-          </Segment>
-          <Card.Content extra>
-            <FormActionButtons
-              submitAndContinue={this.props.submitAndContinue}
-              step={this.props.step}
-              maxStep={this.props.maxStep}
-              nextStep={this.nextStepWApiReq}
-              previousStep={this.props.previousStep}
-            />
-          </Card.Content> 
-        </Card>
-      </div>
+      <Card centered fluid>
+        {
+          this.state.workExperiences.map((workExperience, index)=>{
+            return(
+              <Segment>
+                <Animated animationIn="fadeInLeft" animationOut="fadeOutDown">
+                {
+                    this.state.workExperiences.length > 1 &&
+                    <Button
+                      icon="x"
+                      floated="right"
+                      onClick={()=>this.handleRemoveForm(index)}
+                    />
+                  }
+                  <Header as='h3'>Where have you worked before?</Header>
+                    <Form>
+                    <Form.Input
+                      fluid
+                      icon="address card"
+                      label="Name of Position"
+                      iconPosition="left"
+                      placeholder="Name of Position"
+                      name="title"
+                      value={workExperience.title}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                    />
+                    <Form.Input
+                      fluid
+                      icon="book"
+                      label="Company"
+                      iconPosition="left"
+                      placeholder="Company"
+                      name="company"
+                      value={workExperience.company}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                    />
+                    <Form.Group widths="equal">
+                      {" "}
+                      <Form.Input
+                        fluid
+                        icon="calendar"
+                        label="Start Date"
+                        iconPosition="left"
+                        placeholder="Start date"
+                        name="start"
+                        value={workExperience.start}
+                        onChange={(event) => this.handleFormChange(event, index)}
+                      />
+                      <Form.Input
+                        fluid
+                        icon="calendar"
+                        iconPosition="left"
+                        label="End date"
+                        placeholder="End date"
+                        name="end"
+                        value={workExperience.end}
+                        onChange={(event) => this.handleFormChange(event, index)}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Animated>
+              </Segment>
+            )
+          })
+        }
+        <Segment>
+          <Button
+          icon="add"
+          onClick={this.handleAddForm}
+          />
+        </Segment>
+        <Card.Content extra>
+          <FormActionButtons
+            submitAndContinue={this.props.submitAndContinue}
+            step={this.props.step}
+            maxStep={this.props.maxStep}
+            nextStep={this.nextStepWApiReq}
+            previousStep={this.props.previousStep}
+          />
+        </Card.Content>
+      </Card>
     );
   }
 }

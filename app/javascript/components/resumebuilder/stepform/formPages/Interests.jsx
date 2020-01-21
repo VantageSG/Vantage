@@ -75,9 +75,9 @@ export default class Interests extends Component {
                   <Form>
                     <Form.Input
                       fluid
-                      placeholder="Enter skill"
-                      label="Skill"
-                      name="skill"
+                      placeholder="Enter Interest"
+                      label="Interest"
+                      name="interestName"
                       value={interest.interestsName}
                       onChange={(event) => this.handleFormChange(event, index)}
                     />

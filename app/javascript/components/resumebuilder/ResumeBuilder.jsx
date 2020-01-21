@@ -14,7 +14,7 @@ import {
   Placeholder
 } from "semantic-ui-react";
 
-import FormStep from "./testMultiForm/Form";
+import FormStep from "./stepform/Form";
 
 export default class ResumeBuilder extends Component {
   constructor(props) {

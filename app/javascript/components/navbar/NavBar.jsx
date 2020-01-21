@@ -39,7 +39,6 @@ class MobileNavBar extends Component {
           color="facebook"
           size="large"
           content={user.username}
-          inverted={!this.state.fixed}
           primary={this.state.fixed}
           style={{ marginLeft: "0.5em" }}
         ></Button>
@@ -48,7 +47,6 @@ class MobileNavBar extends Component {
       <Menu.Item position="right">
         <Button
           color="green"
-          inverted={!this.state.fixed}
           size="large"
           as={Link}
           to="/login"
@@ -60,7 +58,6 @@ class MobileNavBar extends Component {
           as={Link}
           to="/signup"
           icon="registered"
-          inverted={!this.state.fixed}
           primary={this.state.fixed}
           style={{ marginLeft: "0.5em" }}
         ></Button>
@@ -74,17 +71,18 @@ class MobileNavBar extends Component {
 
     return (
       <Responsive
-       as={Sidebar.Pushable}
+        as={Sidebar.Pushable}
         getWidth={getWidth}
         maxWidth={Responsive.onlyMobile.maxWidth}
       >
         <Sidebar
+          position="left"
           as={Menu}
           animation="push"
-          inverted
           onHide={this.handleSidebarHide}
           vertical
           visible={sidebarOpened}
+          style={{ backgroundColor: "#f4a300" }}
         >
           <Menu.Item as={Link} to="/">
             Home
@@ -97,14 +95,16 @@ class MobileNavBar extends Component {
           </Menu.Item>
         </Sidebar>
         <Visibility once={true}>
-        <Segment
-          inverted
-          textAlign="center"
-          style={{ minHeight: 50, padding: "1em 0em" }}
-          vertical
-        >
-          <Container>
-            <Menu inverted pointing secondary size="large">
+          <Segment
+            textAlign="center"
+            style={{
+              minHeight: 50,
+              padding: "1em 0em",
+              backgroundColor: "#f4a300"
+            }}
+            vertical
+          >
+            <Menu fluid secondary size="medium" borderless>
               <Menu.Item onClick={this.handleToggle}>
                 <Icon name="sidebar" />
               </Menu.Item>
@@ -113,22 +113,15 @@ class MobileNavBar extends Component {
                 this.props.user
               )}
             </Menu>
-          </Container>
-        </Segment>
+          </Segment>
         </Visibility>
-        <Container fluid style={{ minHeight: "100vh" }}>
-        {children}
-        </Container>
-   
-  
-         
-        <Segment
-          inverted
-          style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
-          vertical
-        >
+        <div  style={{ minHeight: "100vh" }}>
+          {children}
+        </div>
+
+        <Segment style={{ margin: "5em 0em 0em", padding: "5em 0em" }} vertical>
           <Container textAlign="center">
-            <List horizontal inverted divided link size="small">
+            <List horizontal divided link size="small">
               <List.Item as="a" href="#">
                 Site Map
               </List.Item>
@@ -166,7 +159,6 @@ class DesktopNavBar extends Component {
           color="facebook"
           size="large"
           content={user.username}
-          inverted={!this.state.fixed}
           primary={this.state.fixed}
           style={{ marginLeft: "0.5em" }}
         ></Button>
@@ -175,7 +167,6 @@ class DesktopNavBar extends Component {
       <Menu.Item position="right">
         <Button
           color="green"
-          inverted={!this.state.fixed}
           size="large"
           as={Link}
           to="/login"
@@ -189,7 +180,6 @@ class DesktopNavBar extends Component {
           to="/signup"
           icon="registered"
           content="Sign up"
-          inverted={!this.state.fixed}
           primary={this.state.fixed}
           style={{ marginLeft: "0.5em" }}
         ></Button>
@@ -207,48 +197,42 @@ class DesktopNavBar extends Component {
           minWidth={Responsive.onlyTablet.minWidth}
         >
           <Visibility once={true} onBottomPassedReverse={this.hideFixedMenu}>
-            <Segment
-              inverted
-              textAlign="center"
-              style={{ minHeight: 50, padding: "1em 0em" }}
-              vertical
-            >
-              <Menu
-                fixed={fixed ? "top" : null}
-                inverted={!fixed}
-                pointing={!fixed}
-                secondary={!fixed}
-                size="large"
-              >
-                <Container>
-                  <Menu.Item as={Link} to="/">
-                    Home
-                  </Menu.Item>
-                  <Menu.Item as={Link} to="/UserProfiles">
-                    User Profiles
-                  </Menu.Item>
-                  <Menu.Item as={Link} to="/ResumeBuilder">
-                    Resume Builder
-                  </Menu.Item>
+        <Grid  style={{
+                minHeight: 50,
+                padding: "1em 0em",
+                backgroundColor: "#f4a300"
+              }}>
+          <Grid.Row centered>
+          <Menu borderless secondary size="small" compact>
+                <Menu.Item as={Link} to="/">
+                  Home
+                </Menu.Item>
+                <Menu.Item as={Link} to="/UserProfiles">
+                  User Profiles
+                </Menu.Item>
+                <Menu.Item as={Link} to="/ResumeBuilder">
+                  Resume Builder
+                </Menu.Item>
 
-                  {this.renderRegistrationButton(
-                    this.props.loggedInStatus,
-                    this.props.user
-                  )}
-                </Container>
+                {this.renderRegistrationButton(
+                  this.props.loggedInStatus,
+                  this.props.user
+                )}
               </Menu>
-            </Segment>
+          </Grid.Row>
+        </Grid>
+
+
           </Visibility>
           <Container fluid style={{ minHeight: "100vh" }}>
             {children}
           </Container>
           <Segment
-            inverted
             style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
             vertical
           >
             <Container textAlign="center">
-              <List horizontal inverted divided link size="small">
+              <List horizontal divided link size="small">
                 <List.Item as="a" href="#">
                   Site Map
                 </List.Item>

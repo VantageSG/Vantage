@@ -60,7 +60,7 @@ export default class Skills extends Component {
         {
           this.state.skills.map((skills, index)=>{
             return(
-              <Segment>
+              <Segment key={index}>
                 <Animated animationIn="fadeInRight" animationOut="fadeOutDown">
                   {
                     this.state.skills.length > 1 &&

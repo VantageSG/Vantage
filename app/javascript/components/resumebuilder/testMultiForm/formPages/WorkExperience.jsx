@@ -63,7 +63,7 @@ export default class WorkExperience extends Component {
         {
           this.state.workExperiences.map((workExperience, index)=>{
             return(
-              <Segment>
+              <Segment key={index}>
                 <Animated animationIn="fadeInLeft" animationOut="fadeOutDown">
                 {
                     this.state.workExperiences.length > 1 &&

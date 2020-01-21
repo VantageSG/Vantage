@@ -56,9 +56,6 @@ export default class Education extends Component {
     //Call post backend api /api/v1/education...
   }
   
-
-
-
   render() {
     return (
       <Card centered fluid>

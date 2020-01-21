@@ -34,8 +34,6 @@ export default class Education extends Component {
     this.setState({
       educations
     });
-    console.log(this.state.educations)
-
   }
 
   handleAddForm = () => {
@@ -62,7 +60,7 @@ export default class Education extends Component {
 
 
   render() {
-    const educations = this.state.educations
+    console.log(this.state.educations)
     return (
       <Card centered fluid>
         {
@@ -81,10 +79,10 @@ export default class Education extends Component {
                       fluid
                       icon="address card"
                       iconPosition="left"
-                      label="Instituition Name"
-                      placeholder="Instituition Name"
+                      label="Institution Name"
+                      placeholder="Institution Name"
                       name="institution"
-                      value={education.instituition}
+                      value={education.institution}
                       onChange={(event) => this.handleFormChange(event, index)}
                     />
                     <Form.Input
@@ -103,7 +101,7 @@ export default class Education extends Component {
                         fluid
                         icon="calendar"
                         iconPosition="left"
-                      label="Start date"
+                        label="Start date"
                         placeholder="Start date"
                         name="startEdu"
                         value={education.startEdu}

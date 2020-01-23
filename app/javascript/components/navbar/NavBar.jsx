@@ -44,30 +44,20 @@ class MobileNavBar extends Component {
         ></Button>
       </Menu.Item>
     ) : (
-      <Menu.Item position="right">
-        <Button
-          color="green"
-          size="large"
-          as={Link}
-          to="/login"
-          icon="sign in alternate"
-        ></Button>
-        <Button
-          color="blue"
-          size="large"
-          as={Link}
-          to="/signup"
-          icon="registered"
-          primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
-      </Menu.Item>
+      <React.Fragment>
+        <Menu.Item as={Link} to="/login">
+          Login
+        </Menu.Item>
+        <Menu.Item as={Link} to="/signup">
+          Sign up
+        </Menu.Item>
+      </React.Fragment>
     );
   };
 
   render() {
     const { children } = this.props;
-    const { sidebarOpened, fixed } = this.state;
+    const { sidebarOpened } = this.state;
 
     return (
       <Responsive
@@ -93,6 +83,10 @@ class MobileNavBar extends Component {
           <Menu.Item as={Link} to="/ResumeBuilder">
             Resume Builder
           </Menu.Item>
+          {this.renderRegistrationButton(
+            this.props.loggedInStatus,
+            this.props.user
+          )}
         </Sidebar>
         <Visibility once={true}>
           <Segment
@@ -104,21 +98,14 @@ class MobileNavBar extends Component {
             }}
             vertical
           >
-            <Menu fluid secondary size="medium" borderless>
+            <Menu fluid secondary size="small" borderless>
               <Menu.Item onClick={this.handleToggle}>
                 <Icon name="sidebar" />
               </Menu.Item>
-              {this.renderRegistrationButton(
-                this.props.loggedInStatus,
-                this.props.user
-              )}
             </Menu>
           </Segment>
         </Visibility>
-        <div  style={{ minHeight: "100vh" }}>
-          {children}
-        </div>
-
+        <div style={{ minHeight: "100vh" }}>{children}</div>
         <Segment style={{ margin: "5em 0em 0em", padding: "5em 0em" }} vertical>
           <Container textAlign="center">
             <List horizontal divided link size="small">
@@ -164,26 +151,12 @@ class DesktopNavBar extends Component {
         ></Button>
       </Menu.Item>
     ) : (
-      <Menu.Item position="right">
-        <Button
-          color="green"
-          size="large"
-          as={Link}
-          to="/login"
-          icon="sign in alternate"
-          content="Login"
-        ></Button>
-        <Button
-          color="blue"
-          size="large"
-          as={Link}
-          to="/signup"
-          icon="registered"
-          content="Sign up"
-          primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
-      </Menu.Item>
+      <React.Fragment>
+        <Menu.Item as={Link} to="/login" fitted>
+          Login
+        </Menu.Item>
+        <Menu.Item as={Link} to="/signup" fitted>Sign Up</Menu.Item>
+      </React.Fragment>
     );
   };
 
@@ -197,32 +170,43 @@ class DesktopNavBar extends Component {
           minWidth={Responsive.onlyTablet.minWidth}
         >
           <Visibility once={true} onBottomPassedReverse={this.hideFixedMenu}>
-        <Grid  style={{
-                minHeight: 50,
+            <Grid
+              style={{
+                minHeight: 30,
                 padding: "1em 0em",
+                paddingBottom: "1em ",
                 backgroundColor: "#f4a300"
-              }}>
-          <Grid.Row centered>
-          <Menu borderless secondary size="small" compact>
-                <Menu.Item as={Link} to="/">
-                  Home
-                </Menu.Item>
-                <Menu.Item as={Link} to="/UserProfiles">
-                  User Profiles
-                </Menu.Item>
-                <Menu.Item as={Link} to="/ResumeBuilder">
-                  Resume Builder
-                </Menu.Item>
-
-                {this.renderRegistrationButton(
-                  this.props.loggedInStatus,
-                  this.props.user
-                )}
-              </Menu>
-          </Grid.Row>
-        </Grid>
-
-
+              }}
+              columns={3}
+              centered
+            >
+              <Grid.Row centered>
+                <Grid.Column textAlign="left" verticalAlign="middle" >
+              <p style={{marginLeft:"1em"}} ><Icon name="lightbulb outline"></Icon>VANTAGE</p>
+                </Grid.Column>
+                <Grid.Column textAlign="center">
+                  {" "}
+                  <Menu borderless secondary size="small" compact style={{marginleft:"auto", marginRight: "auto"}}>
+                    <Menu.Item as={Link} to="/" fitted>
+                      Home
+                    </Menu.Item>
+                    <Menu.Item as={Link} to="/UserProfiles" fitted>
+                      User Profiles
+                    </Menu.Item>
+                    <Menu.Item as={Link} to="/ResumeBuilder" fitted>
+                      Resume Builder
+                    </Menu.Item>
+                    {this.renderRegistrationButton(
+                      this.props.loggedInStatus,
+                      this.props.user
+                    )}
+                  </Menu>
+                </Grid.Column>
+                <Grid.Column>
+                 
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Visibility>
           <Container fluid style={{ minHeight: "100vh" }}>
             {children}

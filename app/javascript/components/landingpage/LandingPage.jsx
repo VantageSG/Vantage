@@ -64,6 +64,7 @@ class LandingPage extends Component {
           >
             <Grid centered columns={1}>
               <Grid.Column>
+             
                 <Container fluid textAlign="center">
                   <Responsive maxWidth={Responsive.onlyTablet.minWidth}>
                     <Header as="h1" style={{ fontSize: "3em" }}>
@@ -87,7 +88,7 @@ class LandingPage extends Component {
                 </Card>
                 <Container fluid textAlign="center">
                   <Header as="h3" style={{ fontSize: "2em" }}>
-                    Some slogan that amelia will come up with
+                    Climb higher with us.
                   </Header>
                 </Container>
               </Grid.Column>
@@ -115,8 +116,8 @@ class LandingPage extends Component {
                       <p>Our Platform</p>
                     </Divider>
                     <p style={{ fontSize: "1.33em" }}>
-                      We aim to create a career readiness platform that will
-                      empower Singaporean youths to find the best job for them.
+                    We aim to create a career readiness platform that will empower youths to
+                    transition into the workforce/ seamlessly kickstart their career / move into a career.
                     </p>
                     <Divider
                       as="h3"
@@ -131,9 +132,9 @@ class LandingPage extends Component {
                     </Divider>
 
                     <p style={{ fontSize: "1.33em" }}>
-                      With our interactive resume builder, pre-career employment
-                      assessment and curated industry information, we strive to
-                      provide all-rounded guidance to job-seeking youths.
+                    With our interactive resume builder, pre-career employment assessment and curated industry information,
+                     we strive to provide well-rounded guidance to job-seeking youths.
+
                     </p>
                   </Responsive>
                 </Container>
@@ -152,8 +153,7 @@ class LandingPage extends Component {
                   </Header>
                   <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                     <p style={{ fontSize: "1.33em" }}>
-                      To create the best career readiness platform that prepares
-                      youths transitioning to work.
+                    To create a guided, intuitive platform that prepares youths to be career-ready
                     </p>
                   </Responsive>
                 </Container>
@@ -172,8 +172,8 @@ class LandingPage extends Component {
                   </Header>
 
                   <p style={{ fontSize: "1.33em" }}>
-                    To provide equal employment opportunities to all Singaporean
-                    youths.
+                  To empower all youths to seamlessly transition into the workforce
+
                   </p>
 
                   <p style={{ fontSize: "1.33em" }}>

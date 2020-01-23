@@ -6,5 +6,4 @@ class Education < ApplicationRecord
   validates :start, numericality: { only_integer: true }
   validates :end, presence: true
   validates :end, numericality: { only_integer: true }
-  validates :grade, presence: true
 end

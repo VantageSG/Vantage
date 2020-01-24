@@ -25,6 +25,10 @@ export default class ResumeBuilder extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log( this.props.user);
+  }
+
   stickOverlay = () => this.setState({ overlayFixed: true });
 
   stickTopMenu = () => this.setState({ menuFixed: true });
@@ -40,7 +44,7 @@ export default class ResumeBuilder extends Component {
       <Container>
         <br/>
         <br/>
-        <FormStep />
+        <FormStep user={this.props.user} />
         <Visibility
           offset={80}
           once={false}

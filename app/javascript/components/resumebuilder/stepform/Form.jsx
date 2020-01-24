@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import {
-  Form,
-  Segment,
-  Button,
   Container,
-  Card,
-  Modal,
-  Header,
-  Image
 } from "semantic-ui-react";
 import About from "./formPages/About";
 import Education from "./formPages/Education";
 import WorkExperience from "./formPages/WorkExperience";
 import Skills from "./formPages/Skills";
 import Interests from "./formPages/Interests";
-import { Animated } from "react-animated-css";
+import ConfirmationPage  from "./formPages/ConfirmationPage";
 
 export default class FormStep extends Component {
+
+  // 0 - About me
+  // 1 - Edu
+  // 2 - work Exp
+  // 3 - skills
+  // 4 - interest
+  // 5 - confirmation page
   constructor(props) {
     super(props);
     this.state = {
-      maxStep: 4,
-      step: 0,
+      maxStep: 5,
+      step: 5,
       /// about me
       name: "",
       email: "",
@@ -34,19 +34,19 @@ export default class FormStep extends Component {
       startEdu: "",
       endEdu: "",
       grade: "",
-      // Work Experience (list of work experience)
+      /// Work Experience (list of work experience)
       workExperience: [],
       title: "",
       company: "",
       start: "",
       end: "",
       achievements: "",
-      //Skills (List of Skills)
+      /// Skills (List of Skills)
       skills: [],
       skillName: "",
       description: "",
       link: "",
-      //interest
+      /// interest
       interests: [],
       interestName: ""
     };
@@ -65,35 +65,39 @@ export default class FormStep extends Component {
     }
   };
 
+  goToAboutMe = () => {
+    const { step } = this.state;
+    this.setState({ step: 0});
+  }
+
+  goToEducation = () => {
+    const { step } = this.state;
+    this.setState({ step: 1});
+  }
+
+  goToWorkExperience= () => {
+    const { step } = this.state;
+    this.setState({ step: 2});
+  }
+
+  goToSkills= () => {
+    const { step } = this.state;
+    this.setState({ step: 3});
+  }
+
+  goToInterests= () => {
+    const { step } = this.state;
+    this.setState({ step: 4});
+  }
+
+
+
   handleChange = event => {
     const { name, value } = event.target;
     console.log(value);
     this.setState({
       [name]: value
     });
-  };
-
-  submitAndContinue = event => {
-    return (
-      <Modal centered={false}>
-        <Modal.Header>Select a Photo</Modal.Header>
-        <Modal.Content image>
-          <Image
-            wrapped
-            size="medium"
-            src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-          />
-          <Modal.Description>
-            <Header>Default Profile Image</Header>
-            <p>
-              We've found the following gravatar image associated with your
-              e-mail address.
-            </p>
-            <p>Is it okay to use this photo?</p>
-          </Modal.Description>
-        </Modal.Content>
-      </Modal>
-    );
   };
 
   render() {
@@ -200,6 +204,27 @@ export default class FormStep extends Component {
               ></Interests>
             </Container>
           );
+
+        case 5: 
+        return (
+          <Container text>
+     
+            <ConfirmationPage 
+            submitAndContinue={this.submitAndContinue}
+                step={step}
+                maxStep={maxStep}
+                nextStep={this.nextStep}
+                previousStep={this.previousStep}
+                goToAboutMe={this.goToAboutMe}
+                
+                goToEducation={this.goToEducation}
+                goToWorkExperience={this.goToWorkExperience}
+                goToSkills={this.goToSkills}
+                goToInterests={this.goToInterests}
+            >
+            </ConfirmationPage>
+            </Container>  
+        );
       }
     }
   }

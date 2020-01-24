@@ -10,7 +10,7 @@ import {
   Image,
   TextArea
 } from "semantic-ui-react";
-import FormActionButtons from "../FormActionButtons"
+import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 
 const interestSchema = {

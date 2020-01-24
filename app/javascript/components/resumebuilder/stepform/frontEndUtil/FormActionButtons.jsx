@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import {
-  Form,
-  Segment,
+  
   Button,
-  Container,
-  Card,
+  
   Modal,
-  Header,
-  Image
+ 
+  Loader,
 } from "semantic-ui-react";
 
 const FormActionButtons = props => {
@@ -35,29 +33,22 @@ const FormActionButtons = props => {
 };
 
 const ModalConfirm = props => {
-  console.log(props);
+  console.table(props);
   return (
     <Modal
       trigger={
         <Button
-          color="green"
+          color={props.color}
           onClick={props.submitAndContinue}
-          content="Confirm and Submit"
+          content={props.content}
         ></Button>
       }
       centered={false}
     >
-      <Modal.Header>Please Confirm your details!</Modal.Header>
-      <Modal.Content image>
-        <Image
-          wrapped
-          size="medium"
-          src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-        />
+      <Modal.Header>We are submitting your resume..</Modal.Header>
+      <Modal.Content>
         <Modal.Description>
-          <Header>The following are your details!</Header>
-
-          <p>Is it okay?</p>
+        <Loader indeterminate>Preparing</Loader>
         </Modal.Description>
       </Modal.Content>
     </Modal>

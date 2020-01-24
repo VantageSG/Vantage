@@ -76,7 +76,7 @@ This is Vantage own self-defined resume specification and it would be used to co
     "contactNumber": "USER'S CONTACT NUMBER: int",
     "aboutMe": "SHORT WRITE UP OF USER: str"
   },
-  "education": [
+  "educations": [
     {
       "program": "EDUCATION PROGRAMME: str",
       "institution": "USER SCHOOL/ITE/PRIVATE SCHOOL ETC: str",
@@ -85,7 +85,7 @@ This is Vantage own self-defined resume specification and it would be used to co
       "grade": "EDUCATION GRADE: str"
     }
   ],
-  "workExperience": [
+  "workExperiences": [
     {
       "title": "JOB TITLE: str",
       "company": "COMPANY WORKING AT: str",
@@ -105,7 +105,7 @@ This is Vantage own self-defined resume specification and it would be used to co
       "link": "External link to photo/video of the skill"
     }
   ],
-  "interest": [
+  "interests": [
     {
       "name": "NAME OF INTEREST: str"
     }

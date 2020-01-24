@@ -8,14 +8,14 @@ describe("Mobile devise", () => {
 
   describe("Responsive Container User not logged in", () => {
     setMobileWindow();
-    it("should not have registration button", () => {
+    it("should have registration button", () => {
       const containerMobileNotLoggedIn = renderWithRouter(<ResponsiveContainer 
         loggedInStatus={false}
         user={{}}
       />);
       setMobileWindow();
-      expect(containerMobileNotLoggedIn.queryByText("Login")).toBeNull();
-      expect(containerMobileNotLoggedIn.queryByText("Sign up")).toBeNull();
+      expect(containerMobileNotLoggedIn.queryByText("Login")).toBeInTheDocument();
+      expect(containerMobileNotLoggedIn.queryByText("Sign up")).toBeInTheDocument();
     });
   });
 });

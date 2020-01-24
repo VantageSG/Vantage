@@ -10,12 +10,17 @@ describe("Desktop ", () => {
       loggedInStatus={false}
       user={{}}
     />);
+    // TODO: fix the check for vantage logo
+    it("Should have vantage logo", () => {
+      expect(containerNotLoggedIn.getAllByText(/VANTAGE/i));
+    });
     it("should have login", () => {
       expect(containerNotLoggedIn.getByText("Login")).toBeInTheDocument();
     });
     it("should have sign up", () => {
-      expect(containerNotLoggedIn.getByText("Sign up")).toBeInTheDocument();
+      expect(containerNotLoggedIn.getByText("Sign Up")).toBeInTheDocument();
     });
+   
   });
 
   describe("Responsive Container User logged in", () => {

@@ -10,7 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_25_033538) do
+ActiveRecord::Schema.define(version: 2020_01_21_014845) do
+
+  create_table "abouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.integer "contact_number"
+    t.string "about_me"
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["resume_id"], name: "index_abouts_on_resume_id"
+  end
+
+  create_table "educations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "program"
+    t.string "institution"
+    t.integer "start"
+    t.integer "end"
+    t.string "grade"
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["resume_id"], name: "index_educations_on_resume_id"
+  end
+
+  create_table "interests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["resume_id"], name: "index_interests_on_resume_id"
+  end
+
+  create_table "referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.bigint "work_experience_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["work_experience_id"], name: "index_referees_on_work_experience_id"
+  end
+
+  create_table "resumes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "skills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "link"
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["resume_id"], name: "index_skills_on_resume_id"
+  end
 
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
@@ -28,5 +83,23 @@ ActiveRecord::Schema.define(version: 2019_12_25_033538) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "work_experiences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.string "company"
+    t.integer "start"
+    t.integer "end"
+    t.string "achievements"
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["resume_id"], name: "index_work_experiences_on_resume_id"
+  end
+
+  add_foreign_key "abouts", "resumes"
+  add_foreign_key "educations", "resumes"
+  add_foreign_key "interests", "resumes"
+  add_foreign_key "referees", "work_experiences"
+  add_foreign_key "skills", "resumes"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "work_experiences", "resumes"
 end

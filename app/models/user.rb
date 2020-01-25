@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_one :user_profile
+  has_many :resume
+
   has_secure_password
   validates :username, presence: true
   validates_uniqueness_of :username, case_sensitive: true

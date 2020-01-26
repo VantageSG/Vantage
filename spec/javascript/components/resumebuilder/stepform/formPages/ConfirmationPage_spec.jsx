@@ -1,5 +1,5 @@
 import React from 'react';
-import ConfirmationPage from 'components/resumebuilder/multiStepform/formPages/ConfirmationPage.jsx';
+import ConfirmationPage from 'components/resumebuilder/multiStepForm/formPages/ConfirmationPage.jsx';
 import { renderWithRouter, screen } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 

@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import App from "../components/App";
 import "../../assets/dist/semantic.min.css";
-import { createBrowserHistory } from "history";
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(

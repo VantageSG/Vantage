@@ -1,16 +1,58 @@
 import React, { Component } from "react";
-import {
-  Container,
-} from "semantic-ui-react";
+import { Container, Step, Icon } from "semantic-ui-react";
 import About from "./formPages/About";
 import Education from "./formPages/Education";
 import WorkExperience from "./formPages/WorkExperience";
 import Skills from "./formPages/Skills";
 import Interests from "./formPages/Interests";
-import ConfirmationPage  from "./formPages/ConfirmationPage";
+import ConfirmationPage from "./formPages/ConfirmationPage";
+
+const StepIndicator = props => {
+  const { step } = props;
+
+  return (
+    <Step.Group fluid stackable size="tiny" ordered>
+      <Step active={step == 0 ? true : false}>
+        <Step.Content>
+          <Step.Title>About Me</Step.Title>
+          <Step.Description>Tell us about yourself!</Step.Description>
+        </Step.Content>
+      </Step>
+      <Step active={step == 1 ? true : false}>
+        <Step.Content>
+          <Step.Title>Education</Step.Title>
+          <Step.Description>List your Education!</Step.Description>
+        </Step.Content>
+      </Step>
+
+      <Step active={step == 2 ? true : false}>
+        <Step.Content>
+          <Step.Title>Work Experience</Step.Title>
+          <Step.Description>Past Work Experience</Step.Description>
+        </Step.Content>
+      </Step>
+      <Step active={step == 3 ? true : false}>
+        <Step.Content>
+          <Step.Title>Skills</Step.Title>
+          <Step.Description>Share your skills</Step.Description>
+        </Step.Content>
+      </Step>
+      <Step active={step == 4 ? true : false}>
+        <Step.Content>
+          <Step.Title>Interests</Step.Title>
+          <Step.Description>What Hobbies do you have?</Step.Description>
+        </Step.Content>
+      </Step>
+      <Step active={step == 5 ? true : false}>
+        <Step.Content>
+          <Step.Title>Confirmation</Step.Title>
+        </Step.Content>
+      </Step>
+    </Step.Group>
+  );
+};
 
 export default class FormStep extends Component {
-
   // 0 - About me
   // 1 - Edu
   // 2 - work Exp
@@ -21,7 +63,7 @@ export default class FormStep extends Component {
     super(props);
     this.state = {
       maxStep: 5,
-      step: 5,
+      step: 0,
       /// about me
       name: "",
       email: "",
@@ -67,30 +109,28 @@ export default class FormStep extends Component {
 
   goToAboutMe = () => {
     const { step } = this.state;
-    this.setState({ step: 0});
-  }
+    this.setState({ step: 0 });
+  };
 
   goToEducation = () => {
     const { step } = this.state;
-    this.setState({ step: 1});
-  }
+    this.setState({ step: 1 });
+  };
 
-  goToWorkExperience= () => {
+  goToWorkExperience = () => {
     const { step } = this.state;
-    this.setState({ step: 2});
-  }
+    this.setState({ step: 2 });
+  };
 
-  goToSkills= () => {
+  goToSkills = () => {
     const { step } = this.state;
-    this.setState({ step: 3});
-  }
+    this.setState({ step: 3 });
+  };
 
-  goToInterests= () => {
+  goToInterests = () => {
     const { step } = this.state;
-    this.setState({ step: 4});
-  }
-
-
+    this.setState({ step: 4 });
+  };
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -144,32 +184,42 @@ export default class FormStep extends Component {
       switch (step) {
         case 0:
           return (
-            <Container text>
-              <About
-                submitAndContinue={this.submitAndContinue}
-                step={step}
-                maxStep={maxStep}
-                nextStep={this.nextStep}
-                previousStep={this.previousStep}
-              />
-            </Container>
+            <React.Fragment>
+              <StepIndicator step={step}></StepIndicator>
+              <Container text>
+                <About
+                  submitAndContinue={this.submitAndContinue}
+                  step={step}
+                  maxStep={maxStep}
+                  nextStep={this.nextStep}
+                  previousStep={this.previousStep}
+                />
+              </Container>
+            </React.Fragment>
           );
 
         case 1:
           return (
-            <Container text>
-              <Education
-                submitAndContinue={this.submitAndContinue}
-                step={step}
-                maxStep={maxStep}
-                nextStep={this.nextStep}
-                previousStep={this.previousStep}
-              ></Education>
-            </Container>
+            <React.Fragment> 
+                <StepIndicator step={step}></StepIndicator>
+              <Container text>
+          
+            <Education
+              submitAndContinue={this.submitAndContinue}
+              step={step}
+              maxStep={maxStep}
+              nextStep={this.nextStep}
+              previousStep={this.previousStep}
+            ></Education>
+          </Container></React.Fragment>
+           
           );
         case 2:
           return (
+            <React.Fragment> 
+            <StepIndicator step={step}></StepIndicator>
             <Container text>
+              
               <WorkExperience
                 submitAndContinue={this.submitAndContinue}
                 step={step}
@@ -178,10 +228,14 @@ export default class FormStep extends Component {
                 previousStep={this.previousStep}
               ></WorkExperience>
             </Container>
+            </React.Fragment>
           );
         case 3:
           return (
+            <React.Fragment> 
+            <StepIndicator step={step}></StepIndicator>
             <Container text>
+              
               <Skills
                 submitAndContinue={this.submitAndContinue}
                 step={step}
@@ -190,10 +244,13 @@ export default class FormStep extends Component {
                 previousStep={this.previousStep}
               ></Skills>
             </Container>
+            </React.Fragment>
           );
 
         case 4:
           return (
+            <React.Fragment> 
+            <StepIndicator step={step}></StepIndicator>
             <Container text>
               <Interests
                 submitAndContinue={this.submitAndContinue}
@@ -203,28 +260,29 @@ export default class FormStep extends Component {
                 previousStep={this.previousStep}
               ></Interests>
             </Container>
+            </React.Fragment>
           );
 
-        case 5: 
-        return (
-          <Container text>
-     
-            <ConfirmationPage 
-            submitAndContinue={this.submitAndContinue}
+        case 5:
+          return (
+            <React.Fragment> 
+            <StepIndicator step={step}></StepIndicator>
+            <Container text>
+              <ConfirmationPage
+                submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
                 nextStep={this.nextStep}
                 previousStep={this.previousStep}
                 goToAboutMe={this.goToAboutMe}
-                
                 goToEducation={this.goToEducation}
                 goToWorkExperience={this.goToWorkExperience}
                 goToSkills={this.goToSkills}
                 goToInterests={this.goToInterests}
-            >
-            </ConfirmationPage>
-            </Container>  
-        );
+              ></ConfirmationPage>
+            </Container>
+            </React.Fragment>
+          );
       }
     }
   }

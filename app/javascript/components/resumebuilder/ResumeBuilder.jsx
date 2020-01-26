@@ -41,7 +41,7 @@ export default class ResumeBuilder extends Component {
     const { menuFixed, overlayFixed } = this.state;
 
     return (
-      <Container>
+      <Container fluid>
         <br/>
         <br/>
         <FormStep user={this.props.user} />

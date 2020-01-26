@@ -81,7 +81,7 @@ jobs: # a collection of steps
 
       - run: # run tests
           name: test
-          command: yarn test
+          command: npm test
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/

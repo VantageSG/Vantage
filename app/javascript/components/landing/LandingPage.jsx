@@ -27,7 +27,6 @@ class LandingPage extends Component {
         <Animated animationIn="fadeIn" isVisible={true}>
           <Responsive minWidth={Responsive.onlyTablet.minWidth}>
             <Container
-           
               fluid
               textAlign="center"
               style={{

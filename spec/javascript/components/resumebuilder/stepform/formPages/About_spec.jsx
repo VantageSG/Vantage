@@ -1,5 +1,5 @@
 import React from 'react';
-import About from 'components/resumebuilder/stepform/formPages/About.jsx';
+import About from 'components/resumebuilder/multiStepform/formPages/About.jsx';
 import { renderWithRouter, screen } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 

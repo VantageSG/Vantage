@@ -37,6 +37,10 @@ RAILS_ENV=test rake db:create db:schema:load
 8. `rails s` to start the application
 9. `ruby bin/webpack-dev-server` to run webpacker for hot reload
 
+### Common gotcha
+
+1. Dont use our project uses yarn instead of `npm`. *Dont use `npm` commands*
+
 # Testing
 
 ## Frontend

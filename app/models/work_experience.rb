@@ -1,6 +1,6 @@
 class WorkExperience < ApplicationRecord
   belongs_to :resume
-  has_many :referee
+  has_many :referee, :dependent => :delete_all
   validates :title, presence: true
   validates :company, presence: true
   validates :start, presence: true

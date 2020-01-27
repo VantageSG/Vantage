@@ -22,7 +22,7 @@ class Api::V1::BaseController < ActionController::Base
 
   def render_json_error(error)
     render json: {
-      error: error.message
+      error: "#{error.record.class.name} record: #{error.message}"
     }, status: 400 # Bad Request
   end
 

@@ -22,54 +22,42 @@ jobs: # a collection of steps
           MYSQL_HOST: 127.0.0.1
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
-
       # Which version of bundler?
       - run:
           name: Install bundler
           command: sudo gem install bundler -v 2.0.2
-
       # Restore bundle cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
             - rails-bundle-v2-{{ checksum "Gemfile.lock" }}
             - rails-bundle-v2-
-
       - run: # Install Ruby dependencies
           name: Bundle Install
           command: bundle check --path vendor/bundle || bundle install --deployment
-
       # Store bundle cache for Ruby dependencies
       - save_cache:
           key: rails-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
-
-      - restore_cache: # special step to restore the dependency cache
-          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          
-      - run:
-          name: install-npm-wee
-          command: npm install
-      # Store yarn / webpacker cache
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ./node_modules
-
+            - ~/.cache/yarn
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-
       - run:
           name: Database setup
           command: bin/rails db:schema:load --trace
-
       - run:
           name: Run rspec in parallel
           command: |
@@ -78,11 +66,9 @@ jobs: # a collection of steps
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
       - run: # run tests
           name: test
-          command: npm test
-
+          command: yarn test
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test_results

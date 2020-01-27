@@ -1,9 +1,9 @@
 import axios from "axios";
 
 function getForm(vrsAttribute, userID) {
-  const endPoint = process.env.BACKEND_PORT + "/api/v1/vrs/" + parseInt(userID, 10) + "/" + vrsAttribute;
+  const endPoint = getEndPoint(vrsAttribute, userID);
   axios
-    .get(process.env.BACKEND_PORT + "/api/v1/vrs/" + parseInt(userID, 10) + "/" + vrsAttribute, { 
+    .get(endPoint, { 
       withCredentials: true
     })
     .then(response => {
@@ -17,8 +17,12 @@ function getForm(vrsAttribute, userID) {
     })
 }
 
+function getEndPoint(vrsAttribute, userID) {
+  return process.env.BACKEND_PORT + "/api/v1/vrs/" + parseInt(userID, 10) + "/" + vrsAttribute;
+}
+
 function postForm(vrsAttribute, vrsValue ,userID) {
-  const endPoint = process.env.BACKEND_PORT + "/api/v1/vrs/" + parseInt(userID, 10) + "/" + vrsAttribute;
+  const endPoint = getEndPoint(vrsAttribute, userID);
   axios
     .post(endPoint, 
     { withCredentials: true },
@@ -39,3 +43,4 @@ function postForm(vrsAttribute, vrsValue ,userID) {
 
 export { postForm as postForm};
 export { getForm as getForm};
+export { getEndPoint as getEndPoint};

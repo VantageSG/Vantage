@@ -1,16 +1,11 @@
-class Api::V1::ResumesController < Api::V1::BaseController
+class Api::V1::Resumes::ResumesController < Api::V1::BaseController
   before_action :authenticate
   before_action :get_user
   before_action :get_resume
 
   def show
-    if !@resume
-      render json: {
-        errors: ['No resume found.']
-      }, status: 404
-    else
-      render json: get_resume_format
-    end
+    raise ActiveRecord::RecordNotFound, "User has no resume." if !@resume
+    render json: get_resume_format
   end
 
   def create
@@ -61,12 +56,11 @@ class Api::V1::ResumesController < Api::V1::BaseController
   private
   def update_resume
     @resume.build_about(params.require(:about).permit(:name, :email, :contact_number, :about_me)).save!
-
-    for education_params in params.require(:educations)
+    for education_params in params[:educations]
       @resume.education.build(education_params.permit(:program, :institution, :start, :end, :grade)).save!
     end
 
-    for work_experience_params in params.require(:work_experiences)
+    for work_experience_params in params[:work_experiences]
       referees_params = work_experience_params[:referees]
       work_experience_params.delete(:referees)
       work_experience = @resume.work_experience.build(
@@ -78,12 +72,12 @@ class Api::V1::ResumesController < Api::V1::BaseController
       end
     end
 
-    for skill in params.require(:skills)
-      @resume.skill.build(skill.permit(:name, :description, :link)).save!
+    for skill_params in params[:skills]
+      @resume.skill.build(skill_params.permit(:name, :description, :link)).save!
     end
 
-    for interest in params.require(:interests)
-      @resume.interest.build(interest.permit(:name)).save!
+    for interest_params in params[:interests]
+      @resume.interest.build(interest_params.permit(:name)).save!
     end
   end
 end

@@ -10,77 +10,83 @@ import {
   Image,
   TextArea
 } from "semantic-ui-react";
-import FormActionButtons from "../FormActionButtons"
+import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 
-const interestSchema = {
-  interestName: ""
+const skillSchema = {
+  skillName: "",
+  description: "",
+  link: "",
 }
 
-export default class Interests extends Component {
+export default class Skills extends Component {
   constructor(props) {
     super(props);
-    var cloneInterestSchema = Object.assign({}, interestSchema)
+    var cloneSkillSchema = Object.assign({}, skillSchema)
     this.state = {
-      interests: [cloneInterestSchema]
+      skills: [cloneSkillSchema]
     };
-    
   }
 
-  handleFormChange(event,index) {
+  handleFormChange(event, index) {
     const { name, value } = event.target;
-    const { interests } = this.state
-    interests[index][name] = value;
+    const { skills } = this.state;
+    skills[index][name] = value;
     this.setState({
-      interests
+      skills
     });
   }
 
   handleAddForm = () => {
-    var cloneInterestSchema = Object.assign({}, interestSchema)
-    this.setState({interests:[...this.state.interests, cloneInterestSchema]})
+    var cloneSkillSchema = Object.assign({}, skillSchema)
+    this.setState({skills:[...this.state.skills, cloneSkillSchema]})
   }
 
   handleRemoveForm(index) {
-    this.state.interests.splice(index, 1)
-    this.setState({interests: this.state.interests})
+    this.state.skills.splice(index, 1)
+    this.setState({skills: this.state.skills})
   }
 
   nextStepWApiReq = () => {
     this.props.nextStep()
     console.log("Sending back end: ")
-    console.log(this.state.interests)
+    console.log(this.state.skills)
     //Call post backend api /api/v1/education...
   }
 
-
   render() {
-
     return (
       <Card centered fluid>
         {
-          this.state.interests.map((interest, index)=>{
+          this.state.skills.map((skills, index)=>{
             return(
               <Segment key={index}>
-                <Animated animationIn="fadeInUp" animationOut="fadeOutDown">
+                <Animated animationIn="fadeInRight" animationOut="fadeOutDown">
                   {
-                    this.state.interests.length > 1 &&
+                    this.state.skills.length > 1 &&
                     <Button
                       icon="x"
                       floated="right"
                       onClick={()=>this.handleRemoveForm(index)}
                     />
                   }
-                  <Header as="h3">What are some interests you have?</Header>
+                  <Header as="h3">What are some skills you have?</Header>
                   <Form>
                     <Form.Input
                       fluid
-                      placeholder="Enter Interest"
-                      label="Interest"
-                      name="interestName"
-                      value={interest.interestsName}
+                      placeholder="Enter skill"
+                      label="Skill"
+                      name="skillName"
+                      value={skills.skillName}
                       onChange={(event) => this.handleFormChange(event, index)}
-                    />
+                      />
+                    <Header as="h4">Describe your skill</Header>
+                    <TextArea
+                      placeholder="Describe it"
+                      name="description"
+                      value={skills.description}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                      />
                   </Form>
                 </Animated>
               </Segment>
@@ -101,7 +107,7 @@ export default class Interests extends Component {
             nextStep={this.nextStepWApiReq}
             previousStep={this.props.previousStep}
           />
-        </Card.Content> 
+        </Card.Content>
       </Card>
     );
   }

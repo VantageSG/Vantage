@@ -1,9 +1,9 @@
 import React from 'react';
-import About from 'components/resumebuilder/stepform/formPages/About.jsx';
+import About from 'components/resumebuilder/multiStepForm/formPages/About.jsx';
 import { renderWithRouter, screen } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 
-describe('Default Login page', () => {
+describe('Default About Page', () => {
   renderWithRouter(<About/>);
   it('should have introduce yoruself', () => {
     expect(screen.getByText(/Introduce yourself/i)).toBeInTheDocument();

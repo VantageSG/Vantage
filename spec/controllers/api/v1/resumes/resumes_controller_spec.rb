@@ -48,8 +48,8 @@ RSpec.describe Api::V1::Resumes::ResumesController, type: :request do
     end
   end
     
-  # TEST suite for CREATE educations
-  describe 'POST api/v1/vrs/:user_id/educations/' do
+  # TEST suite for CREATE resumes
+  describe 'POST api/v1/vrs/:user_id/' do
 
     let(:valid_attributes) do
       {
@@ -111,7 +111,7 @@ RSpec.describe Api::V1::Resumes::ResumesController, type: :request do
     let(:invalid_attributes) do
       {
         "about": {
-          "email": "email"
+          "email": "not an email"
         },
         "educations": [],
         "work_experiences": [],

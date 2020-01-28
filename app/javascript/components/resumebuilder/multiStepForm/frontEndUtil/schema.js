@@ -18,6 +18,7 @@ const aboutSchema = {
     start: "",
     end: "",
     achievements: "",
+    referees: [],
   }
 
   const skillSchema = {

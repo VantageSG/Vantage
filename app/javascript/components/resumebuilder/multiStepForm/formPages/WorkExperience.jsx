@@ -24,6 +24,7 @@ const workExperienceSchema = {
   start: "",
   end: "",
   achievements: "",
+  referees: [],
 }
 
 export default class WorkExperience extends Component {
@@ -73,11 +74,11 @@ export default class WorkExperience extends Component {
 
   nextStepWApiReq = () => {
     console.log(this.state.workExperiences);
-    this.props.nextStep()
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
     workExperiences, 
     this.state.user.id)
+    this.props.nextStep()
   }
 
   handleFormChange(event, index){

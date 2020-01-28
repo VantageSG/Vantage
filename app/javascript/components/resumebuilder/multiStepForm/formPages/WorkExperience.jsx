@@ -43,6 +43,15 @@ export default class WorkExperience extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.workExperiences);
+          for(var j = 0; j < 1; j++) {
+            for (var i = 0; i < 1; i++) {
+              delete responseData[j].referees[i].createdAt
+              delete responseData[j].referees[i].updatedAt
+              delete responseData[j].referees[i].workExperienceId
+              delete responseData[j].referees[i].id
+            }
+          }
+          console.log(response);
           this.setState({
             user: this.props.user,
             workExperiences: sanitizeResponse(responseData, ["resumeId"]),
@@ -63,6 +72,7 @@ export default class WorkExperience extends Component {
   }
 
   nextStepWApiReq = () => {
+    console.log(this.state.workExperiences);
     this.props.nextStep()
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
@@ -150,6 +160,13 @@ export default class WorkExperience extends Component {
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>
+                    <Header as="h4">Achievements</Header>
+                    <TextArea
+                      placeholder="Achievements"
+                      name="achievements"
+                      value={workExperience.achievements}
+                      onChange={this.handleFormChange}
+                    />
                   </Form>
                 </Animated>
               </Segment>

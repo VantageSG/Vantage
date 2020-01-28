@@ -64,7 +64,7 @@ export default class FormStep extends Component {
     super(props);
     this.state = {
       maxStep: 5,
-      step: 0,
+      step: 2,
       /// about me
       name: "",
       email: "",

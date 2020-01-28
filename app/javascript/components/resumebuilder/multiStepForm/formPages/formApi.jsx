@@ -13,32 +13,28 @@ function getForm(vrsAttribute, userID) {
     })
 }
 
+function sanitizeResponseJsonObject(response, arrayUnwantedKey) {
+  delete response.id;
+  delete response.createdAt;
+  delete response.updatedAt;
+
+  if (arrayUnwantedKey != undefined) {
+    const length = arrayUnwantedKey.length
+    for (var i = 0; i < length; i++) {
+      delete response[arrayUnwantedKey[i]];
+    }
+  }
+  return response;
+}
+
 function sanitizeResponse(response, arrayUnwantedKey) {
   
   if (Array.isArray(response)) {
-    for(i = 0; i < response.length; i++) {
-      delete response[i].id;
-      delete response[i].createdAt;
-      delete response[i].updatedAt;
-
-      if (arrayUnwantedKey != undefined) {
-        const length = arrayUnwantedKey.length
-        for (var j = 0; j < length; j++) {
-          delete response[i][arrayUnwantedKey[j]];
-        }
-      }
+    for(var i = 0; i < response.length; i++) {
+      sanitizeResponseJsonObject(response[i], arrayUnwantedKey);
     }
   } else {
-    delete response.id;
-    delete response.createdAt;
-    delete response.updatedAt;
-
-    if (arrayUnwantedKey != undefined) {
-      const length = arrayUnwantedKey.length
-      for (var i = 0; i < length; i++) {
-        delete response[arrayUnwantedKey[i]];
-      }
-    }
+    sanitizeResponseJsonObject(response, arrayUnwantedKey);
   }
   return response;
 }

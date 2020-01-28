@@ -4,7 +4,7 @@ class Api::V1::BaseController < ActionController::Base
   helper_method :authenticate
   before_action :set_current_user
 
-  # rescue_from Exception, with: :render_500_error
+  rescue_from Exception, with: :render_500_error
   rescue_from AuthenticationError, with: :render_401_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_404_error
   rescue_from ActiveRecord::RecordInvalid, with: :render_json_error

@@ -20,7 +20,7 @@ class Api::V1::Resumes::WorkexperiencesController < Api::V1::Resumes::BaseVrsCon
         work_experience_params.permit(:title, :company, :start, :end, :achievements
       ))
       work_experience.save!
-      for referee_params in referees_params 
+      for referee_params in referees_params
         work_experience.referee.build(referee_params.permit(:name, :email)).save!
       end
     end

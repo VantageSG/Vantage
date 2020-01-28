@@ -43,15 +43,15 @@ export default class WorkExperience extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.workExperiences);
-          for(var j = 0; j < 1; j++) {
-            for (var i = 0; i < 1; i++) {
+          console.log(response);
+          for(var j = 0; j < responseData.length; j++) {
+            for (var i = 0; i < responseData[j].referees.length; i++) {
               delete responseData[j].referees[i].createdAt
               delete responseData[j].referees[i].updatedAt
               delete responseData[j].referees[i].workExperienceId
               delete responseData[j].referees[i].id
             }
           }
-          console.log(response);
           this.setState({
             user: this.props.user,
             workExperiences: sanitizeResponse(responseData, ["resumeId"]),
@@ -162,10 +162,10 @@ export default class WorkExperience extends Component {
                     </Form.Group>
                     <Header as="h4">Achievements</Header>
                     <TextArea
-                      placeholder="Achievements"
+                      placeholder="achievements"
                       name="achievements"
                       value={workExperience.achievements}
-                      onChange={this.handleFormChange}
+                      onChange={(event) => this.handleFormChange(event, index)}
                     />
                   </Form>
                 </Animated>

@@ -56,7 +56,6 @@ class App extends Component {
     });
   };
   render() {
-    
     return (
       <div>
         <BrowserRouter>
@@ -106,7 +105,10 @@ class App extends Component {
               <Route
                 exact
                 path="/ResumeBuilder"
-                render={props => <ResumeBuilder {...props} />}
+                render={props => <ResumeBuilder 
+                  {...props} 
+                  user={this.state.user}
+                />}
               />
               <Route
                 exact

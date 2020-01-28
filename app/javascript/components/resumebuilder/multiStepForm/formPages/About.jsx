@@ -10,8 +10,13 @@ import {
   Image,
   TextArea
 } from "semantic-ui-react";
+import axios from "axios";
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const aboutSchema = {
   name: "",
@@ -23,13 +28,13 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      about: aboutSchema
+      about: aboutSchema,
+      user: {}
     };
   }
 
   handleFormChange = event => {
     const { name, value } = event.target;
-    console.log(this.state.about)
     this.setState({
       about: {
         ...this.state.about,
@@ -38,15 +43,42 @@ export default class About extends Component {
     });
   }
 
+  getDbAbout() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      axios
+        .get(getEndPoint('about', this.props.user.id), { 
+          withCredentials: true
+        })
+        .then(response => {
+          const responseData = camelcaseKeysDeep(response.data.about);
+          this.setState({
+            user: this.props.user,
+            about: sanitizeResponse(responseData, ["resumeId"]),
+          })
+        })
+        .catch(error => {
+        })
+    }
+  }
+
+  componentDidUpdate() {
+    this.getDbAbout();
+  }
+
+  componentDidMount() {
+    this.getDbAbout();
+  }
+
   nextStepWApiReq = () => {
     this.props.nextStep()
-    //Call post backend api /api/v1/about...
+    let about = decamelizeKeysDeep(this.state.about);
+    postForm('about', 
+    about, 
+    this.state.user.id)
   }
 
   render() {
     const aboutValues = this.state.about
-    
-
     return (
       <div>
         <Card centered fluid>

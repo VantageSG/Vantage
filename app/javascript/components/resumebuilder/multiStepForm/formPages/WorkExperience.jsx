@@ -12,6 +12,11 @@ import {
 } from "semantic-ui-react";
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
+import axios from "axios";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const workExperienceSchema = {
   title: "",
@@ -28,6 +33,41 @@ export default class WorkExperience extends Component {
     this.state = {
       workExperiences: [cloneWorkExperienceSchema]
     };
+  }
+
+  getWorkExperiences() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      axios
+        .get(getEndPoint('workExperiences', this.props.user.id), { 
+          withCredentials: true
+        })
+        .then(response => {
+          const responseData = camelcaseKeysDeep(response.data.workExperiences);
+          this.setState({
+            user: this.props.user,
+            workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+          })          
+        })
+        .catch(error => {
+        })
+        
+    }
+  }
+
+  componentDidUpdate() {
+    this.getWorkExperiences();
+  }
+
+  componentDidMount() {
+    this.getWorkExperiences();
+  }
+
+  nextStepWApiReq = () => {
+    this.props.nextStep()
+    let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
+    postForm('workExperiences', 
+    workExperiences, 
+    this.state.user.id)
   }
 
   handleFormChange(event, index){
@@ -48,14 +88,6 @@ export default class WorkExperience extends Component {
     this.state.workExperiences.splice(index, 1)
     this.setState({workExperiences: this.state.workExperiences})
   }
-
-  nextStepWApiReq = () => {
-    this.props.nextStep()
-    console.log("Sending back end: ")
-    console.log(this.state.workExperiences)
-    //Call post backend api /api/v1/education...
-  }
-
 
   render() {
     return (

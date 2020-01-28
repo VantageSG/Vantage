@@ -12,12 +12,17 @@ import {
 } from "semantic-ui-react";
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
+import axios from "axios";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const educationSchema = {
   program: "",
   institution: "",
-  startEdu: "",
-  endEdu: "",
+  start: "",
+  end: "",
   grade: "",
 }
 
@@ -26,8 +31,45 @@ export default class Education extends Component {
     super(props);
     var cloneEducationSchema = Object.assign({}, educationSchema)
     this.state = {
-      educations: [cloneEducationSchema]
+      educations: [cloneEducationSchema],
+      user: {}
     }
+  }
+
+  getEducations() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      axios
+        .get(getEndPoint('educations', this.props.user.id), { 
+          withCredentials: true
+        })
+        .then(response => {
+          const responseData = camelcaseKeysDeep(response.data.educations);
+          this.setState({
+            user: this.props.user,
+            educations: sanitizeResponse(responseData, ["resumeId"]),
+          })
+          console.log(this.state);
+          
+        })
+        .catch(error => {
+        })
+    }
+  }
+
+  componentDidUpdate() {
+    this.getEducations();
+  }
+
+  componentDidMount() {
+    this.getEducations();
+  }
+
+  nextStepWApiReq = () => {
+    this.props.nextStep()
+    let educations = decamelizeKeysDeep(this.state.educations);
+    postForm('educations', 
+    educations, 
+    this.state.user.id)
   }
 
   handleFormChange(event, index){
@@ -47,13 +89,6 @@ export default class Education extends Component {
   handleRemoveForm(index) {
     this.state.educations.splice(index, 1)
     this.setState({educations: this.state.educations})
-  }
-
-  nextStepWApiReq = () => {
-    this.props.nextStep()
-    console.log("Sending back end: ")
-    console.log(this.state.educations)
-    //Call post backend api /api/v1/education...
   }
   
   render() {
@@ -102,8 +137,8 @@ export default class Education extends Component {
                         iconPosition="left"
                         label="Start date"
                         placeholder="Start date"
-                        name="startEdu"
-                        value={education.startEdu}
+                        name="start"
+                        value={education.start}
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                       <Form.Input
@@ -112,8 +147,8 @@ export default class Education extends Component {
                         iconPosition="left"
                         placeholder="End date"
                         label="End date"
-                        name="endEdu"
-                        value={education.endEdu}
+                        name="end"
+                        value={education.end}
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getForm, postForm, getEndPoint} from 'components/resumebuilder/stepform/formPages/formApi';
+import {getEndPoint} from '../../../../../../app/javascript/components/resumebuilder/multiStepForm/formPages/formApi.jsx';
 import axios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 jest.mock('axios');

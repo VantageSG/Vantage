@@ -25,10 +25,6 @@ export default class ResumeBuilder extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log( this.props.user);
-  }
-
   stickOverlay = () => this.setState({ overlayFixed: true });
 
   stickTopMenu = () => this.setState({ menuFixed: true });
@@ -39,7 +35,6 @@ export default class ResumeBuilder extends Component {
 
   render() {
     const { menuFixed, overlayFixed } = this.state;
-
     return (
       <Container fluid>
         <br/>

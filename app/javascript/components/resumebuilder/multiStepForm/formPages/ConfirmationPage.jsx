@@ -16,28 +16,124 @@ import {
   skillSchema,
   workExperienceSchema
 } from "../frontEndUtil/schema";
+import axios from "axios";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 export default class ConfirmationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: "",
+      user: {},
       about: aboutSchema,
-      education: [educationSchema, educationSchema],
-      workExperience: [workExperienceSchema, workExperienceSchema],
-      interest: [interestSchema],
+      educations: [educationSchema, educationSchema],
+      workExperiences: [workExperienceSchema, workExperienceSchema],
+      interests: [interestSchema],
       skills: [skillSchema, skillSchema]
     };
   }
 
-  componentDidMount = () => {
-    //use user_id to get submitted info from api
-    // set the info
-  };
+  componentDidMount(){
+    this.getVrsAttributes()
+  }
+
+  componentDidUpdate() {
+    this.getVrsAttributes()
+  }
+
+  getVrsAttributes() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      this.setState({
+        user: this.props.user,
+      })
+      axios.all([this.getAbout(), this.getEducations(), this.getWorkExperiences(), this.getSkills(), this.getInterests()])
+      .then(axios.spread(function (acct, perms) {
+        // Both requests are now complete
+      }));
+
+    }
+  }
+
+  getAbout() {
+    return axios
+    .get(getEndPoint('about', this.props.user.id), { 
+      withCredentials: true
+    })
+    .then(response => {
+      const responseData = camelcaseKeysDeep(response.data.about);
+      this.setState({
+        about: sanitizeResponse(responseData, ["resumeId"]),
+      })
+    })
+    .catch(error => {
+    })
+  }
+
+  getEducations() {
+    return axios
+    .get(getEndPoint('educations', this.props.user.id), { 
+      withCredentials: true
+    })
+    .then(response => {
+      const responseData = camelcaseKeysDeep(response.data.educations);
+      this.setState({
+        educations: sanitizeResponse(responseData, ["resumeId"]),
+      })      
+    })
+    .catch(error => {
+    })
+  }
+
+  getWorkExperiences() {
+    return axios
+    .get(getEndPoint('workExperiences', this.props.user.id), { 
+      withCredentials: true
+    })
+    .then(response => {
+      const responseData = camelcaseKeysDeep(response.data.workExperiences);
+      this.setState({
+        workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+      })          
+    })
+    .catch(error => {
+    })
+  }
+
+  getSkills() {
+    return axios
+    .get(getEndPoint('skills', this.props.user.id), { 
+      withCredentials: true
+    })
+    .then(response => {
+      const responseData = camelcaseKeysDeep(response.data.skills);
+      this.setState({
+        skills: sanitizeResponse(responseData, ["resumeId"]),
+      })      
+    })
+    .catch(error => {
+    })
+  }
+
+  getInterests() {
+    return axios
+    .get(getEndPoint('interests', this.props.user.id), { 
+      withCredentials: true
+    })
+    .then(response => {
+      const responseData = camelcaseKeysDeep(response.data.interests);
+      this.setState({
+        interests: sanitizeResponse(responseData, ["resumeId"]),
+      })      
+    })
+    .catch(error => {
+    })
+  }
 
   render() {
-    console.table(this.state);
-    console.table(this.state.education);
-    const { about, education, workExperience, skills, interest } = this.state;
+    // console.table(this.state);
+    // console.table(this.state.education);
+    const { about, educations, workExperiences, skills, interests } = this.state;
 
     return (
       <div>
@@ -64,7 +160,7 @@ export default class ConfirmationPage extends Component {
               <Segment textAlign="left">
                 <Header>My Education</Header>
                 <List.List>
-                  {education.map((value, i) => {
+                  {educations.map((value, i) => {
                     return (
                       <React.Fragment key={i}>
                         <List.Item header={"Program"} content={value.program} />
@@ -87,7 +183,7 @@ export default class ConfirmationPage extends Component {
               <Segment textAlign="left">
               <Header>My Work Experiences</Header>
               <List.List>
-              {workExperience.map((value, i) => {
+              {workExperiences.map((value, i) => {
                 return (
                   <React.Fragment key={i}>
                     <List.Item header={"Company"} content={value.company} />
@@ -126,10 +222,10 @@ export default class ConfirmationPage extends Component {
               <List.List>
 
               
-              {interest.map((value, i) => {
+              {interests.map((value, i) => {
                 return (
                   <React.Fragment key={i}>
-                    <List.Item content={value.interestName} />
+                    <List.Item content={value.name} />
                     <Divider></Divider>
                   </React.Fragment>
                 );

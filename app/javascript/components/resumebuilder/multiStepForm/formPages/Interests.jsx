@@ -12,9 +12,14 @@ import {
 } from "semantic-ui-react";
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
+import axios from "axios";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const interestSchema = {
-  interestName: ""
+  name: ""
 }
 
 export default class Interests extends Component {
@@ -22,9 +27,49 @@ export default class Interests extends Component {
     super(props);
     var cloneInterestSchema = Object.assign({}, interestSchema)
     this.state = {
-      interests: [cloneInterestSchema]
+      interests: [cloneInterestSchema],
+      user: {}
     };
     
+  }
+
+
+  getInterests() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      axios
+        .get(getEndPoint('interests', this.props.user.id), { 
+          withCredentials: true
+        })
+        .then(response => {
+          const responseData = camelcaseKeysDeep(response.data.interests);
+          console.log(responseData);
+          this.setState({
+            user: this.props.user,
+            interests: sanitizeResponse(responseData, ["resumeId"]),
+          })
+          console.log(this.state);
+          
+        })
+        .catch(error => {
+        })
+        
+    }
+  }
+
+  componentDidUpdate() {
+    this.getInterests();
+  }
+
+  componentDidMount() {
+    this.getInterests();
+  }
+
+  nextStepWApiReq = () => {
+    this.props.nextStep()
+    let interests = decamelizeKeysDeep(this.state.interests);
+    postForm('interests', 
+    interests, 
+    this.state.user.id)
   }
 
   handleFormChange(event,index) {
@@ -45,14 +90,6 @@ export default class Interests extends Component {
     this.state.interests.splice(index, 1)
     this.setState({interests: this.state.interests})
   }
-
-  nextStepWApiReq = () => {
-    this.props.nextStep()
-    console.log("Sending back end: ")
-    console.log(this.state.interests)
-    //Call post backend api /api/v1/education...
-  }
-
 
   render() {
 
@@ -77,8 +114,8 @@ export default class Interests extends Component {
                       fluid
                       placeholder="Enter Interest"
                       label="Interest"
-                      name="interestName"
-                      value={interest.interestsName}
+                      name="name"
+                      value={interest.name}
                       onChange={(event) => this.handleFormChange(event, index)}
                     />
                   </Form>

@@ -25,5 +25,4 @@ class Api::V1::Resumes::WorkexperiencesController < Api::V1::Resumes::BaseVrsCon
       end
     end
   end
-
 end

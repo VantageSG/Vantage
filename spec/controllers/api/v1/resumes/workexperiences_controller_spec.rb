@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
   let!(:user) { create(:typical_user) }
   let(:user_id) { user.id }
-  let(:url) { "/api/v1/vrs/#{user_id}/workexperiences/" }
+  let(:url) { "/api/v1/vrs/#{user_id}/workExperiences/" }
 
   # skip authentication
   before :each do
@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
   end
 
   # TEST suite for SHOW workexperiences
-  describe 'GET api/v1/vrs/:user_id/workexperiences/' do
+  describe 'GET api/v1/vrs/:user_id/workExperiences/' do
 
     context 'empty workexperiences' do
       before { get url }
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
   end
 
   # TEST suite for CREATE workexperiences
-  describe 'POST api/v1/vrs/:user_id/workexperiences/' do
+  describe 'POST api/v1/vrs/:user_id/workExperiences/' do
 
     let(:valid_attributes) do
       {
@@ -89,7 +89,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
       }
     end
 
-    context 'workexperiences when created with valid values' do
+    context 'workExperiences when created with valid values' do
       before { post url, params: valid_attributes }
 
       it 'returns status code 200' do
@@ -98,7 +98,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
       end
     end
 
-    context 'workexperiences when created with invalid values' do
+    context 'workExperiences when created with invalid values' do
       before { post url, params: invalid_attributes }
 
       it 'returns status code 400' do
@@ -106,7 +106,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
       end
     end
 
-    context 'workexperiences when created' do
+    context 'workExperiences when created' do
       before { create_list(:workexperience, 5, resume_id: user.resume.last.id, end:123) }
       before { post url, params: valid_attributes }
 
@@ -117,7 +117,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
       end
     end
 
-    context 'workexperiences when failed creation' do
+    context 'workExperiences when failed creation' do
       before { create_list(:workexperience, 5, resume_id: user.resume.last.id, end: 111) }
       before { post url, params: invalid_attributes }
 

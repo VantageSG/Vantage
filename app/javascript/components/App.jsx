@@ -88,7 +88,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/signup"
+                path="/sign-up"
                 render={props => (
                   <Signup
                     {...props}
@@ -99,12 +99,12 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/UserProfiles"
+                path="/user-profiles"
                 render={props => <Users {...props} />}
               />
               <Route
                 exact
-                path="/ResumeBuilder"
+                path="/resume-builder"
                 render={props => <ResumeBuilder 
                   {...props} 
                   user={this.state.user}

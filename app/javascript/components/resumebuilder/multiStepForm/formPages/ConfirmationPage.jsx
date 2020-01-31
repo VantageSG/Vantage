@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   List,
-  Card,
   Segment,
   Button,
   Header,
@@ -17,10 +16,9 @@ import {
   workExperienceSchema
 } from "../frontEndUtil/schema";
 import axios from "axios";
-import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import {getEndPoint, sanitizeResponse} from "./formApi"
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
-import decamelizeKeysDeep from 'decamelize-keys-deep';
 export default class ConfirmationPage extends Component {
   constructor(props) {
     super(props);

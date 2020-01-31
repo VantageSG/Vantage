@@ -182,7 +182,7 @@ class DesktopNavBar extends Component {
             >
               <Grid.Row centered>
                 <Grid.Column textAlign="left" verticalAlign="middle" >
-              <p style={{marginLeft:"1em"}} ><Icon name="lightbulb outline"></Icon>VANTAGE</p>
+              <p style={{marginLeft:"1em"}} ><Icon name="lightbulb outline"></Icon>VANTAGES</p>
                 </Grid.Column>
                 <Grid.Column textAlign="center">
                   {" "}

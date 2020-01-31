@@ -29,12 +29,12 @@ class About extends React.Component {
   }
 
   render() {
-      return <div>
+      return <React.Fragment>
         <Header>
           <EditableLabel text='Name'
               inputWidth='200px'
               inputHeight='25px'
-              inputMaxLength='50'            
+                 
               onFocusOut={this.handleNameChange}              
           />
         </Header>
@@ -42,7 +42,7 @@ class About extends React.Component {
           <EditableLabel text='email'
               inputWidth='200px'
               inputHeight='25px'
-              inputMaxLength='50'            
+                         
               onFocusOut={this.handleEmailChange}              
           />
         </Header>
@@ -50,7 +50,7 @@ class About extends React.Component {
           <EditableLabel text='Name'
               inputWidth='200px'
               inputHeight='25px'
-              inputMaxLength='50'            
+                         
               onFocusOut={this.handleNumberChange}              
           />
         </Header>
@@ -58,11 +58,11 @@ class About extends React.Component {
           <EditableLabel text='AboutMe'
               inputWidth='200px'
               inputHeight='25px'
-              inputMaxLength='50'                          
+                                       
               onFocusOut={this.handleAboutMeChange}              
           />
         </Header>
-      </div>
+      </React.Fragment>
   }
 }
 

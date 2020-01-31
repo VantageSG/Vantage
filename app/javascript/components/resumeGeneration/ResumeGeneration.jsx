@@ -27,6 +27,7 @@ import {
 import { isEmpty } from "../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import html2pdf from "html2pdf.js";
+import About from "./About";
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
@@ -146,7 +147,16 @@ export default class ResumeGeneration extends Component {
   generateResume = state => {
     console.log("Test");
     var element = document.getElementById("test");
-    html2pdf(element, { filename: state.user.name });
+    //html2pdf(element, { filename: state.user.name });
+    var opt = {
+      margin:       1,
+      filename:     'user.pdf',
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+
+
     console.log(element);
   };
 
@@ -197,6 +207,7 @@ export default class ResumeGeneration extends Component {
                           <Placeholder.Line />
                         </Placeholder.Paragraph>
                       </Placeholder>
+                      <About about={this.state.about}></About>
                     </Grid.Column>
                   </Grid>
                 </Segment>

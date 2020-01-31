@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   Button,
   Container,
-  Divider,
   Grid,
   Header,
   Icon,
@@ -48,7 +47,7 @@ class MobileNavBar extends Component {
         <Menu.Item as={Link} to="/login">
           Login
         </Menu.Item>
-        <Menu.Item as={Link} to="/signup">
+        <Menu.Item as={Link} to="/sign-up">
           Sign up
         </Menu.Item>
       </React.Fragment>
@@ -77,10 +76,10 @@ class MobileNavBar extends Component {
           <Menu.Item as={Link} to="/">
             Home
           </Menu.Item>
-          <Menu.Item as={Link} to="/UserProfiles">
+          <Menu.Item as={Link} to="/user-profiles">
             User Profiles
           </Menu.Item>
-          <Menu.Item as={Link} to="/ResumeBuilder">
+          <Menu.Item as={Link} to="/resume-builder">
             Resume Builder
           </Menu.Item>
           {this.renderRegistrationButton(
@@ -155,7 +154,7 @@ class DesktopNavBar extends Component {
         <Menu.Item as={Link} to="/login" fitted>
           Login
         </Menu.Item>
-        <Menu.Item as={Link} to="/signup" fitted>Sign Up</Menu.Item>
+        <Menu.Item as={Link} to="/sign-up" fitted>Sign Up</Menu.Item>
       </React.Fragment>
     );
   };
@@ -190,10 +189,10 @@ class DesktopNavBar extends Component {
                     <Menu.Item as={Link} to="/" fitted>
                       Home
                     </Menu.Item>
-                    <Menu.Item as={Link} to="/UserProfiles" fitted>
+                    <Menu.Item as={Link} to="/user-profiles" fitted>
                       User Profiles
                     </Menu.Item>
-                    <Menu.Item as={Link} to="/ResumeBuilder" fitted>
+                    <Menu.Item as={Link} to="/resume-builder" fitted>
                       Resume Builder
                     </Menu.Item>
                     {this.renderRegistrationButton(

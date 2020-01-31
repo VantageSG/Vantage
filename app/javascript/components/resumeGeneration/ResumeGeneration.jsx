@@ -32,11 +32,14 @@ import Education from "./Education";
 import WorkExperiences from "./WorkExperiences";
 import Skills from "./Skills";
 import Interests from "./Interests";
+import { Container as DndContainer, Draggable } from "react-smooth-dnd";
+
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      items: [<React.Fragment></React.Fragment>],
       loading: true,
       user: {
         name: "test"
@@ -47,9 +50,63 @@ export default class ResumeGeneration extends Component {
       interests: [interestSchema],
       skills: [skillSchema, skillSchema]
     };
+    this.generateForm = this.generateForm.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+    this.applyDrag = this.applyDrag.bind(this);
   }
 
   componentDidMount() {
+    this.setState({
+      items: [
+        {
+          id: 0,
+          element: (
+            <React.Fragment>
+              <About about={this.state.about}></About>
+              <Divider></Divider>
+            </React.Fragment>
+          )
+        },
+        {
+          id: 1,
+          element: (
+            <React.Fragment>
+              <Education educations={this.state.educations}></Education>
+              <Divider></Divider>
+            </React.Fragment>
+          )
+        },
+        {
+          id: 2,
+          element: (
+            <React.Fragment>
+              <WorkExperiences
+                workExperiences={this.state.workExperiences}
+              ></WorkExperiences>
+              <Divider></Divider>
+            </React.Fragment>
+          )
+        },
+        {
+          id: 3,
+          element: (
+            <React.Fragment>
+              <Interests interests={this.state.interests}></Interests>
+              <Divider></Divider>
+            </React.Fragment>
+          )
+        },
+        {
+          id: 4,
+          element: (
+            <React.Fragment>
+              <Skills skills={this.state.skills}></Skills>
+              <Divider></Divider>
+            </React.Fragment>
+          )
+        }
+      ]
+    });
     this.getVrsAttributes();
   }
 
@@ -150,23 +207,54 @@ export default class ResumeGeneration extends Component {
 
   generateResume = state => {
     console.log("Test");
-    var element = document.getElementById("test");
+    var element = document.getElementById("user-resume");
     //html2pdf(element, { filename: state.user.name });
     var opt = {
-      margin:       1,
-      filename:     'user.pdf',
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      margin: 1,
+      filename: "user.pdf",
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
     };
-
-    html2pdf().set(opt).from(element).save();
-
-
-    console.log(element);
+    html2pdf()
+      .from(element)
+      .save();
   };
 
+  onDrop(dropResult) {
+    return this.setState({
+      items: this.applyDrag(this.state.items, dropResult)
+    });
+  }
+  generateForm = items => {
+    return items.map(item => {
+      return (
+        <Draggable key={item.id}>
+          <div className={`form-line`}>
+            <div className="field">{item.element}</div>
+          </div>
+        </Draggable>
+      );
+    });
+  };
+
+  applyDrag(arr, dragResult) {
+    const { removedIndex, addedIndex, payload } = dragResult;
+    if (removedIndex === null && addedIndex === null) return arr;
+
+    const result = [...arr];
+    let itemToAdd = payload;
+
+    if (removedIndex !== null) {
+      itemToAdd = result.splice(removedIndex, 1)[0];
+    }
+
+    if (addedIndex !== null) {
+      result.splice(addedIndex, 0, itemToAdd);
+    }
+
+    return result;
+  }
+
   render() {
-    // console.table(this.state);
-    // console.table(this.state.education);
     const {
       about,
       educations,
@@ -175,47 +263,20 @@ export default class ResumeGeneration extends Component {
       interests
     } = this.state;
     const { loading } = this.state;
+
     return (
       <React.Fragment>
         <br></br>
         <Container fluid>
-          <div id="test">
+          <div id="user-resume">
             <Container fluid>
               <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
                 <Segment>
                   <Grid centered columns={1}>
                     <Grid.Column>
-                      <Placeholder fluid>
-                        <Placeholder.Header image>
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                        </Placeholder.Header>
-                        <Placeholder.Line length="full" />
-                        <Placeholder.Line length="very long" />
-                        <Placeholder.Line length="long" />
-                        <Placeholder.Line length="medium" />
-                        <Placeholder.Line length="short" />
-                        <Placeholder.Line length="very short" />
-                        <Placeholder.Paragraph>
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                        </Placeholder.Paragraph>
-                        <Placeholder.Paragraph>
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                          <Placeholder.Line />
-                        </Placeholder.Paragraph>
-                      </Placeholder>
-                      <About about={this.state.about}></About>
-                      <Education educations={this.state.educations}></Education>
-                      <WorkExperiences workExperiences={this.state.workExperiences}></WorkExperiences>
-                      <Interests interests={this.state.interests}></Interests>
-                      <Skills skills={this.state.skills}></Skills>
+                      <DndContainer onDrop={this.onDrop}>
+                        {this.generateForm(this.state.items)}
+                      </DndContainer>
                     </Grid.Column>
                   </Grid>
                 </Segment>
@@ -223,10 +284,15 @@ export default class ResumeGeneration extends Component {
             </Container>
           </div>
         </Container>
-        <Button
-          content="Generate Resume"
-          onClick={() => this.generateResume(this.state)}
-        ></Button>
+
+        <Grid centered columns={1}>
+          <Grid.Column textAlign="center">
+            <Button
+              content="Generate Resume"
+              onClick={() => this.generateResume(this.state)}
+            ></Button>
+          </Grid.Column>
+        </Grid>
       </React.Fragment>
     );
   }

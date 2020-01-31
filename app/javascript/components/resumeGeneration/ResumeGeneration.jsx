@@ -28,6 +28,10 @@ import { isEmpty } from "../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import html2pdf from "html2pdf.js";
 import About from "./About";
+import Education from "./Education";
+import WorkExperiences from "./WorkExperiences";
+import Skills from "./Skills";
+import Interests from "./Interests";
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
@@ -208,6 +212,10 @@ export default class ResumeGeneration extends Component {
                         </Placeholder.Paragraph>
                       </Placeholder>
                       <About about={this.state.about}></About>
+                      <Education educations={this.state.educations}></Education>
+                      <WorkExperiences workExperiences={this.state.workExperiences}></WorkExperiences>
+                      <Interests interests={this.state.interests}></Interests>
+                      <Skills skills={this.state.skills}></Skills>
                     </Grid.Column>
                   </Grid>
                 </Segment>

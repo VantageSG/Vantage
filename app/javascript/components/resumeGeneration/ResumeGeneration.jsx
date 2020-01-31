@@ -34,7 +34,6 @@ import Skills from "./Skills";
 import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
 
-
 export default class ResumeGeneration extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +44,7 @@ export default class ResumeGeneration extends Component {
         name: "test"
       },
       about: aboutSchema,
-      educations: [educationSchema, {...educationSchema}],
+      educations: [educationSchema, { ...educationSchema }],
       workExperiences: [workExperienceSchema, workExperienceSchema],
       interests: [interestSchema],
       skills: [skillSchema, skillSchema]
@@ -62,7 +61,10 @@ export default class ResumeGeneration extends Component {
           id: 0,
           element: (
             <React.Fragment>
-              <About about={this.state.about}></About>
+              <About
+                about={this.state.about}
+                onAboutChange={this.onAboutChange}
+              ></About>
               <Divider></Divider>
             </React.Fragment>
           )
@@ -71,7 +73,10 @@ export default class ResumeGeneration extends Component {
           id: 1,
           element: (
             <React.Fragment>
-              <Education educations={this.state.educations}></Education>
+              <Education
+                educations={this.state.educations}
+                onEducationChange={this.onEducationChange}
+              ></Education>
               <Divider></Divider>
             </React.Fragment>
           )
@@ -82,6 +87,7 @@ export default class ResumeGeneration extends Component {
             <React.Fragment>
               <WorkExperiences
                 workExperiences={this.state.workExperiences}
+                onAboutChange={this.onAboutChange}
               ></WorkExperiences>
               <Divider></Divider>
             </React.Fragment>
@@ -91,7 +97,10 @@ export default class ResumeGeneration extends Component {
           id: 3,
           element: (
             <React.Fragment>
-              <Interests interests={this.state.interests}></Interests>
+              <Interests
+                interests={this.state.interests}
+                onInterestsChange={this.onInterestsChange}
+              ></Interests>
               <Divider></Divider>
             </React.Fragment>
           )
@@ -100,7 +109,10 @@ export default class ResumeGeneration extends Component {
           id: 4,
           element: (
             <React.Fragment>
-              <Skills skills={this.state.skills}></Skills>
+              <Skills
+                skills={this.state.skills}
+                onSkillsChange={this.onSkillsChange}
+              ></Skills>
               <Divider></Divider>
             </React.Fragment>
           )
@@ -111,7 +123,6 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state)
     this.getVrsAttributes();
   }
 
@@ -206,38 +217,28 @@ export default class ResumeGeneration extends Component {
       .catch(error => {});
   }
 
-  onAboutChange = (about) => {    
-    this.setState({about});
-  }
+  onAboutChange = about => {
+    this.setState({ about });
+  };
 
-  onEducationChange = (educations) => {
-    this.setState({educations});
-  }
+  onEducationChange = educations => {
+    this.setState({ educations });
+  };
 
-  onWorkExperiencesChange = (workExperiences) => {
-    this.setState({workExperiences});
-  }
+  onWorkExperiencesChange = workExperiences => {
+    this.setState({ workExperiences });
+  };
 
-  onSkillsChange = (skills) => {
-    this.setState({skills});
-  }
+  onSkillsChange = skills => {
+    this.setState({ skills });
+  };
 
-  onInterestsChange = (interests) => {
-    this.setState({interests});
-  }
+  onInterestsChange = interests => {
+    this.setState({ interests });
+  };
 
-  generateResume = state => {
-    console.log("Test");
-    var element = document.getElementById("user-resume");
-    //html2pdf(element, { filename: state.user.name });
-    var opt = {
-      margin: 1,
-      filename: "user.pdf",
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
-    };
-    html2pdf()
-      .from(element)
-      .save();
+  generateResume = () => {
+  
   };
 
   onDrop(dropResult) {
@@ -288,29 +289,24 @@ export default class ResumeGeneration extends Component {
     return (
       <React.Fragment>
         <br></br>
-        <Container fluid>
-          <div id="user-resume">
-            <Container fluid>
-              <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-                <Segment>
-                  <Grid centered columns={1}>
-                    <Grid.Column>
-                      <DndContainer onDrop={this.onDrop}>
-                        {this.generateForm(this.state.items)}
-                      </DndContainer>
-                    </Grid.Column>
-                  </Grid>
-                </Segment>
-              </Container>
-            </Container>
-          </div>
+
+  
+
+        <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+          <Grid centered columns={1}>
+            <Grid.Column>
+              <DndContainer onDrop={this.onDrop}>
+                {this.generateForm(this.state.items)}
+              </DndContainer>
+            </Grid.Column>
+          </Grid>
         </Container>
 
         <Grid centered columns={1}>
           <Grid.Column textAlign="center">
             <Button
               content="Generate Resume"
-              onClick={() => this.generateResume(this.state)}
+              onClick={this.generateResume}
             ></Button>
           </Grid.Column>
         </Grid>

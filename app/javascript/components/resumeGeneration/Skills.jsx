@@ -19,7 +19,7 @@ class Skills extends React.Component {
 
   render() {
       return (
-        <div>
+        <React.Fragment>
           {
             this.props.skills.map(
               (skill, index) => {
@@ -52,7 +52,7 @@ class Skills extends React.Component {
               }
             )
           }
-        </div>
+        </React.Fragment>
       );
   }
 }

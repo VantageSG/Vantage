@@ -13,6 +13,9 @@ class About extends React.Component {
       ...this.props.about,
       [name]: value
     });
+    console.log("SDADAS");
+
+    
   }
 
   render() {
@@ -20,6 +23,7 @@ class About extends React.Component {
         <Header>About</Header>
         <Header>
           <EditableLabel text={this.props.about.name}
+              isEditing={false}
               inputWidth='200px'
               inputHeight='25px'                 
               onFocusOut={(name) => this.handleAboutChange('name', name)}
@@ -44,6 +48,7 @@ class About extends React.Component {
               inputWidth='200px'
               inputHeight='25px'                                       
               onFocusOut={(aboutMe) => this.handleAboutChange('aboutMe', aboutMe)}
+              
           />
         </Header>
       </React.Fragment>

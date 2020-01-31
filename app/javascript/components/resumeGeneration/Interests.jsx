@@ -19,7 +19,7 @@ class Interests extends React.Component {
 
   render() {
       return (
-        <div>
+        <React.Fragment>
           {
             this.props.interests.map(
               (interest, index) => {
@@ -38,7 +38,7 @@ class Interests extends React.Component {
               }
             )
           }
-        </div>
+        </React.Fragment>
       );
   }
 }

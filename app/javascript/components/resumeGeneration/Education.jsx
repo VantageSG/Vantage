@@ -20,7 +20,7 @@ class Education extends React.Component {
 
   render() {    
     return (
-      <div>
+      <React.Fragment>
         {
           this.props.educations.map(
             (education, index) => {
@@ -67,7 +67,7 @@ class Education extends React.Component {
             }
           )
         }
-      </div>
+      </React.Fragment>
     )
   }
 }

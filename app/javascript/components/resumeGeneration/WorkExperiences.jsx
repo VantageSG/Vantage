@@ -20,7 +20,7 @@ class WorkExperiences extends React.Component {
 
   render() {    
     return (
-      <div>
+      <React.Fragment>
         {
           this.props.workExperiences.map(
             (workExperience, index) => {
@@ -67,7 +67,7 @@ class WorkExperiences extends React.Component {
             }
           )
         }
-      </div>
+      </React.Fragment>
     )
   }
 }

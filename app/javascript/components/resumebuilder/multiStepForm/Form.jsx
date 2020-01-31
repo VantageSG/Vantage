@@ -63,8 +63,8 @@ export default class FormStep extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxStep: 6,
-      step: 6,
+      maxStep: 5,
+      step: 0,
       /// about me
       name: "",
       email: "",
@@ -300,27 +300,7 @@ export default class FormStep extends Component {
             </React.Fragment>
           );
 
-          case 6:
-            return (
-              <React.Fragment> 
-              <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
-              <Container text>
-                <ConfirmationPage
-                  user={this.props.user}
-                  submitAndContinue={this.submitAndContinue}
-                  step={step}
-                  maxStep={maxStep}
-                  nextStep={this.nextStep}
-                  previousStep={this.previousStep}
-                  goToAboutMe={this.goToAboutMe}
-                  goToEducation={this.goToEducation}
-                  goToWorkExperience={this.goToWorkExperience}
-                  goToSkills={this.goToSkills}
-                  goToInterests={this.goToInterests}
-                ></ConfirmationPage>
-              </Container>
-              </React.Fragment>
-            );
+       
         
       }
 

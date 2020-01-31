@@ -14,10 +14,10 @@ import {
   interestSchema,
   skillSchema,
   workExperienceSchema
-} from "../frontEndUtil/schema";
+} from "../resumebuilder/multiStepForm/frontEndUtil/schema";
 import axios from "axios";
-import {getEndPoint, sanitizeResponse} from "./formApi"
-import { isEmpty } from "../../../util/Props"
+import {getEndPoint, sanitizeResponse} from "../resumebuilder/multiStepForm/formPages/formApi"
+import { isEmpty } from "../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 export default class ResumeGeneration extends Component {
   constructor(props) {

@@ -134,8 +134,23 @@ export default class ResumeGeneration extends Component {
     const { about, educations, workExperiences, skills, interests } = this.state;
 
     return (
-      <div>
-       </div>
+      <React.Fragment>
+        <br></br>
+        <Container fluid>
+        <div id="user-resume">
+          <Container fluid>
+          <List>
+            <List.Item>
+              TEST TEST TEST
+            </List.Item>
+          </List>
+          </Container>
+        </div>
+
+        </Container>
+      
+       
+       </React.Fragment>
     );
   }
 }

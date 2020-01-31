@@ -5,26 +5,22 @@ import { Header } from 'semantic-ui-react';
 
 class About extends React.Component {
   constructor(props){
-    super(props);
-
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleNumberChange = this.handleNumberChange.bind(this);
+    super(props);  
   }
 
-  handleNameChange(name) {
+  handleNameChange = (name) => {
     console.log(name);  
   }
 
-  handleEmailChange(email) {
+  handleEmailChange = (email) => {
     console.log(email);
   }
 
-  handleNumberChange(contactNumber) {
+  handleNumberChange = (contactNumber) => {
     console.log(contactNumber);
   }
 
-  handleAboutMeChange(aboutMe) {
+  handleAboutMeChange = (aboutMe) => {
     console.log(aboutMe);
   }
 

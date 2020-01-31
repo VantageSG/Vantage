@@ -42,7 +42,7 @@ export default class ResumeGeneration extends Component {
         name: "test"
       },
       about: aboutSchema,
-      educations: [educationSchema, educationSchema],
+      educations: [educationSchema, {...educationSchema}],
       workExperiences: [workExperienceSchema, workExperienceSchema],
       interests: [interestSchema],
       skills: [skillSchema, skillSchema]
@@ -54,6 +54,7 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidUpdate() {
+    console.log(this.state)
     this.getVrsAttributes();
   }
 
@@ -148,6 +149,26 @@ export default class ResumeGeneration extends Component {
       .catch(error => {});
   }
 
+  onAboutChange = (about) => {    
+    this.setState({about});
+  }
+
+  onEducationChange = (educations) => {
+    this.setState({educations});
+  }
+
+  onWorkExperiencesChange = (workExperiences) => {
+    this.setState({workExperiences});
+  }
+
+  onSkillsChange = (skills) => {
+    this.setState({skills});
+  }
+
+  onInterestsChange = (interests) => {
+    this.setState({interests});
+  }
+
   generateResume = state => {
     console.log("Test");
     var element = document.getElementById("test");
@@ -211,11 +232,26 @@ export default class ResumeGeneration extends Component {
                           <Placeholder.Line />
                         </Placeholder.Paragraph>
                       </Placeholder>
-                      <About about={this.state.about}></About>
-                      <Education educations={this.state.educations}></Education>
-                      <WorkExperiences workExperiences={this.state.workExperiences}></WorkExperiences>
-                      <Interests interests={this.state.interests}></Interests>
-                      <Skills skills={this.state.skills}></Skills>
+                      <About
+                        about={this.state.about}
+                        onAboutChange={this.onAboutChange}
+                      ></About>
+                      <Education
+                        educations={this.state.educations}
+                        onEducationChange={this.onEducationChange}
+                      ></Education>
+                      <WorkExperiences
+                        workExperiences={this.state.workExperiences}
+                        onWorkExperiencesChange={this.onWorkExperiencesChange}
+                      ></WorkExperiences>
+                      <Interests
+                        interests={this.state.interests}
+                        onInterestsChange={this.onInterestsChange}
+                      ></Interests>
+                      <Skills
+                        skills={this.state.skills}
+                        onSkillsChange={this.onSkillsChange}
+                      ></Skills>
                     </Grid.Column>
                   </Grid>
                 </Segment>

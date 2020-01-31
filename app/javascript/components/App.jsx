@@ -9,6 +9,7 @@ import Users from "../components/userprofiles/Users";
 import UserProfile from "../components/userprofiles/UserProfile";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
+import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
 
 class App extends Component {
   constructor(props) {
@@ -122,6 +123,15 @@ class App extends Component {
                     />
                   );
                 }}
+              />
+
+<Route
+                exact
+                path="/resume-generation"
+                render={props => <ResumeBuilder 
+                  {...props} 
+                  user={this.state.user}
+                />}
               />
               <Route component={Error404Page} />
             </Switch>

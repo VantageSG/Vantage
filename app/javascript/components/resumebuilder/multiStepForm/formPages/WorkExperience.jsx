@@ -32,7 +32,8 @@ export default class WorkExperience extends Component {
     super(props);
     var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
     this.state = {
-      workExperiences: [cloneWorkExperienceSchema]
+      workExperiences: [cloneWorkExperienceSchema],
+      user: {}
     };
   }
 

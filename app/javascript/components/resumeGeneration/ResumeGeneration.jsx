@@ -45,7 +45,7 @@ export default class ResumeGeneration extends Component {
         name: "test"
       },
       about: aboutSchema,
-      educations: [educationSchema, educationSchema],
+      educations: [educationSchema, {...educationSchema}],
       workExperiences: [workExperienceSchema, workExperienceSchema],
       interests: [interestSchema],
       skills: [skillSchema, skillSchema]
@@ -111,6 +111,7 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidUpdate() {
+    console.log(this.state)
     this.getVrsAttributes();
   }
 
@@ -203,6 +204,26 @@ export default class ResumeGeneration extends Component {
         });
       })
       .catch(error => {});
+  }
+
+  onAboutChange = (about) => {    
+    this.setState({about});
+  }
+
+  onEducationChange = (educations) => {
+    this.setState({educations});
+  }
+
+  onWorkExperiencesChange = (workExperiences) => {
+    this.setState({workExperiences});
+  }
+
+  onSkillsChange = (skills) => {
+    this.setState({skills});
+  }
+
+  onInterestsChange = (interests) => {
+    this.setState({interests});
   }
 
   generateResume = state => {

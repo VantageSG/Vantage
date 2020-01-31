@@ -8,9 +8,9 @@ const aboutSchema = {
   const educationSchema = {
     program: "test",
     institution: "test2",
-    startEdu: "",
-    endEdu: "",
-    grade: "",
+    start: "aaa",
+    end: "aaa",
+    grade: "A",
   }
   const workExperienceSchema = {
     title: "Waiter 1",
@@ -22,13 +22,13 @@ const aboutSchema = {
   }
 
   const skillSchema = {
-    skillName: "skill Test",
+    name: "skill Test",
     description: "test description",
     link: "",
   }
 
   const interestSchema = {
-    interestName: ""
+    name: "aaa"
   }
   
 

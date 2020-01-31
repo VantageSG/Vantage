@@ -25,23 +25,25 @@ class App extends Component {
   }
   loginStatus = () => {
     axios
-      .get(process.env.BACKEND_PORT + "/api/v1/logged_in", { 
+      .get(process.env.BACKEND_PORT + "/api/v1/logged_in", {
         withCredentials: true,
-        validateStatus: function (status) {
-          return status >= 200 && status < 300 || status === 401; //error status 401 is expected for user not logged in
-        },
-      })
-      .then(response => {
-        if (response.status === 200){
-          this.handleLogin(response);
-        } else if (response.status === 401 && response.data.error === "User not logged in") {
-          this.handleLogout();
-        } else {
-          console.log('unknown error')
+        validateStatus: function(status) {
+          return (status >= 200 && status < 300) || status === 401; //error status 401 is expected for user not logged in
         }
       })
-      .catch(error => {
+      .then(response => {
+        if (response.status === 200) {
+          this.handleLogin(response);
+        } else if (
+          response.status === 401 &&
+          response.data.error === "User not logged in"
+        ) {
+          this.handleLogout();
+        } else {
+          console.log("unknown error");
+        }
       })
+      .catch(error => {});
   };
 
   handleLogin = data => {
@@ -61,8 +63,8 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <ResponsiveContainer
-          loggedInStatus={this.state.isLoggedIn}
-          user={this.state.user}
+            loggedInStatus={this.state.isLoggedIn}
+            user={this.state.user}
           >
             <Switch>
               <Route
@@ -106,10 +108,9 @@ class App extends Component {
               <Route
                 exact
                 path="/resume-builder"
-                render={props => <ResumeBuilder 
-                  {...props} 
-                  user={this.state.user}
-                />}
+                render={props => (
+                  <ResumeBuilder {...props} user={this.state.user} />
+                )}
               />
               <Route
                 exact
@@ -125,13 +126,12 @@ class App extends Component {
                 }}
               />
 
-<Route
+              <Route
                 exact
                 path="/resume-generation"
-                render={props => <ResumeBuilder 
-                  {...props} 
-                  user={this.state.user}
-                />}
+                render={props => (
+                  <ResumeGeneration {...props} user={this.state.user} />
+                )}
               />
               <Route component={Error404Page} />
             </Switch>

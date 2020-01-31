@@ -19,6 +19,8 @@ import axios from "axios";
 import {getEndPoint, sanitizeResponse} from "../resumebuilder/multiStepForm/formPages/formApi"
 import { isEmpty } from "../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
+import About from './About';
+
 export default class ResumeGeneration extends Component {
   constructor(props) {
     super(props);
@@ -141,7 +143,7 @@ export default class ResumeGeneration extends Component {
           <Container fluid>
           <List>
             <List.Item>
-              TEST TEST TEST
+              TEST TEST TEST              
             </List.Item>
           </List>
           </Container>

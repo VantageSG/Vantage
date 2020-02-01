@@ -1,3 +1,3 @@
 class ResumeSerializer < ActiveModel::Serializer
-  attributes 
+  attributes :id
 end

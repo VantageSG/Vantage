@@ -46,14 +46,8 @@ class Signup extends Component {
         { withCredentials: true }
       )
       .then(response => {
-        if (response.data.status === "created") {
-          this.props.handleLogin(response.data);
-          this.redirect();
-        } else {
-          this.setState({
-            errors: response.data.errors
-          });
-        }
+        this.props.handleLogin(response);
+        this.redirect();
       })
       .catch(error => console.log("api errors:", error));
   };
@@ -122,6 +116,9 @@ class Signup extends Component {
                     onChange={this.handleChange}
                   />
                   <Form.Input
+                    fluid
+                    icon="lock"
+                    iconPosition="left"
                     placeholder="password confirmation"
                     type="password"
                     name="password_confirmation"

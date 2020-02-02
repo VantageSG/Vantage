@@ -140,7 +140,6 @@ RSpec.describe Api::V1::SessionsController, type: :request do
 
   describe 'POST /api/v1/login/:guest_user_id' do
     let!(:typical_guest_user) { create(:typical_guest_user) }
-    let!(:typical_user_jason) { create(:typical_user_jason) }
     context 'User already not logged in' do
 
       it 'should return user is logged_in for guest user' do
@@ -150,10 +149,20 @@ RSpec.describe Api::V1::SessionsController, type: :request do
 
       it 'should return error for non guest user' do
         post "/api/v1/login/#{typical_user_jason.id}"
-        byebug
         expect(json['error']).to eq("Cannot create guest session for non guest user")
       end
-    end
 
+      it 'should return error for invalid guest user id' do
+        post "/api/v1/login/ABCDEFG"
+        expect(json['error']).to eq("Invalid guest_user_id")
+      end
+
+      it 'should return delete guest user when normal user logged in' do
+        post "/api/v1/login/#{typical_guest_user.id}"
+        request.cookies['_Vantage'] = response.cookies['_Vantage']
+        post '/api/v1/login', params: typical_user_jason_credentials
+        expect(User.find_by(id: typical_guest_user.id)).to be_nil
+      end
+    end
   end
 end

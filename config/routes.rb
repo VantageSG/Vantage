@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get '/users/:user_id' => 'users#show'
       post '/users' => 'users#create'
       post '/users/guest_user' => 'users#create_guest_user'
-      post '/users/:user_id/migrate/:guest_user' => 'users#guest_migrate'
+      post '/users/:user_id/migrate/:guest_user_id' => 'users#migrate_guest_user'
 
       
       #Userprofile API

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_one :user_profile
-  has_many :resume
+  has_one :user_profile, dependent: :destroy
+  has_many :resume, dependent: :destroy
 
   has_secure_password
   validates_presence_of :username, :email, :password_digest, unless: :guest?
@@ -13,12 +13,12 @@ class User < ApplicationRecord
     Resume.new({:user_id => self.id}).save
   end
 
-  def self.new_guest
-    new { |user| user.guest = true }
-  end
-
   def move_to(user)
-    resume.update_all(user_id: user.id)
-    user_profile.update_all(user_id: user.id)
+    user.resume.each do |curr_resume|
+      curr_resume.destroy
+    end
+    user.user_profile.destroy if user.user_profile
+    Resume.where(user_id: self.id).update_all(user_id: user.id)
+    UserProfile.where(user_id: self.id).update_all(user_id: user.id)
   end
 end

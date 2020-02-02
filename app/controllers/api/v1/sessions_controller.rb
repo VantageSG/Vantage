@@ -1,7 +1,10 @@
 # Controller for all sessions
 class Api::V1::SessionsController < Api::V1::BaseController
   def create
-    if session
+    if session['guest_user_id']
+      guest_user = User.find_by(id: session[:guest_user_id])
+      guest_user.destroy
+    end
     reset_session 
     user = User.find_by(email: session_params[:email])
 
@@ -18,6 +21,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
 
   def create_guest_session
     user = User.find_by(id: params[:guest_user_id])
+    raise InvalidParamsError, 'Invalid guest_user_id' if user.nil?
     raise AuthenticationError, 'Cannot create guest session. User already logged in.' if @current_user
     
     if user.guest?

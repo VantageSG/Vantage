@@ -79,4 +79,14 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/users/guest_user' do
+    before { post '/api/v1/users/guest_user' }
+    it 'returns guest user' do
+      expect(json['user']['id']).not_to be_nil
+      expect(json['user']['username']).to eq('guest')
+      expect(json['user']['email']).to be_nil
+      expect(json['user']['guest']).to be true
+    end
+  end
 end

@@ -2,9 +2,19 @@ Rails.application.routes.draw do
   root 'pages#index'
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :create, :show] do
-        resource :userprofiles, only: [:create, :show, :update]
-      end
+      
+      #Users API
+      get '/users' => 'users#index'
+      get '/users/:user_id' => 'users#show'
+      post '/users' => 'users#create'
+      post '/users/guest_user' => 'users#create_guest_user'
+      post '/users/:user_id/migrate/:guest_user' => 'users#guest_migrate'
+
+      
+      #Userprofile API
+      get '/users/:user_id/userprofiles' => 'userprofiles#show'
+      post '/users/:user_id/userprofiles' => 'userprofiles#create'
+      patch '/users/:user_id/userprofiles' => 'userprofiles#update'
 
       # resumes API
       get '/vrs/:user_id' => 'resumes/resumes#show'
@@ -21,6 +31,7 @@ Rails.application.routes.draw do
       post '/vrs/:user_id/interests' => 'resumes/interests#create'
 
       post '/login' => 'sessions#create'
+      post '/login/:guest_user_id' => 'sessions#create_guest_session'
       delete '/logout' => 'sessions#destroy'
       get '/logged_in' => 'sessions#is_logged_in?'
     end

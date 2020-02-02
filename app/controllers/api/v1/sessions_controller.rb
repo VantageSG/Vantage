@@ -1,6 +1,8 @@
 # Controller for all sessions
 class Api::V1::SessionsController < Api::V1::BaseController
   def create
+    if session
+    reset_session 
     user = User.find_by(email: session_params[:email])
 
     if user&.authenticate(session_params[:password])
@@ -13,6 +15,23 @@ class Api::V1::SessionsController < Api::V1::BaseController
       raise AuthenticationError, 'verify credentials and try again or signup'
     end
   end
+
+  def create_guest_session
+    user = User.find_by(id: params[:guest_user_id])
+    raise AuthenticationError, 'Cannot create guest session. User already logged in.' if @current_user
+    
+    if user.guest?
+      session[:guest_user_id] = user.id
+      session[:user_id] = user.id
+      render json: {
+        logged_in: true,
+        user: user
+      }
+    else
+      raise AuthenticationError, 'Cannot create guest session for non guest user'
+    end
+  end
+
 
   def is_logged_in?
     if @current_user

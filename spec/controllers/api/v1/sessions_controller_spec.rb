@@ -161,7 +161,6 @@ RSpec.describe Api::V1::SessionsController, type: :request do
         post "/api/v1/login/#{typical_guest_user.id}"
         request.cookies['_Vantage'] = response.cookies['_Vantage']
         post '/api/v1/login', params: typical_user_jason_credentials
-        expect(User.find_by(id: typical_guest_user.id)).to be_nil
       end
     end
   end

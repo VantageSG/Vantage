@@ -48,15 +48,15 @@ class GuestUserModal extends Component{
   render(){
     return(
       <div>
-         <Modal 
-      size="tiny"
-      closeOnEscape={false}
-      closeOnDimmerClick={false}
-      closeOnDocumentClick={false}
-      closeIcon
-      onClose={event =>  window.location.href='/'}
-      open={isEmpty(this.state.user)}
-      >
+        <Modal 
+        size="tiny"
+        closeOnEscape={false}
+        closeOnDimmerClick={false}
+        closeOnDocumentClick={false}
+        closeIcon
+        onClose={event =>  window.location.href='/'}
+        open={isEmpty(this.state.user)}
+        >
         <Modal.Content >
           <Modal.Description>
             <p>
@@ -75,6 +75,7 @@ class GuestUserModal extends Component{
             />  
             <Button.Or/>
             <Button
+              data-testid="Login"
               color="teal"
               content='Login'
               onClick={event =>  window.location.href='/Login'}

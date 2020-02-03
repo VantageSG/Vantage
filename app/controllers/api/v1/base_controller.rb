@@ -15,23 +15,22 @@ class Api::V1::BaseController < ActionController::Base
   end
 
   def authenticate
+    
     raise AuthenticationError, 'User not logged in' if @current_user.nil?
-    #Authenticate Normal User
+    #User id in params and session must be the same
     if params[:user_id]
       user = User.find(params[:user_id]) 
       raise AuthenticationError, 'User not authorized' if @current_user != user
     end 
-
-    if session[:guest_user_id]
-      session_guest_user = User.find(session[:user_id])
-      aise AuthenticationError, 'Guest User not authorized. Conflicting guest user id' if @current_user != session_guest_user
+    #Guest user has already logged in
+    if session[:guest_user_id] && session[:guest_user_id] != session[:user_id]
+      
+      guest_user = User.find(session[:guest_user_id])
+      raise InvalidParamsError, 'Invalid guest_user_id in session' unless guest_user.guest?
+      session.delete(:guest_user_id)
+      
+      guest_user.destroy
     end
-
-    if params[:guest_user_id]
-      user = User.find(params[:guest_user_id]) 
-      raise AuthenticationError, 'User not authorized' if @current_user != user
-    end 
-    
   end
 
   def render_json_error(error)

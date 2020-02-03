@@ -1,10 +1,6 @@
 # Controller for all sessions
 class Api::V1::SessionsController < Api::V1::BaseController
   def create
-    if session['guest_user_id']
-      guest_user = User.find_by(id: session[:guest_user_id])
-      guest_user.destroy
-    end
     reset_session 
     user = User.find_by(email: session_params[:email])
 

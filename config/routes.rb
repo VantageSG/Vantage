@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       get '/vrs/:user_id/interests' => 'resumes/interests#show'
       post '/vrs/:user_id/interests' => 'resumes/interests#create'
 
+      #Authenticate
+      
       post '/login' => 'sessions#create'
       post '/login/:guest_user_id' => 'sessions#create_guest_session'
       delete '/logout' => 'sessions#destroy'

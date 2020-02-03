@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   # Validation tests
   # ensures it has 1 userprofile
-  describe 'nomral user' do 
+  describe 'nomral user' do
     before(:each) { allow(subject).to receive(:guest?).and_return(false) }
     it { should have_one(:user_profile) }
     it { should have_many(:resume) }
@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of(:email) }
     it { should allow_value('email@addresse.foo').for(:email) }
 
-    describe 'nomral user' do 
+    describe 'guest user' do
       before(:each) { allow(subject).to receive(:guest?).and_return(true) }
       it { should have_one(:user_profile) }
       it { should have_many(:resume) }

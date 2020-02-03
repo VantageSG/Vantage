@@ -102,18 +102,22 @@ RSpec.describe Api::V1::UsersController, type: :request do
         }
       }
     end
-    before { 
+    before do
       post '/api/v1/users/guest_user'
       @guest_user = User.find(json['user']['id'])
-      expect(typical_user_jason.resume[0].id).not_to eq(@guest_user.resume[0].id)
-      post "/api/v1/users/#{typical_user_jason.id}/migrate/#{@guest_user.id}", params: valid_attributes
-    }
+      expect(typical_user_jason.resume[0].id)
+        .not_to eq(@guest_user.resume[0].id)
+      post "/api/v1/users/#{typical_user_jason.id}/migrate/#{@guest_user.id}"
+        , params: valid_attributes
+    end
     it 'should delete guest user' do
-      expect{User.find(@guest_user.id)}.to raise_exception(ActiveRecord::RecordNotFound)
+      expect { User.find(@guest_user.id) }
+        .to raise_exception(ActiveRecord::RecordNotFound)
     end
     it 'should migrate all resume guest user' do
       @guest_user.resume.each do |guest_user_resume|
-        expect(Resume.find(guest_user_resume.id).user_id).to eq(typical_user_jason.id) 
+        expect(Resume.find(guest_user_resume.id).user_id)
+          .to eq(typical_user_jason.id)
       end
     end
   end

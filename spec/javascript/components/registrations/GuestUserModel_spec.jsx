@@ -1,6 +1,5 @@
 import React from 'react';
 import GuestUserModal from 'components/registrations/GuestUserModal.jsx';
-import { shallow } from 'enzyme'
 import { renderWithRouter, screen } from '../../test-utils';
 import '@testing-library/jest-dom/extend-expect';
 

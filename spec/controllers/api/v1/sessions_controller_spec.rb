@@ -149,12 +149,13 @@ RSpec.describe Api::V1::SessionsController, type: :request do
 
       it 'should return error for non guest user' do
         post "/api/v1/login/#{typical_user_jason.id}"
-        expect(json['error']).to eq("Cannot create guest session for non guest user")
+        expect(json['error'])
+          .to eq('Cannot create guest session for non guest user')
       end
 
       it 'should return error for invalid guest user id' do
-        post "/api/v1/login/ABCDEFG"
-        expect(json['error']).to eq("Invalid guest_user_id")
+        post '/api/v1/login/ABCDEFG'
+        expect(json['error']).to eq('Invalid guest_user_id')
       end
 
       it 'should return delete guest user when normal user logged in' do

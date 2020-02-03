@@ -35,13 +35,13 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create_guest_user
-    #TODO find a way to conditional has_secure_passwordc
-    user = User.new(:username=> "guest", :password=> "guest", :guest => true)
+    # TODO find a way to conditional has_secure_passwordc
+    user = User.new(:username => 'guest', :password => 'guest', :guest => true)
     if user.save
       render json: {
         user: user
       }, status: 201
-    else 
+    else
       render json: {
         errors: user.errors.full_messages
       }, status: 400
@@ -52,7 +52,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     guest_user = User.find(params[:guest_user_id])
     user = User.find_by(email: user_params[:email])
     if user&.authenticate(user_params[:password])
-      
       guest_user.move_to(user)
       guest_user.destroy
       render json: {

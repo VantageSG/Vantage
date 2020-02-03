@@ -28,10 +28,10 @@ class Api::V1::SessionsController < Api::V1::BaseController
         user: user
       }
     else
-      raise AuthenticationError, 'Cannot create guest session for non guest user'
+      raise AuthenticationError, 
+        'Cannot create guest session for non guest user'
     end
   end
-
 
   def is_logged_in?
     if @current_user

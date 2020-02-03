@@ -7,7 +7,6 @@ class User < ApplicationRecord
   validates_uniqueness_of :username, :email, case_sensitive: true, unless: :guest?
   validates :username, length: { minimum: 4 }, unless: :guest?
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, unless: :guest?
-  
   after_create :create_resume
   def create_resume()
     Resume.new({:user_id => self.id}).save

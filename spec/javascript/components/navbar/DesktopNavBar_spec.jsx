@@ -1,5 +1,5 @@
 import React from "react";
-import ResponsiveContainer from "components/NavBar.jsx";
+import ResponsiveContainer from "components/navBar/NavBar.jsx";
 import "@testing-library/jest-dom/extend-expect";
 import { renderWithRouter } from "../../test-utils";
 

@@ -11,7 +11,7 @@ import {
   Link,
   Icon
 } from "semantic-ui-react";
-import { Animated } from 'react-animated-css';
+import { Animated } from "react-animated-css";
 
 class Signup extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Signup extends Component {
     };
     axios
       .post(
-        process.env.BACKEND_PORT + '/api/v1/users/',
+        process.env.BACKEND_PORT + "/api/v1/users/",
         { user },
         { withCredentials: true }
       )
@@ -90,7 +90,7 @@ class Signup extends Component {
 
               <Header as="h2" color="teal" textAlign="center">
                 Sign Up
-            </Header>
+              </Header>
               <Form size="large" onSubmit={this.handleSubmit}>
                 <Segment stacked>
                   <Form.Input
@@ -131,7 +131,7 @@ class Signup extends Component {
 
                   <Button color="teal" fluid size="large" type="submit">
                     Sign Up
-                </Button>
+                  </Button>
                   <br></br>
                   <Button
                     color="teal"

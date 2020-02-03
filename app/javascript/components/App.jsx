@@ -4,12 +4,16 @@ import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import ResponsiveContainer from "./NavBar";
+import ResponsiveContainer from "./navBar/NavBar";
 import Users from "../components/userprofiles/Users";
 import UserProfile from "../components/userprofiles/UserProfile";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
+
+
+
+
 
 class App extends Component {
   constructor(props) {

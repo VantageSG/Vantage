@@ -25,7 +25,7 @@ class Education extends React.Component {
         {this.props.educations.map(
             (education, index) => {
               return (
-                <React.Fragment >
+                <React.Fragment  key={index}>
                   <Header>Education</Header>                  
                   <EditableLabel text={education.institution}
                       inputWidth='200px'

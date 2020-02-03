@@ -23,7 +23,7 @@ class Interests extends React.Component {
           {this.props.interests.map(
               (interest, index) => {
                 return (
-                  <React.Fragment >
+                  <React.Fragment key={index} >
                     <Header>Interests</Header>
                     <EditableLabel text={interest.name}
                         inputWidth='200px'

@@ -3,6 +3,7 @@ import EditableLabel from 'react-inline-editing';
 import { Header } from 'semantic-ui-react';
 
 
+
 class WorkExperiences extends React.Component {
 
   constructor(props) {
@@ -24,7 +25,7 @@ class WorkExperiences extends React.Component {
         {this.props.workExperiences.map(
             (workExperience, index) => {
               return (
-                <React.Fragment >
+                <React.Fragment key={index} >
                   <Header>Work Experiences</Header>
                   <EditableLabel text={workExperience.title}
                       inputWidth='200px'

@@ -19,7 +19,7 @@ class About extends React.Component {
   }
 
   render() {
-      return <React.Fragment>
+      return <React.Fragment >
         <Header>About</Header>
         <Header>
           <EditableLabel text={this.props.about.name}

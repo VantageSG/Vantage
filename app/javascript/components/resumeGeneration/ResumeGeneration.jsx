@@ -33,6 +33,9 @@ import WorkExperiences from "./WorkExperiences";
 import Skills from "./Skills";
 import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
+import uuid from "react-uuid";
+import domtoimage from 'dom-to-image';
+import jsPDF from "jspdf";
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
@@ -58,7 +61,7 @@ export default class ResumeGeneration extends Component {
     this.setState({
       items: [
         {
-          id: 0,
+          id: uuid(),
           element: (
             <React.Fragment>
               <About
@@ -68,24 +71,22 @@ export default class ResumeGeneration extends Component {
               <Divider></Divider>
             </React.Fragment>
           )
-        }
-        ,
-
+        },
         {
-          id: 1,
+          id: uuid(),
           element: (
             <React.Fragment>
               <Education
-              educations={this.state.educations}
-              onEducationChange={this.onEducationChange}
+                educations={this.state.educations}
+                onEducationChange={this.onEducationChange}
               ></Education>
               <Divider></Divider>
             </React.Fragment>
           )
         },
-        /*
+
         {
-          id: 2,
+          id: uuid(),
           element: (
             <React.Fragment>
               <WorkExperiences
@@ -97,7 +98,7 @@ export default class ResumeGeneration extends Component {
           )
         },
         {
-          id: 3,
+          id: uuid(),
           element: (
             <React.Fragment>
               <Interests
@@ -109,7 +110,7 @@ export default class ResumeGeneration extends Component {
           )
         },
         {
-          id: 4,
+          id: uuid(),
           element: (
             <React.Fragment>
               <Skills
@@ -119,7 +120,7 @@ export default class ResumeGeneration extends Component {
               <Divider></Divider>
             </React.Fragment>
           )
-        }*/
+        }
       ]
     });
     this.getVrsAttributes();
@@ -240,9 +241,6 @@ export default class ResumeGeneration extends Component {
     this.setState({ interests });
   };
 
-  generateResume = () => {
-  
-  };
 
   onDrop(dropResult) {
     return this.setState({
@@ -279,20 +277,21 @@ export default class ResumeGeneration extends Component {
     return result;
   }
 
+
   generateResume = () => {
-    var element = document.getElementById("resume");
-    console.log(element);
-    var opt = {
-      margin:       1,
-      filename:     'myfile.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
+    const element = document.getElementById("resume");
     
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    
-    var worker = html2pdf().from(element).save();
-  }
+    var pdf = new jsPDF("p", "mm", "a4");
+    var width = pdf.internal.pageSize.getWidth();
+    var height = pdf.internal.pageSize.getHeight();
+    if (pdf) {
+      domtoimage.toPng(element)
+        .then(imgData => {
+          pdf.addImage(imgData, 'PNG',0, 0, width, height);
+          pdf.save('download.pdf');
+        });
+    }
+  };
 
   render() {
     const {
@@ -308,19 +307,21 @@ export default class ResumeGeneration extends Component {
       <React.Fragment>
         <br></br>
 
+        
+          <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+          <div id="resume">
+            <Segment>
+              <Grid centered columns={1}>
+                <Grid.Column>
+                  <DndContainer onDrop={this.onDrop}>
+                    {this.generateForm(this.state.items)}
+                  </DndContainer>
+                </Grid.Column>
+              </Grid>
+            </Segment>
+            </div>
+          </Container>
   
-      <div id="resume">
-      <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-          <Grid centered columns={1}>
-            <Grid.Column>
-              <DndContainer onDrop={this.onDrop}>
-                {this.generateForm(this.state.items)}
-              </DndContainer>
-            </Grid.Column>
-          </Grid>
-        </Container>
-      </div>
-       
 
         <Grid centered columns={1}>
           <Grid.Column textAlign="center">

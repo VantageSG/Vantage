@@ -46,8 +46,13 @@ export default class Education extends Component {
           const responseData = camelcaseKeysDeep(response.data.educations);
           this.setState({
             user: this.props.user,
-            educations: sanitizeResponse(responseData, ["resumeId"]),
           })
+          if (responseData.length!=0) {
+            this.setState({
+              educations: sanitizeResponse(responseData, ["resumeId"]),
+            })
+          }
+          
           console.log(this.state);
           
         })

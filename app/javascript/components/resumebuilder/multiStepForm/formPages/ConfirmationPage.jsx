@@ -234,7 +234,6 @@ export default class ConfirmationPage extends Component {
               <Divider></Divider>
               <Button style={{backgroundColor: "#f4a300"}} onClick={this.props.goToInterests}>Edit Interests</Button>
               </Segment>
-              <Button style={{backgroundColor: "#f4a300"}} onClick={this.props.goToInterests}>Edit Interests</Button>
             </List>
           </Animated>
         </Container>

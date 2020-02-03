@@ -5,9 +5,12 @@ import {
   Button,
   Container,
   Card,
+  Grid,
   Modal,
   Header,
+  Icon,
   Image,
+  Popup,
   TextArea
 } from "semantic-ui-react";
 import axios from "axios";
@@ -96,6 +99,7 @@ export default class About extends Component {
                   value={aboutValues.name}
                   onChange={this.handleFormChange}
                 />
+                
                 <Form.Input
                   fluid
                   icon="mail"
@@ -112,14 +116,18 @@ export default class About extends Component {
                   fluid
                   icon="lock"
                   iconPosition="left"
-                  placeholder="Contact Number (number only)"
+                  placeholder="Contact Number (number only and optional)"
                   label="Contact Number"
                   name="contactNumber"
                   type="number"
                   value={aboutValues.contactNumber}
                   onChange={this.handleFormChange}
                 />
-                <Header as="h4">Describe yourself</Header>
+              <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                  Describe yourself</Header>
+              <Popup content="Tell us about your what you like to do for fun and 
+                  any interesting things you notice about the world around you"
+                  trigger={<Icon name="question circle" />} />
                 <TextArea
                   placeholder="About Me"
                   name="aboutMe"

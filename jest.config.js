@@ -3,6 +3,10 @@
 
 module.exports = {
 
+  moduleNameMapper: {
+    "\\.(css|sass)$": "identity-obj-proxy",
+  },
+
   clearMocks: true,
 
   coverageDirectory: "coverage",

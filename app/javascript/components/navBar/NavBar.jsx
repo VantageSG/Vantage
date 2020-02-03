@@ -18,8 +18,8 @@ class ResponsiveContainer extends Component {
   }
 
   componentDidMount() {
-    document.getElementById("pageLoader").style.display = "block";
-    setTimeout(function () { document.getElementById("pageLoader").style.display = "none"; }, 1000);
+    //document.getElementById("pageLoader").style.display = "block";
+    //setTimeout(function () { document.getElementById("pageLoader").style.display = "none"; }, 1000);
   }
 
 

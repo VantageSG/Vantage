@@ -116,6 +116,15 @@ class App extends Component {
                   <ResumeBuilder {...props} user={this.state.user} />
                 )}
               />
+                <Route
+                exact
+                path="/resume-builder/:sessionId"
+                render={props => (
+                  <ResumeGeneration  {...props}
+                  handleLogin={this.handleLogin}
+                  loggedInStatus={this.state.isLoggedIn} />
+                )}
+              />
               <Route
                 exact
                 path="/user:userName"
@@ -134,7 +143,9 @@ class App extends Component {
                 exact
                 path="/resume-generation"
                 render={props => (
-                  <ResumeGeneration {...props} user={this.state.user} />
+                  <ResumeGeneration  {...props}
+                  handleLogin={this.handleLogin}
+                  loggedInStatus={this.state.isLoggedIn} />
                 )}
               />
               <Route component={Error404Page} />

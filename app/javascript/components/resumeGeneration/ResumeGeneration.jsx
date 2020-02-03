@@ -58,6 +58,8 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidMount() {
+
+    if(this.props.login)
     this.setState({
       items: [
         {
@@ -280,7 +282,6 @@ export default class ResumeGeneration extends Component {
 
   generateResume = () => {
     const element = document.getElementById("resume");
-    
     var pdf = new jsPDF("p", "mm", "a4");
     var width = pdf.internal.pageSize.getWidth();
     var height = pdf.internal.pageSize.getHeight();

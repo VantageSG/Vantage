@@ -107,8 +107,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       @guest_user = User.find(json['user']['id'])
       expect(typical_user_jason.resume[0].id)
         .not_to eq(@guest_user.resume[0].id)
-      post "/api/v1/users/#{typical_user_jason.id}/migrate/#{@guest_user.id}"
-        , params: valid_attributes
+      post "/api/v1/users/#{typical_user_jason.id}/migrate/#{@guest_user.id}", params: valid_attributes
     end
     it 'should delete guest user' do
       expect { User.find(@guest_user.id) }

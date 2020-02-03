@@ -68,19 +68,22 @@ export default class ResumeGeneration extends Component {
               <Divider></Divider>
             </React.Fragment>
           )
-        },
+        }
+        ,
+
         {
           id: 1,
           element: (
             <React.Fragment>
               <Education
-                educations={this.state.educations}
-                onEducationChange={this.onEducationChange}
+              educations={this.state.educations}
+              onEducationChange={this.onEducationChange}
               ></Education>
               <Divider></Divider>
             </React.Fragment>
           )
         },
+        /*
         {
           id: 2,
           element: (
@@ -116,7 +119,7 @@ export default class ResumeGeneration extends Component {
               <Divider></Divider>
             </React.Fragment>
           )
-        }
+        }*/
       ]
     });
     this.getVrsAttributes();
@@ -276,6 +279,21 @@ export default class ResumeGeneration extends Component {
     return result;
   }
 
+  generateResume = () => {
+    var element = document.getElementById("resume");
+    console.log(element);
+    var opt = {
+      margin:       1,
+      filename:     'myfile.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+    
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    
+    var worker = html2pdf().from(element).save();
+  }
+
   render() {
     const {
       about,
@@ -291,8 +309,8 @@ export default class ResumeGeneration extends Component {
         <br></br>
 
   
-
-        <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+      <div id="resume">
+      <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
           <Grid centered columns={1}>
             <Grid.Column>
               <DndContainer onDrop={this.onDrop}>
@@ -301,6 +319,8 @@ export default class ResumeGeneration extends Component {
             </Grid.Column>
           </Grid>
         </Container>
+      </div>
+       
 
         <Grid centered columns={1}>
           <Grid.Column textAlign="center">

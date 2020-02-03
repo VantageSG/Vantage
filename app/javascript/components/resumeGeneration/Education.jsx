@@ -18,14 +18,14 @@ class Education extends React.Component {
     );
   }
 
-  render() {    
+  render() {  
+  
     return (
       <React.Fragment>
-        {
-          this.props.educations.map(
+        {this.props.educations.map(
             (education, index) => {
               return (
-                <div key={index}>
+                <React.Fragment >
                   <Header>Education</Header>                  
                   <EditableLabel text={education.institution}
                       inputWidth='200px'
@@ -62,13 +62,13 @@ class Education extends React.Component {
                       {name: 'grade', value: grade}, index
                       )}
                   />
-                </div>              
+                </React.Fragment>              
               );
             }
           )
         }
       </React.Fragment>
-    )
+    );
   }
 }
 

@@ -21,11 +21,10 @@ class WorkExperiences extends React.Component {
   render() {    
     return (
       <React.Fragment>
-        {
-          this.props.workExperiences.map(
+        {this.props.workExperiences.map(
             (workExperience, index) => {
               return (
-                <div key={index}>
+                <React.Fragment >
                   <Header>Work Experiences</Header>
                   <EditableLabel text={workExperience.title}
                       inputWidth='200px'
@@ -62,7 +61,7 @@ class WorkExperiences extends React.Component {
                       {name: 'achievements', value: achievements}, index
                       )}
                   />
-                </div>              
+                </React.Fragment>              
               );
             }
           )

@@ -20,11 +20,10 @@ class Skills extends React.Component {
   render() {
       return (
         <React.Fragment>
-          {
-            this.props.skills.map(
+          {this.props.skills.map(
               (skill, index) => {
                 return (
-                  <div key={index}>
+                  <React.Fragment key={index}>
                     <Header>Skills</Header>
                     <EditableLabel text={skill.name}
                         inputWidth='200px'
@@ -47,7 +46,7 @@ class Skills extends React.Component {
                           {name: 'link', value: link}, index
                           )}
                     />
-                  </div>              
+                  </React.Fragment>              
                 );
               }
             )

@@ -59,72 +59,76 @@ export default class ResumeGeneration extends Component {
 
   componentDidMount() {
 
-    if(this.props.login)
-    this.setState({
-      items: [
-        {
-          id: uuid(),
-          element: (
-            <React.Fragment>
-              <About
-                about={this.state.about}
-                onAboutChange={this.onAboutChange}
-              ></About>
-              <Divider></Divider>
-            </React.Fragment>
-          )
-        },
-        {
-          id: uuid(),
-          element: (
-            <React.Fragment>
-              <Education
-                educations={this.state.educations}
-                onEducationChange={this.onEducationChange}
-              ></Education>
-              <Divider></Divider>
-            </React.Fragment>
-          )
-        },
+    if(this.props.login) {
 
-        {
-          id: uuid(),
-          element: (
-            <React.Fragment>
-              <WorkExperiences
-                workExperiences={this.state.workExperiences}
-                onAboutChange={this.onAboutChange}
-              ></WorkExperiences>
-              <Divider></Divider>
-            </React.Fragment>
-          )
-        },
-        {
-          id: uuid(),
-          element: (
-            <React.Fragment>
-              <Interests
-                interests={this.state.interests}
-                onInterestsChange={this.onInterestsChange}
-              ></Interests>
-              <Divider></Divider>
-            </React.Fragment>
-          )
-        },
-        {
-          id: uuid(),
-          element: (
-            <React.Fragment>
-              <Skills
-                skills={this.state.skills}
-                onSkillsChange={this.onSkillsChange}
-              ></Skills>
-              <Divider></Divider>
-            </React.Fragment>
-          )
-        }
-      ]
-    });
+    } else {
+      this.setState({
+        items: [
+          {
+            id: uuid(),
+            element: (
+              <React.Fragment>
+                <About
+                  about={this.state.about}
+                  onAboutChange={this.onAboutChange}
+                ></About>
+                <Divider></Divider>
+              </React.Fragment>
+            )
+          },
+          {
+            id: uuid(),
+            element: (
+              <React.Fragment>
+                <Education
+                  educations={this.state.educations}
+                  onEducationChange={this.onEducationChange}
+                ></Education>
+                <Divider></Divider>
+              </React.Fragment>
+            )
+          },
+  
+          {
+            id: uuid(),
+            element: (
+              <React.Fragment>
+                <WorkExperiences
+                  workExperiences={this.state.workExperiences}
+                  onAboutChange={this.onAboutChange}
+                ></WorkExperiences>
+                <Divider></Divider>
+              </React.Fragment>
+            )
+          },
+          {
+            id: uuid(),
+            element: (
+              <React.Fragment>
+                <Interests
+                  interests={this.state.interests}
+                  onInterestsChange={this.onInterestsChange}
+                ></Interests>
+                <Divider></Divider>
+              </React.Fragment>
+            )
+          },
+          {
+            id: uuid(),
+            element: (
+              <React.Fragment>
+                <Skills
+                  skills={this.state.skills}
+                  onSkillsChange={this.onSkillsChange}
+                ></Skills>
+                <Divider></Divider>
+              </React.Fragment>
+            )
+          }
+        ]
+      });
+    }
+   
     this.getVrsAttributes();
   }
 
@@ -307,8 +311,6 @@ export default class ResumeGeneration extends Component {
     return (
       <React.Fragment>
         <br></br>
-
-        
           <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
           <div id="resume">
             <Segment>
@@ -322,8 +324,6 @@ export default class ResumeGeneration extends Component {
             </Segment>
             </div>
           </Container>
-  
-
         <Grid centered columns={1}>
           <Grid.Column textAlign="center">
             <Button

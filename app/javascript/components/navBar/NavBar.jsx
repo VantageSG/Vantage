@@ -28,15 +28,17 @@ class ResponsiveContainer extends Component {
       <div>
         <DesktopNavBar
         className="site"
-          loggedInStatus={this.props.loggedInStatus}
-          user={this.props.user}
+        {...this.props}
+        loggedInStatus={this.props.loggedInStatus}
+        user={this.props.user}
         >
           {this.props.children}
         </DesktopNavBar>
         <MobileNavBar
          className="site"
-          loggedInStatus={this.props.loggedInStatus}
-          user={this.props.user}
+         {...this.props}
+         loggedInStatus={this.props.loggedInStatus}
+         user={this.props.user}
         >
           {this.props.children}
         </MobileNavBar>

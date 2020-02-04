@@ -5,13 +5,21 @@ import {
   Button,
   Container,
   Card,
+  Grid,
   Modal,
   Header,
+  Icon,
   Image,
+  Popup,
   TextArea
 } from "semantic-ui-react";
-import FormActionButtons from "../FormActionButtons"
+import axios from "axios";
+import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const aboutSchema = {
   name: "",
@@ -23,13 +31,13 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      about: aboutSchema
+      about: aboutSchema,
+      user: {}
     };
   }
 
   handleFormChange = event => {
     const { name, value } = event.target;
-    console.log(this.state.about)
     this.setState({
       about: {
         ...this.state.about,
@@ -38,15 +46,42 @@ export default class About extends Component {
     });
   }
 
+  getDbAbout() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      axios
+        .get(getEndPoint('about', this.props.user.id), { 
+          withCredentials: true
+        })
+        .then(response => {
+          const responseData = camelcaseKeysDeep(response.data.about);
+          this.setState({
+            user: this.props.user,
+            about: sanitizeResponse(responseData, ["resumeId"]),
+          })
+        })
+        .catch(error => {
+        })
+    }
+  }
+
+  componentDidUpdate() {
+    this.getDbAbout();
+  }
+
+  componentDidMount() {
+    this.getDbAbout();
+  }
+
   nextStepWApiReq = () => {
     this.props.nextStep()
-    //Call post backend api /api/v1/about...
+    let about = decamelizeKeysDeep(this.state.about);
+    postForm('about', 
+    about, 
+    this.state.user.id)
   }
 
   render() {
     const aboutValues = this.state.about
-    
-
     return (
       <div>
         <Card centered fluid>
@@ -64,6 +99,7 @@ export default class About extends Component {
                   value={aboutValues.name}
                   onChange={this.handleFormChange}
                 />
+                
                 <Form.Input
                   fluid
                   icon="mail"
@@ -80,14 +116,18 @@ export default class About extends Component {
                   fluid
                   icon="lock"
                   iconPosition="left"
-                  placeholder="Contact Number (number only)"
+                  placeholder="Contact Number (number only and optional)"
                   label="Contact Number"
                   name="contactNumber"
                   type="number"
                   value={aboutValues.contactNumber}
                   onChange={this.handleFormChange}
                 />
-                <Header as="h4">Describe yourself</Header>
+              <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                  Describe yourself</Header>
+              <Popup content="Tell us about your what you like to do for fun and 
+                  any interesting things you notice about the world around you"
+                  trigger={<Icon name="question circle" />} />
                 <TextArea
                   placeholder="About Me"
                   name="aboutMe"

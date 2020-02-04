@@ -14,7 +14,7 @@ import {
   Placeholder
 } from "semantic-ui-react";
 
-import FormStep from "./stepform/Form";
+import FormStep from "./multiStepForm/Form";
 
 export default class ResumeBuilder extends Component {
   constructor(props) {
@@ -35,12 +35,11 @@ export default class ResumeBuilder extends Component {
 
   render() {
     const { menuFixed, overlayFixed } = this.state;
-
     return (
-      <Container>
+      <Container fluid>
         <br/>
         <br/>
-        <FormStep />
+        <FormStep user={this.props.user} />
         <Visibility
           offset={80}
           once={false}

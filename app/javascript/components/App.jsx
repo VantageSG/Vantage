@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import ResponsiveContainer from "../components/navbar/NavBar";
+import ResponsiveContainer from "./NavBar";
 import Users from "../components/userprofiles/Users";
 import UserProfile from "../components/userprofiles/UserProfile";
 import Error404Page from "../components/error/Error404Page";
@@ -56,7 +56,6 @@ class App extends Component {
     });
   };
   render() {
-    
     return (
       <div>
         <BrowserRouter>
@@ -106,7 +105,10 @@ class App extends Component {
               <Route
                 exact
                 path="/ResumeBuilder"
-                render={props => <ResumeBuilder {...props} />}
+                render={props => <ResumeBuilder 
+                  {...props} 
+                  user={this.state.user}
+                />}
               />
               <Route
                 exact

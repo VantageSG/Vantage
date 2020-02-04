@@ -5,13 +5,20 @@ import {
   Button,
   Container,
   Card,
+  Icon,
   Modal,
   Header,
+  Popup,
   Image,
   TextArea
 } from "semantic-ui-react";
-import FormActionButtons from "../FormActionButtons"
+import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
+import axios from "axios";
+import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import { isEmpty } from "../../../util/Props"
+import camelcaseKeysDeep from 'camelcase-keys-deep';
+import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const workExperienceSchema = {
   title: "",
@@ -19,6 +26,7 @@ const workExperienceSchema = {
   start: "",
   end: "",
   achievements: "",
+  referees: [],
 }
 
 export default class WorkExperience extends Component {
@@ -26,8 +34,54 @@ export default class WorkExperience extends Component {
     super(props);
     var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
     this.state = {
-      workExperiences: [cloneWorkExperienceSchema]
+      workExperiences: [cloneWorkExperienceSchema],
+      user: {}
     };
+  }
+
+  getWorkExperiences() {
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      axios
+        .get(getEndPoint('workExperiences', this.props.user.id), { 
+          withCredentials: true
+        })
+        .then(response => {
+          const responseData = camelcaseKeysDeep(response.data.workExperiences);
+          console.log(response);
+          for(var j = 0; j < responseData.length; j++) {
+            for (var i = 0; i < responseData[j].referees.length; i++) {
+              delete responseData[j].referees[i].createdAt
+              delete responseData[j].referees[i].updatedAt
+              delete responseData[j].referees[i].workExperienceId
+              delete responseData[j].referees[i].id
+            }
+          }
+          this.setState({
+            user: this.props.user,
+            workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+          })          
+        })
+        .catch(error => {
+        })
+        
+    }
+  }
+
+  componentDidUpdate() {
+    this.getWorkExperiences();
+  }
+
+  componentDidMount() {
+    this.getWorkExperiences();
+  }
+
+  nextStepWApiReq = () => {
+    console.log(this.state.workExperiences);
+    let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
+    postForm('workExperiences', 
+    workExperiences, 
+    this.state.user.id)
+    this.props.nextStep()
   }
 
   handleFormChange(event, index){
@@ -48,14 +102,6 @@ export default class WorkExperience extends Component {
     this.state.workExperiences.splice(index, 1)
     this.setState({workExperiences: this.state.workExperiences})
   }
-
-  nextStepWApiReq = () => {
-    this.props.nextStep()
-    console.log("Sending back end: ")
-    console.log(this.state.workExperiences)
-    //Call post backend api /api/v1/education...
-  }
-
 
   render() {
     return (
@@ -118,6 +164,18 @@ export default class WorkExperience extends Component {
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>
+                    <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                      Achievements</Header>
+                    <Popup content="Tell us about any challenges, big or small, that you faced
+                      at work and how you overcomed them! Were there any tangible outcomes achieved?
+                      [e.g. Decreased cost expenditure by 65% through elimination of low priority projects.]"
+                      trigger={<Icon name="question circle" />} />
+                    <TextArea
+                      placeholder="Achievements"
+                      name="achievements"
+                      value={workExperience.achievements}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                    />
                   </Form>
                 </Animated>
               </Segment>

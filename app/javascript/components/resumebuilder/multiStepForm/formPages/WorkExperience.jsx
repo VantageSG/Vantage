@@ -5,8 +5,10 @@ import {
   Button,
   Container,
   Card,
+  Icon,
   Modal,
   Header,
+  Popup,
   Image,
   TextArea
 } from "semantic-ui-react";
@@ -45,7 +47,6 @@ export default class WorkExperience extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.workExperiences);
-          console.log(response);
           for(var j = 0; j < responseData.length; j++) {
             for (var i = 0; i < responseData[j].referees.length; i++) {
               delete responseData[j].referees[i].createdAt
@@ -56,8 +57,13 @@ export default class WorkExperience extends Component {
           }
           this.setState({
             user: this.props.user,
-            workExperiences: sanitizeResponse(responseData, ["resumeId"]),
-          })          
+          })        
+          if (responseData.length != 0) {
+            this.setState({
+              workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+            })        
+          }
+            
         })
         .catch(error => {
         })
@@ -162,9 +168,14 @@ export default class WorkExperience extends Component {
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>
-                    <Header as="h4">Achievements</Header>
+                    <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                      Achievements</Header>
+                    <Popup content="Tell us about any challenges, big or small, that you faced
+                      at work and how you overcomed them! Were there any tangible outcomes achieved?
+                      [e.g. Decreased cost expenditure by 65% through elimination of low priority projects.]"
+                      trigger={<Icon name="question circle" />} />
                     <TextArea
-                      placeholder="achievements"
+                      placeholder="Achievements"
                       name="achievements"
                       value={workExperience.achievements}
                       onChange={(event) => this.handleFormChange(event, index)}

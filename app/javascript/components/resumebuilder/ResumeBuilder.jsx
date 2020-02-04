@@ -15,6 +15,7 @@ import {
 } from "semantic-ui-react";
 
 import FormStep from "./multiStepForm/Form";
+import GuestUserModal from "../registrations/GuestUserModal"
 
 export default class ResumeBuilder extends Component {
   constructor(props) {
@@ -37,6 +38,10 @@ export default class ResumeBuilder extends Component {
     const { menuFixed, overlayFixed } = this.state;
     return (
       <Container fluid>
+        <GuestUserModal
+          handleLogin={this.props.handleLogin}
+          user={this.props.user}
+        />
         <br/>
         <br/>
         <FormStep user={this.props.user} />

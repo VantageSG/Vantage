@@ -5,8 +5,10 @@ import {
   Button,
   Container,
   Card,
+  Icon,
   Modal,
   Header,
+  Popup,
   Image,
   TextArea
 } from "semantic-ui-react";
@@ -42,11 +44,15 @@ export default class Skills extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.skills);
-          console.log(responseData);
           this.setState({
             user: this.props.user,
-            skills: sanitizeResponse(responseData, ["resumeId"]),
           })
+          if (responseData.length != 0) {
+            this.setState({
+              skills: sanitizeResponse(responseData, ["resumeId"]),
+            })
+          }
+          
           console.log(this.state);
           
         })
@@ -118,7 +124,12 @@ export default class Skills extends Component {
                       value={skills.name}
                       onChange={(event) => this.handleFormChange(event, index)}
                       />
-                    <Header as="h4">Describe your skill</Header>
+                    <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                      Describe your skill</Header>
+                    <Popup content="Tell us how you picked up the skill and
+                      what you love about being able to do this! 
+                      [e.g. Volunteering experience/language proficiency/certifications/hobby]"
+                      trigger={<Icon name="question circle" />} />
                     <TextArea
                       placeholder="Describe it"
                       name="description"

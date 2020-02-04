@@ -51,6 +51,7 @@ class App extends Component {
   };
 
   handleLogin = data => {
+    console.log(data)
     this.setState({
       isLoggedIn: true,
       user: data.data.user
@@ -67,8 +68,9 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <ResponsiveContainer
-            loggedInStatus={this.state.isLoggedIn}
-            user={this.state.user}
+          loggedInStatus={this.state.isLoggedIn}
+          handleLogout={this.handleLogout}
+          user={this.state.user}
           >
             <Switch>
               <Route
@@ -111,19 +113,12 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/resume-builder"
-                render={props => (
-                  <ResumeBuilder {...props} user={this.state.user} />
-                )}
-              />
-                <Route
-                exact
-                path="/resume-builder/:sessionId"
-                render={props => (
-                  <ResumeGeneration  {...props}
+                path="/ResumeBuilder"
+                render={props => <ResumeBuilder 
+                  {...props} 
                   handleLogin={this.handleLogin}
-                  loggedInStatus={this.state.isLoggedIn} />
-                )}
+                  user={this.state.user}
+                />}
               />
               <Route
                 exact

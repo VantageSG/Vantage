@@ -79,4 +79,45 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
   end
+
+  describe 'GET /api/v1/users/guest_user' do
+    before { post '/api/v1/users/guest_user' }
+    it 'returns guest user' do
+      expect(json['user']['id']).not_to be_nil
+      expect(json['user']['username']).to eq('guest')
+      expect(json['user']['email']).to be_nil
+      expect(json['user']['guest']).to be true
+    end
+  end
+
+  describe 'POST /users/:user_id/migrate/:guest_user' do
+    let!(:typical_user_jason) { create(:typical_user_jason) }
+    let(:valid_attributes) do
+      {
+        user: {
+          username: 'JasonYip',
+          email: 'JasonYip@gmail.com',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }
+    end
+    before do
+      post '/api/v1/users/guest_user'
+      @guest_user = User.find(json['user']['id'])
+      expect(typical_user_jason.resume[0].id)
+        .not_to eq(@guest_user.resume[0].id)
+      post "/api/v1/users/#{typical_user_jason.id}/migrate/#{@guest_user.id}", params: valid_attributes
+    end
+    it 'should delete guest user' do
+      expect { User.find(@guest_user.id) }
+        .to raise_exception(ActiveRecord::RecordNotFound)
+    end
+    it 'should migrate all resume guest user' do
+      @guest_user.resume.each do |guest_user_resume|
+        expect(Resume.find(guest_user_resume.id).user_id)
+          .to eq(typical_user_jason.id)
+      end
+    end
+  end
 end

@@ -45,8 +45,13 @@ export default class Interests extends Component {
           console.log(responseData);
           this.setState({
             user: this.props.user,
-            interests: sanitizeResponse(responseData, ["resumeId"]),
           })
+          if (responseData.length != 0) {
+            this.setState({
+              interests: sanitizeResponse(responseData, ["resumeId"]),
+            })
+          }
+          
           console.log(this.state);
           
         })

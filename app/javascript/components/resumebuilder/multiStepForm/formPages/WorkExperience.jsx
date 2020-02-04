@@ -5,8 +5,10 @@ import {
   Button,
   Container,
   Card,
+  Icon,
   Modal,
   Header,
+  Popup,
   Image,
   TextArea
 } from "semantic-ui-react";
@@ -32,7 +34,8 @@ export default class WorkExperience extends Component {
     super(props);
     var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
     this.state = {
-      workExperiences: [cloneWorkExperienceSchema]
+      workExperiences: [cloneWorkExperienceSchema],
+      user: {}
     };
   }
 
@@ -161,9 +164,14 @@ export default class WorkExperience extends Component {
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>
-                    <Header as="h4">Achievements</Header>
+                    <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                      Achievements</Header>
+                    <Popup content="Tell us about any challenges, big or small, that you faced
+                      at work and how you overcomed them! Were there any tangible outcomes achieved?
+                      [e.g. Decreased cost expenditure by 65% through elimination of low priority projects.]"
+                      trigger={<Icon name="question circle" />} />
                     <TextArea
-                      placeholder="achievements"
+                      placeholder="Achievements"
                       name="achievements"
                       value={workExperience.achievements}
                       onChange={(event) => this.handleFormChange(event, index)}

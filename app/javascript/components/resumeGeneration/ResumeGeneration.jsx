@@ -285,12 +285,19 @@ export default class ResumeGeneration extends Component {
 
 
   generateResume = () => {
+    const scale = 2;
     const element = document.getElementById("resume");
     var pdf = new jsPDF("p", "mm", "a4");
     var width = pdf.internal.pageSize.getWidth();
     var height = pdf.internal.pageSize.getHeight();
     if (pdf) {
-      domtoimage.toPng(element)
+      domtoimage.toPng(element , {
+        height: element.offsetHeight * scale,
+        style: {
+          transform: `scale(${scale}) translate(${element.offsetWidth / 2 / scale}px, ${element.offsetHeight / 2 / scale}px)`
+        },
+        width: element.offsetWidth * scale
+      })
         .then(imgData => {
           pdf.addImage(imgData, 'PNG',0, 0, width, height);
           pdf.save('download.pdf');

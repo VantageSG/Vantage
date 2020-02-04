@@ -113,7 +113,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/ResumeBuilder"
+                path="/Resume-builder"
                 render={props => <ResumeBuilder 
                   {...props} 
                   handleLogin={this.handleLogin}

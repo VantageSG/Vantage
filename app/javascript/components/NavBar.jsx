@@ -15,11 +15,24 @@ import {
   Sidebar,
   Visibility
 } from "semantic-ui-react";
+import axios from 'axios';
 
 const getWidth = () => {
   const isSSR = typeof window === "undefined";
   return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
 };
+
+const logout = (handleLogout) => {
+  axios
+      .delete(process.env.BACKEND_PORT + "/api/v1/logout/", { 
+        withCredentials: true,
+        validateStatus: function (status) {
+          return status >= 200 && status < 300 || status === 401; //error status 401 is expected for user not logged in
+        },
+      }).then( response =>
+        handleLogout()
+      )
+}
 
 class MobileNavBar extends Component {
   constructor(props) {
@@ -34,14 +47,20 @@ class MobileNavBar extends Component {
   renderRegistrationButton = (loggedInStatus, user) => {
     return loggedInStatus ? (
       <Menu.Item position="right">
-        <Button
-          disabled
-          color="facebook"
-          size="large"
-          content={user.username}
-          primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
+        <Button animated
+        color="facebook"
+        size="large"
+        primary={this.state.fixed}
+        style={{ marginLeft: "0.5em" }}
+        onClick={()=>logout(this.props.handleLogout)}
+        >
+          <Button.Content color={"red"} visible>
+            {user.username}
+          </Button.Content>
+          <Button.Content hidden>
+            logout
+          </Button.Content>
+        </Button>
       </Menu.Item>
     ) : (
       <React.Fragment>
@@ -141,14 +160,20 @@ class DesktopNavBar extends Component {
   renderRegistrationButton = (loggedInStatus, user) => {
     return loggedInStatus ? (
       <Menu.Item position="right">
-        <Button
-          disabled
-          color="facebook"
-          size="large"
-          content={user.username}
-          primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
+        <Button animated
+        color="facebook"
+        size="large"
+        primary={this.state.fixed}
+        style={{ marginLeft: "0.5em" }}
+        onClick={()=>logout(this.props.handleLogout)}
+        >
+          <Button.Content visible>
+            {user.username}
+          </Button.Content>
+          <Button.Content hidden>
+            logout
+          </Button.Content>
+        </Button>
       </Menu.Item>
     ) : (
       <React.Fragment>
@@ -246,12 +271,14 @@ class ResponsiveContainer extends Component {
     return (
       <div>
         <DesktopNavBar
+          {...this.props}
           loggedInStatus={this.props.loggedInStatus}
           user={this.props.user}
         >
           {this.props.children}
         </DesktopNavBar>
         <MobileNavBar
+          {...this.props}
           loggedInStatus={this.props.loggedInStatus}
           user={this.props.user}
         >

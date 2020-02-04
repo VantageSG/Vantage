@@ -44,11 +44,15 @@ export default class Skills extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.skills);
-          console.log(responseData);
           this.setState({
             user: this.props.user,
-            skills: sanitizeResponse(responseData, ["resumeId"]),
           })
+          if (responseData.length != 0) {
+            this.setState({
+              skills: sanitizeResponse(responseData, ["resumeId"]),
+            })
+          }
+          
           console.log(this.state);
           
         })

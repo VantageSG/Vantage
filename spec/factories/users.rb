@@ -10,4 +10,9 @@ FactoryBot.define do
     email { 'JasonYip@gmail.com' }
     password { 'password' }
   end
+  factory :typical_guest_user, class: 'User' do
+    username { 'guest' }
+    guest { true }
+    password { 'guest' }
+  end
 end

@@ -47,7 +47,6 @@ export default class WorkExperience extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.workExperiences);
-          console.log(response);
           for(var j = 0; j < responseData.length; j++) {
             for (var i = 0; i < responseData[j].referees.length; i++) {
               delete responseData[j].referees[i].createdAt
@@ -58,8 +57,13 @@ export default class WorkExperience extends Component {
           }
           this.setState({
             user: this.props.user,
-            workExperiences: sanitizeResponse(responseData, ["resumeId"]),
-          })          
+          })        
+          if (responseData.length != 0) {
+            this.setState({
+              workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+            })        
+          }
+            
         })
         .catch(error => {
         })

@@ -62,26 +62,30 @@ class App extends Component {
       isLoggedIn: false,
       user: {}
     });
-  };
+  }; 
+
   render() {
+
     return (
       <div>
         <BrowserRouter>
-          <ResponsiveContainer
-          loggedInStatus={this.state.isLoggedIn}
-          handleLogout={this.handleLogout}
-          user={this.state.user}
-          >
+         
             <Switch>
               <Route
                 exact
                 path="/"
                 render={props => (
+                  <ResponsiveContainer
+                  loggedInStatus={this.state.isLoggedIn}
+                  handleLogout={this.handleLogout}
+                  user={this.state.user}
+                  >
                   <Home
                     {...props}
                     handleLogout={this.handleLogout}
                     loggedInStatus={this.state.isLoggedIn}
                   />
+                  </ResponsiveContainer>
                 )}
               />
               <Route
@@ -114,38 +118,40 @@ class App extends Component {
               <Route
                 exact
                 path="/Resume-builder"
-                render={props => <ResumeBuilder 
+                render={props => 
+                  <ResponsiveContainer
+                  loggedInStatus={this.state.isLoggedIn}
+                  handleLogout={this.handleLogout}
+                  user={this.state.user}
+                  >
+                <ResumeBuilder 
                   {...props} 
                   handleLogin={this.handleLogin}
                   user={this.state.user}
-                />}
+                />
+                </ResponsiveContainer>}
               />
+           
               <Route
                 exact
-                path="/user:userName"
-                render={props => {
-                  console.log(props.location.userProfile);
-                  return (
-                    <UserProfile
-                      userProfile={props.location.userProfile}
-                      {...props}
-                    />
-                  );
-                }}
-              />
-
-              <Route
-                exact
-                path="/resume-generation"
+                path="/resume-generation/:userId"
                 render={props => (
-                  <ResumeGeneration  {...props}
+                  <ResponsiveContainer
+                  loggedInStatus={this.state.isLoggedIn}
+                  handleLogout={this.handleLogout}
+                  user={this.state.user}
+                  >
+                  <ResumeGeneration  
+                  {...props}
+                  user={this.state.user}
                   handleLogin={this.handleLogin}
                   loggedInStatus={this.state.isLoggedIn} />
+                  </ResponsiveContainer>
                 )}
               />
               <Route component={Error404Page} />
             </Switch>
-          </ResponsiveContainer>
+  
         </BrowserRouter>
       </div>
     );

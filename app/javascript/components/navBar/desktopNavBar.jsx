@@ -89,9 +89,7 @@ class DesktopNavBar extends Component {
                       <Menu.Item as={Link} to="/resume-builder" fitted>
                         Resume Builder
                       </Menu.Item>
-                      <Menu.Item as={Link} to="/resume-generation" fitted>
-                        Resume Generation
-                      </Menu.Item>
+                    
                       {this.renderRegistrationButton(
                         this.props.loggedInStatus,
                         this.props.user

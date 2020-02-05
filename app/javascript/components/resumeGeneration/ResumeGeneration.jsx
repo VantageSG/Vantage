@@ -58,6 +58,9 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
+    console.log(this.props.user.id);
+    this.getVrsAttributes();
 
     if(this.props.login) {
 
@@ -129,7 +132,7 @@ export default class ResumeGeneration extends Component {
       });
     }
    
-    this.getVrsAttributes();
+    
   }
 
   componentDidUpdate() {
@@ -137,10 +140,24 @@ export default class ResumeGeneration extends Component {
   }
 
   getVrsAttributes() {
+    axios.get(getEndPoint("", this.props.user.id) , {
+      withCredentials:true
+    }).then(resp => {
+      console.table(resp.data)
+    });
+
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
       this.setState({
         user: this.props.user
       });
+
+      axios.get(getEndPoint("", this.props.user.id) , {
+        withCredentials:true
+      }).then(resp => {
+        console.table(resp.data)
+      });
+
+      /*
       axios
         .all([
           this.getAbout(),
@@ -153,7 +170,7 @@ export default class ResumeGeneration extends Component {
           axios.spread(function(acct, perms) {
             // Both requests are now complete
           })
-        );
+        );*/
     }
   }
 

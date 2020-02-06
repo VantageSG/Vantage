@@ -37,6 +37,7 @@ import uuid from "react-uuid";
 import domtoimage from 'dom-to-image';
 import jsPDF from "jspdf";
 
+
 export default class ResumeGeneration extends Component {
   constructor(props) {
     super(props);
@@ -131,118 +132,13 @@ export default class ResumeGeneration extends Component {
         ]
       });
     }
-   
-    
   }
 
   componentDidUpdate() {
     this.getVrsAttributes();
   }
 
-  getVrsAttributes() {
-    axios.get(getEndPoint("", this.props.user.id) , {
-      withCredentials:true
-    }).then(resp => {
-      console.table(resp.data)
-    });
-
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
-      this.setState({
-        user: this.props.user
-      });
-
-      axios.get(getEndPoint("", this.props.user.id) , {
-        withCredentials:true
-      }).then(resp => {
-        console.table(resp.data)
-      });
-
-      /*
-      axios
-        .all([
-          this.getAbout(),
-          this.getEducations(),
-          this.getWorkExperiences(),
-          this.getSkills(),
-          this.getInterests()
-        ])
-        .then(
-          axios.spread(function(acct, perms) {
-            // Both requests are now complete
-          })
-        );*/
-    }
-  }
-
-  getAbout() {
-    return axios
-      .get(getEndPoint("about", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.about);
-        this.setState({
-          about: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getEducations() {
-    return axios
-      .get(getEndPoint("educations", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.educations);
-        this.setState({
-          educations: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getWorkExperiences() {
-    return axios
-      .get(getEndPoint("workExperiences", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.workExperiences);
-        this.setState({
-          workExperiences: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getSkills() {
-    return axios
-      .get(getEndPoint("skills", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.skills);
-        this.setState({
-          skills: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getInterests() {
-    return axios
-      .get(getEndPoint("interests", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.interests);
-        this.setState({
-          interests: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
+  /* Functions to handle on change */
 
   onAboutChange = about => {
     this.setState({ about });
@@ -263,13 +159,39 @@ export default class ResumeGeneration extends Component {
   onInterestsChange = interests => {
     this.setState({ interests });
   };
+  /////////////////////////////////////
 
+
+  /* Get data from backend */
+  getVrsAttributes() {
+    axios.get(getEndPoint("", this.props.user.id) , {
+      withCredentials:true
+    }).then(resp => {
+      console.table(resp.data)
+    });
+
+    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      this.setState({
+        user: this.props.user
+      });
+
+      axios.get(getEndPoint("", this.props.user.id) , {
+        withCredentials:true
+      }).then(resp => {
+        console.table(resp.data)
+      });
+    }
+  }
+
+  /*Drop down functions */
 
   onDrop(dropResult) {
     return this.setState({
       items: this.applyDrag(this.state.items, dropResult)
     });
   }
+
+
   generateForm = items => {
     return items.map(item => {
       return (
@@ -282,24 +204,8 @@ export default class ResumeGeneration extends Component {
     });
   };
 
-  applyDrag(arr, dragResult) {
-    const { removedIndex, addedIndex, payload } = dragResult;
-    if (removedIndex === null && addedIndex === null) return arr;
 
-    const result = [...arr];
-    let itemToAdd = payload;
-
-    if (removedIndex !== null) {
-      itemToAdd = result.splice(removedIndex, 1)[0];
-    }
-
-    if (addedIndex !== null) {
-      result.splice(addedIndex, 0, itemToAdd);
-    }
-
-    return result;
-  }
-
+  /*Function to generate resume */
 
   generateResume = () => {
     const scale = 2;
@@ -323,17 +229,15 @@ export default class ResumeGeneration extends Component {
   };
 
   render() {
-    const {
-      about,
-      educations,
-      workExperiences,
-      skills,
-      interests
-    } = this.state;
+    
     const { loading } = this.state;
 
     return (
       <React.Fragment>
+        <Animated 
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        >
         <br></br>
           <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
           <div id="resume">
@@ -356,6 +260,7 @@ export default class ResumeGeneration extends Component {
             ></Button>
           </Grid.Column>
         </Grid>
+        </Animated>
       </React.Fragment>
     );
   }

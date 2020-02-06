@@ -54,8 +54,8 @@ export default class About extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
+          this.setState({user: this.props.user,})
           this.setState({
-            user: this.props.user,
             about: sanitizeResponse(responseData, ["resumeId"]),
           })
         })

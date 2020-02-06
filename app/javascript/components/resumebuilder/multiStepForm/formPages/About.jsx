@@ -51,8 +51,7 @@ export default class About extends Component {
   };
 
   getDbAbout() {
-    //console.log(this.props.user);
-    
+
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
       this.setState({ isLoading: true });
       axios

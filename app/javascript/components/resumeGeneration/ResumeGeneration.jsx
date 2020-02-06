@@ -167,7 +167,7 @@ export default class ResumeGeneration extends Component {
       })
       .then(resp => {
         console.table(resp.data);
-        this.setState({loading:true})
+        this.setState({loading:false})
       }); /*
 
 

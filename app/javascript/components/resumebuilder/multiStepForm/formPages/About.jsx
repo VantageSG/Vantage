@@ -48,29 +48,7 @@ export default class About extends Component {
 
   getDbAbout() {
     console.log(this.props.user);
-    axios
-        .get(getEndPoint('about', this.props.user.id), { 
-          withCredentials: true
-        })
-        .then(response => {
-          const responseData = camelcaseKeysDeep(response.data.about);
-          
-          this.setState({
-
-            user: this.props.user,
-            about: sanitizeResponse(responseData, ["resumeId"]),
-          } , function () {
-            console.log(this.state.user)
-          })
-        })
-        .catch(error => {
-          console.log(error);
-          console.log("ERROR HERE, Request Failed");
-    
-        });
-
-        
-    /*
+ 
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
       axios
         .get(getEndPoint('about', this.props.user.id), { 
@@ -78,18 +56,20 @@ export default class About extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
+          this.setState({user: this.props.user,})
           this.setState({
-            user: this.props.user,
             about: sanitizeResponse(responseData, ["resumeId"]),
           })
         })
         .catch(error => {
+          console.log(error);
+          console.log("user error")
         })
-    }*/
+    }
   }
 
   componentDidUpdate() {
-    this.getDbAbout();
+    //this.getDbAbout();
   }
 
   componentDidMount() {

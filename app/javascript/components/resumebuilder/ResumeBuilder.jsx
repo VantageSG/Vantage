@@ -13,6 +13,7 @@ import {
   Visibility,
   Placeholder
 } from "semantic-ui-react";
+import { isEmpty } from "../util/Props"
 
 import FormStep from "./multiStepForm/Form";
 import GuestUserModal from "../registrations/GuestUserModal"
@@ -27,8 +28,10 @@ export default class ResumeBuilder extends Component {
     };
   }
   componentDidMount = () => {
-    if (this.props.user != null) {
-      this.setState({isLoggedIn : true})
+    if (this.props.user == null && isEmpty(this.props.user)) {
+      this.setState({isLoggedIn : false})
+    } else {
+      this.setState({isLoggedIn : true});
     }
   }
 
@@ -58,8 +61,7 @@ export default class ResumeBuilder extends Component {
         { this.state.isLoggedIn ?  <FormStep user={this.props.user} /> : <React.Fragment></React.Fragment> }
         <Visibility
           offset={80}
-          once={false}
-          
+          once={false}      
         ></Visibility>
       </Container>
     );

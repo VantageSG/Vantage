@@ -34,9 +34,8 @@ import Skills from "./Skills";
 import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
 import uuid from "react-uuid";
-import domtoimage from 'dom-to-image';
+import domtoimage from "dom-to-image";
 import jsPDF from "jspdf";
-
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
@@ -59,12 +58,11 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     console.log(this.props.user.id);
     this.getVrsAttributes();
 
-    if(this.props.login) {
-
+    if (this.props.login) {
     } else {
       this.setState({
         items: [
@@ -92,7 +90,7 @@ export default class ResumeGeneration extends Component {
               </React.Fragment>
             )
           },
-  
+
           {
             id: uuid(),
             element: (
@@ -161,29 +159,49 @@ export default class ResumeGeneration extends Component {
   };
   /////////////////////////////////////
 
-
   /* Get data from backend */
   getVrsAttributes() {
-    axios.get(getEndPoint("", this.props.user.id) , {
-      withCredentials:true
-    }).then(resp => {
-      console.table(resp.data)
-    });
+    axios
+      .get(getEndPoint("", this.props.user.id), {
+        withCredentials: true
+      })
+      .then(resp => {
+        console.table(resp.data);
+      });
 
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
       this.setState({
         user: this.props.user
       });
 
-      axios.get(getEndPoint("", this.props.user.id) , {
-        withCredentials:true
-      }).then(resp => {
-        console.table(resp.data)
-      });
+      axios
+        .get(getEndPoint("", this.props.user.id), {
+          withCredentials: true
+        })
+        .then(resp => {
+          console.table(resp.data);
+        });
     }
   }
 
   /*Drop down functions */
+  applyDrag = (arr, dragResult) => {
+    const { removedIndex, addedIndex, payload } = dragResult;
+    if (removedIndex === null && addedIndex === null) return arr;
+
+    const result = [...arr];
+    let itemToAdd = payload;
+
+    if (removedIndex !== null) {
+      itemToAdd = result.splice(removedIndex, 1)[0];
+    }
+
+    if (addedIndex !== null) {
+      result.splice(addedIndex, 0, itemToAdd);
+    }
+
+    return result;
+  };
 
   onDrop(dropResult) {
     return this.setState({
@@ -191,19 +209,11 @@ export default class ResumeGeneration extends Component {
     });
   }
 
-
   generateForm = items => {
     return items.map(item => {
-      return (
-        <Draggable key={item.id}>
-          <div className={`form-line`}>
-            <div className="field">{item.element}</div>
-          </div>
-        </Draggable>
-      );
+      return <Draggable key={item.id}>{item.element}</Draggable>;
     });
   };
-
 
   /*Function to generate resume */
 
@@ -214,52 +224,73 @@ export default class ResumeGeneration extends Component {
     var width = pdf.internal.pageSize.getWidth();
     var height = pdf.internal.pageSize.getHeight();
     if (pdf) {
-      domtoimage.toPng(element , {
-        height: element.offsetHeight * scale,
-        style: {
-          transform: `scale(${scale}) translate(${element.offsetWidth / 2 / scale}px, ${element.offsetHeight / 2 / scale}px)`
-        },
-        width: element.offsetWidth * scale
-      })
+      domtoimage
+        .toPng(element, {
+          height: element.offsetHeight * scale,
+          style: {
+            transform: `scale(${scale}) translate(${element.offsetWidth /
+              2 /
+              scale}px, ${element.offsetHeight / 2 / scale}px)`
+          },
+          width: element.offsetWidth * scale
+        })
         .then(imgData => {
-          pdf.addImage(imgData, 'PNG',0, 0, width, height);
-          pdf.save('download.pdf');
+          pdf.addImage(imgData, "PNG", 0, 0, width, height);
+          pdf.save("download.pdf");
         });
     }
   };
 
+  goBack = () => {
+    this.props.history.goBack();
+  };
+
   render() {
-    
     const { loading } = this.state;
 
     return (
       <React.Fragment>
-        <Animated 
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        >
-        <br></br>
+        <Animated animationIn="fadeIn" animationOut="fadeOut">
           <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-          <div id="resume">
-            <Segment>
-              <Grid centered columns={1}>
-                <Grid.Column>
-                  <DndContainer onDrop={this.onDrop}>
-                    {this.generateForm(this.state.items)}
-                  </DndContainer>
-                </Grid.Column>
-              </Grid>
-            </Segment>
-            </div>
+            <Grid centered columns={1}>
+              <Grid.Row>
+               <Header as="h1"r>Your Resume</Header>    
+              </Grid.Row>
+              <Grid.Row>
+              <Header as="h2"r>Drag and drop the various sections to rearrange them!</Header>
+              </Grid.Row>
+            </Grid>
           </Container>
-        <Grid centered columns={1}>
-          <Grid.Column textAlign="center">
-            <Button
-              content="Generate Resume"
-              onClick={this.generateResume}
-            ></Button>
-          </Grid.Column>
-        </Grid>
+          <br></br>
+          <Container text style={{ marginTop: "1vh", marginBottom: "1vh" }}>
+            <React.Fragment>
+            <div id="resume">
+              <Segment>
+                <Grid centered columns={1}>
+                  <Grid.Column>
+                    <DndContainer onDrop={this.onDrop}>
+                      {this.generateForm(this.state.items)}
+                    </DndContainer>
+                  </Grid.Column>
+                </Grid>
+              </Segment>
+            </div>
+            <br></br>
+            <Grid centered columns={1}>
+            <Grid.Column textAlign="right">
+            <Button onClick={this.goBack} color="red">
+                  Back
+                </Button>
+              <Button
+                content="Generate Resume"
+                onClick={this.generateResume}
+              ></Button>
+            </Grid.Column>
+          </Grid>
+          </React.Fragment>
+          </Container>
+          
+         
         </Animated>
       </React.Fragment>
     );

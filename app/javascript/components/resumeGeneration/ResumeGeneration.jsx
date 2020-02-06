@@ -59,7 +59,7 @@ export default class ResumeGeneration extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    console.log(this.props.user.id);
+
     this.getVrsAttributes();
 
     if (this.props.login) {
@@ -133,7 +133,7 @@ export default class ResumeGeneration extends Component {
   }
 
   componentDidUpdate() {
-    this.getVrsAttributes();
+   // this.getVrsAttributes();
   }
 
   /* Functions to handle on change */
@@ -167,7 +167,10 @@ export default class ResumeGeneration extends Component {
       })
       .then(resp => {
         console.table(resp.data);
-      });
+        this.setState({loading:true})
+      }); /*
+
+
 
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
       this.setState({
@@ -181,7 +184,7 @@ export default class ResumeGeneration extends Component {
         .then(resp => {
           console.table(resp.data);
         });
-    }
+    }*/
   }
 
   /*Drop down functions */
@@ -248,49 +251,61 @@ export default class ResumeGeneration extends Component {
   render() {
     const { loading } = this.state;
 
-    return (
+    return this.state.loading ? (
+      <React.Fragment>
+        <Container style={{ marginTop: "5vh", marginBottom: "5vh" }} centered>
+        <Grid centered columns={1}>
+          <Loader active inline="center" size="huge">
+            Loading
+          </Loader>
+          </Grid>
+        </Container>
+      </React.Fragment>
+    ) : (
       <React.Fragment>
         <Animated animationIn="fadeIn" animationOut="fadeOut">
           <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
             <Grid centered columns={1}>
               <Grid.Row>
-               <Header as="h1"r>Your Resume</Header>    
+                <Header as="h1" r>
+                  Your Resume
+                </Header>
               </Grid.Row>
               <Grid.Row>
-              <Header as="h2"r>Drag and drop the various sections to rearrange them!</Header>
+                <Header as="h2" r>
+                  Drag and drop the various sections to rearrange them!
+                </Header>
               </Grid.Row>
             </Grid>
           </Container>
           <br></br>
           <Container text style={{ marginTop: "1vh", marginBottom: "1vh" }}>
             <React.Fragment>
-            <div id="resume">
-              <Segment>
-                <Grid centered columns={1}>
-                  <Grid.Column>
-                    <DndContainer onDrop={this.onDrop}>
-                      {this.generateForm(this.state.items)}
-                    </DndContainer>
-                  </Grid.Column>
-                </Grid>
-              </Segment>
-            </div>
-            <br></br>
-            <Grid centered columns={1}>
-            <Grid.Column textAlign="right">
-            <Button onClick={this.goBack} color="red">
-                  Back
-                </Button>
-              <Button
-                content="Generate Resume"
-                onClick={this.generateResume}
-              ></Button>
-            </Grid.Column>
-          </Grid>
-          </React.Fragment>
+              <div id="resume">
+                <Segment>
+                  <Grid centered columns={1}>
+                    <Grid.Column>
+                      <DndContainer onDrop={this.onDrop}>
+                        {this.generateForm(this.state.items)}
+                      </DndContainer>
+                    </Grid.Column>
+                  </Grid>
+                </Segment>
+              </div>
+              <br></br>
+              <Grid centered columns={1}>
+                <Grid.Column textAlign="right">
+                  <Button onClick={this.goBack} color="red">
+                    Back
+                  </Button>
+                  <Button
+                    content="Generate Resume"
+                    onClick={this.generateResume}
+                  ></Button>
+                </Grid.Column>
+              </Grid>
+            </React.Fragment>
           </Container>
-          
-         
         </Animated>
       </React.Fragment>
     );

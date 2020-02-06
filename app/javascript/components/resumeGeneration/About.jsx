@@ -13,9 +13,6 @@ class About extends React.Component {
       ...this.props.about,
       [name]: value
     });
-    console.log("SDADAS");
-
-    
   }
 
   render() {

@@ -74,7 +74,9 @@ export default class ConfirmationPage extends Component {
           about: sanitizeResponse(responseData, ["resumeId"])
         });
       })
-      .catch(error => {});
+      .catch(error => {
+        console.log(error)
+      });
   }
 
   getEducations() {
@@ -177,7 +179,7 @@ export default class ConfirmationPage extends Component {
                           header={"Institute"}
                           content={value.institution}
                         />
-                        <List.Item header={"Grade"} content={value.grade} />
+                      
                         <Divider></Divider>
                       </React.Fragment>
                     );

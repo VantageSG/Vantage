@@ -37,13 +37,24 @@ class DesktopNavBar extends Component {
       return loggedInStatus ? (
         <Menu.Item position="right">
           <Button
-            disabled
+           
             color="facebook"
             size="large"
             content={user.username}
             primary={this.state.fixed}
             style={{ marginLeft: "0.5em" }}
           ></Button>
+          <Button
+           
+           color="red"
+           size="large"
+           content="logout"
+           onClick={this.props.handleLogout}
+           primary={this.state.fixed}
+           style={{ marginLeft: "0.5em" }}
+          >
+
+          </Button>
         </Menu.Item>
       ) : (
         <React.Fragment>

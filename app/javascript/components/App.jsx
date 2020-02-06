@@ -120,6 +120,7 @@ class App extends Component {
                 path="/Resume-builder"
                 render={props => 
                   <ResponsiveContainer
+                
                   loggedInStatus={this.state.isLoggedIn}
                   handleLogout={this.handleLogout}
                   user={this.state.user}

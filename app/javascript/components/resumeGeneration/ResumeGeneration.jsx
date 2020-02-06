@@ -20,6 +20,7 @@ import {
   workExperienceSchema
 } from "../resumebuilder/multiStepForm/frontEndUtil/schema";
 import axios from "axios";
+import LoadingSpinner from "../util/LoadingSpinner";
 import {
   getEndPoint,
   sanitizeResponse
@@ -35,105 +36,45 @@ import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
 import uuid from "react-uuid";
 import domtoimage from "dom-to-image";
+import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [<React.Fragment></React.Fragment>],
+      items: [],
       loading: true,
       user: {
         name: "test"
       },
-      about: aboutSchema,
-      educations: [educationSchema, { ...educationSchema }],
-      workExperiences: [workExperienceSchema, workExperienceSchema],
-      interests: [interestSchema],
-      skills: [skillSchema, skillSchema]
+      about: {},
+      educations: [],
+      workExperiences: [],
+      interests: [],
+      skills: []
     };
     this.generateForm = this.generateForm.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.applyDrag = this.applyDrag.bind(this);
+
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
-
-    this.getVrsAttributes();
-
-    if (this.props.login) {
+    console.log(this.props);
+    if (this.props.loggedInStatus) {
+      console.log("oops");
+      this.getVrsAttributes();
     } else {
-      this.setState({
-        items: [
-          {
-            id: uuid(),
-            element: (
-              <React.Fragment>
-                <About
-                  about={this.state.about}
-                  onAboutChange={this.onAboutChange}
-                ></About>
-                <Divider></Divider>
-              </React.Fragment>
-            )
-          },
-          {
-            id: uuid(),
-            element: (
-              <React.Fragment>
-                <Education
-                  educations={this.state.educations}
-                  onEducationChange={this.onEducationChange}
-                ></Education>
-                <Divider></Divider>
-              </React.Fragment>
-            )
-          },
-
-          {
-            id: uuid(),
-            element: (
-              <React.Fragment>
-                <WorkExperiences
-                  workExperiences={this.state.workExperiences}
-                  onAboutChange={this.onAboutChange}
-                ></WorkExperiences>
-                <Divider></Divider>
-              </React.Fragment>
-            )
-          },
-          {
-            id: uuid(),
-            element: (
-              <React.Fragment>
-                <Interests
-                  interests={this.state.interests}
-                  onInterestsChange={this.onInterestsChange}
-                ></Interests>
-                <Divider></Divider>
-              </React.Fragment>
-            )
-          },
-          {
-            id: uuid(),
-            element: (
-              <React.Fragment>
-                <Skills
-                  skills={this.state.skills}
-                  onSkillsChange={this.onSkillsChange}
-                ></Skills>
-                <Divider></Divider>
-              </React.Fragment>
-            )
-          }
-        ]
-      });
+     alert("Sending you back to resume builder!");
+     this.props.history.push("/resume-builder");
     }
   }
 
   componentDidUpdate() {
-   // this.getVrsAttributes();
+    // this.getVrsAttributes();
+    
   }
 
   /* Functions to handle on change */
@@ -157,7 +98,7 @@ export default class ResumeGeneration extends Component {
   onInterestsChange = interests => {
     this.setState({ interests });
   };
-  /////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /* Get data from backend */
   getVrsAttributes() {
@@ -165,27 +106,89 @@ export default class ResumeGeneration extends Component {
       .get(getEndPoint("", this.props.user.id), {
         withCredentials: true
       })
-      .then(resp => {
-        console.table(resp.data);
-        this.setState({loading:false})
-      }); /*
-
-
-
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
-      this.setState({
-        user: this.props.user
-      });
-
-      axios
-        .get(getEndPoint("", this.props.user.id), {
-          withCredentials: true
-        })
-        .then(resp => {
-          console.table(resp.data);
+      .then(response => {
+        console.table(response.data);
+        const responseData = camelcaseKeysDeep(response.data.about);
+        const responseDataEdu = camelcaseKeysDeep(response.data.educations);
+        const responseDataWorkExp = camelcaseKeysDeep(
+          response.data.workExperiences
+        );
+        const responseDataSkill = camelcaseKeysDeep(response.data.skills);
+        const responseDataInterests = camelcaseKeysDeep(
+          response.data.interests
+        );
+        this.setState({
+          about: sanitizeResponse(responseData, ["resumeId"]),
+          educations: sanitizeResponse(responseDataEdu, ["resumeId"]),
+          workExperiences: sanitizeResponse(responseDataWorkExp, ["resumeId"]),
+          skills: sanitizeResponse(responseDataSkill, ["resumeId"]),
+          interests: sanitizeResponse(responseDataInterests, ["resumeId"])
         });
-    }*/
+
+        var resume = [];
+        if (!isEmpty(this.state.about)) {
+          resume.push(
+            <About
+              about={this.state.about}
+              onAboutChange={this.onAboutChange}
+            ></About>
+          );
+        }
+
+        if (this.state.workExperiences.length !== 0) {
+          resume.push(
+            <Education
+              educations={this.state.educations}
+              onEducationChange={this.onEducationChange}
+            ></Education>
+          );
+        }
+
+        if (this.state.workExperiences.length !== 0) {
+          resume.push(
+            <WorkExperiences
+              workExperiences={this.state.workExperiences}
+              onAboutChange={this.onAboutChange}
+            ></WorkExperiences>
+          );
+        }
+
+        if (this.state.skills.length !== 0) {
+          resume.push(
+            <Skills
+              skills={this.state.skills}
+              onSkillsChange={this.onSkillsChange}
+            ></Skills>
+          );
+        }
+
+        if (this.state.interests.length !== 0) {
+          resume.push(
+            <Interests
+              interests={this.state.interests}
+              onInterestsChange={this.onInterestsChange}
+            ></Interests>
+          );
+        }
+        var tempArray = [];
+        resume.map((elem, index) => {
+          let obj = {};
+          obj["id"] = index.toString(10);
+          obj["element"] = elem;
+          tempArray.push(obj);
+        });
+        this.setState({
+          items: tempArray
+        });
+
+        this.generateForm(this.state.items);
+
+        this.setState({ loading: false });
+      })
+      .catch(error => console.log(error));
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /*Drop down functions */
   applyDrag = (arr, dragResult) => {
@@ -212,37 +215,17 @@ export default class ResumeGeneration extends Component {
     });
   }
 
+  // map each element to become a draggable element
   generateForm = items => {
     return items.map(item => {
-      return <Draggable key={item.id}>{item.element}</Draggable>;
+      return (
+        <React.Fragment>
+          <Draggable key={item.id}>{item.element}</Draggable>
+        </React.Fragment>
+      );
     });
   };
-
-  /*Function to generate resume */
-
-  generateResume = () => {
-    const scale = 2;
-    const element = document.getElementById("resume");
-    var pdf = new jsPDF("p", "mm", "a4");
-    var width = pdf.internal.pageSize.getWidth();
-    var height = pdf.internal.pageSize.getHeight();
-    if (pdf) {
-      domtoimage
-        .toPng(element, {
-          height: element.offsetHeight * scale,
-          style: {
-            transform: `scale(${scale}) translate(${element.offsetWidth /
-              2 /
-              scale}px, ${element.offsetHeight / 2 / scale}px)`
-          },
-          width: element.offsetWidth * scale
-        })
-        .then(imgData => {
-          pdf.addImage(imgData, "PNG", 0, 0, width, height);
-          pdf.save("download.pdf");
-        });
-    }
-  };
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   goBack = () => {
     this.props.history.goBack();
@@ -252,27 +235,17 @@ export default class ResumeGeneration extends Component {
     const { loading } = this.state;
 
     return this.state.loading ? (
-      <React.Fragment>
-        <Container style={{ marginTop: "5vh", marginBottom: "5vh" }} centered>
-        <Grid centered columns={1}>
-          <Loader active inline="center" size="huge">
-            Loading
-          </Loader>
-          </Grid>
-        </Container>
-      </React.Fragment>
+      <LoadingSpinner></LoadingSpinner>
     ) : (
       <React.Fragment>
         <Animated animationIn="fadeIn" animationOut="fadeOut">
           <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
             <Grid centered columns={1}>
               <Grid.Row>
-                <Header as="h1" r>
-                  Your Resume
-                </Header>
+                <Header as="h1">Your Resume</Header>
               </Grid.Row>
               <Grid.Row>
-                <Header as="h2" r>
+                <Header as="h2">
                   Drag and drop the various sections to rearrange them!
                 </Header>
               </Grid.Row>
@@ -310,4 +283,47 @@ export default class ResumeGeneration extends Component {
       </React.Fragment>
     );
   }
+
+  /*Function to generate resume */
+
+  generateResume = () => {
+    this.setState({ loading: true });
+    
+    const scale = 2;
+    const element = document.getElementById("resume");
+  
+    var pdf = new jsPDF("p", "mm", "a4");
+    var width = pdf.internal.pageSize.getWidth();
+    var height = pdf.internal.pageSize.getHeight();
+    console.log(width);
+    console.log(height);
+    /*
+    if (pdf) {
+      domtoimage
+        .toPng(element, {
+          height: element.offsetHeight * scale,
+          style: {
+            transform: `scale(${scale}) translate(${element.offsetWidth /
+              2 /
+              scale}px, ${element.offsetHeight / 2 / scale}px)`
+          },
+          width: element.offsetWidth * scale
+        })
+        .then(imgData => {
+          pdf.addImage(imgData, "PNG", 0, 0, width, height);
+          pdf.save("download.pdf");
+          this.setState({ loading: false });
+        });
+    }*/
+    
+    //var element = document.getElementById("resume");
+    console.log(element);
+    html2canvas(element).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      pdf.addImage(imgData, "PNG", 0, 0, width, height);
+      pdf.save("image.pdf");
+      this.setState({ loading: false });
+    });
+  };
 }

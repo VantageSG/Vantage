@@ -1,8 +1,8 @@
 const aboutSchema = {
-    name: "Eugene Teu",
-    email: "Test@gmail.com",
-    contactNumber: "84180795",
-    aboutMe: "I am ...."
+    name: "",
+    email: "",
+    contactNumber: "",
+    aboutMe: ""
   }
 
   const educationSchema = {

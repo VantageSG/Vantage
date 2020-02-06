@@ -43,6 +43,7 @@ class GuestUserModal extends Component{
           this.props.confirmUser();
         }
           ).catch(error=>{
+            console.log(error);
           })
       })
   }

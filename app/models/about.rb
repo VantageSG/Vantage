@@ -1,5 +1,6 @@
 class About < ApplicationRecord
   belongs_to :resume
+  
   validates :name, presence: true
   validates :email, presence: true
   validates_uniqueness_of :email, case_sensitive: false

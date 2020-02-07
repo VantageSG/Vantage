@@ -37,10 +37,13 @@ class GuestUserModal extends Component{
         console.log(process.env.BACKEND_PORT + "/api/v1/login/" + guest_user_id)
         axios.post(
           process.env.BACKEND_PORT + "/api/v1/login/" + guest_user_id
-        ).then(response=>
+        ).then(response=> {
           this.props.handleLogin(response),
-          console.log(this.state)
+          console.log(this.state);
+          this.props.confirmUser();
+        }
           ).catch(error=>{
+            console.log(error);
           })
       })
   }

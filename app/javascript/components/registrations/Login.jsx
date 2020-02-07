@@ -17,7 +17,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      username: "",
       email: "",
       password: "",
       errors: ""
@@ -26,7 +26,7 @@ class Login extends Component {
   componentDidUpdate() {
     return this.props.loggedInStatus ? this.redirect() : null;
   }
-  handleChange = (event) => {
+  handleChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
@@ -43,12 +43,11 @@ class Login extends Component {
 
     axios
       .post(
-        process.env.BACKEND_PORT + '/api/v1/login/',
+        process.env.BACKEND_PORT + "/api/v1/login/",
         { user },
-        { 
+        {
           withCredentials: true
-        },
-        
+        }
       )
       .then(response => {
         if (response.data.logged_in) {
@@ -134,37 +133,6 @@ class Login extends Component {
           </Grid>
         </Animated>
         <div>{this.state.errors ? this.handleErrors() : null}</div>
-
-        {/* <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          />
-          <input
-            placeholder="email"
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <input
-            placeholder="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-          <button placeholder="submit" type="submit">
-            Log In
-          </button>
-          <div>
-            or <Link to="/signup">sign up</Link>
-          </div>
-        </form>*/}
       </div>
     );
   }

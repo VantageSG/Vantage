@@ -1,160 +1,170 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Dimmer, Loader } from "semantic-ui-react";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
 import ResponsiveContainer from "./navBar/NavBar";
-import Users from "../components/userprofiles/Users";
-import UserProfile from "../components/userprofiles/UserProfile";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
+import UserContext from '../contexts/UserContext';
 
 
-
-
-
+// App implements routing and login/logout logic
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoggedIn: false,
-      user: {}
+      user: {},
+      loading: false
     };
   }
 
   componentDidMount() {
-    this.loginStatus();
+    this.getLoginStatus();
   }
-  loginStatus = () => {
+
+  // sets the login status as App state: user is either logged in or not
+  getLoginStatus = () => {
     axios
       .get(process.env.BACKEND_PORT + "/api/v1/logged_in", {
         withCredentials: true,
-        validateStatus: function(status) {
-          return (status >= 200 && status < 300) || status === 401; //error status 401 is expected for user not logged in
+        validateStatus: status => {
+          return (status === 200) || status === 401; //error status 401 is expected for user not logged in
         }
       })
       .then(response => {
         if (response.status === 200) {
-          this.handleLogin(response);
-        } else if (
-          response.status === 401 &&
-          response.data.error === "User not logged in"
-        ) {
-          this.handleLogout();
-        } else {
-          console.log("unknown error");
-        }
+          this.setState({isLoggedIn: true, user: response.data.user});
+        } else if (response.status === 401) {
+          this.setState({isLoggedIn: false, user: {}});
+        } else { }
+        this.setState({loading: false})
       })
-      .catch(error => {});
+      .catch(error => console.log(error));
+    this.setState({loading: true})
   };
 
-  handleLogin = data => {
-    console.log(data)
-    this.setState({
-      isLoggedIn: true,
-      user: data.data.user
-    });
-  };
-  handleLogout = () => {
-    this.setState({
-      isLoggedIn: false,
-      user: {}
-    });
-  }; 
+  // logs the user in. calls either success/error callback function depending on response
+  login = (user, successCallback, errorCallBack) => {
+    axios
+      .post(process.env.BACKEND_PORT + "/api/v1/login/", { user }, {
+          withCredentials: true,
+          validateStatus: status => status === 200 || status === 401
+      })
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({isLoggedIn: true, user: response.data.user});
+          successCallback();
+        } else if (response.status === 401) {
+          errorCallBack(response.data.error);
+        } else { }
+        this.setState({loading: false})
+      })
+      .catch(error => console.log(error));
+    this.setState({loading: true})
+  }
+
+  signup = (user, successCallback, errorCallBack) => {
+    axios
+      .post(process.env.BACKEND_PORT + "/api/v1/users/", { user }, {
+        withCredentials: true,
+        validateStatus: status => status === 201 || status === 400
+      })
+      .then(response => {
+        if (response.status === 201) {
+          // if sign up successful, login          
+          this.login({
+            username: user.username,
+            email: user.email,
+            password: user.password
+          }, successCallback, errorCallBack)          
+        } else if (response.status === 400) {
+          errorCallBack(response.data.errors);
+          this.setState({loading: false})
+        } else { }        
+      })
+      .catch(error => console.log(error));
+    this.setState({loading: true});
+  }
+
+  continueAsGuest(successCallback) {
+    axios
+      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user"
+      )
+      .then(response => {                
+        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id
+        )
+        .then(response => {
+          this.setState({isLoggedIn: true, user: response.data.user});
+          this.setState({loading: false})
+          successCallback();
+        })
+        .catch(error=> console.log(error))
+      })
+      .catch(error => console.log(error));
+    this.setState({loading: true});
+  }
+
+  logout = () => {
+    axios
+      .delete(process.env.BACKEND_PORT + "/api/v1/logout/", {
+          withCredentials: true,
+          validateStatus: status => status === 200
+      })
+      .then(response => {
+        this.setState({isLoggedIn: false, user: {}})
+        this.setState({loading: false})
+      })
+      .catch(error => console.log(error));
+    this.setState({loading: true})
+  }
 
   render() {
 
     return (
-      <div>
         <BrowserRouter>
-         
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <ResponsiveContainer
-                  loggedInStatus={this.state.isLoggedIn}
-                  handleLogout={this.handleLogout}
-                  user={this.state.user}
-                  >
-                  <Home
-                    {...props}
-                    handleLogout={this.handleLogout}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
-                  </ResponsiveContainer>
-                )}
-              />
-              <Route
-                exact
-                path="/login"
-                render={props => (
-                  <Login
-                    {...props}
-                    handleLogin={this.handleLogin}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/sign-up"
-                render={props => (
-                  <Signup
-                    {...props}
-                    handleLogin={this.handleLogin}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/user-profiles"
-                render={props => <Users {...props} />}
-              />
-              <Route
-                exact
-                path="/Resume-builder"
-                render={props => 
-                  <ResponsiveContainer
-                
-                  loggedInStatus={this.state.isLoggedIn}
-                  handleLogout={this.handleLogout}
-                  user={this.state.user}
-                  >
-                <ResumeBuilder 
-                  {...props} 
-                  handleLogin={this.handleLogin}
-                  user={this.state.user}
-                />
-                </ResponsiveContainer>}
-              />
-           
-              <Route
-                exact
-                path="/resume-generation/:userId"
-                render={props => (
-                  <ResponsiveContainer
-                  loggedInStatus={this.state.isLoggedIn}
-                  handleLogout={this.handleLogout}
-                  user={this.state.user}
-                  >
-                  <ResumeGeneration  
-                  {...props}
-                  user={this.state.user}
-                  handleLogin={this.handleLogin}
-                  loggedInStatus={this.state.isLoggedIn} />
-                  </ResponsiveContainer>
-                )}
-              />
-              <Route component={Error404Page} />
-            </Switch>
-  
+          <UserContext.Provider value={{
+            isLoggedIn: this.state.isLoggedIn,
+            user: this.state.user,
+            login: this.login,
+            logout: this.logout,
+            signup: this.signup
+          }}>
+            <ResponsiveContainer                      
+            >
+              {this.state.loading
+              ? (
+                <Dimmer active inverted>
+                  <Loader inverted>Loading</Loader>
+                </Dimmer>
+              )
+              :(<span></span>)
+              }
+              <Switch>              
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/sign-up" >
+                  <Signup />
+                </Route>                            
+                <Route exact path="/resume-builder">
+                  <ResumeBuilder />
+                </Route>
+                <Route exact path="/resume-generation/:userId">
+                  <ResumeGeneration />
+                </Route>
+                <Route component={Error404Page} />
+              </Switch>
+            </ResponsiveContainer>
+          </UserContext.Provider>
         </BrowserRouter>
-      </div>
     );
   }
 }

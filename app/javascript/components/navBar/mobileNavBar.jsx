@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Button,
   Container,
-  Grid,
-  Header,
   Icon,
-  Image,
   List,
   Menu,
   Responsive,
@@ -14,6 +11,7 @@ import {
   Sidebar,
   Visibility
 } from "semantic-ui-react";
+import UserContext from "../../contexts/UserContext";
 
 const getWidth = () => {
   const isSSR = typeof window === "undefined";
@@ -27,20 +25,19 @@ class MobileNavBar extends Component {
   }
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false });
-
   handleToggle = () => this.setState({ sidebarOpened: true });
 
-  renderRegistrationButton = (loggedInStatus, user) => {
-    return loggedInStatus ? (
+  renderRegistrationButton = () => {
+    return this.context.isLoggedIn ? (
       <Menu.Item position="right">
+        Welcome, {this.context.user.username}
         <Button
-          disabled
-          color="facebook"
-          size="large"
-          content={user.username}
+          onClick={this.context.logout}
           primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
+          style={{ marginLeft: "1em" }}
+        >
+          Logout
+        </Button>
       </Menu.Item>
     ) : (
       <React.Fragment>
@@ -48,7 +45,7 @@ class MobileNavBar extends Component {
           Login
         </Menu.Item>
         <Menu.Item as={Link} to="/sign-up">
-          Sign up
+          Sign Up
         </Menu.Item>
       </React.Fragment>
     );
@@ -80,10 +77,7 @@ class MobileNavBar extends Component {
           <Menu.Item as={Link} to="/resume-builder">
             Resume Builder
           </Menu.Item>
-          {this.renderRegistrationButton(
-            this.props.loggedInStatus,
-            this.props.user
-          )}
+          {this.renderRegistrationButton()}
         </Sidebar>
         <Visibility once={true}>
           <Segment
@@ -103,7 +97,7 @@ class MobileNavBar extends Component {
           </Segment>
         </Visibility>
         <div className="site-content">{children}</div>
-        <div style={{ margin: "5em 0em 0em", padding: "5em 0em" }} vertical>
+        <div style={{ margin: "5em 0em 0em", padding: "5em 0em" }} vertical="true">
           <Container textAlign="center">
             <List horizontal divided link size="small">
               <List.Item as="a" href="#">
@@ -122,5 +116,7 @@ class MobileNavBar extends Component {
     );
   }
 }
+MobileNavBar.contextType = UserContext;
+
 
 export default MobileNavBar;

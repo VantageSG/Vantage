@@ -3,15 +3,12 @@
 // of the page.
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
 import App from "../components/App";
 import "../../assets/dist/semantic.min.css";
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
-    <BrowserRouter forceRefresh={true} >
-      <Route path="/" component={App} />
-    </BrowserRouter>,
+    <App />,
     document.body.appendChild(document.createElement("div"))
   );
 });

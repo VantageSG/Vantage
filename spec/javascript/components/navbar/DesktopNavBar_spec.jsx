@@ -2,6 +2,7 @@ import React from "react";
 import ResponsiveContainer from "components/navBar/NavBar.jsx";
 import "@testing-library/jest-dom/extend-expect";
 import { renderWithRouter } from "../../test-utils";
+import UserContext from "../../../../app/javascript/contexts/UserContext";
 
 describe("Desktop ", () => {
 
@@ -33,12 +34,21 @@ describe("Desktop ", () => {
           "created_at": "2019-12-30T16:56:51.584Z",
           "updated_at": "2019-12-30T16:56:51.584Z"
     }
-    const containerLoggedIn = renderWithRouter(<ResponsiveContainer
+    const containerLoggedIn = renderWithRouter(
+    <UserContext.Provider value={{
+      user:user,
+      isLoggedIn:true
+    }}
+    
+    >
+      <ResponsiveContainer
       loggedInStatus={loggedInStatus}
       user={user}
-      />);
+      />
+    </UserContext.Provider>)
+    ;
     it("should have user name", () => {
-      expect(containerLoggedIn.getByText("shermzlim")).toBeInTheDocument();
+      expect(containerLoggedIn.getByText(/shermzlim/i)).toBeInTheDocument();
     });
   });
 });

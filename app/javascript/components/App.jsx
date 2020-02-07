@@ -5,7 +5,7 @@ import { Dimmer, Loader } from "semantic-ui-react";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import ResponsiveContainer from "./navBar/ResponsiveContainer";
+import ResponsiveContainer from "./navBar/NavBar";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";

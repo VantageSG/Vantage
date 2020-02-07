@@ -7,9 +7,7 @@ import {
   Header,
   Message,
   Segment,
-  Icon,
-  Loader,
-  Dimmer
+  Icon  
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 import UserContext from "../../contexts/UserContext";
@@ -23,12 +21,11 @@ class Login extends Component {
       username: "",
       email: "",
       password: "",
-      error: "",
-      loading: false
+      error: ""      
     };
   }
 
-  redirect = () => {
+  redirectHome = () => {
     this.props.history.push("/");
   };
 
@@ -47,13 +44,11 @@ class Login extends Component {
       email: email,
       password: password
     };    
-    this.context.login(user, this.redirect, (error) => {
-      this.setState({
-        loading: false,
+    this.context.login(user, this.redirectHome, (error) => {
+      this.setState({        
         error: error
       })
-    })
-    this.setState({loading: true})
+    })    
   };
 
   render() {
@@ -78,55 +73,45 @@ class Login extends Component {
               </Message>              
               )
             : (<span></span>)
-            }
-              
-            {this.state.loading
-            ? (
-              <Dimmer active inverted>
-                <Loader inverted>Loading</Loader>
-              </Dimmer>
-              )
-            : (
-              <Form size="large" onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  name="username"
-                  value={username}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  placeholder="Email"
-                  name="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-                <Button color="teal" fluid size="large" type="submit">
-                  submit
-                </Button>
-                <Message>
-                  <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
-                </Message>
-              </Segment>
-            </Form>              
-            )
-            }          
+            }                
+            <Form size="large" onSubmit={this.handleSubmit}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+              <Button color="teal" fluid size="large" type="submit">
+                submit
+              </Button>
+              <Message>
+                <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
+              </Message>
+            </Segment>
+            </Form>
           </Grid.Column>
         </Grid>
       </Animated>

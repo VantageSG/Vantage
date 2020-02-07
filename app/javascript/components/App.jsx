@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Dimmer, Loader } from "semantic-ui-react";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
@@ -17,8 +18,9 @@ class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      user: {}
-    };    
+      user: {},
+      loading: false
+    };
   }
 
   componentDidMount() {
@@ -38,10 +40,12 @@ class App extends Component {
         if (response.status === 200) {
           this.setState({isLoggedIn: true, user: response.data.user});
         } else if (response.status === 401) {
-          this.setState({isLoggedIn: true, user: {}});
+          this.setState({isLoggedIn: false, user: {}});
         } else { }
+        this.setState({loading: false})
       })
       .catch(error => console.log(error));
+    this.setState({loading: true})
   };
 
   // logs the user in. calls either success/error callback function depending on response
@@ -57,9 +61,34 @@ class App extends Component {
           successCallback();
         } else if (response.status === 401) {
           errorCallBack(response.data.error);
+        } else { }
+        this.setState({loading: false})
+      })
+      .catch(error => console.log(error));
+    this.setState({loading: true})
+  }
+
+  signup = (user, successCallback, errorCallBack) => {
+    axios
+      .post(process.env.BACKEND_PORT + "/api/v1/users/", { user }, {
+        withCredentials: true,
+        validateStatus: status => status === 201 || status === 400
+      })
+      .then(response => {
+        if (response.status === 201) {
+          // if sign up successful, login
+          this.login({
+            username: user.username,
+            email: user.email,
+            password: user.password
+          }, successCallback, errorCallBack)          
+        } else if (response.status === 400) {
+          errorCallBack(response.data.errors);
+          this.setState({loading: false})
         } else { }        
       })
       .catch(error => console.log(error));
+    this.setState({loading: true});
   }
 
   logout = () => {
@@ -70,8 +99,10 @@ class App extends Component {
       })
       .then(response => {
         this.setState({isLoggedIn: false, user: {}})
+        this.setState({loading: false})
       })
       .catch(error => console.log(error));
+    this.setState({loading: true})
   }
 
   render() {
@@ -82,10 +113,19 @@ class App extends Component {
             isLoggedIn: this.state.isLoggedIn,
             user: this.state.user,
             login: this.login,
-            logout: this.logout
+            logout: this.logout,
+            signup: this.signup
           }}>
             <ResponsiveContainer                      
             >
+              {this.state.loading
+              ? (
+                <Dimmer active inverted>
+                  <Loader inverted>Loading</Loader>
+                </Dimmer>
+              )
+              :(<span></span>)
+              }
               <Switch>              
                 <Route exact path="/">
                   <Home />

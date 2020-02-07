@@ -31,23 +31,16 @@ class DesktopNavBar extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   renderRegistrationButton = () => {
-    return this.context.loggedIn ? (
+    return this.context.isLoggedIn ? (
       <Menu.Item position="right">
-        <Button           
-          color="facebook"
-          size="large"
-          content={this.context.user.username}
+        Welcome, {this.context.user.username}
+        <Button
+          onClick={this.context.logout}
           primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
-        <Button           
-          color="red"
-          size="large"
-          content="logout"
-          onClick={this.props.handleLogout}
-          primary={this.state.fixed}
-          style={{ marginLeft: "0.5em" }}
-        ></Button>
+          style={{ marginLeft: "1em" }}
+        >
+          Logout
+        </Button>
       </Menu.Item>
     ) : (
       <React.Fragment>
@@ -82,7 +75,7 @@ class DesktopNavBar extends Component {
                 <Grid.Column textAlign="left" verticalAlign="middle" >
               <p style={{marginLeft:"1em"}} ><Icon name="lightbulb outline"></Icon>VANTAGES</p>
                 </Grid.Column>
-                <Grid.Column textAlign="center">
+                <Grid.Column textAlign="left">
                   {" "}
                   <Menu borderless secondary size="small" compact style={{marginleft:"auto", marginRight: "auto"}}>
                     <Menu.Item as={Link} to="/" fitted>
@@ -93,8 +86,10 @@ class DesktopNavBar extends Component {
                     </Menu.Item>                                          
                   </Menu>
                 </Grid.Column>
-                <Grid.Column textAlign="right">
-                  {this.renderRegistrationButton()}
+                <Grid.Column textAlign="left">
+                  <Menu borderless secondary size="small" compact>
+                    {this.renderRegistrationButton()}
+                  </Menu>
                 </Grid.Column>
               </Grid.Row>
             </Grid>

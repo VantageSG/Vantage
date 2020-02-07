@@ -18,6 +18,7 @@ import axios from "axios";
 import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
+import LoadingSpinner from "../../../util/LoadingSpinner";
 import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const skillSchema = {
@@ -32,12 +33,16 @@ export default class Skills extends Component {
     var cloneSkillSchema = Object.assign({}, skillSchema)
     this.state = {
       skills: [cloneSkillSchema],
-      user: {}
+      user: {},
+      isLoading: false
     };
   }
 
   getSkills() {
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
         .get(getEndPoint('skills', this.props.user.id), { 
           withCredentials: true
@@ -46,6 +51,7 @@ export default class Skills extends Component {
           const responseData = camelcaseKeysDeep(response.data.skills);
           this.setState({
             user: this.props.user,
+            isLoading: false
           })
           if (responseData.length != 0) {
             this.setState({
@@ -99,7 +105,9 @@ export default class Skills extends Component {
   }
 
   render() {
-    return (
+    return this.state.isLoading ? (
+      <LoadingSpinner></LoadingSpinner>
+      ) : (
       <Card centered fluid>
         {
           this.state.skills.map((skills, index)=>{

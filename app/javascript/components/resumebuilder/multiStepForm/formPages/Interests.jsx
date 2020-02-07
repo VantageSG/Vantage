@@ -16,6 +16,7 @@ import axios from "axios";
 import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
+import LoadingSpinner from "../../../util/LoadingSpinner";
 import decamelizeKeysDeep from 'decamelize-keys-deep';
 
 const interestSchema = {
@@ -28,7 +29,8 @@ export default class Interests extends Component {
     var cloneInterestSchema = Object.assign({}, interestSchema)
     this.state = {
       interests: [cloneInterestSchema],
-      user: {}
+      user: {},
+      isLoading: false
     };
     
   }
@@ -36,6 +38,9 @@ export default class Interests extends Component {
 
   getInterests() {
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
         .get(getEndPoint('interests', this.props.user.id), { 
           withCredentials: true
@@ -45,6 +50,7 @@ export default class Interests extends Component {
           console.log(responseData);
           this.setState({
             user: this.props.user,
+            isLoading: false
           })
           if (responseData.length != 0) {
             this.setState({
@@ -97,8 +103,9 @@ export default class Interests extends Component {
   }
 
   render() {
-
-    return (
+    return this.state.isLoading ? (
+      <LoadingSpinner></LoadingSpinner>
+      ) : (
       <Card centered fluid>
         {
           this.state.interests.map((interest, index)=>{

@@ -14,6 +14,7 @@ import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
 import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import LoadingSpinner from "../../../util/LoadingSpinner";
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
@@ -32,12 +33,16 @@ export default class Education extends Component {
     var cloneEducationSchema = Object.assign({}, educationSchema)
     this.state = {
       educations: [cloneEducationSchema],
-      user: {}
+      user: {},
+      isLoading: false
     }
   }
 
   getEducations() {
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
         .get(getEndPoint('educations', this.props.user.id), { 
           withCredentials: true
@@ -46,6 +51,7 @@ export default class Education extends Component {
           const responseData = camelcaseKeysDeep(response.data.educations);
           this.setState({
             user: this.props.user,
+            isLoading: false
           })
           if (responseData.length!=0) {
             this.setState({
@@ -97,7 +103,9 @@ export default class Education extends Component {
   }
   
   render() {
-    return (
+    return this.state.isLoading ? (
+      <LoadingSpinner></LoadingSpinner>
+     ) : (
       <Card centered fluid>
         {
           this.state.educations.map((education, index)=>{

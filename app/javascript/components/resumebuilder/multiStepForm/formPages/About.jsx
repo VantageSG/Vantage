@@ -51,36 +51,36 @@ export default class About extends Component {
   };
 
   getDbAbout() {
-
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
-      this.setState({ isLoading: true });
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
         .get(getEndPoint("about", this.props.user.id), {
           withCredentials: true
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
-          this.setState({ user: this.props.user });
-          this.setState({
-            about: sanitizeResponse(responseData, ["resumeId"])
+          console.log(responseData)
+          this.setState({ 
+            user: this.props.user,
+            isLoading: false
           });
+          if (responseData != null) {
+            this.setState({
+              about: responseData
+            });
+          }
         })
         .catch(error => {
-          console.log(error);
+          console.log(response.error);
           console.log("user error");
         });
-        this.setState({ isLoading: false });
-    } else {
-      this.setState({ isLoading: true });
-     this.setState({ user: this.props.user });
-      this.setState({ isLoading: false });
     }
-
-   
   }
 
   componentDidUpdate() {
-    //this.getDbAbout();
+    this.getDbAbout();
   
   }
   componentWillUnmount() {

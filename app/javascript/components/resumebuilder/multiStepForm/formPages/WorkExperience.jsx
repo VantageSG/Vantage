@@ -16,6 +16,7 @@ import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
 import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import LoadingSpinner from "../../../util/LoadingSpinner";
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
@@ -35,12 +36,16 @@ export default class WorkExperience extends Component {
     var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
     this.state = {
       workExperiences: [cloneWorkExperienceSchema],
-      user: {}
+      user: {},
+      isLoading: false
     };
   }
 
   getWorkExperiences() {
     if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
         .get(getEndPoint('workExperiences', this.props.user.id), { 
           withCredentials: true
@@ -57,6 +62,7 @@ export default class WorkExperience extends Component {
           }
           this.setState({
             user: this.props.user,
+            isLoading: false
           })        
           if (responseData.length != 0) {
             this.setState({
@@ -108,7 +114,9 @@ export default class WorkExperience extends Component {
   }
 
   render() {
-    return (
+    return this.state.isLoading ? (
+      <LoadingSpinner></LoadingSpinner>
+      ) : (
       <Card centered fluid>
         {
           this.state.workExperiences.map((workExperience, index)=>{

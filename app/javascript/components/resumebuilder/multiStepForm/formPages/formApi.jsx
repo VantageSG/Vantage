@@ -34,8 +34,9 @@ function sanitizeResponseJsonObject(response, arrayUnwantedKey) {
   if (arrayUnwantedKey !== undefined && arrayUnwantedKey !== null) {
     const length = arrayUnwantedKey.length
     for (var i = 0; i < length; i++) {
-      
-      delete response[arrayUnwantedKey[i]];
+      if (response.arrayUnwantedKey[i] != null) {
+        delete response[arrayUnwantedKey[i]];
+      }
     }
   }
  

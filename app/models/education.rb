@@ -6,4 +6,13 @@ class Education < ApplicationRecord
   validates :start, numericality: { only_integer: true }
   validates :end, presence: true
   validates :end, numericality: { only_integer: true }
+
+  def as_json options={}
+    {
+      program: program,
+      institution: institution,
+      start: start,
+      end: self.end
+    }
+  end
 end

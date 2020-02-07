@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 import FormActionButtons from "../frontEndUtil/FormActionButtons";
 import { Animated } from "react-animated-css";
-import { postForm, getEndPoint, sanitizeResponse } from "./formApi";
+import { postForm, getEndPoint } from "./formApi";
 import { isEmpty } from "../../../util/Props";
 import LoadingSpinner from "../../../util/LoadingSpinner";
 import camelcaseKeysDeep from "camelcase-keys-deep";

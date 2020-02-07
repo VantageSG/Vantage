@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Button,
   Container,
-  Grid,
-  Header,
   Icon,
-  Image,
   List,
   Menu,
   Responsive,
@@ -27,7 +24,6 @@ class MobileNavBar extends Component {
   }
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false });
-
   handleToggle = () => this.setState({ sidebarOpened: true });
 
   renderRegistrationButton = (loggedInStatus, user) => {

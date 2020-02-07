@@ -4,24 +4,20 @@ import {
   Button,
   Container,
   Grid,
-  Header,
   Icon,
-  Image,
   List,
   Menu,
   Responsive,
   Segment,
-  Sidebar,
   Visibility
 } from "semantic-ui-react";
 import "./layout.css";
+
 
 const getWidth = () => {
   const isSSR = typeof window === "undefined";
   return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
 };
-
-
 
 
 class DesktopNavBar extends Component {
@@ -36,25 +32,21 @@ class DesktopNavBar extends Component {
     renderRegistrationButton = (loggedInStatus, user) => {
       return loggedInStatus ? (
         <Menu.Item position="right">
-          <Button
-           
+          <Button           
             color="facebook"
             size="large"
             content={user.username}
             primary={this.state.fixed}
             style={{ marginLeft: "0.5em" }}
           ></Button>
-          <Button
-           
+          <Button           
            color="red"
            size="large"
            content="logout"
            onClick={this.props.handleLogout}
            primary={this.state.fixed}
            style={{ marginLeft: "0.5em" }}
-          >
-
-          </Button>
+          ></Button>
         </Menu.Item>
       ) : (
         <React.Fragment>
@@ -79,8 +71,7 @@ class DesktopNavBar extends Component {
               <Grid
                 style={{
                   minHeight: 20,
-                  padding: "1em 0em",
-                
+                  padding: "1em 0em",                
                   backgroundColor: "#f4a300"
                 }}
                 columns={3}
@@ -95,12 +86,10 @@ class DesktopNavBar extends Component {
                     <Menu borderless secondary size="small" compact style={{marginleft:"auto", marginRight: "auto"}}>
                       <Menu.Item as={Link} to="/" fitted>
                         Home
-                      </Menu.Item>
-                   
+                      </Menu.Item>                   
                       <Menu.Item as={Link} to="/resume-builder" fitted>
                         Resume Builder
-                      </Menu.Item>
-                    
+                      </Menu.Item>                    
                       {this.renderRegistrationButton(
                         this.props.loggedInStatus,
                         this.props.user

@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   Button,
   Form,
   Grid,
   Header,
-  Image,
   Message,
   Segment,
-  Icon
+  Icon,
+  Loader,
+  Dimmer
 } from "semantic-ui-react";
-
 import { Animated } from "react-animated-css";
+import UserContext from "../../contexts/UserContext";
+
+
+// Login Component that consists of Login Form
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -20,18 +23,22 @@ class Login extends Component {
       username: "",
       email: "",
       password: "",
-      errors: ""
+      error: "",
+      loading: false
     };
   }
-  componentDidUpdate() {
-    return this.props.loggedInStatus ? this.redirect() : null;
-  }
+
+  redirect = () => {
+    this.props.history.push("/");
+  };
+
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
+
   handleSubmit = event => {
     event.preventDefault();
     const { username, email, password } = this.state;
@@ -39,102 +46,93 @@ class Login extends Component {
       username: username,
       email: email,
       password: password
-    };
-
-    axios
-      .post(
-        process.env.BACKEND_PORT + "/api/v1/login/",
-        { user },
-        {
-          withCredentials: true
-        }
-      )
-      .then(response => {
-        if (response.data.logged_in) {
-          this.props.handleLogin(response);
-          this.redirect();
-        } else {
-          this.setState({
-            errors: response.data.errors
-          });
-        }
+    };    
+    this.context.login(user, this.redirect, (error) => {
+      this.setState({
+        loading: false,
+        error: error
       })
-      .catch(error => console.log("api errors:", error));
+    })
+    this.setState({loading: true})
   };
-  redirect = () => {
-    this.props.history.push("/");
-  };
-  handleErrors = () => {
-    return (
-      <div>
-        <ul>
-          {this.state.errors.map(error => {
-            return <li key={error}>{error}</li>;
-          })}
-        </ul>
-      </div>
-    );
-  };
+
   render() {
     const { username, email, password } = this.state;
     return (
-      <div>
-        <Animated animationIn="fadeIn" isVisible={true}>
-          <Grid
-            textAlign="center"
-            style={{ marginTop: "2em" }}
-            verticalAlign="middle"
-          >
-            <Grid.Column style={{ maxWidth: 450 }}>
-              <Icon loading name="user" size="massive" />
-              <Header as="h2" color="teal" textAlign="center">
-                Log In
-              </Header>
+      <Animated animationIn="fadeIn" isVisible={true}>
+        <Grid
+          textAlign="center"
+          style={{ marginTop: "2em" }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Icon name="user" size="massive" />
+            <Header as="h2" color="teal" textAlign="center">
+              Log In
+            </Header>
+            {this.state.error
+            ? (
+              <Message negative>
+                <Message.Header>We can't log you in:</Message.Header>
+                <p>{this.state.error}</p>  
+              </Message>              
+              )
+            : (<span></span>)
+            }
+              
+            {this.state.loading
+            ? (
+              <Dimmer active inverted>
+                <Loader inverted>Loading</Loader>
+              </Dimmer>
+              )
+            : (
               <Form size="large" onSubmit={this.handleSubmit}>
-                <Segment stacked>
-                  <Form.Input
-                    fluid
-                    icon="user"
-                    iconPosition="left"
-                    placeholder="Username"
-                    name="username"
-                    value={username}
-                    onChange={this.handleChange}
-                  />
-                  <Form.Input
-                    fluid
-                    icon="mail"
-                    iconPosition="left"
-                    placeholder="Email"
-                    name="email"
-                    value={email}
-                    onChange={this.handleChange}
-                  />
-                  <Form.Input
-                    fluid
-                    icon="lock"
-                    iconPosition="left"
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={this.handleChange}
-                  />
-
-                  <Button color="teal" fluid size="large" type="submit">
-                    submit
-                  </Button>
-                  <Message>
-                    <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
-                  </Message>
-                </Segment>
-              </Form>
-            </Grid.Column>
-          </Grid>
-        </Animated>
-        <div>{this.state.errors ? this.handleErrors() : null}</div>
-      </div>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon="user"
+                  iconPosition="left"
+                  placeholder="Username"
+                  name="username"
+                  value={username}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  fluid
+                  icon="mail"
+                  iconPosition="left"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  fluid
+                  icon="lock"
+                  iconPosition="left"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+                <Button color="teal" fluid size="large" type="submit">
+                  submit
+                </Button>
+                <Message>
+                  <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
+                </Message>
+              </Segment>
+            </Form>              
+            )
+            }          
+          </Grid.Column>
+        </Grid>
+      </Animated>
     );
   }
 }
+Login.contextType = UserContext;
+
 export default Login;

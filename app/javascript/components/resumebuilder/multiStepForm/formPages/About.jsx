@@ -83,9 +83,6 @@ export default class About extends Component {
     this.getDbAbout();
   
   }
-  componentWillUnmount() {
-    
-  }
 
   componentDidMount() {
     this.getDbAbout();
@@ -95,8 +92,7 @@ export default class About extends Component {
 
   nextStepWApiReq = () => {
     let about = decamelizeKeysDeep(this.state.about);
-    postForm("about", about, this.state.user.id);
-    this.props.nextStep();
+    postForm("about", about, this.state.user.id, this.props.nextStep());
   };
 
   render() {
@@ -166,7 +162,6 @@ export default class About extends Component {
           </Segment>
           <Card.Content extra>
             <FormActionButtons
-              submitAndContinue={this.props.submitAndContinue}
               step={this.props.step}
               maxStep={this.props.maxStep}
               nextStep={this.nextStepWApiReq}

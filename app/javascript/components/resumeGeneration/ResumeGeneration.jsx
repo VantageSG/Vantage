@@ -22,8 +22,7 @@ import {
 import axios from "axios";
 import LoadingSpinner from "../util/LoadingSpinner";
 import {
-  getEndPoint,
-  sanitizeResponse
+  getEndPoint
 } from "../resumebuilder/multiStepForm/formPages/formApi";
 import { isEmpty } from "../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
@@ -118,11 +117,11 @@ export default class ResumeGeneration extends Component {
           response.data.interests
         );
         this.setState({
-          about: sanitizeResponse(responseData, ["resumeId"]),
-          educations: sanitizeResponse(responseDataEdu, ["resumeId"]),
-          workExperiences: sanitizeResponse(responseDataWorkExp, ["resumeId"]),
-          skills: sanitizeResponse(responseDataSkill, ["resumeId"]),
-          interests: sanitizeResponse(responseDataInterests, ["resumeId"])
+          about: responseData,
+          educations: responseDataEdu,
+          workExperiences: responseDataWorkExp,
+          skills: responseDataSkill,
+          interests: responseDataInterests
         });
 
         var resume = [];

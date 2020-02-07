@@ -15,7 +15,7 @@ import {
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
-import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import {postForm, getEndPoint} from "./formApi"
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import LoadingSpinner from "../../../util/LoadingSpinner";
@@ -55,7 +55,7 @@ export default class Skills extends Component {
           })
           if (responseData.length != 0) {
             this.setState({
-              skills: sanitizeResponse(responseData, ["resumeId"]),
+              skills: responseData,
             })
           }
           
@@ -77,11 +77,10 @@ export default class Skills extends Component {
   }
 
   nextStepWApiReq = () => {
-    this.props.nextStep()
     let skills = decamelizeKeysDeep(this.state.skills);
     postForm('skills', 
     skills, 
-    this.state.user.id)
+    this.state.user.id, this.props.nextStep());
   }
 
 

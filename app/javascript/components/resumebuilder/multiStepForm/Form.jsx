@@ -96,7 +96,7 @@ export default class FormStep extends Component {
   }
 
   nextStep = () => {
-    //fire off event to backend here
+
     const { step } = this.state;
     this.setState({ step: step + 1 });
   };

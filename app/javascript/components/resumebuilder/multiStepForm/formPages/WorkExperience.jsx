@@ -15,7 +15,7 @@ import {
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
-import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import {postForm, getEndPoint} from "./formApi"
 import LoadingSpinner from "../../../util/LoadingSpinner";
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
@@ -66,7 +66,7 @@ export default class WorkExperience extends Component {
           })        
           if (responseData.length != 0) {
             this.setState({
-              workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+              workExperiences: responseData,
             })        
           }
             

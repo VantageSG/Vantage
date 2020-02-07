@@ -11,7 +11,6 @@ class WorkExperience < ApplicationRecord
   validates :achievements, presence: true
 
   def as_json options={}
-    byebug
     {
       referee: referee,
       title: title,

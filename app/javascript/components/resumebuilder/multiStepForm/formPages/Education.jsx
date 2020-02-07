@@ -13,7 +13,7 @@ import {
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
-import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import {postForm, getEndPoint} from "./formApi"
 import LoadingSpinner from "../../../util/LoadingSpinner";
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
@@ -55,7 +55,7 @@ export default class Education extends Component {
           })
           if (responseData.length!=0) {
             this.setState({
-              educations: sanitizeResponse(responseData, ["resumeId"]),
+              educations: responseData,
             })
           }
           
@@ -76,11 +76,10 @@ export default class Education extends Component {
   }
 
   nextStepWApiReq = () => {
-    this.props.nextStep()
     let educations = decamelizeKeysDeep(this.state.educations);
     postForm('educations', 
     educations, 
-    this.state.user.id)
+    this.state.user.id, this.props.nextStep());
   }
 
   handleFormChange(event, index){

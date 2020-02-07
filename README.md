@@ -125,8 +125,18 @@ Overall Architecture Diagram [here](https://www.lucidchart.com/invitations/accep
 
 ![Architecture Diagram](docs/images/ArchitectureDiagram.png)
 
-### Routing
+#### Front end architecture
+
+Refer to this link(https://www.lucidchart.com/invitations/accept/02422668-1633-4c88-9259-95ec849acf1c) to make any changes to the diagram
+
+![ FrontEndArchitecture](docs/images/FrontEndArchitecture.png)
+
+
+#### Routing
 Activity diagram of how the routing works for the internal API and front end routes. Diragram [here](https://www.lucidchart.com/invitations/accept/8ac1faaa-3a92-4ce8-938a-7c3cd39228a0).
 
-![Routing Diagram](docs/images/RoutingDiagram.png)
+![Routing Diagram](docs/images/RoutingDiagram.png){ height=50% }
 
+#### Authentication 
+
+![Authentication Diagram](docs/images/AuthenticationDiagram.png)

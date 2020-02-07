@@ -1,0 +1,2 @@
+class InvalidParamsError < StandardError
+end

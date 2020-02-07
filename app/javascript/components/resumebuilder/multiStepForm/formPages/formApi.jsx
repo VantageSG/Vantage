@@ -14,16 +14,34 @@ function getForm(vrsAttribute, userID) {
 }
 
 function sanitizeResponseJsonObject(response, arrayUnwantedKey) {
-  delete response.id;
-  delete response.createdAt;
-  delete response.updatedAt;
 
-  if (arrayUnwantedKey != undefined) {
+  if (response !== undefined && response !== null) {
+    // added Guard clauses
+  if (response.id !== null) {
+    delete response.id;
+  }
+  
+  if (response.createdAt !== null) {
+    delete response.createdAt;
+  }
+
+  if (response.updatedAt !== null) {
+    delete response.updatedAt;
+  }
+
+  
+  }
+  if (arrayUnwantedKey !== undefined && arrayUnwantedKey !== null) {
     const length = arrayUnwantedKey.length
     for (var i = 0; i < length; i++) {
+      
       delete response[arrayUnwantedKey[i]];
     }
   }
+ 
+
+
+ 
   return response;
 }
 

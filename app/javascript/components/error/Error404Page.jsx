@@ -28,11 +28,7 @@ class Error404Page extends Component {
           }}
         >
           <Grid textAlign="center" verticalAlign="middle" centered>
-            <Grid.Row>
-              <Icon name="dont" size="massive" loading></Icon>
-              <Icon name="dont" size="massive" loading></Icon>
-              <Icon name="dont" size="massive" loading></Icon>
-            </Grid.Row>
+            <Grid.Row></Grid.Row>
           </Grid>
           <Segment textAlign="center">
             <Header as="h1" style={styleObject}>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   Button,
   Form,
@@ -135,4 +135,4 @@ class Login extends Component {
 }
 Login.contextType = UserContext;
 
-export default Login;
+export default withRouter(Login);

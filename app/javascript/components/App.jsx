@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import ResponsiveContainer from "./navBar/NavBar";
+import ResponsiveContainer from "./navBar/ResponsiveContainer";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
@@ -62,6 +62,18 @@ class App extends Component {
       .catch(error => console.log(error));
   }
 
+  logout = () => {
+    axios
+      .delete(process.env.BACKEND_PORT + "/api/v1/logout/", {
+          withCredentials: true,
+          validateStatus: status => status === 200
+      })
+      .then(response => {
+        this.setState({isLoggedIn: false, user: {}})
+      })
+      .catch(error => console.log(error));
+  }
+
   render() {
 
     return (
@@ -72,29 +84,17 @@ class App extends Component {
             login: this.login,
             logout: this.logout
           }}>
-            <ResponsiveContainer          
-            loggedInStatus={this.state.isLoggedIn}
-            handleLogout={this.handleLogout}
-            user={this.state.user}
+            <ResponsiveContainer                      
             >
               <Switch>              
                 <Route exact path="/">
-                  <Home
-                    handleLogout={this.handleLogout}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
+                  <Home />
                 </Route>
                 <Route exact path="/login">
-                  <Login
-                    handleLogin={this.handleLogin}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
+                  <Login />
                 </Route>
                 <Route exact path="/sign-up" >
-                  <Signup
-                    handleLogin={this.handleLogin}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
+                  <Signup />
                 </Route>                            
                 {/* <Route exact path="/resume-builder">
                   <ResumeBuilder 

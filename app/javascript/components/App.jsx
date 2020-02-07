@@ -76,7 +76,7 @@ class App extends Component {
       })
       .then(response => {
         if (response.status === 201) {
-          // if sign up successful, login
+          // if sign up successful, login          
           this.login({
             username: user.username,
             email: user.email,
@@ -86,6 +86,24 @@ class App extends Component {
           errorCallBack(response.data.errors);
           this.setState({loading: false})
         } else { }        
+      })
+      .catch(error => console.log(error));
+    this.setState({loading: true});
+  }
+
+  continueAsGuest(successCallback) {
+    axios
+      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user"
+      )
+      .then(response => {                
+        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id
+        )
+        .then(response => {
+          this.setState({isLoggedIn: true, user: response.data.user});
+          this.setState({loading: false})
+          successCallback();
+        })
+        .catch(error=> console.log(error))
       })
       .catch(error => console.log(error));
     this.setState({loading: true});
@@ -136,19 +154,12 @@ class App extends Component {
                 <Route exact path="/sign-up" >
                   <Signup />
                 </Route>                            
-                {/* <Route exact path="/resume-builder">
-                  <ResumeBuilder 
-                    handleLogin={this.handleLogin}
-                    user={this.state.user}
-                  />
+                <Route exact path="/resume-builder">
+                  <ResumeBuilder />
                 </Route>
                 <Route exact path="/resume-generation/:userId">
-                  <ResumeGeneration
-                    user={this.state.user}
-                    handleLogin={this.handleLogin}
-                    loggedInStatus={this.state.isLoggedIn}
-                  />
-                </Route> */}
+                  <ResumeGeneration />
+                </Route>
                 <Route component={Error404Page} />
               </Switch>
             </ResponsiveContainer>

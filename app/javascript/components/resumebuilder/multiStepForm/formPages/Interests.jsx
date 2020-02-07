@@ -79,7 +79,7 @@ export default class Interests extends Component {
     let interests = decamelizeKeysDeep(this.state.interests);
     postForm('interests', 
     interests, 
-    this.state.user.id, this.props.nextStep());
+    this.state.user.id, this.props.nextStep);
   }
 
   handleFormChange(event,index) {
@@ -143,7 +143,6 @@ export default class Interests extends Component {
         </Segment>
         <Card.Content extra>
           <FormActionButtons
-            submitAndContinue={this.props.submitAndContinue}
             step={this.props.step}
             maxStep={this.props.maxStep}
             nextStep={this.nextStepWApiReq}

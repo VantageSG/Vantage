@@ -80,7 +80,7 @@ export default class Skills extends Component {
     let skills = decamelizeKeysDeep(this.state.skills);
     postForm('skills', 
     skills, 
-    this.state.user.id, this.props.nextStep());
+    this.state.user.id, this.props.nextStep);
   }
 
 
@@ -157,7 +157,6 @@ export default class Skills extends Component {
         </Segment>
         <Card.Content extra>
           <FormActionButtons
-            submitAndContinue={this.props.submitAndContinue}
             step={this.props.step}
             maxStep={this.props.maxStep}
             nextStep={this.nextStepWApiReq}

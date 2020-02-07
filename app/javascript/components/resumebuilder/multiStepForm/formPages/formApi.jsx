@@ -40,7 +40,7 @@ function postForm(vrsAttribute, vrsValue ,userID, callBack) {
       }
     })
     .catch(error => {
-      console.log(error.response.data.error)
+      console.log(error)
       alert(error.response.data.error)
     })
 }

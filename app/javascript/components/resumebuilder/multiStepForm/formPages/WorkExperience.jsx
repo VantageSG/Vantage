@@ -90,8 +90,7 @@ export default class WorkExperience extends Component {
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
     workExperiences, 
-    this.state.user.id)
-    this.props.nextStep()
+    this.state.user.id, this.props.nextStep)
   }
 
   handleFormChange(event, index){
@@ -202,7 +201,6 @@ export default class WorkExperience extends Component {
         </Segment>
         <Card.Content extra>
           <FormActionButtons
-            submitAndContinue={this.props.submitAndContinue}
             step={this.props.step}
             maxStep={this.props.maxStep}
             nextStep={this.nextStepWApiReq}

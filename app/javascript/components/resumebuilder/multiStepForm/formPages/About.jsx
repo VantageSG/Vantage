@@ -92,7 +92,7 @@ export default class About extends Component {
 
   nextStepWApiReq = () => {
     let about = decamelizeKeysDeep(this.state.about);
-    postForm("about", about, this.state.user.id, this.props.nextStep());
+    postForm("about", about, this.state.user.id, this.props.nextStep);
   };
 
   render() {

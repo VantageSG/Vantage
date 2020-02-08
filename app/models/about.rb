@@ -8,7 +8,6 @@ class About < ApplicationRecord
   validates :contact_number, presence: true
   validates :about_me, presence: true
   validates :contact_number, numericality: { only_integer: true }
-  
   def as_json options={}
     {
       name: name,

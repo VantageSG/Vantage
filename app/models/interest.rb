@@ -3,7 +3,7 @@ class Interest < ApplicationRecord
   validates :name, presence: true
   def as_json options={}
     {
-      name: name,
+      name: name
     }
   end
 end

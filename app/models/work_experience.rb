@@ -20,5 +20,4 @@ class WorkExperience < ApplicationRecord
       achievements: achievements
     }
   end
-
 end

@@ -21,6 +21,7 @@ class App extends Component {
       user: {},
       loading: false
     };
+    this.continueAsGuest = this.continueAsGuest.bind(this)
   }
 
   componentDidMount() {
@@ -92,21 +93,24 @@ class App extends Component {
   }
 
   continueAsGuest(successCallback) {
+    console.log(this.state)
     axios
-      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user"
+      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user",
+      {withCredentials: true}
       )
       .then(response => {                
-        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id
+        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id,
+        {withCredentials: true}
         )
         .then(response => {
-          this.setState({isLoggedIn: true, user: response.data.user});
+          console.log(response)
+          this.setState({isLoggedIn: true, user: response.data.user})
           this.setState({loading: false})
           successCallback();
         })
-        .catch(error=> console.log(error))
+        .catch(error=> console.log(error.response))
       })
-      .catch(error => console.log(error));
-    this.setState({loading: true});
+      .catch(error => console.log(error.response));
   }
 
   logout = () => {

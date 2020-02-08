@@ -77,11 +77,10 @@ export default class Interests extends Component {
   }
 
   nextStepWApiReq = () => {
-    this.props.nextStep()
     let interests = decamelizeKeysDeep(this.state.interests);
     postForm('interests', 
     interests, 
-    this.state.user.id, this.props.nextStep);
+    this.context.user.id, this.props.nextStep);
   }
 
   handleFormChange(event,index) {

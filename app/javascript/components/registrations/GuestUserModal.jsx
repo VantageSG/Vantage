@@ -30,7 +30,8 @@ class GuestUserModal extends Component{
   }
 
   continueAsGuest() {
-    this.context.continueAsGuest()
+    this.context.continueAsGuest(()=>{
+    })
   }
 
   render(){

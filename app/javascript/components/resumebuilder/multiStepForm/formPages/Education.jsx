@@ -52,6 +52,7 @@ export default class Education extends Component {
           const responseData = camelcaseKeysDeep(response.data.educations);
           this.setState({
             user: this.context.user,
+            isLoading: false
           })
           if (responseData.length!=0) {
             this.setState({
@@ -79,7 +80,7 @@ export default class Education extends Component {
     let educations = decamelizeKeysDeep(this.state.educations);
     postForm('educations', 
     educations, 
-    this.state.user.id, this.props.nextStep);
+    this.context.user.id, this.props.nextStep);
   }
 
   handleFormChange(event, index){

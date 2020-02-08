@@ -81,7 +81,7 @@ export default class Skills extends Component {
     let skills = decamelizeKeysDeep(this.state.skills);
     postForm('skills', 
     skills, 
-    this.state.user.id, 
+    this.context.user.id, 
     this.props.nextStep);
   }
 

@@ -35,7 +35,7 @@ class Api::V1::Resumes::ResumesController < Api::V1::BaseController
     @resume_format = {
       about: @resume.about,
       educations: @resume.education,
-      workExperiences: @resume.work_experience
+      workExperiences: @resume.work_experience,
       skills: @resume.skill,
       interests: @resume.interest
     }

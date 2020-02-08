@@ -68,9 +68,11 @@ export default class About extends Component {
             user: this.context.user,
             isLoading: false
           });
-          this.setState({
-            about: responseData
-          });
+          if (responseData != null || responseData != undefined ) {
+            this.setState({
+              about: responseData
+            });
+          }
         })
         .catch(error => {
           console.log(error.response);
@@ -91,7 +93,7 @@ export default class About extends Component {
 
   nextStepWApiReq = () => {
     let about = decamelizeKeysDeep(this.state.about);
-    postForm("about", about, this.state.user.id, this.props.nextStep);  
+    postForm("about", about, this.context.user.id, this.props.nextStep);  
   };
 
   render() {

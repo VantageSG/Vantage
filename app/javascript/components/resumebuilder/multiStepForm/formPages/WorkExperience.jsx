@@ -84,7 +84,7 @@ export default class WorkExperience extends Component {
     postForm('workExperiences', 
     workExperiences, 
     this.state.user.id, 
-    this.props.nextStep)
+    this.context.nextStep)
   }
 
   handleFormChange(event, index){

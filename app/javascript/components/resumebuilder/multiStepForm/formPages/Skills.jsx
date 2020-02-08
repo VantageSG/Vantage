@@ -35,12 +35,13 @@ export default class Skills extends Component {
     this.state = {
       skills: [cloneSkillSchema],
       user: {},
-      isLoading: false
+      isLoading: false,
+      dataLoaded: false,
     };
   }
 
   getSkills() {
-    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+    if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
       }
@@ -60,10 +61,12 @@ export default class Skills extends Component {
             })
           }
           
-          console.log(this.state);
-          
         })
         .catch(error => {
+        }).then(()=>{
+          this.setState({
+            dataLoaded: true
+          })
         })
         
     }

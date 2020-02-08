@@ -37,6 +37,7 @@ import uuid from "react-uuid";
 import domtoimage from "dom-to-image";
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
+import UserContext from "./../../contexts/UserContext"
 
 export default class ResumeGeneration extends Component {
   constructor(props) {
@@ -51,7 +52,8 @@ export default class ResumeGeneration extends Component {
       educations: [],
       workExperiences: [],
       interests: [],
-      skills: []
+      skills: [],
+      dataLoaded: false,
     };
     this.generateForm = this.generateForm.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -61,19 +63,11 @@ export default class ResumeGeneration extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    console.log(this.props);
-    if (this.props.loggedInStatus) {
-      console.log("oops");
-      this.getVrsAttributes();
-    } else {
-     alert("Sending you back to resume builder!");
-     this.props.history.push("/resume-builder");
-    }
+    this.getVrsAttributes();
   }
 
   componentDidUpdate() {
-    // this.getVrsAttributes();
-    
+    this.getVrsAttributes(); 
   }
 
   /* Functions to handle on change */
@@ -101,8 +95,10 @@ export default class ResumeGeneration extends Component {
 
   /* Get data from backend */
   getVrsAttributes() {
-    axios
-      .get(getEndPoint("", this.props.user.id), {
+    console.log(this.context.isLoggedIn)
+    if (!this.state.dataLoaded && this.context.isLoggedIn){
+      axios
+      .get(getEndPoint("", this.context.user.id), {
         withCredentials: true
       })
       .then(response => {
@@ -184,7 +180,16 @@ export default class ResumeGeneration extends Component {
 
         this.setState({ loading: false });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .then(() => {
+        this.setState({
+          dataLoaded: true
+        })
+      })
+    } else if (!this.context.isLoggedIn) {
+      window.location.href='/resume-builder'
+    }
+    
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +232,7 @@ export default class ResumeGeneration extends Component {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   goBack = () => {
-    this.props.history.goBack();
+    window.location.href='/resume-builder'
   };
 
   render() {
@@ -268,7 +273,7 @@ export default class ResumeGeneration extends Component {
               <Grid centered columns={1}>
                 <Grid.Column textAlign="right">
                   <Button onClick={this.goBack} color="red">
-                    Back
+                    Build Resume
                   </Button>
                   <Button
                     content="Generate Resume"
@@ -326,3 +331,5 @@ export default class ResumeGeneration extends Component {
     });
   };
 }
+
+ResumeGeneration.contextType = UserContext

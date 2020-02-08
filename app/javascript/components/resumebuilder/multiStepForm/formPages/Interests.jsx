@@ -31,14 +31,15 @@ export default class Interests extends Component {
     this.state = {
       interests: [cloneInterestSchema],
       user: {},
-      isLoading: false
+      isLoading: false,
+      dataLoaded: false
     };
     
   }
 
 
   getInterests() {
-    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+    if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
       }
@@ -48,7 +49,6 @@ export default class Interests extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.interests);
-          console.log(responseData);
           this.setState({
             user: this.context.user,
             isLoading: false
@@ -58,11 +58,12 @@ export default class Interests extends Component {
               interests: responseData,
             })
           }
-          
-          console.log(this.state);
-          
         })
         .catch(error => {
+        }).then(()=>{
+          this.setState({
+            dataLoaded: true
+          })
         })
         
     }

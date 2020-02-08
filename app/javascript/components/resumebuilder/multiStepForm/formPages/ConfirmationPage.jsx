@@ -31,7 +31,8 @@ export default class ConfirmationPage extends Component {
       educations: [educationSchema, educationSchema],
       workExperiences: [workExperienceSchema, workExperienceSchema],
       interests: [interestSchema],
-      skills: [skillSchema, skillSchema]
+      skills: [skillSchema, skillSchema],
+      dataLoaded: false
     };
   }
 
@@ -44,16 +45,12 @@ export default class ConfirmationPage extends Component {
   }
 
   getVrsAttributes() {
-    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
-      this.setState({
-        user: this.context.user
-      });
+    if (!this.state.dataLoaded && this.context.isLoggedIn) {
       axios
         .get(getEndPoint("",this.context.user.id),{
           withCredentials: true
         }).then( response => {
           const responseData = camelcaseKeysDeep(response.data);
-          console.table(responseData)
           if (responseData.about != null || responseData.about != undefined) {
             this.setState({
               about: responseData.about,
@@ -80,7 +77,14 @@ export default class ConfirmationPage extends Component {
             });
           }
         }
-      ) 
+      ).catch((error)=>
+        console.log(error.response)
+      ).then(() => {
+        this.setState({
+          dataLoaded: true
+        })
+      }
+      )
     }
   }
 
@@ -211,7 +215,7 @@ export default class ConfirmationPage extends Component {
             </List>
             <Button
               as={Link}
-              content="Go to confirmation page"
+              content="Submit"
               to={{
                 pathname: `/resume-generation/${this.context.user.id}`,
                 user: this.context.user

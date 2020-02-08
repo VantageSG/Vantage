@@ -163,7 +163,8 @@ class App extends Component {
                   <ResumeBuilder />
                 </Route>
                 <Route exact path="/resume-generation/:userId">
-                  <ResumeGeneration />
+                  <ResumeGeneration
+                  />
                 </Route>
                 <Route component={Error404Page} />
               </Switch>

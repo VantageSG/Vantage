@@ -35,12 +35,13 @@ export default class Education extends Component {
     this.state = {
       educations: [cloneEducationSchema],
       user: {},
-       isLoading: false
+      dataLoaded: false,
+      isLoading: false
     }
   }
 
   getEducations() {
-    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+    if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
       }
@@ -59,11 +60,12 @@ export default class Education extends Component {
               educations: responseData
             })
           }
-          
-          console.log(this.state);
-          
         })
         .catch(error => {
+        }).then(()=>{
+          this.setState({
+            dataLoaded: true
+          })
         })
     }
   }

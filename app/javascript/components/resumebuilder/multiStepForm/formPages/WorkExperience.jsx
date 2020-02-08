@@ -38,7 +38,8 @@ export default class WorkExperience extends Component {
     this.state = {
       workExperiences: [cloneWorkExperienceSchema],
       user: {},
-      isLoading: false
+      isLoading: false,
+      dataLoaded: false,
     };
   }
 
@@ -65,6 +66,10 @@ export default class WorkExperience extends Component {
             
         })
         .catch(error => {
+        }).then(()=>{
+          this.setState({
+            dataLoaded: true
+          })
         })
         
     }
@@ -83,8 +88,8 @@ export default class WorkExperience extends Component {
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
     workExperiences, 
-    this.state.user.id, 
-    this.context.nextStep)
+    this.context.user.id, 
+    this.props.nextStep)
   }
 
   handleFormChange(event, index){

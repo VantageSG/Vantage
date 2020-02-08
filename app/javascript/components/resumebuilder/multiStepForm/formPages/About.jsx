@@ -35,9 +35,8 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      dataLoaded: false,
       about: aboutSchema,
-      user: {},
       isLoading: false
     };
   }
@@ -54,7 +53,7 @@ export default class About extends Component {
 
   getDbAbout() {
 
-    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+    if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
       }
@@ -65,7 +64,6 @@ export default class About extends Component {
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
           this.setState({ 
-            user: this.context.user,
             isLoading: false
           });
           if (responseData != null || responseData != undefined ) {
@@ -76,7 +74,12 @@ export default class About extends Component {
         })
         .catch(error => {
           console.log(error.response);
-        });
+        }).then(()=>{
+          this.setState({
+            dataLoaded: true
+          })
+        }
+        );
     }
   }
 

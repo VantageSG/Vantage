@@ -17,10 +17,20 @@ import LoadingSpinner from "../../../util/LoadingSpinner";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import decamelizeKeysDeep from "decamelize-keys-deep";
 
-
+const aboutSchema = {
+  name: "",
+  email: "",
+  contactNumber: "",
+  aboutMe: ""
+};
 export default class About extends Component {
   constructor(props) {
-    super(props);    
+    super(props);
+    this.state = {
+      dataLoaded: false,
+      about: aboutSchema,
+      isLoading: false
+    };
   }
 
   handleFormChange = event => {

@@ -64,7 +64,7 @@ describe('Default confirmation page', () => {
     renderWithRouter(<ConfirmationPage
       user={{id:1}}
     />);
-    await wait(()=>expect(screen.getAllByText(/Confirmation page/i).length).toBe(2));
+    await wait(()=>expect(screen.getAllByText(/Confirmation page/i).length).toBe(1));
   });
   
 })

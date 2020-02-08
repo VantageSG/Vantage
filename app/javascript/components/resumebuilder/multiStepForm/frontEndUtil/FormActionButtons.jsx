@@ -22,7 +22,7 @@ const FormActionButtons = props => {
         <ModalConfirm
           props={props}
           color="green"
-          onClick={props.submitAndContinue}
+          onClick={props.nextStep}
           content="Confirm and Submit"
         ></ModalConfirm>
       ) : (

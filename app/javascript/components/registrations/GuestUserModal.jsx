@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Link } from "react-router-dom";
 import { isEmpty } from "../util/Props"
 import { Button, Header, Image, Modal, Rail, Segment, GridColumn , Grid} from 'semantic-ui-react'
+import UserContext from '../../contexts/UserContext';
 import axios from 'axios';
 
 class GuestUserModal extends Component{
@@ -29,23 +30,7 @@ class GuestUserModal extends Component{
   }
 
   continueAsGuest() {
-    axios
-      .post(
-        process.env.BACKEND_PORT + "/api/v1/users/guest_user"
-      ).then(response => {
-        const guest_user_id = response.data.user.id
-        console.log(process.env.BACKEND_PORT + "/api/v1/login/" + guest_user_id)
-        axios.post(
-          process.env.BACKEND_PORT + "/api/v1/login/" + guest_user_id
-        ).then(response=> {
-          this.props.handleLogin(response),
-          console.log(this.state);
-          this.props.confirmUser();
-        }
-          ).catch(error=>{
-            console.log(error);
-          })
-      })
+    this.context.continueAsGuest()
   }
 
   render(){
@@ -98,5 +83,7 @@ class GuestUserModal extends Component{
 
   
 }
+
+GuestUserModal.contextType = UserContext
 
 export default GuestUserModal

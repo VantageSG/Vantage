@@ -132,7 +132,8 @@ class App extends Component {
             user: this.state.user,
             login: this.login,
             logout: this.logout,
-            signup: this.signup
+            signup: this.signup,
+            continueAsGuest: this.continueAsGuest
           }}>
             <ResponsiveContainer                      
             >

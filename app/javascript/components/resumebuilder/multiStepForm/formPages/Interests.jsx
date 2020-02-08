@@ -13,7 +13,9 @@ import {
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
-import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import {postForm, getEndPoint} from "./formApi"
+import LoadingSpinner from "../../../util/LoadingSpinner";
+import UserContext from '../../../../contexts/UserContext'
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
@@ -28,27 +30,32 @@ export default class Interests extends Component {
     var cloneInterestSchema = Object.assign({}, interestSchema)
     this.state = {
       interests: [cloneInterestSchema],
-      user: {}
+      user: {},
+      isLoading: false
     };
     
   }
 
 
   getInterests() {
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
-        .get(getEndPoint('interests', this.props.user.id), { 
+        .get(getEndPoint('interests', this.context.user.id), { 
           withCredentials: true
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.interests);
           console.log(responseData);
           this.setState({
-            user: this.props.user,
+            user: this.context.user,
+            isLoading: false
           })
           if (responseData.length != 0) {
             this.setState({
-              interests: sanitizeResponse(responseData, ["resumeId"]),
+              interests: responseData,
             })
           }
           
@@ -74,7 +81,7 @@ export default class Interests extends Component {
     let interests = decamelizeKeysDeep(this.state.interests);
     postForm('interests', 
     interests, 
-    this.state.user.id)
+    this.state.user.id, this.props.nextStep);
   }
 
   handleFormChange(event,index) {
@@ -98,7 +105,9 @@ export default class Interests extends Component {
 
   render() {
 
-    return (
+    return this.state.isLoading ? (
+      <LoadingSpinner></LoadingSpinner>
+      ) : (
       <Card centered fluid>
         {
           this.state.interests.map((interest, index)=>{
@@ -137,7 +146,6 @@ export default class Interests extends Component {
         </Segment>
         <Card.Content extra>
           <FormActionButtons
-            submitAndContinue={this.props.submitAndContinue}
             step={this.props.step}
             maxStep={this.props.maxStep}
             nextStep={this.nextStepWApiReq}
@@ -148,3 +156,5 @@ export default class Interests extends Component {
     );
   }
 }
+
+Interests.contextType = UserContext;

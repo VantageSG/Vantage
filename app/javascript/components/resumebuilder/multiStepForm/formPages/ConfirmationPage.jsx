@@ -16,10 +16,11 @@ import {
   workExperienceSchema
 } from "../frontEndUtil/schema";
 import axios from "axios";
-import { getEndPoint, sanitizeResponse } from "./formApi";
+import { getEndPoint } from "./formApi";
 import { isEmpty } from "../../../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import { Link } from "react-router-dom";
+import UserContext from '../../../../contexts/UserContext'
 
 
 export default class ConfirmationPage extends Component {
@@ -43,96 +44,44 @@ export default class ConfirmationPage extends Component {
   }
 
   getVrsAttributes() {
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
       this.setState({
-        user: this.props.user
+        user: this.context.user
       });
       axios
-        .all([
-          this.getAbout(),
-          this.getEducations(),
-          this.getWorkExperiences(),
-          this.getSkills(),
-          this.getInterests()
-        ])
-        .then(
-          axios.spread(function(acct, perms) {
-            // Both requests are now complete
-          })
-        );
+        .get(getEndPoint("",this.context.user.id),{
+          withCredentials: true
+        }).then( response => {
+          const responseData = camelcaseKeysDeep(response.data);
+          console.table(responseData)
+          if (responseData.about != null || responseData.about != undefined) {
+            this.setState({
+              about: responseData.about,
+            });
+          }
+          if (responseData.educations != null || responseData.educations != undefined) {
+            this.setState({
+              educations: responseData.educations,
+            });
+          }
+          if (responseData.workExperiences != null || responseData.workExperiences != undefined) {
+            this.setState({
+              workExperiences: responseData.workExperiences,
+            });
+          }
+          if (responseData.interests != null || responseData.interests != undefined) {
+            this.setState({
+              interests: responseData.interests,
+            });
+          }
+          if (responseData.skills != null || responseData.skills != undefined) {
+            this.setState({
+              skills: responseData.skills
+            });
+          }
+        }
+      ) 
     }
-  }
-
-  getAbout() {
-    return axios
-      .get(getEndPoint("about", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.about);
-        this.setState({
-          about: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {
-        console.log(error)
-      });
-  }
-
-  getEducations() {
-    return axios
-      .get(getEndPoint("educations", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.educations);
-        this.setState({
-          educations: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getWorkExperiences() {
-    return axios
-      .get(getEndPoint("workExperiences", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.workExperiences);
-        this.setState({
-          workExperiences: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getSkills() {
-    return axios
-      .get(getEndPoint("skills", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.skills);
-        this.setState({
-          skills: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
-  }
-
-  getInterests() {
-    return axios
-      .get(getEndPoint("interests", this.props.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        const responseData = camelcaseKeysDeep(response.data.interests);
-        this.setState({
-          interests: sanitizeResponse(responseData, ["resumeId"])
-        });
-      })
-      .catch(error => {});
   }
 
   render() {
@@ -264,8 +213,8 @@ export default class ConfirmationPage extends Component {
               as={Link}
               content="Go to confirmation page"
               to={{
-                pathname: `/resume-generation/${this.props.user.id}`,
-                user: this.props.user
+                pathname: `/resume-generation/${this.context.user.id}`,
+                user: this.context.user
               }}
             ></Button>
           </Animated>
@@ -274,3 +223,5 @@ export default class ConfirmationPage extends Component {
     );
   }
 }
+
+ConfirmationPage.contextType = UserContext

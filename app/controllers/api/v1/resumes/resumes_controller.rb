@@ -35,9 +35,7 @@ class Api::V1::Resumes::ResumesController < Api::V1::BaseController
     @resume_format = {
       about: @resume.about,
       educations: @resume.education,
-      workExperiences: @resume.work_experience.map {
-        |work_experience| work_experience.attributes.merge({:referees => work_experience.referee})
-      },
+      workExperiences: @resume.work_experience
       skills: @resume.skill,
       interests: @resume.interest
     }

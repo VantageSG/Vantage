@@ -16,9 +16,10 @@ import {
   Dimmer
 } from "semantic-ui-react";
 import axios from "axios";
+import UserContext from '../../../../contexts/UserContext'
 import FormActionButtons from "../frontEndUtil/FormActionButtons";
 import { Animated } from "react-animated-css";
-import { postForm, getEndPoint, sanitizeResponse } from "./formApi";
+import { postForm, getEndPoint } from "./formApi";
 import { isEmpty } from "../../../util/Props";
 import LoadingSpinner from "../../../util/LoadingSpinner";
 import camelcaseKeysDeep from "camelcase-keys-deep";
@@ -34,6 +35,7 @@ export default class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       about: aboutSchema,
       user: {},
       isLoading: false
@@ -52,39 +54,33 @@ export default class About extends Component {
 
   getDbAbout() {
 
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
-      this.setState({ isLoading: true });
+    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
-        .get(getEndPoint("about", this.props.user.id), {
+        .get(getEndPoint("about", this.context.user.id), {
           withCredentials: true
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
-          this.setState({ user: this.props.user });
+          this.setState({ 
+            user: this.context.user,
+            isLoading: false
+          });
           this.setState({
-            about: sanitizeResponse(responseData, ["resumeId"])
+            about: responseData
           });
         })
         .catch(error => {
-          console.log(error);
-          console.log("user error");
+          console.log(error.response);
         });
-        this.setState({ isLoading: false });
-    } else {
-      this.setState({ isLoading: true });
-     this.setState({ user: this.props.user });
-      this.setState({ isLoading: false });
     }
-
-   
   }
 
   componentDidUpdate() {
-    //this.getDbAbout();
+    this.getDbAbout();
   
-  }
-  componentWillUnmount() {
-    
   }
 
   componentDidMount() {
@@ -95,8 +91,7 @@ export default class About extends Component {
 
   nextStepWApiReq = () => {
     let about = decamelizeKeysDeep(this.state.about);
-    postForm("about", about, this.state.user.id);
-    this.props.nextStep();
+    postForm("about", about, this.state.user.id, this.props.nextStep);  
   };
 
   render() {
@@ -166,7 +161,6 @@ export default class About extends Component {
           </Segment>
           <Card.Content extra>
             <FormActionButtons
-              submitAndContinue={this.props.submitAndContinue}
               step={this.props.step}
               maxStep={this.props.maxStep}
               nextStep={this.nextStepWApiReq}
@@ -178,3 +172,5 @@ export default class About extends Component {
     );
   }
 }
+
+About.contextType = UserContext;

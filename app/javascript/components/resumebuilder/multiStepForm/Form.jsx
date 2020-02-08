@@ -12,7 +12,7 @@ const StepIndicator = props => {
   return (
   
 
-    <Step.Group fluid stackable="tablet" size="tiny"  widths={6} ordered>
+    <Step.Group fluid size="tiny"  widths={6} ordered>
       <Step link active={step == 0 ? true : false} onClick={stepLink.goToAboutMe} >
         <Step.Content>
           <Step.Title>About Me</Step.Title>

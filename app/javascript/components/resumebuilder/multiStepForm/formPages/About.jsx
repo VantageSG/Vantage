@@ -91,8 +91,6 @@ export default class About extends Component {
   componentDidMount() {
     this.getDbAbout();
   }
- 
-  
 
   nextStepWApiReq = () => {
     let about = decamelizeKeysDeep(this.state.about);

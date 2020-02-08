@@ -1,19 +1,8 @@
 import React, { Component, Fragment } from "react";
 import {
   Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  List,
-  Menu,
-  Segment,
   Visibility,
-  Placeholder
 } from "semantic-ui-react";
-import { isEmpty } from "../util/Props";
 
 import FormStep from "./multiStepForm/Form";
 import GuestUserModal from "../registrations/GuestUserModal";
@@ -25,39 +14,22 @@ export default class ResumeBuilder extends Component {
     this.state = {
       menuFixed: false,
       overlayFixed: false,
-      isLoggedIn: false
     };
   }
-  componentDidMount = () => {
-    if (this.context.user == null && isEmpty(this.context.user)) {
-      this.setState({ isLoggedIn: false });
-    } else {
-      this.setState({ isLoggedIn: true });
-    }
-  };
-
-  confirmUser = () => this.setState({ isLoggedIn: true });
 
   stickOverlay = () => this.setState({ overlayFixed: true });
-
   stickTopMenu = () => this.setState({ menuFixed: true });
-
   unStickOverlay = () => this.setState({ overlayFixed: false });
-
   unStickTopMenu = () => this.setState({ menuFixed: false });
 
   render() {
     const { menuFixed, overlayFixed } = this.state;
     return (
       <Container fluid>
-        <GuestUserModal
-          handleLogin={this.props.handleLogin}
-          user={this.context.user}
-          confirmUser={this.confirmUser}
-        />
+        <GuestUserModal />
         <br />
         <br />
-        {this.state.isLoggedIn ? (
+        {this.context.isLoggedIn ? (
           <FormStep user={this.context.user} />
         ) : (
           <React.Fragment></React.Fragment>

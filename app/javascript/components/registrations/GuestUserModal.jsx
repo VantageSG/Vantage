@@ -1,37 +1,14 @@
 import React, {Component} from 'react'
 import { Link } from "react-router-dom";
 import { isEmpty } from "../util/Props"
-import { Button, Header, Image, Modal, Rail, Segment, GridColumn , Grid} from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
+import { withRouter } from "react-router-dom";
 import UserContext from '../../contexts/UserContext';
-import axios from 'axios';
 
 class GuestUserModal extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      user:{}
-    };
-  }
-
-  getUser(){
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
-      this.setState({user: this.props.user})
-    } else if (!isEmpty(this.state.user) && isEmpty(this.props.user)) {
-      this.setState({user:{}})
-    }
-  }
-
-  componentDidMount() {
-    this.getUser()
-  }
-
-  componentDidUpdate() {
-    this.getUser()
-  }
 
   continueAsGuest() {
-    this.context.continueAsGuest(()=>{
-    })
+    this.context.continueAsGuest(()=>{});
   }
 
   render(){
@@ -43,13 +20,13 @@ class GuestUserModal extends Component{
         closeOnDimmerClick={false}
         closeOnDocumentClick={false}
         closeIcon
-        onClose={event =>  window.location.href='/'}
-        open={isEmpty(this.state.user)}
+        onClose={event =>  this.props.history.push('/')}
+        open={!this.context.isLoggedIn}
         >
         <Modal.Content >
           <Modal.Description>
             <p>
-              Sing up/login to save your data for future use.
+              Sign up/login to save your data for future use.
             </p>
           </Modal.Description>
         </Modal.Content>
@@ -59,32 +36,31 @@ class GuestUserModal extends Component{
           >
             <Button 
             color="teal"
-            content='Singup'
-            onClick={event =>  window.location.href='/Signup'}
+            content='Sign Up'
+            as={Link}
+            to="/sign-up"
             />  
             <Button.Or/>
             <Button
               data-testid="Login"
               color="teal"
               content='Login'
-              onClick={event =>  window.location.href='/Login'}
+              as={Link}
+              to="/login"
             />
           </Button.Group>
             
             <Button
             primary
             content='Continue as Guest'
-            onClick={() =>  this.continueAsGuest()}
+            onClick={() => this.continueAsGuest()}
           />
         </Modal.Actions>
       </Modal>
       </div>
     )
   }
-
-  
 }
+GuestUserModal.contextType = UserContext;
 
-GuestUserModal.contextType = UserContext
-
-export default GuestUserModal
+export default withRouter(GuestUserModal);

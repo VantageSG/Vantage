@@ -12,15 +12,10 @@ class Api::V1::Resumes::WorkexperiencesController < Api::V1::Resumes::BaseVrsCon
 
   def update_component
     for work_experience_params in params[:work_experiences]
-      referees_params = work_experience_params[:referees]
-      work_experience_params.delete(:referees)
       work_experience = @resume.work_experience.build(
         work_experience_params.permit(:title, :company, :start, :end, :achievements
       ))
       work_experience.save!
-      for referee_params in referees_params
-        work_experience.referee.build(referee_params.permit(:name, :email)).save!
-      end
     end
   end
 end

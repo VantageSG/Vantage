@@ -26,20 +26,10 @@ class ResponsiveContainer extends Component {
   render() {
     return (
       <div>
-        <DesktopNavBar
-        className="site"
-        {...this.props}
-        loggedInStatus={this.props.loggedInStatus}
-        user={this.props.user}
-        >
+        <DesktopNavBar className="site">
           {this.props.children}
         </DesktopNavBar>
-        <MobileNavBar
-         className="site"
-         {...this.props}
-         loggedInStatus={this.props.loggedInStatus}
-         user={this.props.user}
-        >
+        <MobileNavBar className="site">
           {this.props.children}
         </MobileNavBar>
       </div>

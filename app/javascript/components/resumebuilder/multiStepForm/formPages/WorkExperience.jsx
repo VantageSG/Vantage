@@ -84,7 +84,6 @@ export default class WorkExperience extends Component {
   }
 
   nextStepWApiReq = () => {
-    console.log(this.state.workExperiences);
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
     workExperiences, 

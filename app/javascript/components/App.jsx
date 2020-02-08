@@ -112,7 +112,9 @@ class App extends Component {
       .catch(error => console.log(error.response));
   }
 
-  logout = () => {
+  logout = () => {    
+    window.location.href='/'
+    this.setState({loading: true})
     axios
       .delete(process.env.BACKEND_PORT + "/api/v1/logout/", {
           withCredentials: true,
@@ -121,10 +123,9 @@ class App extends Component {
       .then(response => {
         this.setState({isLoggedIn: false, user: {}})
         this.setState({loading: false})
-        window.location.href='/'
+        
       })
       .catch(error => console.log(error))
-    this.setState({loading: true})
   }
 
   render() {

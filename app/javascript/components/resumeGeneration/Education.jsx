@@ -1,6 +1,7 @@
 import React from 'react';
 import EditableLabel from 'react-inline-editing';
 import { Header } from 'semantic-ui-react';
+import './resume.css';
 
 
 class Education extends React.Component {
@@ -21,12 +22,15 @@ class Education extends React.Component {
   render() {  
   
     return (
-      <React.Fragment>
+      <div className="section">
+        <h1 className="sectionHeader">
+          Education
+        </h1>
+        <hr></hr>
         {this.props.educations.map(
             (education, index) => {
               return (
-                <React.Fragment  key={index}>
-                  <Header>Education</Header>                  
+                <React.Fragment  key={index}>                    
                   <EditableLabel text={education.institution}
                       inputWidth='200px'
                       inputHeight='25px'                 
@@ -41,33 +45,26 @@ class Education extends React.Component {
                       {name: 'program', value: program}, index
                       )}
                   />
-                  <EditableLabel text={education.start}
+                  <EditableLabel text={education.start.toString()}
                     inputWidth='200px'
                     inputHeight='25px'                 
                     onFocusOut={(start) => this.handleEducationChange(
                       {name: 'start', value: start}, index
                       )}
                   />
-                  <EditableLabel text={education.end}
+                  <EditableLabel text={education.end.toString()}
                     inputWidth='200px'
                     inputHeight='25px'                 
                     onFocusOut={(end) => this.handleEducationChange(
                       {name: 'end', value: end}, index
                       )}
-                  />
-                  <EditableLabel text={education.grade}
-                    inputWidth='200px'
-                    inputHeight='25px'                 
-                    onFocusOut={(grade) => this.handleEducationChange(
-                      {name: 'grade', value: grade}, index
-                      )}
-                  />
+                  />                
                 </React.Fragment>              
               );
             }
           )
         }
-      </React.Fragment>
+      </div>
     );
   }
 }

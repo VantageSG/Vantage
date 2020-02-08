@@ -19,12 +19,15 @@ class Skills extends React.Component {
 
   render() {
       return (
-        <React.Fragment>
+        <div className="section">
+          <h1 className="sectionHeader">
+            Skills
+          </h1>
+          <hr></hr>
           {this.props.skills.map(
               (skill, index) => {
                 return (
-                  <React.Fragment key={index}>
-                    <Header>Skills</Header>
+                  <React.Fragment key={index}>                    
                     <EditableLabel text={skill.name}
                         inputWidth='200px'
                         inputHeight='25px'                 
@@ -38,20 +41,13 @@ class Skills extends React.Component {
                         onFocusOut={(description) => this.handleSkillsChange(
                           {name: 'description', value: description}, index
                           )}
-                    />
-                    <EditableLabel text={skill.link}
-                        inputWidth='200px'
-                        inputHeight='25px'                 
-                        onFocusOut={(link) => this.handleSkillsChange(
-                          {name: 'link', value: link}, index
-                          )}
-                    />
+                    />                    
                   </React.Fragment>              
                 );
               }
             )
           }
-        </React.Fragment>
+        </div>
       );
   }
 }

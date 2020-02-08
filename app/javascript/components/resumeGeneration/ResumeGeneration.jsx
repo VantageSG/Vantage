@@ -24,6 +24,7 @@ import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
 import UserContext from "./../../contexts/UserContext"
 import { Link, withRouter } from "react-router-dom";
+import './resume.css'
 
 
 class ResumeGeneration extends Component {
@@ -104,15 +105,7 @@ class ResumeGeneration extends Component {
 
   // determine which resume components should be shown based on state data
   generateResumeComponents = () => {
-    var resumeComponents = [];
-    if (!isEmpty(this.state.about)) {
-      resumeComponents.push(
-        <About
-          about={this.state.about}
-          onAboutChange={this.onAboutChange}
-        ></About>
-      );
-    }
+    var resumeComponents = [];    
     if (this.state.educations.length !== 0) {
       resumeComponents.push(
         <Education
@@ -125,7 +118,7 @@ class ResumeGeneration extends Component {
       resumeComponents.push(
         <WorkExperiences
           workExperiences={this.state.workExperiences}
-          onAboutChange={this.onAboutChange}
+          onWorkExperiencesChange={this.onWorkExperiencesChange}
         ></WorkExperiences>
       );
     }
@@ -185,10 +178,8 @@ class ResumeGeneration extends Component {
   // map each element to become a draggable element
   makeItemsDraggable = (items) => {
     return items.map(item => {
-      return (
-        <React.Fragment>
-          <Draggable key={item.id}>{item.element}</Draggable>
-        </React.Fragment>
+      return (        
+        <Draggable key={item.id}>{item.element}</Draggable>
       );
     });
   };
@@ -229,16 +220,16 @@ class ResumeGeneration extends Component {
                 </Grid.Column>
               </Grid>
               <br></br>
-              <div id="resume">
-                <Segment>
-                  <Grid centered columns={1}>
-                    <Grid.Column>
-                      <DndContainer onDrop={this.onDrop}>
-                        {this.makeItemsDraggable(this.state.resumeComponents)}
-                      </DndContainer>
-                    </Grid.Column>
-                  </Grid>
-                </Segment>
+              <div id="resume" className="resume">
+                <About
+                  about={this.state.about}
+                  onAboutChange={this.onAboutChange}
+                ></About>
+                <div className="resumeBody">
+                  <DndContainer onDrop={this.onDrop}>
+                    {this.makeItemsDraggable(this.state.resumeComponents)}
+                  </DndContainer>
+                </div>
               </div>
             </React.Fragment>
           </Container>

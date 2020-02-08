@@ -15,7 +15,9 @@ import {
 import FormActionButtons from "../frontEndUtil/FormActionButtons"
 import { Animated } from "react-animated-css";
 import axios from "axios";
-import {postForm, getEndPoint, sanitizeResponse} from "./formApi"
+import {postForm, getEndPoint} from "./formApi"
+import LoadingSpinner from "../../../util/LoadingSpinner";
+import UserContext from '../../../../contexts/UserContext'
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
@@ -35,37 +37,39 @@ export default class WorkExperience extends Component {
     var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
     this.state = {
       workExperiences: [cloneWorkExperienceSchema],
-      user: {}
+      user: {},
+      isLoading: false,
+      dataLoaded: false,
     };
   }
 
   getWorkExperiences() {
-    if (isEmpty(this.state.user) && !isEmpty(this.props.user)) {
+    if (isEmpty(this.state.user) && !isEmpty(this.context.user)) {
+      if (!this.state.isLoading) {
+        this.setState({ isLoading: true });
+      }
       axios
-        .get(getEndPoint('workExperiences', this.props.user.id), { 
+        .get(getEndPoint('workExperiences', this.context.user.id), { 
           withCredentials: true
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.workExperiences);
-          for(var j = 0; j < responseData.length; j++) {
-            for (var i = 0; i < responseData[j].referees.length; i++) {
-              delete responseData[j].referees[i].createdAt
-              delete responseData[j].referees[i].updatedAt
-              delete responseData[j].referees[i].workExperienceId
-              delete responseData[j].referees[i].id
-            }
-          }
           this.setState({
-            user: this.props.user,
+            user: this.context.user,
+            isLoading: false
           })        
           if (responseData.length != 0) {
             this.setState({
-              workExperiences: sanitizeResponse(responseData, ["resumeId"]),
+              workExperiences: responseData,
             })        
           }
             
         })
         .catch(error => {
+        }).then(()=>{
+          this.setState({
+            dataLoaded: true
+          })
         })
         
     }
@@ -84,8 +88,8 @@ export default class WorkExperience extends Component {
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
     workExperiences, 
-    this.state.user.id)
-    this.props.nextStep()
+    this.context.user.id, 
+    this.props.nextStep)
   }
 
   handleFormChange(event, index){
@@ -108,7 +112,9 @@ export default class WorkExperience extends Component {
   }
 
   render() {
-    return (
+    return this.state.isLoading ? (
+      <LoadingSpinner></LoadingSpinner>
+      ) : (
       <Card centered fluid>
         {
           this.state.workExperiences.map((workExperience, index)=>{
@@ -194,7 +200,6 @@ export default class WorkExperience extends Component {
         </Segment>
         <Card.Content extra>
           <FormActionButtons
-            submitAndContinue={this.props.submitAndContinue}
             step={this.props.step}
             maxStep={this.props.maxStep}
             nextStep={this.nextStepWApiReq}
@@ -205,3 +210,5 @@ export default class WorkExperience extends Component {
     );
   }
 }
+
+WorkExperience.contextType = UserContext

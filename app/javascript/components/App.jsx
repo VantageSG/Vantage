@@ -91,22 +91,25 @@ class App extends Component {
     this.setState({loading: true});
   }
 
-  continueAsGuest(successCallback) {
+  continueAsGuest=(successCallback)=>{
+    console.log(this.state)
     axios
-      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user"
+      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user",
+      {withCredentials: true}
       )
       .then(response => {                
-        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id
+        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id,
+        {withCredentials: true}
         )
         .then(response => {
-          this.setState({isLoggedIn: true, user: response.data.user});
+          console.log(response)
+          this.setState({isLoggedIn: true, user: response.data.user})
           this.setState({loading: false})
           successCallback();
         })
-        .catch(error=> console.log(error))
+        .catch(error=> console.log(error.response))
       })
-      .catch(error => console.log(error));
-    this.setState({loading: true});
+      .catch(error => console.log(error.response));
   }
 
   logout = () => {
@@ -118,8 +121,9 @@ class App extends Component {
       .then(response => {
         this.setState({isLoggedIn: false, user: {}})
         this.setState({loading: false})
+        window.location.href='/'
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
     this.setState({loading: true})
   }
 
@@ -132,7 +136,8 @@ class App extends Component {
             user: this.state.user,
             login: this.login,
             logout: this.logout,
-            signup: this.signup
+            signup: this.signup,
+            continueAsGuest: this.continueAsGuest
           }}>
             <ResponsiveContainer                      
             >
@@ -158,7 +163,8 @@ class App extends Component {
                   <ResumeBuilder />
                 </Route>
                 <Route exact path="/resume-generation/:userId">
-                  <ResumeGeneration />
+                  <ResumeGeneration
+                  />
                 </Route>
                 <Route component={Error404Page} />
               </Switch>

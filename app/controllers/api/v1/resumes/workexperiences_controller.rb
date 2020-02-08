@@ -2,9 +2,7 @@ class Api::V1::Resumes::WorkexperiencesController < Api::V1::Resumes::BaseVrsCon
   
   def get_component_format
     {
-      workExperiences: @resume.work_experience.map {
-        |work_experience| work_experience.attributes.merge({:referees => work_experience.referee})
-      }
+      workExperiences: @resume.work_experience
     }
   end
 

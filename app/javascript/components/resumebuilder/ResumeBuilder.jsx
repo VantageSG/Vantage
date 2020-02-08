@@ -17,6 +17,7 @@ import { isEmpty } from "../util/Props";
 
 import FormStep from "./multiStepForm/Form";
 import GuestUserModal from "../registrations/GuestUserModal";
+import UserContext from '../../contexts/UserContext';
 
 export default class ResumeBuilder extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class ResumeBuilder extends Component {
     };
   }
   componentDidMount = () => {
-    if (this.props.user == null && isEmpty(this.props.user)) {
+    if (this.context.user == null && isEmpty(this.context.user)) {
       this.setState({ isLoggedIn: false });
     } else {
       this.setState({ isLoggedIn: true });
@@ -51,13 +52,13 @@ export default class ResumeBuilder extends Component {
       <Container fluid>
         <GuestUserModal
           handleLogin={this.props.handleLogin}
-          user={this.props.user}
+          user={this.context.user}
           confirmUser={this.confirmUser}
         />
         <br />
         <br />
         {this.state.isLoggedIn ? (
-          <FormStep user={this.props.user} />
+          <FormStep user={this.context.user} />
         ) : (
           <React.Fragment></React.Fragment>
         )}
@@ -66,3 +67,5 @@ export default class ResumeBuilder extends Component {
     );
   }
 }
+
+ResumeBuilder.contextType = UserContext

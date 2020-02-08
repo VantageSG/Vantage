@@ -10,4 +10,14 @@ class WorkExperience < ApplicationRecord
   validates :end, numericality: { only_integer: true }
   validates :achievements, presence: true
 
+  def as_json options={}
+    {
+      referee: referee,
+      title: title,
+      company: company,
+      start: start,
+      end: self.end,
+      achievements: achievements
+    }
+  end
 end

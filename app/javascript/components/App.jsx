@@ -19,8 +19,8 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       user: {},
-      loading: false
-    };
+      loading: true
+    };    
   }
 
   componentDidMount() {
@@ -29,6 +29,7 @@ class App extends Component {
 
   // sets the login status as App state: user is either logged in or not
   getLoginStatus = () => {
+    this.setState({loading: true})
     axios
       .get(process.env.BACKEND_PORT + "/api/v1/logged_in", {
         withCredentials: true,
@@ -45,7 +46,6 @@ class App extends Component {
         this.setState({loading: false})
       })
       .catch(error => console.log(error));
-    this.setState({loading: true})
   };
 
   // logs the user in. calls either success/error callback function depending on response
@@ -91,8 +91,7 @@ class App extends Component {
     this.setState({loading: true});
   }
 
-  continueAsGuest=(successCallback)=>{
-    console.log(this.state)
+  continueAsGuest=(successCallback)=>{    
     axios
       .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user",
       {withCredentials: true}
@@ -148,8 +147,7 @@ class App extends Component {
                   <Loader inverted>Loading</Loader>
                 </Dimmer>
               )
-              :(<span></span>)
-              }
+              :(              
               <Switch>              
                 <Route exact path="/">
                   <Home />
@@ -163,12 +161,12 @@ class App extends Component {
                 <Route exact path="/resume-builder">
                   <ResumeBuilder />
                 </Route>
-                <Route exact path="/resume-generation/:userId">
-                  <ResumeGeneration
-                  />
+                <Route exact path="/resume-generation">
+                  <ResumeGeneration/>
                 </Route>
                 <Route component={Error404Page} />
               </Switch>
+              )}
             </ResponsiveContainer>
           </UserContext.Provider>
         </BrowserRouter>

@@ -1,24 +1,12 @@
 import React, { Component } from "react";
 import {
-  List,
   Segment,
   Button,
   Header,
   Container,
-  Placeholder,
   Grid,
-  Dimmer,
-  Loader,
-  Divider
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-import {
-  aboutSchema,
-  educationSchema,
-  interestSchema,
-  skillSchema,
-  workExperienceSchema
-} from "../resumebuilder/multiStepForm/frontEndUtil/schema";
 import axios from "axios";
 import LoadingSpinner from "../util/LoadingSpinner";
 import {
@@ -26,170 +14,145 @@ import {
 } from "../resumebuilder/multiStepForm/formPages/formApi";
 import { isEmpty } from "../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
-import html2pdf from "html2pdf.js";
 import About from "./About";
 import Education from "./Education";
 import WorkExperiences from "./WorkExperiences";
 import Skills from "./Skills";
 import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
-import uuid from "react-uuid";
-import domtoimage from "dom-to-image";
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
 import UserContext from "./../../contexts/UserContext"
+import { Link, withRouter } from "react-router-dom";
 
-export default class ResumeGeneration extends Component {
+
+class ResumeGeneration extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      resumeComponents: [],
       loading: true,
-      user: {
-        name: "test"
-      },
       about: {},
       educations: [],
       workExperiences: [],
       interests: [],
-      skills: [],
-      dataLoaded: false,
+      skills: [],      
     };
-    this.generateForm = this.generateForm.bind(this);
-    this.onDrop = this.onDrop.bind(this);
-    this.applyDrag = this.applyDrag.bind(this);
-
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
+    if (!this.context.isLoggedIn) {
+      this.props.history.push('/resume-builder');
+    }
     this.getVrsAttributes();
   }
 
-  componentDidUpdate() {
-    this.getVrsAttributes(); 
-  }
-
   /* Functions to handle on change */
-
-  onAboutChange = about => {
-    this.setState({ about });
-  };
-
-  onEducationChange = educations => {
-    this.setState({ educations });
-  };
-
-  onWorkExperiencesChange = workExperiences => {
-    this.setState({ workExperiences });
-  };
-
-  onSkillsChange = skills => {
-    this.setState({ skills });
-  };
-
-  onInterestsChange = interests => {
-    this.setState({ interests });
-  };
+  onAboutChange = about => this.setState({ about });
+  onEducationChange = educations => this.setState({ educations });
+  onWorkExperiencesChange = workExperiences => this.setState({ workExperiences });
+  onSkillsChange = skills => this.setState({ skills });
+  onInterestsChange = interests => this.setState({ interests });
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /* Get data from backend */
-  getVrsAttributes() {
-    console.log(this.context.isLoggedIn)
-    if (!this.state.dataLoaded && this.context.isLoggedIn){
-      axios
-      .get(getEndPoint("", this.context.user.id), {
-        withCredentials: true
-      })
-      .then(response => {
-        console.table(response.data);
-        const responseDataAbout = camelcaseKeysDeep(response.data.about);
-        const responseDataEdu = camelcaseKeysDeep(response.data.educations);
-        const responseDataWorkExp = camelcaseKeysDeep(
-          response.data.workExperiences
-        );
-        const responseDataSkill = camelcaseKeysDeep(response.data.skills);
-        const responseDataInterests = camelcaseKeysDeep(
-          response.data.interests
-        );
-        this.setState({
-          about: responseDataAbout,
-          educations: responseDataEdu,
-          workExperiences: responseDataWorkExp,
-          skills: responseDataSkill,
-          interests: responseDataInterests
-        });
+  getVrsAttributes = () => {     
+    this.setState({loading: true});
+    axios
+    .get(getEndPoint("", this.context.user.id), {
+      withCredentials: true
+    })
+    .then(response => {      
+      this.setState({
+        about: camelcaseKeysDeep(response.data.about),
+        educations: camelcaseKeysDeep(response.data.educations),
+        workExperiences: camelcaseKeysDeep(response.data.workExperiences),
+        skills: camelcaseKeysDeep(response.data.skills),
+        interests: camelcaseKeysDeep(response.data.interests)
+      });
+      this.generateResumeComponents();
+      this.setState({ loading: false });
+    })
+    .catch(error => console.log(error));    
+  }
 
-        var resume = [];
-        if (!isEmpty(this.state.about)) {
-          resume.push(
-            <About
-              about={this.state.about}
-              onAboutChange={this.onAboutChange}
-            ></About>
-          );
-        }
-
-        if (this.state.workExperiences.length !== 0) {
-          resume.push(
-            <Education
-              educations={this.state.educations}
-              onEducationChange={this.onEducationChange}
-            ></Education>
-          );
-        }
-
-        if (this.state.workExperiences.length !== 0) {
-          resume.push(
-            <WorkExperiences
-              workExperiences={this.state.workExperiences}
-              onAboutChange={this.onAboutChange}
-            ></WorkExperiences>
-          );
-        }
-
-        if (this.state.skills.length !== 0) {
-          resume.push(
-            <Skills
-              skills={this.state.skills}
-              onSkillsChange={this.onSkillsChange}
-            ></Skills>
-          );
-        }
-
-        if (this.state.interests.length !== 0) {
-          resume.push(
-            <Interests
-              interests={this.state.interests}
-              onInterestsChange={this.onInterestsChange}
-            ></Interests>
-          );
-        }
-        var tempArray = [];
-        resume.map((elem, index) => {
-          let obj = {};
-          obj["id"] = index.toString(10);
-          obj["element"] = elem;
-          tempArray.push(obj);
-        });
-        this.setState({
-          items: tempArray
-        });
-
-        this.generateForm(this.state.items);
-
-        this.setState({ loading: false });
-      })
-      .catch(error => console.log(error))
-      .then(() => {
-        this.setState({
-          dataLoaded: true
-        })
-      })
-    } else if (!this.context.isLoggedIn) {
-      window.location.href='/resume-builder'
+  // update vrs on backend
+  saveVrsAttributes = () => {
+    this.setState({loading: true});
+    const resume = {
+      about: this.state.about,
+      educations: this.state.educations,
+      workExperiences: this.state.workExperiences,
+      skills: this.state.skills,
+      interests: this.state.interests
     }
-    
+    axios
+    .post(getEndPoint("", this.context.user.id), resume, { withCredentials: true }
+    ).then(response => {      
+      this.setState({
+        about: camelcaseKeysDeep(response.data.about),
+        educations: camelcaseKeysDeep(response.data.educations),
+        workExperiences: camelcaseKeysDeep(response.data.workExperiences),
+        skills: camelcaseKeysDeep(response.data.skills),
+        interests: camelcaseKeysDeep(response.data.interests)
+      });
+      this.generateResumeComponents();
+      this.setState({ loading: false });
+    })
+    .catch(error => console.log(error));
+  }
+
+  // determine which resume components should be shown based on state data
+  generateResumeComponents = () => {
+    var resumeComponents = [];
+    if (!isEmpty(this.state.about)) {
+      resumeComponents.push(
+        <About
+          about={this.state.about}
+          onAboutChange={this.onAboutChange}
+        ></About>
+      );
+    }
+    if (this.state.educations.length !== 0) {
+      resumeComponents.push(
+        <Education
+          educations={this.state.educations}
+          onEducationChange={this.onEducationChange}
+        ></Education>
+      );
+    }
+    if (this.state.workExperiences.length !== 0) {
+      resumeComponents.push(
+        <WorkExperiences
+          workExperiences={this.state.workExperiences}
+          onAboutChange={this.onAboutChange}
+        ></WorkExperiences>
+      );
+    }
+    if (this.state.skills.length !== 0) {
+      resumeComponents.push(
+        <Skills
+          skills={this.state.skills}
+          onSkillsChange={this.onSkillsChange}
+        ></Skills>
+      );
+    }
+    if (this.state.interests.length !== 0) {
+      resumeComponents.push(
+        <Interests
+          interests={this.state.interests}
+          onInterestsChange={this.onInterestsChange}
+        ></Interests>
+      );
+    }
+    var tempArray = [];
+    resumeComponents.map((elem, index) => {
+      let obj = {};
+      obj["id"] = index.toString(10);
+      obj["element"] = elem;
+      tempArray.push(obj);
+    });    
+    this.setState({resumeComponents: tempArray});
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,14 +176,14 @@ export default class ResumeGeneration extends Component {
     return result;
   };
 
-  onDrop(dropResult) {
+  onDrop = (dropResult) => {
     return this.setState({
-      items: this.applyDrag(this.state.items, dropResult)
+      resumeComponents: this.applyDrag(this.state.resumeComponents, dropResult)
     });
   }
 
   // map each element to become a draggable element
-  generateForm = items => {
+  makeItemsDraggable = (items) => {
     return items.map(item => {
       return (
         <React.Fragment>
@@ -231,13 +194,7 @@ export default class ResumeGeneration extends Component {
   };
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  goBack = () => {
-    window.location.href='/resume-builder'
-  };
-
-  render() {
-    const { loading } = this.state;
-
+  render() {    
     return this.state.loading ? (
       <LoadingSpinner></LoadingSpinner>
     ) : (
@@ -258,29 +215,31 @@ export default class ResumeGeneration extends Component {
           <br></br>
           <Container text style={{ marginTop: "1vh", marginBottom: "1vh" }}>
             <React.Fragment>
+              <Grid centered columns={1}>
+                <Grid.Column textAlign="center">
+                  <Button as={Link} to="/resume-builder" color="red">
+                    Resume Builder
+                  </Button>
+                  <Button onClick={this.saveVrsAttributes} color="green">
+                    Save Changes
+                  </Button>
+                  <Button onClick={this.generateResume}>
+                    Generate Resume
+                  </Button>
+                </Grid.Column>
+              </Grid>
+              <br></br>
               <div id="resume">
                 <Segment>
                   <Grid centered columns={1}>
                     <Grid.Column>
                       <DndContainer onDrop={this.onDrop}>
-                        {this.generateForm(this.state.items)}
+                        {this.makeItemsDraggable(this.state.resumeComponents)}
                       </DndContainer>
                     </Grid.Column>
                   </Grid>
                 </Segment>
               </div>
-              <br></br>
-              <Grid centered columns={1}>
-                <Grid.Column textAlign="right">
-                  <Button onClick={this.goBack} color="red">
-                    Build Resume
-                  </Button>
-                  <Button
-                    content="Generate Resume"
-                    onClick={this.generateResume}
-                  ></Button>
-                </Grid.Column>
-              </Grid>
             </React.Fragment>
           </Container>
         </Animated>
@@ -332,4 +291,5 @@ export default class ResumeGeneration extends Component {
   };
 }
 
-ResumeGeneration.contextType = UserContext
+ResumeGeneration.contextType = UserContext;
+export default withRouter(ResumeGeneration);

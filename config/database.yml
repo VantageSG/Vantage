@@ -1,56 +1,46 @@
-# MySQL. Versions 5.5.8 and up are supported.
-#
-# Install the MySQL driver
-#   gem install mysql2
-#
-# Ensure the MySQL gem is defined in your Gemfile
-#   gem 'mysql2'
-#
-# And be sure to use new-style password hashing:
-#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
-#
+# Note: On our EC2 instances, we configure DATABASE_URL and that will overwrite all these config
+
 default: &default
+  host: <%= Rails.application.secrets.db_host %>
   adapter: mysql2
   encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  reconnect: true
+  database: <%= Rails.application.secrets.db_name %>
+  pool: <%= Rails.application.secrets.db_pool %>
   username: <%= Rails.application.secrets.db_username %>
   password: <%= Rails.application.secrets.db_password %>
   socket: /tmp/mysql.sock
 
 development:
   <<: *default
-  database: Vantage
-  username: root
-  password: root
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
+test: &test
   <<: *default
-  database: 'Vantage_test'
+  # Note: TEST_ENV_NUMBER is necessary to work with parallel_tests (Refer to corresponding PR)
+  database: <%= "#{ENV["TEST_DB_NAME"] || "Vantage_test"}#{ENV["TEST_ENV_NUMBER"]}" %>
 
-# As with config/credentials.yml, you never want to store sensitive information,
-# like your database password, in your source code. If your source code is
-# ever seen by anyone, they now have access to your database.
-#
-# Instead, provide the password as a unix environment variable when you boot
-# the app. Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
-# for a full rundown on how to provide these environment variables in a
-# production deployment.
-#
-# On Heroku and other platform providers, you may have a full connection URL
-# available as an environment variable. For example:
-#
-#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
-#
-# You can use this database configuration with:
-#
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
-#
+cucumber:
+  <<: *test
+
+#enabled for asset precompilation  not used..
 production:
   <<: *default
-  database: 'Vantage_production'
-  username: Vantage
-  password: <%= ENV['VANTAGE_DATABASE_PASSWORD'] %>
+
+worker:
+  <<: *default
+
+staging:
+  <<: *default
+
+sandbox:
+  <<: *default
+
+auditor:
+  <<: *default
+
+auditor_records:
+  <<: *default
+  url: <%= Rails.application.secrets.auditor_db_url %>

@@ -3,45 +3,31 @@ services:
   # For installing gems:
   # docker-compose run --rm web bundle install --jobs 20 --retry 5
   web:
+    image: ${DOCKER_IMAGE_NAME-vantage}
     build:
       context: .
-      dockerfile: docker/development/Dockerfile
-    command: bundle exec rails server -b 0.0.0.0
-    volumes:
-      - .:/myapp
-      - /myapp/tmp/pids
-      - bundle-datavolume:/usr/local/bundle
-    ports:
-      - "3000:3000"
-    depends_on:
+      args:
+        precompileassets: 'not'
+    links:
       - mysql
+      - webpacker
+    ports:
+      - 3000:3000
+    command: ["./scripts/wait-for-it.sh", "db:3306", "--", "./scripts/start_rails.sh"]
+    volumes:
+      - .:/opt/vantage:cached
 
   webpacker:
-    build:
-      context: .
-      dockerfile: docker/development/Dockerfile
-    command: ruby bin/webpack-dev-server
+    image: ${DOCKER_IMAGE_NAME-vantage}
+    command: ["./scripts/start_webpack_dev.sh"]
     volumes:
-      - .:/myapp
-      - bundle-datavolume:/usr/local/bundle
+      - .:/opt/vantage:cached
     ports:
-      - '3035:3035'
-    depends_on:
-      - web
+      - 3035:3035
 
   mysql:
     image: mysql:5.6
     ports:
       - "3306:3306"
-    volumes:
-      - mysql-datavolume:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: Vantage
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-
-volumes:
-  mysql-datavolume:
-  bundle-datavolume:
-  node-datavolume:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}

@@ -1,26 +1,37 @@
-FROM ruby:2.6.4-slim 
+FROM ruby:2.6.4-slim
+ARG precompileassets
 
-WORKDIR /myapp
+RUN apt-get update && apt-get install -y curl gnupg
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --quiet --yes \
-    vim \
-    git \
-    libmysqlclient-dev \
-    libmagickwand-dev \
-    imagemagick \
-    tzdata
+RUN apt-get -y update && \
+      apt-get install --fix-missing --no-install-recommends -qq -y \
+        build-essential \
+        vim \
+        wget gnupg \
+        git-all \
+        curl \
+        ssh \
+        default-mysql-client libpq5 libpq-dev default-libmysqlclient-dev -y && \
+      wget -qO- https://deb.nodesource.com/setup_10.x  | bash - && \
+      apt-get install -y nodejs && \
+      wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+      echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+      apt-get update && \
+      apt-get install yarn && \
+      apt-get clean && \
+      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Copy the Gemfile and install the the RubyGems.
-# This is a separate step so that bundle install wont run again unless Gemfile has changed
-COPY Gemfile Gemfile.lock ./
-COPY engines ./engines/
-RUN gem install bundler && bundle install --jobs 20 --retry 5 --without development test --deployment
+RUN gem install bundler
+#Install gems
+RUN mkdir /gems
+WORKDIR /gems
+COPY Gemfile .
+COPY Gemfile.lock .
+RUN bundle install
 
-# Cache yarn install as much as possible unless any of them changes
-COPY yarn.lock package.json ./
-RUN yarn install
+ARG INSTALL_PATH=/opt/vantage
+ENV INSTALL_PATH $INSTALL_PATH
+WORKDIR $INSTALL_PATH
+COPY . .
 
-# Copying local always changes, therefore put it last
-COPY . ./
-
-RUN RAILS_ENV=production bundle exec rake assets:precompile
+RUN scripts/potential_asset_precompile.sh $precompileassets

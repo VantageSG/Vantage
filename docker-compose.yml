@@ -16,20 +16,19 @@ services:
     depends_on:
       - mysql
 
-  webpack:
+  webpacker:
     build:
       context: .
       dockerfile: docker/development/Dockerfile
-    command: >
-      sh -c "yarn &&
-             bin/webpack-dev-server"
+    command: ruby bin/webpack-dev-server
     volumes:
       - .:/myapp
-      - node-datavolume:/myapp/node_modules
+      - bundle-datavolume:/usr/local/bundle
     ports:
-      - "8080:8080"
+      - '3035:3035'
     depends_on:
       - web
+
   mysql:
     image: mysql:5.6
     ports:

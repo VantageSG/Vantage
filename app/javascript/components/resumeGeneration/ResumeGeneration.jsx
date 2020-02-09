@@ -24,7 +24,7 @@ import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
 import UserContext from "./../../contexts/UserContext"
 import { Link, withRouter } from "react-router-dom";
-import './resume.css'
+import '../../../assets/stylesheets/resume.css';
 
 
 class ResumeGeneration extends Component {

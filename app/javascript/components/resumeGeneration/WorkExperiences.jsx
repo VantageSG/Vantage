@@ -1,7 +1,6 @@
 import React from 'react';
 import EditableLabel from 'react-inline-editing';
-import { Header } from 'semantic-ui-react';
-import './resume.css';
+import '../../../assets/stylesheets/resume.css';
 
 
 class WorkExperiences extends React.Component {

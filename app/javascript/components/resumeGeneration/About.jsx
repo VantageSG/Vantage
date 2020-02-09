@@ -1,7 +1,7 @@
 import React from 'react';
 import EditableLabel from 'react-inline-editing';
 import { Header, Grid } from 'semantic-ui-react';
-import './resume.css'
+import '../../../assets/stylesheets/resume.css';
 
 
 class About extends React.Component {
@@ -43,13 +43,13 @@ class About extends React.Component {
               />
             </li>
           </ul>
-          <p className="aboutMe">
+          <div className="aboutMe">
             <EditableLabel text={this.props.about.aboutMe}
                 inputWidth='200px'
                 inputHeight='25px'                                       
                 onFocusOut={(aboutMe) => this.handleAboutChange('aboutMe', aboutMe)}              
             />
-          </p>             
+          </div>             
         </div>)
   }
 }

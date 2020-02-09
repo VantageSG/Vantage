@@ -58,14 +58,15 @@ class ResumeGeneration extends Component {
 
   // method to download resume as pdf by calling backend endpoint
   downloadResume = () => {
-    const resume = {
-      "resume": "<h1>Hello World</h1><p>This is my resume</p>"
+    const resumeElement = document.getElementById("resume");
+    const resumeData = {
+      "resume": resumeElement.innerHTML
     }
     this.setState({loading: true});
     axios({
       url: getEndPoint("", this.context.user.id) + "/download",
       method: 'POST',
-      data: resume,
+      data: resumeData,
       responseType: 'blob',
     }).then((response) => {
        const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -74,6 +75,8 @@ class ResumeGeneration extends Component {
        link.setAttribute('download', 'resume.pdf');
        document.body.appendChild(link);
        link.click();
+       link.remove();
+       window.URL.revokeObjectURL(url);
        this.setState({loading: false});
     });
   }

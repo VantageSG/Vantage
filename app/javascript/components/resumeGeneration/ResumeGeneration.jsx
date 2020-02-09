@@ -56,6 +56,28 @@ class ResumeGeneration extends Component {
   onInterestsChange = interests => this.setState({ interests });
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  // method to download resume as pdf by calling backend endpoint
+  downloadResume = () => {
+    const resume = {
+      "resume": "<h1>Hello World</h1><p>This is my resume</p>"
+    }
+    this.setState({loading: true});
+    axios({
+      url: getEndPoint("", this.context.user.id) + "/download",
+      method: 'POST',
+      data: resume,
+      responseType: 'blob',
+    }).then((response) => {
+       const url = window.URL.createObjectURL(new Blob([response.data]));
+       const link = document.createElement('a');
+       link.href = url;
+       link.setAttribute('download', 'resume.pdf');
+       document.body.appendChild(link);
+       link.click();
+       this.setState({loading: false});
+    });
+  }
+
   /* Get data from backend */
   getVrsAttributes = () => {     
     this.setState({loading: true});
@@ -74,7 +96,7 @@ class ResumeGeneration extends Component {
       this.generateResumeComponents();
       this.setState({ loading: false });
     })
-    .catch(error => console.log(error));    
+    .catch(error => console.log(error));
   }
 
   // update vrs on backend
@@ -214,7 +236,7 @@ class ResumeGeneration extends Component {
                   <Button onClick={this.saveVrsAttributes} color="green">
                     Save Changes
                   </Button>
-                  <Button onClick={this.generateResume}>
+                  <Button onClick={this.downloadResume}>
                     Generate Resume
                   </Button>
                 </Grid.Column>

@@ -4,6 +4,23 @@
 - Ruby 2.6.4
 - Rails 6.01
 
+## Docker 
+
+1. Build the images
+```
+docker-compose build
+```
+
+2. Create db in image
+```
+docker-compose run web scripts/wait-for-it.sh mysql:3306 -- "bundle exec rails db:create db:migrate"
+```
+
+3. Run images in container
+```
+docker-compose up
+```
+
 ## Steps
 1. Use Use rbenv / rvm to install ruby whose version is as specified in Vantage root .ruby-version (2.6.4)
 2. Install the specific rails version `gem install rails -v 6.0.1`

@@ -15,13 +15,13 @@ services:
       - 3000:3000
     command: ["./scripts/wait-for-it.sh", "db:3306", "--", "./scripts/start_rails.sh"]
     volumes:
-      - .:/opt/vantage:cached
+      - .:/opt/vantage/cached
 
   webpacker:
     image: ${DOCKER_IMAGE_NAME-vantage}
     command: ["./scripts/start_webpack_dev.sh"]
     volumes:
-      - .:/opt/vantage:cached
+      - .:/opt/vantage/cached
     ports:
       - 3035:3035
 

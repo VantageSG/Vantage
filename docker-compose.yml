@@ -18,7 +18,7 @@ services:
       - .:/opt/vantage:cached
 
   webpacker:
-    build: .
+    image: ${DOCKER_IMAGE_NAME-vantage}
     command: ["./scripts/start_webpack_dev.sh"]
     volumes:
       - .:/opt/vantage:cached

@@ -18,43 +18,39 @@ class About extends React.Component {
 
   render() {
       return (
-        <div className="aboutSegment">
-          <Grid>
-            <Grid.Row style={{paddingBottom: "0px"}}>
-              <Grid.Column width={8}>
-                <h1 className="aboutName">
-                  <EditableLabel text={this.props.about.name}
-                      isEditing={false}
-                      inputWidth='200px'
-                      inputHeight='25px'                 
-                      onFocusOut={(name) => this.handleAboutChange('name', name)}
-                  />
-                </h1>
-              </Grid.Column>
-              <Grid.Column width={8} textAlign="right" style={{paddingTop:"0.5em"}}>
-                <EditableLabel text={this.props.about.email}
+        <div className="aboutSegment">                      
+          <h1 className="aboutName">
+            <EditableLabel text={this.props.about.name}
+                isEditing={false}
+                inputWidth='200px'
+                inputHeight='25px'                 
+                onFocusOut={(name) => this.handleAboutChange('name', name)}
+            />
+          </h1>
+          <ul>
+            <li>
+              <EditableLabel text={this.props.about.email}
+                inputWidth='200px'
+                inputHeight='25px'                         
+                onFocusOut={(email) => this.handleAboutChange('email', email)}
+              />
+            </li>
+            <li>
+              <EditableLabel text={this.props.about.contactNumber.toString()}
                   inputWidth='200px'
-                  inputHeight='25px'                         
-                  onFocusOut={(email) => this.handleAboutChange('email', email)}
-                />
-                <EditableLabel text={this.props.about.contactNumber.toString()}
-                    inputWidth='200px'
-                    inputHeight='25px'
-                    onFocusOut={(contactNumber) => this.handleAboutChange('contactNumber', contactNumber)}
-                />
-              </Grid.Column>
-            </Grid.Row>            
-            <Grid.Row>
-              <Grid.Column>
-                <EditableLabel text={this.props.about.aboutMe}
-                    inputWidth='200px'
-                    inputHeight='25px'                                       
-                    onFocusOut={(aboutMe) => this.handleAboutChange('aboutMe', aboutMe)}              
-                />
-              </Grid.Column>              
-            </Grid.Row>
-          </Grid>
-      </div>)
+                  inputHeight='25px'
+                  onFocusOut={(contactNumber) => this.handleAboutChange('contactNumber', contactNumber)}
+              />
+            </li>
+          </ul>
+          <p className="aboutMe">
+            <EditableLabel text={this.props.about.aboutMe}
+                inputWidth='200px'
+                inputHeight='25px'                                       
+                onFocusOut={(aboutMe) => this.handleAboutChange('aboutMe', aboutMe)}              
+            />
+          </p>             
+        </div>)
   }
 }
 

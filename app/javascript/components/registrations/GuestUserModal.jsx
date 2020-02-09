@@ -35,6 +35,7 @@ class GuestUserModal extends Component{
           floated='left'
           >
             <Button 
+            data-testid="SignUp"
             color="teal"
             content='Sign Up'
             as={Link}

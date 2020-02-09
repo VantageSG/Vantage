@@ -5,8 +5,8 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('No user logged in', () => {
   renderWithRouter(<GuestUserModal/>);
-  it('should have Singup', () => {
-    expect(screen.getByText(/Singup/i)).toBeInTheDocument();
+  it('should have Sign Up', () => {
+    expect(screen.getByTestId('SignUp').innerHTML).toBe("Sign Up");
   });
   it('should have Login', () => {
     expect(screen.getByTestId('Login').innerHTML).toBe("Login");

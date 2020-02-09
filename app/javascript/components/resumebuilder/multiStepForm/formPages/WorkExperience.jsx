@@ -84,7 +84,6 @@ export default class WorkExperience extends Component {
   }
 
   nextStepWApiReq = () => {
-    console.log(this.state.workExperiences);
     let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
     postForm('workExperiences', 
     workExperiences, 
@@ -160,7 +159,7 @@ export default class WorkExperience extends Component {
                         iconPosition="left"
                         placeholder="Start date"
                         name="start"
-                        value={workExperience.start}
+                        value={workExperience.start.toString()}
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                       <Form.Input
@@ -170,7 +169,7 @@ export default class WorkExperience extends Component {
                         label="End date"
                         placeholder="End date"
                         name="end"
-                        value={workExperience.end}
+                        value={workExperience.end.toString()}
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>

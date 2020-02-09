@@ -217,7 +217,7 @@ export default class ConfirmationPage extends Component {
               as={Link}
               content="Submit"
               to={{
-                pathname: `/resume-generation/${this.context.user.id}`,
+                pathname: `/resume-generation/`,
                 user: this.context.user
               }}
             ></Button>

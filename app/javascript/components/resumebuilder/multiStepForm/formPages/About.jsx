@@ -2,25 +2,17 @@ import React, { Component } from "react";
 import {
   Form,
   Segment,
-  Button,
-  Container,
   Card,
-  Grid,
-  Modal,
   Header,
   Icon,
-  Image,
   Popup,
   TextArea,
-  Loader,
-  Dimmer
 } from "semantic-ui-react";
 import axios from "axios";
 import UserContext from '../../../../contexts/UserContext'
 import FormActionButtons from "../frontEndUtil/FormActionButtons";
 import { Animated } from "react-animated-css";
 import { postForm, getEndPoint } from "./formApi";
-import { isEmpty } from "../../../util/Props";
 import LoadingSpinner from "../../../util/LoadingSpinner";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import decamelizeKeysDeep from "decamelize-keys-deep";
@@ -91,8 +83,6 @@ export default class About extends Component {
   componentDidMount() {
     this.getDbAbout();
   }
- 
-  
 
   nextStepWApiReq = () => {
     let about = decamelizeKeysDeep(this.state.about);

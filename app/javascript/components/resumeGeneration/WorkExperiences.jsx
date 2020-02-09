@@ -1,7 +1,7 @@
 import React from 'react';
 import EditableLabel from 'react-inline-editing';
 import { Header } from 'semantic-ui-react';
-
+import './resume.css';
 
 
 class WorkExperiences extends React.Component {
@@ -21,12 +21,15 @@ class WorkExperiences extends React.Component {
 
   render() {    
     return (
-      <React.Fragment>
+      <div className="section">
+        <h1 className="sectionHeader">
+          Experiences
+        </h1>
+        <hr></hr>
         {this.props.workExperiences.map(
             (workExperience, index) => {
               return (
-                <React.Fragment key={index} >
-                  <Header>Work Experiences</Header>
+                <React.Fragment key={index} >                  
                   <EditableLabel text={workExperience.title}
                       inputWidth='200px'
                       inputHeight='25px'                 
@@ -41,14 +44,14 @@ class WorkExperiences extends React.Component {
                       {name: 'company', value: company}, index
                       )}
                   />
-                  <EditableLabel text={workExperience.start}
+                  <EditableLabel text={workExperience.start.toString()}
                     inputWidth='200px'
                     inputHeight='25px'                 
                     onFocusOut={(start) => this.handleWorkExperiencesChange(
                       {name: 'start', value: start}, index
                       )}
                   />
-                  <EditableLabel text={workExperience.end}
+                  <EditableLabel text={workExperience.end.toString()}
                     inputWidth='200px'
                     inputHeight='25px'                 
                     onFocusOut={(end) => this.handleWorkExperiencesChange(
@@ -67,7 +70,7 @@ class WorkExperiences extends React.Component {
             }
           )
         }
-      </React.Fragment>
+      </div>
     )
   }
 }

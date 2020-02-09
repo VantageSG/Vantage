@@ -1,0 +1,34 @@
+.resume {
+  background: #ffffff;
+  font-family: 'Lato', helvetica, arial, sans-serif;
+  font-size: 16px;
+  color: #222;
+  border: 1px solid #B4B4B4;
+}
+
+.resumeBody {
+  padding: 18px;
+}
+
+.aboutSegment {
+  padding: 25px 35px;
+	border-bottom: 2px solid #B4B4B4;	
+}
+
+.aboutName {
+	font-size: 2.5em;
+	font-weight: 700;
+  font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+  padding-bottom: 0em;
+}
+
+.section {
+  margin-bottom: 18px;
+}
+
+.sectionHeader {
+  font-size: 1.4em;
+  font-weight: 400;
+  font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+  margin: 0px
+}

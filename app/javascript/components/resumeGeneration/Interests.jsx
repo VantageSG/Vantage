@@ -19,12 +19,15 @@ class Interests extends React.Component {
 
   render() {
       return (
-        <React.Fragment>
+        <div className="section">
+          <h1 className="sectionHeader">
+            Interests
+          </h1>
+          <hr></hr>
           {this.props.interests.map(
               (interest, index) => {
                 return (
-                  <React.Fragment key={index} >
-                    <Header>Interests</Header>
+                  <React.Fragment key={index} >                    
                     <EditableLabel text={interest.name}
                         inputWidth='200px'
                         inputHeight='25px'                 
@@ -37,7 +40,7 @@ class Interests extends React.Component {
               }
             )
           }
-        </React.Fragment>
+        </div>
       );
   }
 }

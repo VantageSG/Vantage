@@ -9,6 +9,7 @@ import ResponsiveContainer from "./navBar/NavBar";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
+import ResumeSelector from '../components/resumebuilder/ResumeSelector';
 import UserContext from '../contexts/UserContext';
 
 
@@ -161,6 +162,9 @@ class App extends Component {
                 </Route>
                 <Route exact path="/resume-generation">
                   <ResumeGeneration/>
+                </Route>
+                <Route exact path="/resume-selector">
+                  <ResumeSelector/>
                 </Route>
                 <Route component={Error404Page} />
               </Switch>

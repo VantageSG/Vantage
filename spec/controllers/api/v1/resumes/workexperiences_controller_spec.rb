@@ -57,13 +57,7 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
             "company": "COMPANY WORKING AT: str",
             "start": "123456",
             "end": "123456",
-            "achievements": "SHORT WRITE UP ABOUT ACHIEVEMENTS IN THE COMPANY",
-            "referees": [
-              {
-              "name": "NAME OF REFEREE: str",
-              "email": "validemail2@email.com"
-              }
-            ]
+            "achievements": "SHORT WRITE UP ABOUT ACHIEVEMENTS IN THE COMPANY",            
           }
         ]
       }
@@ -75,15 +69,9 @@ RSpec.describe Api::V1::Resumes::WorkexperiencesController, type: :request do
           {
             "title": "JOB TITLE: str",
             "company": "COMPANY WORKING AT: str",
-            "start": 11012018,
-            "end": 11012018,
-            "achievements": "SHORT WRITE UP ABOUT ACHIEVEMENTS IN THE COMPANY",
-            "referees": [
-              {
-              "name": "name",
-              "email": "not email"
-              }
-            ]
+            "start": "not a date",
+            "end": "not a date",
+            "achievements": "SHORT WRITE UP ABOUT ACHIEVEMENTS IN THE COMPANY",            
           }
         ]
       }

@@ -24,7 +24,7 @@ import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
 import UserContext from "./../../contexts/UserContext"
 import { Link, withRouter } from "react-router-dom";
-import './resume.css'
+import '../../../assets/stylesheets/resume.css';
 
 
 class ResumeGeneration extends Component {
@@ -56,6 +56,31 @@ class ResumeGeneration extends Component {
   onInterestsChange = interests => this.setState({ interests });
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  // method to download resume as pdf by calling backend endpoint
+  downloadResume = () => {
+    const resumeElement = document.getElementById("resume");
+    const resumeData = {
+      "resume": resumeElement.innerHTML
+    }
+    this.setState({loading: true});
+    axios({
+      url: getEndPoint("", this.context.user.id) + "/download",
+      method: 'POST',
+      data: resumeData,
+      responseType: 'blob',
+    }).then((response) => {
+       const url = window.URL.createObjectURL(new Blob([response.data]));
+       const link = document.createElement('a');
+       link.href = url;
+       link.setAttribute('download', 'resume.pdf');
+       document.body.appendChild(link);
+       link.click();
+       link.remove();
+       window.URL.revokeObjectURL(url);
+       this.setState({loading: false});
+    });
+  }
+
   /* Get data from backend */
   getVrsAttributes = () => {     
     this.setState({loading: true});
@@ -74,7 +99,7 @@ class ResumeGeneration extends Component {
       this.generateResumeComponents();
       this.setState({ loading: false });
     })
-    .catch(error => console.log(error));    
+    .catch(error => console.log(error));
   }
 
   // update vrs on backend
@@ -214,7 +239,7 @@ class ResumeGeneration extends Component {
                   <Button onClick={this.saveVrsAttributes} color="green">
                     Save Changes
                   </Button>
-                  <Button onClick={this.generateResume}>
+                  <Button onClick={this.downloadResume}>
                     Generate Resume
                   </Button>
                 </Grid.Column>

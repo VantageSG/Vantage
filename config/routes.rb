@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       # resumes API
       get '/vrs/:user_id' => 'resumes/resumes#show'
       post '/vrs/:user_id' => 'resumes/resumes#create'
+      post '/vrs/:user_id/download' => 'resumes/resumes#download'
       get '/vrs/:user_id/about' => 'resumes/abouts#show'
       post '/vrs/:user_id/about' => 'resumes/abouts#create'
       get '/vrs/:user_id/educations' => 'resumes/educations#show'

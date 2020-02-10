@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bcrypt'
 gem 'rack-cors'
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 gem "dotenv-rails" # for ENV vars
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rubocop', '~> 0.77.0', require: false

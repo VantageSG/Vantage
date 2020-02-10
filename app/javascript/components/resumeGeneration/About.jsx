@@ -18,38 +18,41 @@ class About extends React.Component {
 
   render() {
       return (
-        <div className="aboutSegment">                      
-          <h1 className="aboutName">
-            <EditableLabel text={this.props.about.name}
-                isEditing={false}
-                inputWidth='200px'
-                inputHeight='25px'                 
-                onFocusOut={(name) => this.handleAboutChange('name', name)}
-            />
-          </h1>
-          <ul>
-            <li>
-              <EditableLabel text={this.props.about.email}
-                inputWidth='200px'
-                inputHeight='25px'                         
-                onFocusOut={(email) => this.handleAboutChange('email', email)}
-              />
-            </li>
-            <li>
-              <EditableLabel text={this.props.about.contactNumber.toString()}
+        <div className="aboutSegment">
+          <div className="aboutInfo">
+            <div className="aboutName">
+              <EditableLabel text={this.props.about.name}
+                  isEditing={false}
                   inputWidth='200px'
-                  inputHeight='25px'
-                  onFocusOut={(contactNumber) => this.handleAboutChange('contactNumber', contactNumber)}
-              />
-            </li>
-          </ul>
-          <div className="aboutMe">
-            <EditableLabel text={this.props.about.aboutMe}
+                  inputHeight='25px'                 
+                  onFocusOut={(name) => this.handleAboutChange('name', name)}
+              />            
+            </div>
+            <div className="contactDetails">
+              <div>
+                <EditableLabel text={this.props.about.email}
+                  inputWidth='200px'
+                  inputHeight='25px'                         
+                  onFocusOut={(email) => this.handleAboutChange('email', email)}
+                />
+              </div>
+              <span>|</span>
+              <div>
+                <EditableLabel text={this.props.about.contactNumber.toString()}
                 inputWidth='200px'
-                inputHeight='25px'                                       
+                inputHeight='25px'
+                onFocusOut={(contactNumber) => this.handleAboutChange('contactNumber', contactNumber)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="aboutMe">            
+            <EditableLabel text={this.props.about.aboutMe}
+                inputWidth='700px'
+                inputHeight='50px'                                               
                 onFocusOut={(aboutMe) => this.handleAboutChange('aboutMe', aboutMe)}              
-            />
-          </div>             
+            />            
+          </div>
         </div>)
   }
 }

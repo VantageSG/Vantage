@@ -20,8 +20,9 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       user: {},
-      loading: true
-    };    
+      loading: true,
+      initialLoading: true
+    };
   }
 
   componentDidMount() {
@@ -31,6 +32,7 @@ class App extends Component {
   // sets the login status as App state: user is either logged in or not
   getLoginStatus = () => {
     this.setState({loading: true})
+    this.setState({initialLoading: true})
     axios
       .get(process.env.BACKEND_PORT + "/api/v1/logged_in", {
         withCredentials: true,
@@ -45,12 +47,14 @@ class App extends Component {
           this.setState({isLoggedIn: false, user: {}});
         } else { }
         this.setState({loading: false})
+        this.setState({initialLoading: false})
       })
       .catch(error => console.log(error));
   };
 
   // logs the user in. calls either success/error callback function depending on response
   login = (user, successCallback, errorCallBack) => {
+    this.setState({loading: true})
     axios
       .post(process.env.BACKEND_PORT + "/api/v1/login/", { user }, {
           withCredentials: true,
@@ -66,10 +70,10 @@ class App extends Component {
         this.setState({loading: false})
       })
       .catch(error => console.log(error));
-    this.setState({loading: true})
   }
 
   signup = (user, successCallback, errorCallBack) => {
+    this.setState({loading: true});
     axios
       .post(process.env.BACKEND_PORT + "/api/v1/users/", { user }, {
         withCredentials: true,
@@ -89,10 +93,10 @@ class App extends Component {
         } else { }        
       })
       .catch(error => console.log(error));
-    this.setState({loading: true});
   }
 
-  continueAsGuest=(successCallback)=>{    
+  continueAsGuest=(successCallback)=>{
+    this.setState({loading: true});
     axios
       .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user",
       {withCredentials: true}
@@ -112,21 +116,27 @@ class App extends Component {
       .catch(error => console.log(error.response));
   }
 
-  logout = () => {        
+  logout = () => {
+    this.setState({loading: true})
     axios
       .delete(process.env.BACKEND_PORT + "/api/v1/logout/", {
           withCredentials: true,
           validateStatus: status => status === 200
       })
       .then(response => {
-        this.setState({isLoggedIn: false, user: {}})
-        this.setState({loading: false})        
+        this.setState({isLoggedIn: false, user: {}});
+        this.setState({loading: false});
+        window.location.href = "/";
       })
-      .catch(error => console.log(error))
-    this.setState({loading: true})    
+      .catch(error => console.log(error))        
   }
 
   render() {
+    const loader = (
+      <Dimmer active inverted>
+        <Loader inverted>Loading</Loader>
+      </Dimmer>
+    )
 
     return (
         <BrowserRouter>
@@ -138,14 +148,11 @@ class App extends Component {
             signup: this.signup,
             continueAsGuest: this.continueAsGuest
           }}>
+            {this.state.loading ? loader : <span></span>}
             <ResponsiveContainer                      
             >
-              {this.state.loading
-              ? (
-                <Dimmer active inverted>
-                  <Loader inverted>Loading</Loader>
-                </Dimmer>
-              )
+              {this.state.initialLoading
+              ? loader
               :(              
               <Switch>              
                 <Route exact path="/">

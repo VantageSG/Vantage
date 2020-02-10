@@ -20,6 +20,20 @@ class Api::V1::Resumes::ResumesController < Api::V1::BaseController
     render json: get_resume_format
   end
 
+  def download    
+    header_html = ('' + render_to_string(partial: 'resume_header.html.erb')).to_s
+    body_html   = params.require(:resume).to_s
+    footer_html = ('' + render_to_string( partial: 'resume_footer.html.erb')).to_s    
+    pdf = WickedPdf.new.pdf_from_string(
+      header_html + body_html + footer_html,
+      margin: {bottom: 0, top: 0, left: 0, right: 0}
+    );
+    send_data(pdf,
+      :filename => 'resume.pdf',
+      :disposition => 'attachment'
+    )
+  end
+
   private
   def get_user
     @user = User.find(params[:user_id])

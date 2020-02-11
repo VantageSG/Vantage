@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_02_02_102158) do
 
-  create_table "abouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "abouts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.integer "contact_number"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.index ["resume_id"], name: "index_abouts_on_resume_id"
   end
 
-  create_table "educations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "educations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "program"
     t.string "institution"
     t.integer "start"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.index ["resume_id"], name: "index_educations_on_resume_id"
   end
 
-  create_table "interests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "interests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.bigint "resume_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.index ["resume_id"], name: "index_interests_on_resume_id"
   end
 
-  create_table "referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "referees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.bigint "work_experience_id", null: false
@@ -52,14 +52,14 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.index ["work_experience_id"], name: "index_referees_on_work_experience_id"
   end
 
-  create_table "resumes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "resumes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_resumes_on_user_id"
   end
 
-  create_table "skills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "skills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.string "link"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.index ["resume_id"], name: "index_skills_on_resume_id"
   end
 
-  create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "cv"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "email"
     t.string "password_digest"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_102158) do
     t.boolean "guest", default: false
   end
 
-  create_table "work_experiences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "work_experiences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.string "company"
     t.integer "start"

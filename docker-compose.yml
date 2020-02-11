@@ -1,0 +1,41 @@
+version: "3"
+services:
+  # For installing gems:
+  # docker-compose run --rm web bundle install --jobs 20 --retry 5
+  web:
+    build: .
+    command: bundle exec rails server -b 0.0.0.0
+    volumes:
+      - .:/myapp
+      - /myapp/tmp/pids
+      - bundle-datavolume:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    env_file: .env.dev.docker
+  webpack:
+    build: .
+    command: >
+      sh -c "yarn &&
+             bin/webpack-dev-server"
+    volumes:
+      - .:/myapp
+      - node-datavolume:/myapp/node_modules
+    ports:
+      - "8080:8080"
+    depends_on:
+      - web
+    env_file: .env.dev.docker
+  mysql:
+    image: mysql:8.0.18
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+    env_file: .env.dev.docker
+
+volumes:
+  mysql-datavolume:
+  bundle-datavolume:
+  node-datavolume:

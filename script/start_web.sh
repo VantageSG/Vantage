@@ -6,6 +6,7 @@ fi
 
 if [[ $RAILS_ENV == "production" ]]; then
   echo "in prod"
+  RUN EDITOR="mate --wait" bundle exec rails credentials:edit
   bundle exec rake assets:precompile
   mkdir -p /usr/share/nginx/html
   cp -R public/* /usr/share/nginx/html/

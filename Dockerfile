@@ -34,4 +34,4 @@ RUN yarn install
 # Copying local always changes, therefore put it last
 COPY . ./
 
-RUN sh script/start_web.sh
+CMD bash script/start_web.sh

@@ -41,4 +41,4 @@ ENV RAILS_ENV production
 RUN bundle exec rake assets:precompile
 
 
-RUN sh script/start_web.sh
+CMD bash script/start_web.sh

@@ -40,4 +40,5 @@ RUN EDITOR="mate --wait" bundle exec rails credentials:edit
 ENV RAILS_ENV production
 RUN bundle exec rake assets:precompile
 
+RUN chomd +w script/start_web.sh
 RUN script/start_web.sh

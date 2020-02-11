@@ -35,6 +35,8 @@ RUN yarn install
 COPY . ./
 
 # Pre-compile assets
+run EDITOR=vim bundle exec rails credentials:edit
+
 ENV RAILS_ENV production
 RUN bundle exec rake assets:precompile
 

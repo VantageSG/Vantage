@@ -25,7 +25,7 @@ services:
       - assets:/usr/share/nginx/html
       - configs:/etc/nginx/conf.d
   mysql:
-    image: mysql:8.0.18
+    image: mysql:5.6
     ports:
       - "3306:3306"
     volumes:

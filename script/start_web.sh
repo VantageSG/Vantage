@@ -5,7 +5,7 @@ if [[ -a /tmp/puma.pid ]]; then
 fi
 
 if [[ $RAILS_ENV == "production" ]]; then
-  rake assets:precompile
+  bundle exec rake assets:precompile
   mkdir -p /usr/share/nginx/html
   cp -R public/* /usr/share/nginx/html/
   mkdir -p /etc/nginx/conf.d/

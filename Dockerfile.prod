@@ -35,9 +35,9 @@ RUN yarn install
 COPY . ./
 
 # Pre-compile assets
-run EDITOR="mate --wait" bundle exec rails credentials:edit
+RUN EDITOR="mate --wait" bundle exec rails credentials:edit
 
 ENV RAILS_ENV production
 RUN bundle exec rake assets:precompile
 
-CMD script/start.sh
+CMD script/start_web.sh

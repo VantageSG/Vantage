@@ -12,4 +12,4 @@ if [[ $RAILS_ENV == "production" ]]; then
   cp site.conf /etc/nginx/conf.d/default.conf
 fi
 
-rails server -b 0.0.0.0 -P /tmp/puma.pid
+bundle exec rails server -b 0.0.0.0 -P /tmp/puma.pid

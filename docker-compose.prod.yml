@@ -31,7 +31,6 @@ services:
     volumes:
       - mysql-datavolume:/var/lib/mysql
     env_file: .env.prod.docker
-
 volumes:
   mysql-datavolume:
   assets:

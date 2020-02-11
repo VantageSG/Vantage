@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({loading: true})
     this.setState({initialLoading: true})
     axios
-      .get(process.env.BACKEND_PORT + "/api/v1/logged_in", {
+      .get(process.env.BACKEND_SOCKET + "/api/v1/logged_in", {
         withCredentials: true,
         validateStatus: status => {
           return (status === 200) || status === 401; //error status 401 is expected for user not logged in
@@ -55,7 +55,7 @@ class App extends Component {
   login = (user, successCallback, errorCallBack) => {
     this.setState({loading: true})
     axios
-      .post(process.env.BACKEND_PORT + "/api/v1/login/", { user }, {
+      .post(process.env.BACKEND_SOCKET + "/api/v1/login/", { user }, {
           withCredentials: true,
           validateStatus: status => status === 200 || status === 401
       })
@@ -74,7 +74,7 @@ class App extends Component {
   signup = (user, successCallback, errorCallBack) => {
     this.setState({loading: true});
     axios
-      .post(process.env.BACKEND_PORT + "/api/v1/users/", { user }, {
+      .post(process.env.BACKEND_SOCKET + "/api/v1/users/", { user }, {
         withCredentials: true,
         validateStatus: status => status === 201 || status === 400
       })
@@ -97,11 +97,11 @@ class App extends Component {
   continueAsGuest=(successCallback)=>{
     this.setState({loading: true});
     axios
-      .post(process.env.BACKEND_PORT + "/api/v1/users/guest_user",
+      .post(process.env.BACKEND_SOCKET + "/api/v1/users/guest_user",
       {withCredentials: true}
       )
       .then(response => {                
-        axios.post(process.env.BACKEND_PORT + "/api/v1/login/" + response.data.user.id,
+        axios.post(process.env.BACKEND_SOCKET + "/api/v1/login/" + response.data.user.id,
         {withCredentials: true}
         )
         .then(response => {
@@ -118,7 +118,7 @@ class App extends Component {
   logout = () => {
     this.setState({loading: true})
     axios
-      .delete(process.env.BACKEND_PORT + "/api/v1/logout/", {
+      .delete(process.env.BACKEND_SOCKET + "/api/v1/logout/", {
           withCredentials: true,
           validateStatus: status => status === 200
       })

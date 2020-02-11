@@ -4,7 +4,36 @@
 - Ruby 2.6.4
 - Rails 6.01
 
-## Steps
+
+## Steps 
+1. Download docker cli
+ ```
+# Ubuntu
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+$ sudo apt-get update
+$ apt-cache policy docker-ce
+$ sudo apt-get install -y docker-ce
+
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+```
+### Instructions for docker installation on MAC
+
+1. download docker app from [dockerhub](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+2. That's all.
+
+2. Run docker containers
+```
+docker-compose up
+```
+
+3. Create DB
+```
+$ docker-compose run --rm web rake db:setup db:migrate
+```
+
+## Steps(Local Machine)
 1. Use Use rbenv / rvm to install ruby whose version is as specified in Vantage root .ruby-version (2.6.4)
 2. Install the specific rails version `gem install rails -v 6.0.1`
 3. Install MySql. Refer to [here](https://stackoverflow.com/questions/3608287/error-installing-mysql2-failed-to-build-gem-native-extension) if you face installation issues.

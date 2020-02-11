@@ -23,7 +23,9 @@ class About extends React.Component {
             <EditableLabel text={this.props.about.name}
                 isEditing={false}
                 inputWidth='200px'
-                inputHeight='25px'                 
+                inputHeight='50px'     
+                inputMaxLength='50'
+                inputBorderWidth='0px'
                 onFocusOut={(name) => this.handleAboutChange('name', name)}
             />
           </h1>

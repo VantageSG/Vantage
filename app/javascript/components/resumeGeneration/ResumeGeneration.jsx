@@ -5,13 +5,14 @@ import {
   Header,
   Container,
   Grid,
+  Rail,
+  Placeholder,
+  Message
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 import axios from "axios";
 import LoadingSpinner from "../util/LoadingSpinner";
-import {
-  getEndPoint,
-} from "../resumebuilder/multiStepForm/formPages/formApi";
+import { getEndPoint } from "../resumebuilder/multiStepForm/formPages/formApi";
 import { isEmpty } from "../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import About from "./About";
@@ -20,12 +21,9 @@ import WorkExperiences from "./WorkExperiences";
 import Skills from "./Skills";
 import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
-import html2canvas from "html2canvas"
-import jsPDF from "jspdf";
-import UserContext from "./../../contexts/UserContext"
+import UserContext from "./../../contexts/UserContext";
 import { Link, withRouter } from "react-router-dom";
-import '../../../assets/stylesheets/resume.css';
-
+import "../../../assets/stylesheets/resume.css";
 
 class ResumeGeneration extends Component {
   constructor(props) {
@@ -37,13 +35,13 @@ class ResumeGeneration extends Component {
       educations: [],
       workExperiences: [],
       interests: [],
-      skills: [],      
+      skills: []
     };
   }
 
   componentDidMount() {
     if (!this.context.isLoggedIn) {
-      this.props.history.push('/resume-builder');
+      this.props.history.push("/resume-builder");
     }
     this.getVrsAttributes();
   }
@@ -51,7 +49,8 @@ class ResumeGeneration extends Component {
   /* Functions to handle on change */
   onAboutChange = about => this.setState({ about });
   onEducationChange = educations => this.setState({ educations });
-  onWorkExperiencesChange = workExperiences => this.setState({ workExperiences });
+  onWorkExperiencesChange = workExperiences =>
+    this.setState({ workExperiences });
   onSkillsChange = skills => this.setState({ skills });
   onInterestsChange = interests => this.setState({ interests });
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,77 +59,79 @@ class ResumeGeneration extends Component {
   downloadResume = () => {
     const resumeElement = document.getElementById("resume");
     const resumeData = {
-      "resume": resumeElement.innerHTML
-    }
-    this.setState({loading: true});
+      resume: resumeElement.innerHTML
+    };
+    this.setState({ loading: true });
     axios({
       url: getEndPoint("", this.context.user.id) + "/download",
-      method: 'POST',
+      method: "POST",
       data: resumeData,
-      responseType: 'blob',
-    }).then((response) => {
-       const url = window.URL.createObjectURL(new Blob([response.data]));
-       const link = document.createElement('a');
-       link.href = url;
-       link.setAttribute('download', 'resume.pdf');
-       document.body.appendChild(link);
-       link.click();
-       link.remove();
-       window.URL.revokeObjectURL(url);
-       this.setState({loading: false});
+      responseType: "blob"
+    }).then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "resume.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      this.setState({ loading: false });
     });
-  }
+  };
 
   /* Get data from backend */
-  getVrsAttributes = () => {     
-    this.setState({loading: true});
+  getVrsAttributes = () => {
+    this.setState({ loading: true });
     axios
-    .get(getEndPoint("", this.context.user.id), {
-      withCredentials: true
-    })
-    .then(response => {      
-      this.setState({
-        about: camelcaseKeysDeep(response.data.about),
-        educations: camelcaseKeysDeep(response.data.educations),
-        workExperiences: camelcaseKeysDeep(response.data.workExperiences),
-        skills: camelcaseKeysDeep(response.data.skills),
-        interests: camelcaseKeysDeep(response.data.interests)
-      });
-      this.generateResumeComponents();
-      this.setState({ loading: false });
-    })
-    .catch(error => console.log(error));
-  }
+      .get(getEndPoint("", this.context.user.id), {
+        withCredentials: true
+      })
+      .then(response => {
+        this.setState({
+          about: camelcaseKeysDeep(response.data.about),
+          educations: camelcaseKeysDeep(response.data.educations),
+          workExperiences: camelcaseKeysDeep(response.data.workExperiences),
+          skills: camelcaseKeysDeep(response.data.skills),
+          interests: camelcaseKeysDeep(response.data.interests)
+        });
+        this.generateResumeComponents();
+        this.setState({ loading: false });
+      })
+      .catch(error => console.log(error));
+  };
 
   // update vrs on backend
   saveVrsAttributes = () => {
-    this.setState({loading: true});
+    this.setState({ loading: true });
     const resume = {
       about: this.state.about,
       educations: this.state.educations,
       workExperiences: this.state.workExperiences,
       skills: this.state.skills,
       interests: this.state.interests
-    }
+    };
     axios
-    .post(getEndPoint("", this.context.user.id), resume, { withCredentials: true }
-    ).then(response => {      
-      this.setState({
-        about: camelcaseKeysDeep(response.data.about),
-        educations: camelcaseKeysDeep(response.data.educations),
-        workExperiences: camelcaseKeysDeep(response.data.workExperiences),
-        skills: camelcaseKeysDeep(response.data.skills),
-        interests: camelcaseKeysDeep(response.data.interests)
-      });
-      this.generateResumeComponents();
-      this.setState({ loading: false });
-    })
-    .catch(error => console.log(error));
-  }
+      .post(getEndPoint("", this.context.user.id), resume, {
+        withCredentials: true
+      })
+      .then(response => {
+        this.setState({
+          about: camelcaseKeysDeep(response.data.about),
+          educations: camelcaseKeysDeep(response.data.educations),
+          workExperiences: camelcaseKeysDeep(response.data.workExperiences),
+          skills: camelcaseKeysDeep(response.data.skills),
+          interests: camelcaseKeysDeep(response.data.interests)
+        });
+        this.generateResumeComponents();
+        this.setState({ loading: false });
+      })
+      .catch(error => console.log(error));
+  };
 
   // determine which resume components should be shown based on state data
   generateResumeComponents = () => {
-    var resumeComponents = [];    
+    var resumeComponents = [];
     if (this.state.educations.length !== 0) {
       resumeComponents.push(
         <Education
@@ -169,9 +170,9 @@ class ResumeGeneration extends Component {
       obj["id"] = index.toString(10);
       obj["element"] = elem;
       tempArray.push(obj);
-    });    
-    this.setState({resumeComponents: tempArray});
-  }
+    });
+    this.setState({ resumeComponents: tempArray });
+  };
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -194,23 +195,27 @@ class ResumeGeneration extends Component {
     return result;
   };
 
-  onDrop = (dropResult) => {
+  onDrop = dropResult => {
     return this.setState({
       resumeComponents: this.applyDrag(this.state.resumeComponents, dropResult)
     });
-  }
+  };
 
   // map each element to become a draggable element
-  makeItemsDraggable = (items) => {
+  makeItemsDraggable = items => {
     return items.map(item => {
-      return (        
-        <Draggable key={item.id}>{item.element}</Draggable>
-      );
+      return <Draggable key={item.id}>{item.element}</Draggable>;
     });
   };
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  render() {    
+  render() {
+    const list = [
+      "Drag and drop the various sections to rearrange them",
+      "Click on the fields to edit your information directly",
+      "Click on generate resume to download a pdf copy!"
+    ];
+
     return this.state.loading ? (
       <LoadingSpinner></LoadingSpinner>
     ) : (
@@ -222,29 +227,17 @@ class ResumeGeneration extends Component {
                 <Header as="h1">Your Resume</Header>
               </Grid.Row>
               <Grid.Row>
-                <Header as="h2">
-                  Drag and drop the various sections to rearrange them!
-                </Header>
+                <Message
+                  info
+                  header="Here are some things you could do to your resume"
+                  list={list}
+                />
               </Grid.Row>
             </Grid>
           </Container>
           <br></br>
-          <Container text style={{ marginTop: "1vh", marginBottom: "1vh" }}>
+          <Container text style={{ marginTop: "0vh", marginBottom: "1vh" }}>
             <React.Fragment>
-              <Grid centered columns={1}>
-                <Grid.Column textAlign="center">
-                  <Button as={Link} to="/resume-builder" color="red">
-                    Resume Builder
-                  </Button>
-                  <Button onClick={this.saveVrsAttributes} color="green">
-                    Save Changes
-                  </Button>
-                  <Button onClick={this.downloadResume}>
-                    Generate Resume
-                  </Button>
-                </Grid.Column>
-              </Grid>
-              <br></br>
               <div id="resume" className="resume">
                 <About
                   about={this.state.about}
@@ -256,6 +249,18 @@ class ResumeGeneration extends Component {
                   </DndContainer>
                 </div>
               </div>
+
+              <Grid centered columns={1} style={{ marginTop: "1vh" }}>
+                <Grid.Column textAlign="center">
+                  <Button as={Link} to="/resume-builder" color="red">
+                    Resume Builder
+                  </Button>
+                  <Button onClick={this.saveVrsAttributes} color="green">
+                    Save Changes
+                  </Button>
+                  <Button onClick={this.downloadResume}>Generate Resume</Button>
+                </Grid.Column>
+              </Grid>
             </React.Fragment>
           </Container>
         </Animated>
@@ -264,47 +269,6 @@ class ResumeGeneration extends Component {
   }
 
   /*Function to generate resume */
-
-  generateResume = () => {
-    this.setState({ loading: true });
-    
-    const scale = 2;
-    const element = document.getElementById("resume");
-  
-    var pdf = new jsPDF("p", "mm", "a4");
-    var width = pdf.internal.pageSize.getWidth();
-    var height = pdf.internal.pageSize.getHeight();
-    console.log(width);
-    console.log(height);
-    /*
-    if (pdf) {
-      domtoimage
-        .toPng(element, {
-          height: element.offsetHeight * scale,
-          style: {
-            transform: `scale(${scale}) translate(${element.offsetWidth /
-              2 /
-              scale}px, ${element.offsetHeight / 2 / scale}px)`
-          },
-          width: element.offsetWidth * scale
-        })
-        .then(imgData => {
-          pdf.addImage(imgData, "PNG", 0, 0, width, height);
-          pdf.save("download.pdf");
-          this.setState({ loading: false });
-        });
-    }*/
-    
-    //var element = document.getElementById("resume");
-    console.log(element);
-    html2canvas(element).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      pdf.addImage(imgData, "PNG", 0, 0, width, height);
-      pdf.save("image.pdf");
-      this.setState({ loading: false });
-    });
-  };
 }
 
 ResumeGeneration.contextType = UserContext;

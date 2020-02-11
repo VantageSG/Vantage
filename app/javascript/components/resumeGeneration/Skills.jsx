@@ -27,7 +27,7 @@ class Skills extends React.Component {
           {this.props.skills.map(
               (skill, index) => {
                 return (
-                  <React.Fragment key={index}>                    
+                  <div className="subsection" key={index}>                    
                     <EditableLabel text={skill.name}
                         inputWidth='200px'
                         inputHeight='25px'                 
@@ -35,14 +35,16 @@ class Skills extends React.Component {
                           {name: 'name', value: name}, index
                           )}
                     />
-                    <EditableLabel text={skill.description}
-                        inputWidth='200px'
-                        inputHeight='25px'                 
-                        onFocusOut={(description) => this.handleSkillsChange(
-                          {name: 'description', value: description}, index
-                          )}
-                    />                    
-                  </React.Fragment>              
+                    <div className="subsectionDetails">
+                      <EditableLabel text={skill.description}
+                          inputWidth='200px'
+                          inputHeight='25px'                 
+                          onFocusOut={(description) => this.handleSkillsChange(
+                            {name: 'description', value: description}, index
+                            )}
+                      />
+                    </div>
+                  </div>
                 );
               }
             )

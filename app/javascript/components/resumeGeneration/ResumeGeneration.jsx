@@ -263,6 +263,18 @@ class ResumeGeneration extends Component {
               </Grid>
             </React.Fragment>
           </Container>
+          <br></br>
+          <div id="resume" className="resume">
+            <About
+              about={this.state.about}
+              onAboutChange={this.onAboutChange}
+            ></About>
+            <div className="resumeBody">
+              <DndContainer onDrop={this.onDrop}>
+                {this.makeItemsDraggable(this.state.resumeComponents)}
+              </DndContainer>
+            </div>
+          </div>
         </Animated>
       </React.Fragment>
     );

@@ -66,6 +66,12 @@ RAILS_ENV=test rake db:create db:schema:load
 8. `rails s` to start the application
 9. `ruby bin/webpack-dev-server` to run webpacker for hot reload
 
+## Deploying
+1. Open Google Cloud VM console
+2. `docker-compose -f docker-compose.prod.yml up -d mysql webserver`
+3. `docker-compose -f docker-compose.prod.yml up -d --build --no-deps web`
+4. `docker-compose -f docker-compose.prod.yml restart webserver`
+
 ### Common gotcha
 
 1. Dont use our project uses yarn instead of `npm`. *Dont use `npm` commands*

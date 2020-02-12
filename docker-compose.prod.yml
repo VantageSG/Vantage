@@ -29,7 +29,10 @@ services:
       - "3306:3306"
     volumes:
       - mysql-datavolume:/var/lib/mysql
-    env_file: .env.prod.docker
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
 volumes:
   mysql-datavolume:
   assets:

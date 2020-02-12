@@ -7,7 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     volumes:
-      - .:/myapp
       - assets:/usr/share/nginx/html
       - configs:/etc/nginx/conf.d
     ports:

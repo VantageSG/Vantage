@@ -1,6 +1,6 @@
 FROM ruby:2.6.4
 
-WORKDIR /myapp
+WORKDIR /usr/src/app
 
 RUN apt-get update && apt-get install -y curl gnupg
 

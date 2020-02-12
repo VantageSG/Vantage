@@ -5,8 +5,8 @@ services:
   web:
     build: .
     volumes:
-      - .:/myapp
-      - /myapp/tmp/pids
+      - .:/usr/src/app
+      - /usr/src/app/tmp/pids
       - bundle-datavolume:/usr/local/bundle
     ports:
       - "3000:3000"
@@ -19,7 +19,7 @@ services:
       sh -c "yarn &&
              bin/webpack-dev-server"
     volumes:
-      - .:/myapp
+      - .:/usr/src/app
       - node-datavolume:/myapp/node_modules
     ports:
       - "8080:8080"

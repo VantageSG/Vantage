@@ -21,8 +21,20 @@ const aboutSchema = {
   name: "",
   email: "",
   contactNumber: "",
+  aboutMe1: "",
+  aboutMe2: "",
+  aboutMe3: "",
+  aboutMe4: ""
+};
+
+// Create new object with only 1 aboutMe field
+const newAbout = {
+  name: "",
+  email: "",
+  contactNumber: "",
   aboutMe: ""
 };
+
 export default class About extends Component {
   constructor(props) {
     super(props);
@@ -84,8 +96,26 @@ export default class About extends Component {
     this.getDbAbout();
   }
 
+  populateAboutState =() => {
+    let aboutMe = "";
+
+    // Populate newAbout and concatenate aboutMe1 to aboutMe4
+    Object.entries(this.state.about).map(([name, value]) => {
+      if (name.includes("aboutMe")) {
+        aboutMe += value + " ";
+      } else {
+        newAbout[name] = value;
+      }
+    })
+
+    // Populate newAbout with concatenated aboutMe
+    newAbout.aboutMe = aboutMe;
+    console.log(newAbout);
+    return decamelizeKeysDeep(newAbout);
+  }
+
   nextStepWApiReq = () => {
-    let about = decamelizeKeysDeep(this.state.about);
+    let about = this.populateAboutState();
     postForm("about", about, this.context.user.id, this.props.nextStep);  
   };
 
@@ -135,7 +165,7 @@ export default class About extends Component {
                   onChange={this.handleFormChange}
                 />
                 <Header
-                  as="h4"
+                  as="h3"
                   style={{ display: "inline-block", paddingRight: "0.5em" }}
                 >
                   Describe yourself
@@ -145,10 +175,42 @@ export default class About extends Component {
                   any interesting things you notice about the world around you"
                   trigger={<Icon name="question circle" />}
                 />
+                <Header as="h4">
+                  How would you introduce yourself in a few words?
+                </Header>
                 <TextArea
-                  placeholder="About Me"
-                  name="aboutMe"
-                  value={aboutValues.aboutMe}
+                  placeholder=""
+                  name="aboutMe1"
+                  value={aboutValues.aboutMe1}
+                  onChange={this.handleFormChange}
+                />
+                <Header as="h4">
+                  What’s the most important thing you would
+                    want the recruiter to know about you?
+                </Header>
+                <TextArea
+                  placeholder=""
+                  name="aboutMe2"
+                  value={aboutValues.aboutMe2}
+                  onChange={this.handleFormChange}
+                />
+                <Header as="h4">
+                  What are you doing now and what 
+                    is it that you want to achieve with the opportunity?
+                </Header>
+                <TextArea
+                  placeholder=""
+                  name="aboutMe3"
+                  value={aboutValues.aboutMe3}
+                  onChange={this.handleFormChange}
+                />
+                <Header as="h4">
+                  How can you help the employer achieve their goals?
+                </Header>
+                <TextArea
+                  placeholder=""
+                  name="aboutMe4"
+                  value={aboutValues.aboutMe4}
                   onChange={this.handleFormChange}
                 />
               </Form>

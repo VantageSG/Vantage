@@ -51,4 +51,3 @@ test:
 production:
   <<: *default
   database: 'Vantage_production'
-  password: <%= ENV['VANTAGE_DATABASE_PASSWORD'] %>

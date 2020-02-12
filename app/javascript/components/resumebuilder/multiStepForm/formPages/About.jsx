@@ -176,7 +176,7 @@ export default class About extends Component {
                   trigger={<Icon name="question circle" />}
                 />
                 <Header as="h4">
-                  How would you introduce yourself in a few words?
+                  How would you describe your personality in a few words?
                 </Header>
                 <TextArea
                   placeholder=""

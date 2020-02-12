@@ -29,7 +29,8 @@ describe('Default About Page', () => {
   it('should have introduce Describe Yourself text', () => {
     expect(screen.getByText(/Describe yourself/i)).toBeInTheDocument();
   });
-  it('should have introduce Describe Yourself placeholder', () => {
-    expect(screen.getByPlaceholderText(/About Me/i)).toBeInTheDocument();
-  });
+  // No placeholder after adding additional 4 questions in About.jsx
+  // it('should have introduce Describe Yourself placeholder', () => {
+  //   expect(screen.getByPlaceholderText(/About Me/i)).toBeInTheDocument();
+  // });
 })

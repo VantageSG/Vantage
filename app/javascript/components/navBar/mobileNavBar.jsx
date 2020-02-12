@@ -1,3 +1,4 @@
+import UserContext from "../../contexts/UserContext";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -11,7 +12,6 @@ import {
   Sidebar,
   Visibility
 } from "semantic-ui-react";
-import UserContext from "../../contexts/UserContext";
 
 const getWidth = () => {
   const isSSR = typeof window === "undefined";
@@ -23,6 +23,8 @@ class MobileNavBar extends Component {
     super(props);
     this.state = {};
   }
+
+  static contextType = UserContext;
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false });
   handleToggle = () => this.setState({ sidebarOpened: true });
@@ -116,7 +118,5 @@ class MobileNavBar extends Component {
     );
   }
 }
-MobileNavBar.contextType = UserContext;
-
 
 export default MobileNavBar;

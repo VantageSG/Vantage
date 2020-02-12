@@ -1,3 +1,4 @@
+import UserContext from "../../contexts/UserContext";
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import {
@@ -10,7 +11,7 @@ import {
   Icon  
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-import UserContext from "../../contexts/UserContext";
+
 
 
 // Login Component that consists of Login Form

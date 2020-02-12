@@ -1,3 +1,10 @@
+
+export const UserContext = React.createContext({
+  isLoggedIn: false,
+  user: {},
+  login: () => {},
+  logout: () => {}
+})
 import React, { Component } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -9,7 +16,7 @@ import ResponsiveContainer from "./navBar/NavBar";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
-import UserContext from '../contexts/UserContext';
+
 
 
 // App implements routing and login/logout logic

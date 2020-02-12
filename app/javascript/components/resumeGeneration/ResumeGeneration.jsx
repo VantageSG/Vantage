@@ -1,3 +1,4 @@
+import UserContext from "./../../contexts/UserContext"
 import React, { Component } from "react";
 import {
   Segment,
@@ -22,7 +23,6 @@ import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
 import html2canvas from "html2canvas"
 import jsPDF from "jspdf";
-import UserContext from "./../../contexts/UserContext"
 import { Link, withRouter } from "react-router-dom";
 import '../../../assets/stylesheets/resume.css';
 

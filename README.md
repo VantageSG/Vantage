@@ -72,6 +72,10 @@ RAILS_ENV=test rake db:create db:schema:load
 3. `docker-compose -f docker-compose.prod.yml up -d --build --no-deps web`
 4. `docker-compose -f docker-compose.prod.yml restart webserver`
 
+If running app on the db for the first time execute the below command to start  
+```
+docker-compose -f docker-compose.prod.yml run web bundle exec rake db:setup db:migrate
+```
 ### Common gotcha
 
 1. Dont use our project uses yarn instead of `npm`. *Dont use `npm` commands*

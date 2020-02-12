@@ -1,3 +1,4 @@
+import UserContext from '../../../../contexts/UserContext'
 import React, { Component } from "react";
 import {
   Form,
@@ -9,7 +10,6 @@ import {
   TextArea,
 } from "semantic-ui-react";
 import axios from "axios";
-import UserContext from '../../../../contexts/UserContext'
 import FormActionButtons from "../frontEndUtil/FormActionButtons";
 import { Animated } from "react-animated-css";
 import { postForm, getEndPoint } from "./formApi";

@@ -24,22 +24,26 @@ class Interests extends React.Component {
             Interests
           </h1>
           <hr></hr>
-          {this.props.interests.map(
-              (interest, index) => {
-                return (
-                  <React.Fragment key={index} >                    
-                    <EditableLabel text={interest.name}
-                        inputWidth='200px'
-                        inputHeight='25px'                 
-                        onFocusOut={(name) => this.handleInterestsChange(
-                          {name: 'name', value: name}, index
-                          )}
-                    />
-                  </React.Fragment>              
-                );
+          <div className="interests">
+            <ul>
+              {this.props.interests.map(
+                  (interest, index) => {
+                    return (
+                      <li key={index} >
+                        <EditableLabel text={interest.name}
+                            inputWidth='200px'
+                            inputHeight='25px'                 
+                            onFocusOut={(name) => this.handleInterestsChange(
+                              {name: 'name', value: name}, index
+                              )}
+                        />
+                      </li>
+                    );
+                  }
+                )
               }
-            )
-          }
+            </ul>
+          </div>
         </div>
       );
   }

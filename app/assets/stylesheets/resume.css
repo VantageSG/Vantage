@@ -1,9 +1,12 @@
 .resume {
   background: #ffffff;
   font-family: 'Lato', helvetica, arial, sans-serif;
-  font-size: 16px;
+  font-size: 13px;
   color: #222;
   border: 1px solid #B4B4B4;
+  width: 21cm;
+  height: 29.7cm;
+  margin: auto;
 }
 
 .resumeBody {
@@ -11,28 +14,100 @@
 }
 
 .aboutSegment {
-  padding: 25px 35px;
+  padding: 35px;
 	border-bottom: 2px solid #B4B4B4;	
 }
 
 .aboutName {
-	font-size: 2.5em;
+	font-size: 2.7em;
 	font-weight: 700;
   font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-  padding-bottom: 0em;
+  padding: 15px;  
+}
+
+.contactDetails {
+  margin-left: 15px;
+  font-size: 1.2em;
+}
+
+.contactDetails div {
+  display: inline;
+}
+
+.contactDetails span {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .aboutMe {
-  font-size: 2.5em;
+  font-size: 1.3em;
+  padding-left: 15px;
+  padding-top: 15px;
 }
 
 .section {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .sectionHeader {
-  font-size: 1.4em;
-  font-weight: 400;
   font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-  margin: 0px
+	font-style: italic;
+	font-size: 1.5em;
+  color: #cf8a05;
+  margin-bottom: 6px;
+}
+
+.subsection {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-size: 1.5em;
+}
+
+.subsectionHeader {
+  margin-top: 10px;
+}
+
+.subsectionDetails {
+  font-size: 0.8em;
+	font-style: italic;  
+}
+
+.dateDetails {  
+  
+}
+
+.dateDetails span {
+  margin-left: 5px;
+  margin-right: 5px;  
+}
+
+.dateDetails div {
+  display: inline;
+}
+
+.workExperienceHeader div {
+  display: inline;
+}
+
+.workExperienceHeader span {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.workExperienceTitle {
+  font-style: italic;
+}
+
+.workAchievements {  
+  font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+}
+
+.interests {
+	list-style-type: none;	
+	font-size: 1.2em;
+	color: #444;
 }

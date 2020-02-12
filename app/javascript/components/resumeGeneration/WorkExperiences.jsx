@@ -28,43 +28,53 @@ class WorkExperiences extends React.Component {
         {this.props.workExperiences.map(
             (workExperience, index) => {
               return (
-                <React.Fragment key={index} >                  
-                  <EditableLabel text={workExperience.title}
+                <div className="subsection" key={index} >
+                  <div className="workExperienceHeader">
+                    <EditableLabel text={workExperience.company}
                       inputWidth='200px'
                       inputHeight='25px'                 
-                      onFocusOut={(title) => this.handleWorkExperiencesChange(
-                        {name: 'title', value: title}, index
+                      onFocusOut={(company) => this.handleWorkExperiencesChange(
+                        {name: 'company', value: company}, index
                         )}
-                  />
-                  <EditableLabel text={workExperience.company}
-                    inputWidth='200px'
-                    inputHeight='25px'                 
-                    onFocusOut={(company) => this.handleWorkExperiencesChange(
-                      {name: 'company', value: company}, index
-                      )}
-                  />
-                  <EditableLabel text={workExperience.start.toString()}
-                    inputWidth='200px'
-                    inputHeight='25px'                 
-                    onFocusOut={(start) => this.handleWorkExperiencesChange(
-                      {name: 'start', value: start}, index
-                      )}
-                  />
-                  <EditableLabel text={workExperience.end.toString()}
-                    inputWidth='200px'
-                    inputHeight='25px'                 
-                    onFocusOut={(end) => this.handleWorkExperiencesChange(
-                      {name: 'end', value: end}, index
-                      )}
-                  />
-                  <EditableLabel text={workExperience.achievements}
-                    inputWidth='200px'
-                    inputHeight='25px'                 
-                    onFocusOut={(achievements) => this.handleWorkExperiencesChange(
-                      {name: 'achievements', value: achievements}, index
-                      )}
-                  />
-                </React.Fragment>              
+                    />
+                    <span>|</span>
+                    <EditableLabel className="workExperienceTitle" text={workExperience.title}
+                        inputWidth='200px'
+                        inputHeight='25px'                 
+                        onFocusOut={(title) => this.handleWorkExperiencesChange(
+                          {name: 'title', value: title}, index
+                          )}
+                    />                    
+                  </div>
+                  <div className="subsectionDetails">
+                    <div className="dateDetails">
+                      <EditableLabel text={workExperience.start.toString()}
+                        inputWidth='200px'
+                        inputHeight='25px'                 
+                        onFocusOut={(start) => this.handleWorkExperiencesChange(
+                          {name: 'start', value: start}, index
+                          )}
+                      />
+                      <span>to</span>
+                      <EditableLabel text={workExperience.end.toString()}
+                        inputWidth='200px'
+                        inputHeight='25px'                 
+                        onFocusOut={(end) => this.handleWorkExperiencesChange(
+                          {name: 'end', value: end}, index
+                          )}
+                      />
+                    </div>
+                  </div>
+                  <div className="workAchievements">
+                    <EditableLabel text={workExperience.achievements}
+                      inputWidth='200px'
+                      inputHeight='25px'                 
+                      onFocusOut={(achievements) => this.handleWorkExperiencesChange(
+                        {name: 'achievements', value: achievements}, index
+                        )}
+                    />
+                  </div>
+                </div>
               );
             }
           )

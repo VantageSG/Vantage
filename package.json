@@ -17,7 +17,7 @@
     "html2pdf.js": "^0.9.1",
     "jest-junit": "^10.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
+    "react": "^16.7.0",
     "react-animated-css": "^1.2.1",
     "react-dom": "^16.12.0",
     "react-inline-editing": "^1.0.10",

@@ -17,7 +17,7 @@ import LoadingSpinner from "../../../util/LoadingSpinner";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import decamelizeKeysDeep from "decamelize-keys-deep";
 
-const aboutSchema = {
+const aboutSchemaWQns = {
   name: "",
   email: "",
   contactNumber: "",
@@ -28,7 +28,7 @@ const aboutSchema = {
 };
 
 // Create new object with only 1 aboutMe field
-const newAbout = {
+const aboutSchema = {
   name: "",
   email: "",
   contactNumber: "",
@@ -40,7 +40,7 @@ export default class About extends Component {
     super(props);
     this.state = {
       dataLoaded: false,
-      about: aboutSchema,
+      about: aboutSchemaWQns,
       isLoading: false
     };
   }
@@ -104,14 +104,14 @@ export default class About extends Component {
       if (name.includes("aboutMe")) {
         aboutMe += value + " ";
       } else {
-        newAbout[name] = value;
+        aboutSchema[name] = value;
       }
     })
 
-    // Populate newAbout with concatenated aboutMe
-    newAbout.aboutMe = aboutMe;
-    console.log(newAbout);
-    return decamelizeKeysDeep(newAbout);
+    // Populate aboutSchema with concatenated aboutMe
+    aboutSchema.aboutMe = aboutMe;
+    console.log(aboutSchema);
+    return decamelizeKeysDeep(aboutSchema);
   }
 
   nextStepWApiReq = () => {

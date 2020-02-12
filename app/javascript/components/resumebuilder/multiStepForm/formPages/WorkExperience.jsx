@@ -22,7 +22,7 @@ import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
 
-const workExperienceSchema = {
+const workExperienceSchemaWQns = {
   title: "",
   company: "",
   start: "",
@@ -33,7 +33,7 @@ const workExperienceSchema = {
 };
 
 // Create object with only 1 achievement field
-const newWorkExperience = {
+const workExperienceSchema = {
   title: "",
   company: "",
   start: "",
@@ -45,7 +45,7 @@ const newWorkExperience = {
 export default class WorkExperience extends Component {
   constructor(props) {
     super(props);
-    var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
+    var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchemaWQns)
     this.state = {
       workExperiences: [cloneWorkExperienceSchema],
       user: {},
@@ -102,14 +102,14 @@ export default class WorkExperience extends Component {
       if (name.includes("achievements")) {
         achievements += value + " ";
       } else {
-        newWorkExperience[name] = value;
+        workExperienceSchema[name] = value;
       }
     })
 
-    // Populate newWorkExperience with concatenated achievements
-    newWorkExperience.achievements = achievements;
+    // Populate workExperienceSchema with concatenated achievements
+    workExperienceSchema.achievements = achievements;
 
-    return decamelizeKeysDeep([Object.assign({}, newWorkExperience)]);
+    return decamelizeKeysDeep([Object.assign({}, workExperienceSchema)]);
   }
 
   nextStepWApiReq = () => {

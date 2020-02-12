@@ -21,7 +21,6 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 ### Instructions for docker installation on MAC
 
 1. download docker app from [dockerhub](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
-2. That's all.
 
 2. Run docker containers
 ```

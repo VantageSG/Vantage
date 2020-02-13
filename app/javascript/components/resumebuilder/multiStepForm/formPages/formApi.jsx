@@ -14,7 +14,7 @@ function getForm(vrsAttribute, userID) {
 }
 
 function getEndPoint(vrsAttribute, userID) {
-  return process.env.BACKEND_PORT + "/api/v1/vrs/" + parseInt(userID, 10) + "/" + vrsAttribute;
+  return process.env.BACKEND_SOCKET + "/api/v1/vrs/" + parseInt(userID, 10) + "/" + vrsAttribute;
 }
 
 function postForm(vrsAttribute, vrsValue ,userID, callBack) {

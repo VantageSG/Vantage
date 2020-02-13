@@ -1,3 +1,4 @@
+import UserContext from '../../../../contexts/UserContext'
 import React, { Component } from "react";
 import {
   Form,
@@ -17,7 +18,6 @@ import { Animated } from "react-animated-css";
 import axios from "axios";
 import {postForm, getEndPoint} from "./formApi"
 import LoadingSpinner from "../../../util/LoadingSpinner";
-import UserContext from '../../../../contexts/UserContext'
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';

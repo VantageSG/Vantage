@@ -1,0 +1,39 @@
+
+@@ -0,0 +1,37 @@
+ # minimal Rails specific artifacts
+ db/*.sqlite3
+ db/data.yml
+ db/*.gz
+ db/*.sql
+ /log/*.log
+ /log/*.Log
+
+  # Ignore everything in tmp except for cache folder
+ /tmp/capybara
+ /tmp/parallel_runtime_rspec.log
+ /tmp/pids
+ /tmp/sessions
+ /tmp/sockets
+ /tmp/success.png
+
+  # vim artifacts
+ tags
+ **.swp
+ **.swo
+ /*.sql
+
+  # For Yarn/npm
+ node_modules/*
+ client_app/node_modules/*
+ client_app/dist/*
+ client_app/stats.json
+
+  # bundler state
+ .bundle
+ vendor/bundle/
+ public/assets
+ public/packs-test
+ public/system
+
+  # Rufus-Scheduler
+ .rufus-scheduler.lock

@@ -1,4 +1,3 @@
-import UserContext from '../../contexts/UserContext';
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -12,6 +11,7 @@ import {
   Segment,
   Visibility
 } from "semantic-ui-react";
+import UserContext from '../../contexts/UserContext';
 import "./layout.css";
 
 
@@ -26,7 +26,6 @@ class DesktopNavBar extends Component {
     super(props);
     this.state = {};
   }
-  static contextType = UserContext;
 
   hideFixedMenu = () => this.setState({ fixed: false });
   showFixedMenu = () => this.setState({ fixed: true });
@@ -125,6 +124,6 @@ class DesktopNavBar extends Component {
     );
   }
 }
-
+DesktopNavBar.contextType = UserContext;
 
 export default DesktopNavBar;

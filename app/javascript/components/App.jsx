@@ -1,10 +1,4 @@
-
-export const UserContext = React.createContext({
-  isLoggedIn: false,
-  user: {},
-  login: () => {},
-  logout: () => {}
-})
+import UserContext from "./../contexts/UserContext"
 import React, { Component } from "react";
 import axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";

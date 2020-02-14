@@ -1,0 +1,13 @@
+.selector-cat {
+    border: 1px outset orange;
+    border-radius: 0 !important;
+    background-color: #cec9c9;
+    /*height:50px;
+    width:50px;*/
+    cursor:pointer;
+}
+
+.selector-cat:hover {
+   background-color: blue !important;
+    color:white !important;
+}

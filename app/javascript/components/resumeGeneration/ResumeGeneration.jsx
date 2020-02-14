@@ -22,7 +22,6 @@ import WorkExperiences from "./WorkExperiences";
 import Skills from "./Skills";
 import Interests from "./Interests";
 import { Container as DndContainer, Draggable } from "react-smooth-dnd";
-import UserContext from "./../../contexts/UserContext";
 import { Link, withRouter } from "react-router-dom";
 import "../../../assets/stylesheets/resume.css";
 

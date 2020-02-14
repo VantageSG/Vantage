@@ -11,8 +11,6 @@ import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
 import ResumeSelector from '../components/resumebuilder/ResumeSelector';
-import UserContext from '../contexts/UserContext';
-
 
 // App implements routing and login/logout logic
 class App extends Component {

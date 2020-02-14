@@ -1,5 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
-process.env.BACKEND_PORT = process.env.BACKEND_PORT  || 'back_end_domain'
+process.env.BACKEND_SOCKET = process.env.BACKEND_SOCKET  || '0.0.0.0'
 
 
 const environment = require('./environment')

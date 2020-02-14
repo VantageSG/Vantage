@@ -1,8 +1,8 @@
+import UserContext from "../../../../app/javascript/contexts/UserContext";
 import React from "react";
 import ResponsiveContainer from "components/navBar/NavBar.jsx";
 import "@testing-library/jest-dom/extend-expect";
 import { renderWithRouter, setMobileWindow } from "../../test-utils";
-import UserContext from "../../../../app/javascript/contexts/UserContext";
 import { cleanup } from "@testing-library/react";
 
 describe("Mobile devise", () => {

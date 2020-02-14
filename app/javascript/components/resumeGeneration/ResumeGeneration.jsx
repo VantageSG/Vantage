@@ -1,3 +1,4 @@
+import UserContext from "./../../contexts/UserContext"
 import React, { Component } from "react";
 import {
   Segment,

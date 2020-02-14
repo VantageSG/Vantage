@@ -1,3 +1,4 @@
+import UserContext from '../../../../contexts/UserContext'
 import React, { Component } from "react";
 import {
   Form,
@@ -17,7 +18,6 @@ import { Animated } from "react-animated-css";
 import axios from "axios";
 import {postForm, getEndPoint} from "./formApi"
 import LoadingSpinner from "../../../util/LoadingSpinner";
-import UserContext from '../../../../contexts/UserContext'
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
@@ -136,12 +136,15 @@ export default class Skills extends Component {
                       value={skills.name}
                       onChange={(event) => this.handleFormChange(event, index)}
                       />
-                    <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                    <Header as="h3" style={{display:"inline-block", paddingRight:"0.5em"}}>
                       Describe your skill</Header>
                     <Popup content="Tell us how you picked up the skill and
                       what you love about being able to do this! 
                       [e.g. Volunteering experience/language proficiency/certifications/hobby]"
                       trigger={<Icon name="question circle" />} />
+                    <Header as="h4">
+                      How do you think this will stand out to the recruiter?
+                    </Header>
                     <TextArea
                       placeholder="Describe it"
                       name="description"

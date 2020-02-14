@@ -1,3 +1,4 @@
+import UserContext from "../../contexts/UserContext";
 import React, { Component } from "react";
 import {
   Button,
@@ -10,7 +11,7 @@ import {
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 import { withRouter } from "react-router-dom";
-import UserContext from "../../contexts/UserContext";
+
 
 class Signup extends Component {
   constructor(props) {

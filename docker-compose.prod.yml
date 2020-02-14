@@ -1,0 +1,41 @@
+version: "3"
+services:
+  # For installing gems:
+  # docker-compose run --rm web bundle install --jobs 20 --retry 5
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+    volumes:
+      - assets:/usr/share/nginx/html
+      - configs:/etc/nginx/conf.d
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - webserver
+    env_file: .env.prod.docker
+  webserver:
+    image: "nginx:1.11.8"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - assets:/usr/share/nginx/html
+      - configs:/etc/nginx/conf.d
+  mysql:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+volumes:
+  mysql-datavolume:
+  assets:
+    external: false
+  configs:
+    external: false

@@ -1,3 +1,4 @@
+import UserContext from '../../../../contexts/UserContext'
 import React, { Component } from "react";
 import {
   Form,
@@ -17,11 +18,21 @@ import { Animated } from "react-animated-css";
 import axios from "axios";
 import {postForm, getEndPoint} from "./formApi"
 import LoadingSpinner from "../../../util/LoadingSpinner";
-import UserContext from '../../../../contexts/UserContext'
 import { isEmpty } from "../../../util/Props"
 import camelcaseKeysDeep from 'camelcase-keys-deep';
 import decamelizeKeysDeep from 'decamelize-keys-deep';
 
+const workExperienceSchemaWQns = {
+  title: "",
+  company: "",
+  start: "",
+  end: "",
+  achievements1: "",
+  achievements2:"",
+  referees: [],
+};
+
+// Create object with only 1 achievement field
 const workExperienceSchema = {
   title: "",
   company: "",
@@ -29,12 +40,12 @@ const workExperienceSchema = {
   end: "",
   achievements: "",
   referees: [],
-}
+};
 
 export default class WorkExperience extends Component {
   constructor(props) {
     super(props);
-    var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchema)
+    var cloneWorkExperienceSchema = Object.assign({}, workExperienceSchemaWQns)
     this.state = {
       workExperiences: [cloneWorkExperienceSchema],
       user: {},
@@ -83,13 +94,33 @@ export default class WorkExperience extends Component {
     this.getWorkExperiences();
   }
 
+  populateEducationState =() => {
+    let achievements = "";
+
+    // Populate newWorkExperiences and concatenate achievements1 to 2
+    Object.entries(this.state.workExperiences[0]).map(([name, value]) => {
+      if (name.includes("achievements")) {
+        achievements += value + " ";
+      } else {
+        workExperienceSchema[name] = value;
+      }
+    })
+
+    // Populate workExperienceSchema with concatenated achievements
+    workExperienceSchema.achievements = achievements;
+
+    return decamelizeKeysDeep([Object.assign({}, workExperienceSchema)]);
+  }
+
   nextStepWApiReq = () => {
-    let workExperiences = decamelizeKeysDeep(this.state.workExperiences);
+    let workExperiences = this.populateEducationState();
+    console.log(workExperiences);
     postForm('workExperiences', 
     workExperiences, 
     this.context.user.id, 
     this.props.nextStep)
   }
+
 
   handleFormChange(event, index){
     const { name, value } = event.target;
@@ -173,16 +204,27 @@ export default class WorkExperience extends Component {
                         onChange={(event) => this.handleFormChange(event, index)}
                       />
                     </Form.Group>
-                    <Header as="h4" style={{display:"inline-block", paddingRight:"0.5em"}}>
+                    <Header as="h3" style={{display:"inline-block", paddingRight:"0.5em"}}>
                       Achievements</Header>
-                    <Popup content="Tell us about any challenges, big or small, that you faced
-                      at work and how you overcomed them! Were there any tangible outcomes achieved?
-                      [e.g. Decreased cost expenditure by 65% through elimination of low priority projects.]"
+                    <Popup content="It's better to start with verbs! e.g. Decreased cost 
+                    expenditure by 65% through elimination of low priority projects."
                       trigger={<Icon name="question circle" />} />
+                    <Header as="h4">
+                      Briefly share key issues you faced and how you overcame this challenge.
+                    </Header>
                     <TextArea
-                      placeholder="Achievements"
-                      name="achievements"
-                      value={workExperience.achievements}
+                      placeholder=""
+                      name="achievements1"
+                      value={workExperience.achievements1}
+                      onChange={(event) => this.handleFormChange(event, index)}
+                    />
+                    <Header as="h4">
+                      Were there any significant outcomes of your experience?
+                    </Header>
+                    <TextArea
+                      placeholder=""
+                      name="achievements2"
+                      value={workExperience.achievements2}
                       onChange={(event) => this.handleFormChange(event, index)}
                     />
                   </Form>

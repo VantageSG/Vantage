@@ -7,9 +7,12 @@ import {
   Container,
   Card,
   Segment,
-  Button
+  Button,
+  Label
+
 } from "semantic-ui-react";
 import "./category.css";
+import {Link, withRouter} from "react-router-dom"
 
 const ResumeSelectorButton = props => {
   return (
@@ -26,7 +29,7 @@ class ResumeSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: ["white", "white", "white", "white", "white", "white"],
+      color: ["red", "red", "red", "red", "red", "red"],
       choices: ["test"]
     };
   }
@@ -81,6 +84,11 @@ class ResumeSelector extends Component {
       choices: Array.from(array[1])
     });
   };
+
+  goToResumeBuilder = () => {
+    this.props.history.push('/resume-builder');
+  
+  }
 
   render() {
     return (
@@ -169,7 +177,7 @@ class ResumeSelector extends Component {
                   );
                 })}
               </Card>
-              <Button attached='bottom'>Go To Resume Builder</Button>
+              <Button attached='bottom' onClick={this.goToResumeBuilder}>Go To Resume Builder</Button>
             </Grid.Column>
           </Grid>
         </Segment>
@@ -179,4 +187,4 @@ class ResumeSelector extends Component {
 }
 
 ResumeSelector.contextType = UserContext;
-export default ResumeSelector;
+export default withRouter(ResumeSelector);

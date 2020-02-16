@@ -83,7 +83,10 @@ class DesktopNavBar extends Component {
                     </Menu.Item>                   
                     <Menu.Item as={Link} to="/resume-builder" fitted>
                       Resume Builder
-                    </Menu.Item>                                          
+                    </Menu.Item>  
+                    <Menu.Item as={Link} to="/resume-selector" fitted>
+                      Resume selector
+                    </Menu.Item>                                         
                   </Menu>
                 </Grid.Column>
                 <Grid.Column textAlign="left">

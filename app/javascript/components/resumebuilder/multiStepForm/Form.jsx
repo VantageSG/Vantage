@@ -8,42 +8,57 @@ import Interests from "./formPages/Interests";
 import ConfirmationPage from "./formPages/ConfirmationPage";
 
 const StepIndicator = props => {
-  const { step, stepLink } = props;
+  const { vrsComponents, step, stepLink } = props;
+
+  const nameComponentMap = new Object();
+  nameComponentMap["about"] = (
+    <Step key="about" link active={step == 0 ? true : false} onClick={stepLink.goToAboutMe} >
+      <Step.Content>
+        <Step.Title>About Me</Step.Title>
+        <Step.Description>Tell us about yourself!</Step.Description>
+      </Step.Content>
+    </Step>
+    )
+  nameComponentMap["educations"] = (
+    <Step key="educations" active={step == 1 ? true : false} onClick={stepLink.goToEducation}>
+      <Step.Content>
+        <Step.Title>Education</Step.Title>
+        <Step.Description>List your Education!</Step.Description>
+      </Step.Content>
+    </Step>
+  )
+  nameComponentMap["workExperiences"] = (
+    <Step key="workExperiences" active={step == 2 ? true : false} onClick={stepLink.goToWorkExperience}>
+      <Step.Content>
+        <Step.Title>Work Experience</Step.Title>
+        <Step.Description>Past Work Experience</Step.Description>
+      </Step.Content>
+    </Step>
+  )
+  nameComponentMap["skills"] = (
+    <Step key="skills" active={step == 3 ? true : false} onClick={stepLink.goToSkills}>
+      <Step.Content>
+        <Step.Title>Skills</Step.Title>
+        <Step.Description>Share your skills</Step.Description>
+      </Step.Content>
+    </Step>
+  )
+  nameComponentMap["interests"] = (
+    <Step key="interests" active={step == 4 ? true : false } onClick={stepLink.goToInterests}>
+      <Step.Content>
+        <Step.Title>Interests</Step.Title>
+        <Step.Description>What Hobbies do you have?</Step.Description>
+      </Step.Content>
+    </Step>
+  )
+
   return (
-  
-
     <Step.Group fluid size="tiny"  widths={6} ordered>
-      <Step link active={step == 0 ? true : false} onClick={stepLink.goToAboutMe} >
-        <Step.Content>
-          <Step.Title>About Me</Step.Title>
-          <Step.Description>Tell us about yourself!</Step.Description>
-        </Step.Content>
-      </Step>
-      <Step active={step == 1 ? true : false} onClick={stepLink.goToEducation}>
-        <Step.Content>
-          <Step.Title>Education</Step.Title>
-          <Step.Description>List your Education!</Step.Description>
-        </Step.Content>
-      </Step>
-
-      <Step active={step == 2 ? true : false} onClick={stepLink.goToWorkExperience}>
-        <Step.Content>
-          <Step.Title>Work Experience</Step.Title>
-          <Step.Description>Past Work Experience</Step.Description>
-        </Step.Content>
-      </Step>
-      <Step active={step == 3 ? true : false} onClick={stepLink.goToSkills}>
-        <Step.Content>
-          <Step.Title>Skills</Step.Title>
-          <Step.Description>Share your skills</Step.Description>
-        </Step.Content>
-      </Step>
-      <Step active={step == 4 ? true : false } onClick={stepLink.goToInterests}>
-        <Step.Content>
-          <Step.Title>Interests</Step.Title>
-          <Step.Description>What Hobbies do you have?</Step.Description>
-        </Step.Content>
-      </Step>
+      {vrsComponents.map(
+        componentName => (
+          nameComponentMap[componentName]
+        )
+      )}
       <Step active={step == 5 ? true : false} onClick={stepLink.goToConfirmation} >
         <Step.Content>
           <Step.Title>Confirmation</Step.Title>
@@ -151,6 +166,7 @@ export default class FormStep extends Component {
     goToInterests: this.goToInterests,goToSkills: this.goToSkills,goToConfirmation: this.goToConfirmation }
 
     const { step, maxStep } = this.state;
+    const vrsComponents = this.props.vrsComponents;
 
     const { name, email, contactNumber, aboutMe } = this.state;
     const aboutValues = { name, email, contactNumber, aboutMe };
@@ -194,7 +210,7 @@ export default class FormStep extends Component {
         case 0:
           return (
             <React.Fragment>
-              <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
+              <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
               <Container text>
                 <About
                   submitAndContinue={this.submitAndContinue}
@@ -210,7 +226,7 @@ export default class FormStep extends Component {
         case 1:
           return (
             <React.Fragment> 
-                <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
+                <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
               <Container text>
           
             <Education
@@ -226,7 +242,7 @@ export default class FormStep extends Component {
         case 2:
           return (
             <React.Fragment> 
-            <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
+            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
             <Container text>
               
               <WorkExperience
@@ -242,7 +258,7 @@ export default class FormStep extends Component {
         case 3:
           return (
             <React.Fragment> 
-            <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
+            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
             <Container text>
               
               <Skills
@@ -259,7 +275,7 @@ export default class FormStep extends Component {
         case 4:
           return (
             <React.Fragment> 
-            <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
+            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
             <Container text>
               <Interests
                 submitAndContinue={this.submitAndContinue}
@@ -275,9 +291,10 @@ export default class FormStep extends Component {
         case 5:
           return (
             <React.Fragment> 
-            <StepIndicator step={step} stepLink={stepLink}></StepIndicator>
+            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
             <Container text>
               <ConfirmationPage
+                updateSelectComponents={this.props.updateSelectComponents}
                 submitAndContinue={this.submitAndContinue}
                 step={step}
                 maxStep={maxStep}
@@ -291,13 +308,8 @@ export default class FormStep extends Component {
               ></ConfirmationPage>
             </Container>
             </React.Fragment>
-          );
-
-       
-        
-      }
-
-      
+          ); 
+      }    
     }
   }
 }

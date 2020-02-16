@@ -28,10 +28,18 @@ const ResumeSelectorButton = props => {
 class ResumeSelector extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      color: ["red", "red", "red", "red", "red", "red"],
-      choices: ["test"]
+    this.state = {      
+      choices: this.props.vrsComponents.length > 0 ? this.props.vrsComponents : ["about"]
     };
+    console.log(this.state.choices)
+    console.log(this.state.choices.includes("interests"))
+    this.state.color = [
+      "green",
+      this.state.choices.includes("educations") ? "green" : "red",
+      this.state.choices.includes("workExperiences") ? "green" : "red",
+      this.state.choices.includes("skills") ? "green" : "red",
+      this.state.choices.includes("interests") ? "green" : "red",
+    ]
   }
 
   /* Functions to handle on change */
@@ -86,8 +94,8 @@ class ResumeSelector extends Component {
   };
 
   goToResumeBuilder = () => {
-    this.props.history.push('/resume-builder');
-  
+    this.props.updateSelectComponents(false);
+    this.props.selectVrsComponents(this.state.choices);
   }
 
   render() {
@@ -109,14 +117,7 @@ class ResumeSelector extends Component {
           <Grid columns={2} container relaxed="very">
             <Grid.Column>
               <Grid.Row>
-                <Grid columns="2">
-                  <Grid.Column>
-                    <ResumeSelectorButton
-                      color={this.state.color[0]}
-                      label="About Me"
-                      onClick={() => this.onAboutChange(0, this.state.color[0])}
-                    ></ResumeSelectorButton>
-                  </Grid.Column>
+                <Grid columns="2">                  
                   <Grid.Column>
                     <ResumeSelectorButton
                       color={this.state.color[1]}
@@ -124,18 +125,18 @@ class ResumeSelector extends Component {
                       onClick={() => this.onEducationChange(1)}
                     ></ResumeSelectorButton>
                   </Grid.Column>
-                </Grid>
-              </Grid.Row>
-
-              <Grid.Row>
-                <Grid columns="equal">
-                  <Grid.Column>
+                  <Grid.Column> 
                     <ResumeSelectorButton
                       color={this.state.color[2]}
                       label="Work Experiences"
                       onClick={() => this.onWorkExperiencesChange(2)}
                     ></ResumeSelectorButton>
                   </Grid.Column>
+                </Grid>
+              </Grid.Row>
+
+              <Grid.Row>
+                <Grid columns="equal">
                   <Grid.Column>
                     <ResumeSelectorButton
                       color={this.state.color[3]}
@@ -143,22 +144,11 @@ class ResumeSelector extends Component {
                       onClick={() => this.onSkillsChange(3)}
                     ></ResumeSelectorButton>
                   </Grid.Column>
-                </Grid>
-              </Grid.Row>
-
-              <Grid.Row>
-                <Grid columns="equal">
                   <Grid.Column>
                     <ResumeSelectorButton
                       color={this.state.color[4]}
-                      label="interest"
+                      label="Interests"
                       onClick={() => this.onInterestsChange(4)}
-                    ></ResumeSelectorButton>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <ResumeSelectorButton
-                      label="extra"
-                      disabled
                     ></ResumeSelectorButton>
                   </Grid.Column>
                 </Grid>
@@ -171,13 +161,13 @@ class ResumeSelector extends Component {
                 </Card.Header>
                 {this.state.choices.map((val, index) => {
                   return (
-                    <Segment style={{marginTop: "0", marginBottom: "0"}}>
+                    <Segment key={index} style={{marginTop: "0", marginBottom: "0"}}>
                       <Segment.Inline>{val}</Segment.Inline>
                     </Segment>
                   );
                 })}
               </Card>
-              <Button attached='bottom' onClick={this.goToResumeBuilder}>Go To Resume Builder</Button>
+              <Button attached='bottom' onClick={this.goToResumeBuilder}>Build my Resume</Button>
             </Grid.Column>
           </Grid>
         </Segment>

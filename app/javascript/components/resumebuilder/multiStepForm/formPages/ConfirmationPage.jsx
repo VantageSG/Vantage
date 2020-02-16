@@ -105,7 +105,8 @@ export default class ConfirmationPage extends Component {
         <Container textAlign="center">
           <Animated animationIn={"fadeIn"} animationOut="fadeOut">
             <List relaxed="very">
-              <Header>Confirmation page</Header>
+              <Header>Review your information</Header>
+              <Button onClick={() => this.props.updateSelectComponents(true)} >Add/remove components</Button>
               <Segment textAlign="left">
                 <Header>About Me</Header>
                 <List.List>

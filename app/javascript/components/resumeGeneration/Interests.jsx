@@ -31,7 +31,7 @@ class Interests extends React.Component {
                     return (
                       <li key={index} >
                         <EditableLabel text={interest.name}
-                            inputWidth='200px'
+                            inputWidth='350px'
                             inputHeight='25px'                 
                             onFocusOut={(name) => this.handleInterestsChange(
                               {name: 'name', value: name}, index

@@ -31,7 +31,7 @@ class WorkExperiences extends React.Component {
                 <div className="subsection" key={index} >
                   <div className="workExperienceHeader">
                     <EditableLabel text={workExperience.company}
-                      inputWidth='200px'
+                      inputWidth='350px'
                       inputHeight='25px'                 
                       onFocusOut={(company) => this.handleWorkExperiencesChange(
                         {name: 'company', value: company}, index
@@ -39,7 +39,7 @@ class WorkExperiences extends React.Component {
                     />
                     <span>|</span>
                     <EditableLabel className="workExperienceTitle" text={workExperience.title}
-                        inputWidth='200px'
+                        inputWidth='350px'
                         inputHeight='25px'                 
                         onFocusOut={(title) => this.handleWorkExperiencesChange(
                           {name: 'title', value: title}, index
@@ -49,7 +49,7 @@ class WorkExperiences extends React.Component {
                   <div className="subsectionDetails">
                     <div className="dateDetails">
                       <EditableLabel text={workExperience.start.toString()}
-                        inputWidth='200px'
+                        inputWidth='80px'
                         inputHeight='25px'                 
                         onFocusOut={(start) => this.handleWorkExperiencesChange(
                           {name: 'start', value: start}, index
@@ -57,8 +57,8 @@ class WorkExperiences extends React.Component {
                       />
                       <span>to</span>
                       <EditableLabel text={workExperience.end.toString()}
-                        inputWidth='200px'
-                        inputHeight='25px'                 
+                        inputWidth='80px'
+                        inputHeight='25px'
                         onFocusOut={(end) => this.handleWorkExperiencesChange(
                           {name: 'end', value: end}, index
                           )}
@@ -67,7 +67,7 @@ class WorkExperiences extends React.Component {
                   </div>
                   <div className="workAchievements">
                     <EditableLabel text={workExperience.achievements}
-                      inputWidth='200px'
+                      inputWidth='720px'
                       inputHeight='25px'                 
                       onFocusOut={(achievements) => this.handleWorkExperiencesChange(
                         {name: 'achievements', value: achievements}, index

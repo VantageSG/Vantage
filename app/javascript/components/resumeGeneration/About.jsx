@@ -23,8 +23,8 @@ class About extends React.Component {
             <div className="aboutName">
               <EditableLabel text={this.props.about.name}
                   isEditing={false}
-                  inputWidth='200px'
-                  inputHeight='25px'                 
+                  inputWidth='700px'
+                  inputHeight='35px'
                   onFocusOut={(name) => this.handleAboutChange('name', name)}
               />            
             </div>
@@ -32,7 +32,7 @@ class About extends React.Component {
               <div>
                 <EditableLabel text={this.props.about.email}
                   inputWidth='200px'
-                  inputHeight='25px'                         
+                  inputHeight='25px'
                   onFocusOut={(email) => this.handleAboutChange('email', email)}
                 />
               </div>
@@ -49,7 +49,8 @@ class About extends React.Component {
           <div className="aboutMe">            
             <EditableLabel text={this.props.about.aboutMe}
                 inputWidth='700px'
-                inputHeight='50px'                                               
+                inputHeight='30px'
+                inputClassName="inputBorderless"
                 onFocusOut={(aboutMe) => this.handleAboutChange('aboutMe', aboutMe)}              
             />            
           </div>

@@ -52,8 +52,8 @@ RSpec.describe Api::V1::Resumes::AboutsController, type: :request do
         "about": {
           "name": "USER'S FULL NAME: str",
           "email": "notanemail",
-          "contactNumber": "123456789",
-          "aboutMe": "SHORT WRITE UP OF USER: str"
+          "contact_Number": "123456789",
+          "about_Me": "SHORT WRITE UP OF USER: str"
         }
       }
     end

@@ -6,6 +6,7 @@ import WorkExperience from "./formPages/WorkExperience";
 import Skills from "./formPages/Skills";
 import Interests from "./formPages/Interests";
 import ConfirmationPage from "./formPages/ConfirmationPage";
+import LoadingSpinner from "../../util/LoadingSpinner";
 
 const StepIndicator = props => {
   const { vrsComponents, step, stepLink, maxStep } = props;
@@ -89,16 +90,11 @@ const StepIndicator = props => {
 };
 
 export default class FormStep extends Component {
-  // 0 - About me
-  // 1 - Edu
-  // 2 - work Exp
-  // 3 - skills
-  // 4 - interest
-  // 5 - confirmation page
   constructor(props) {
     super(props);
     this.state = {
-      formBody: [],
+      isLoading: false,
+      formBody: [<React.Fragment></React.Fragment>],
       maxStep: this.props.vrsComponents.length,
       step: 0, // initial always zero
       /// about me
@@ -186,21 +182,205 @@ export default class FormStep extends Component {
   };
 
   componentDidMount = () => {
-    console.log(this.state.maxStep);
-  };
-
-  render() {
     const arr = this.props.vrsComponents;
-    let temp = [];
+    let indexedMap = [];
+
     arr.map((val, index) => {
       let obj = {};
       obj[index] = val;
-      temp.push(obj);
+      indexedMap.push(obj);
     });
 
-    console.log(temp);
+    // [{0:about}, {1:workex},{2:edu}]
 
-    return <React.Fragment>{}</React.Fragment>;
+    const stepBar = this.getProgressBarByName(this.props.vrsComponents);
+
+    this.getFormComponentByName(stepBar, indexedMap);
+
+    this.setState({ isLoading: false });
+  };
+
+  getProgressBarByName = vrsComponents => {
+    let nameComponentMap = new Object();
+
+    nameComponentMap["about"] = (
+      <Step
+        key="about"
+        link
+        //active={step == 0 ? true : false}
+        //onClick={stepLink.goToAboutMe}
+      >
+        <Step.Content>
+          <Step.Title>About Me</Step.Title>
+          <Step.Description>Tell us about yourself!</Step.Description>
+        </Step.Content>
+      </Step>
+    );
+    nameComponentMap["educations"] = (
+      <Step
+        key="educations"
+        //active={step == 1 ? true : false}
+        // onClick={stepLink.goToEducation}
+      >
+        <Step.Content>
+          <Step.Title>Education</Step.Title>
+          <Step.Description>List your Education!</Step.Description>
+        </Step.Content>
+      </Step>
+    );
+    nameComponentMap["workExperiences"] = (
+      <Step
+        key="workExperiences"
+        //active={step == 2 ? true : false}
+        //onClick={stepLink.goToWorkExperience}
+      >
+        <Step.Content>
+          <Step.Title>Work Experience</Step.Title>
+          <Step.Description>Past Work Experience</Step.Description>
+        </Step.Content>
+      </Step>
+    );
+    nameComponentMap["skills"] = (
+      <Step
+        key="skills"
+        // active={step == 3 ? true : false}
+        //onClick={stepLink.goToSkills}
+      >
+        <Step.Content>
+          <Step.Title>Skills</Step.Title>
+          <Step.Description>Share your skills</Step.Description>
+        </Step.Content>
+      </Step>
+    );
+    nameComponentMap["interests"] = (
+      <Step
+        key="interests"
+        // active={step == 4 ? true : false}
+        // onClick={stepLink.goToInterests}
+      >
+        <Step.Content>
+          <Step.Title>Interests</Step.Title>
+          <Step.Description>What Hobbies do you have?</Step.Description>
+        </Step.Content>
+      </Step>
+    );
+    const widthOfStepper = vrsComponents.length + 1;
+    return (
+      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered>
+        {vrsComponents.map(componentName => nameComponentMap[componentName])}
+        <Step
+        //onClick={stepLink.goToConfirmation}>
+        >
+          <Step.Content>
+            <Step.Title>Confirmation</Step.Title>
+          </Step.Content>
+        </Step>
+      </Step.Group>
+    );
+  };
+
+  getFormComponentByName = (progressBar, indexedMap) => {
+    const { step, maxStep } = this.state;
+    let nameComponentMap = new Object();
+    nameComponentMap["about"] = (
+      <Container text>
+        <About
+          submitAndContinue={this.submitAndContinue}
+          step={step}
+          maxStep={maxStep}
+          nextStep={this.nextStep}
+          previousStep={this.previousStep}
+        />
+      </Container>
+    );
+    nameComponentMap["educations"] = (
+      <Container text>
+        <Education
+          submitAndContinue={this.submitAndContinue}
+          step={step}
+          maxStep={maxStep}
+          nextStep={this.nextStep}
+          previousStep={this.previousStep}
+        ></Education>
+      </Container>
+    );
+    nameComponentMap["workExperiences"] = (
+      <Container text>
+        <WorkExperience
+          submitAndContinue={this.submitAndContinue}
+          step={step}
+          maxStep={maxStep}
+          nextStep={this.nextStep}
+          previousStep={this.previousStep}
+        ></WorkExperience>
+      </Container>
+    );
+    nameComponentMap["skills"] = (
+      <Container text>
+        <Skills
+          submitAndContinue={this.submitAndContinue}
+          step={step}
+          maxStep={maxStep}
+          nextStep={this.nextStep}
+          previousStep={this.previousStep}
+        ></Skills>
+      </Container>
+    );
+    nameComponentMap["interests"] = (
+      <Container text>
+        <Interests
+          submitAndContinue={this.submitAndContinue}
+          step={step}
+          maxStep={maxStep}
+          nextStep={this.nextStep}
+          previousStep={this.previousStep}
+        ></Interests>
+      </Container>
+    );
+    let tempFormBody = [];
+    indexedMap.forEach((obj, index) => {
+      name = obj[index];
+      let component = (
+        <React.Fragment>
+          {progressBar}
+          {nameComponentMap[name]}
+        </React.Fragment>
+      );
+      tempFormBody.push(component);
+    });
+
+    tempFormBody.push(
+      <React.Fragment>
+        {progressBar}
+        <Container text>
+          <ConfirmationPage
+            updateSelectComponents={this.props.updateSelectComponents}
+            submitAndContinue={this.submitAndContinue}
+            step={step}
+            maxStep={maxStep}
+            nextStep={this.nextStep}
+            previousStep={this.previousStep}
+            /*
+            goToAboutMe={this.goToAboutMe}
+            goToEducation={this.goToEducation}
+            goToWorkExperience={this.goToWorkExperience}
+            goToSkills={this.goToSkills}
+            goToInterests={this.goToInterests}*/
+          ></ConfirmationPage>
+        </Container>
+      </React.Fragment>
+    );
+
+    this.setState({ formBody: tempFormBody });
+  };
+
+  render() {
+    const { isLoading, step, formBody } = this.state;
+    return (
+      <React.Fragment>
+        {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}
+      </React.Fragment>
+    );
     /*
     const stepLink = {
       goToAboutMe: this.goToAboutMe,

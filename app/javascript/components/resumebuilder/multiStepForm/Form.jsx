@@ -8,58 +8,78 @@ import Interests from "./formPages/Interests";
 import ConfirmationPage from "./formPages/ConfirmationPage";
 
 const StepIndicator = props => {
-  const { vrsComponents, step, stepLink } = props;
+  const { vrsComponents, step, stepLink, maxStep } = props;
 
   const nameComponentMap = new Object();
   nameComponentMap["about"] = (
-    <Step key="about" link active={step == 0 ? true : false} onClick={stepLink.goToAboutMe} >
+    <Step
+      key="about"
+      link
+      active={step == 0 ? true : false}
+      onClick={stepLink.goToAboutMe}
+    >
       <Step.Content>
         <Step.Title>About Me</Step.Title>
         <Step.Description>Tell us about yourself!</Step.Description>
       </Step.Content>
     </Step>
-    )
+  );
   nameComponentMap["educations"] = (
-    <Step key="educations" active={step == 1 ? true : false} onClick={stepLink.goToEducation}>
+    <Step
+      key="educations"
+      active={step == 1 ? true : false}
+      onClick={stepLink.goToEducation}
+    >
       <Step.Content>
         <Step.Title>Education</Step.Title>
         <Step.Description>List your Education!</Step.Description>
       </Step.Content>
     </Step>
-  )
+  );
   nameComponentMap["workExperiences"] = (
-    <Step key="workExperiences" active={step == 2 ? true : false} onClick={stepLink.goToWorkExperience}>
+    <Step
+      key="workExperiences"
+      active={step == 2 ? true : false}
+      onClick={stepLink.goToWorkExperience}
+    >
       <Step.Content>
         <Step.Title>Work Experience</Step.Title>
         <Step.Description>Past Work Experience</Step.Description>
       </Step.Content>
     </Step>
-  )
+  );
   nameComponentMap["skills"] = (
-    <Step key="skills" active={step == 3 ? true : false} onClick={stepLink.goToSkills}>
+    <Step
+      key="skills"
+      active={step == 3 ? true : false}
+      onClick={stepLink.goToSkills}
+    >
       <Step.Content>
         <Step.Title>Skills</Step.Title>
         <Step.Description>Share your skills</Step.Description>
       </Step.Content>
     </Step>
-  )
+  );
   nameComponentMap["interests"] = (
-    <Step key="interests" active={step == 4 ? true : false } onClick={stepLink.goToInterests}>
+    <Step
+      key="interests"
+      active={step == 4 ? true : false}
+      onClick={stepLink.goToInterests}
+    >
       <Step.Content>
         <Step.Title>Interests</Step.Title>
         <Step.Description>What Hobbies do you have?</Step.Description>
       </Step.Content>
     </Step>
-  )
-
+  );
+  const widthOfStepper = maxStep + 1;
   return (
-    <Step.Group fluid size="tiny"  widths={6} ordered>
-      {vrsComponents.map(
-        componentName => (
-          nameComponentMap[componentName]
-        )
-      )}
-      <Step active={step == 5 ? true : false} onClick={stepLink.goToConfirmation} >
+    <Step.Group fluid size="tiny" widths={widthOfStepper} ordered>
+      {vrsComponents.map(componentName => nameComponentMap[componentName])}
+      <Step
+        active={step == maxStep ? true : false}
+        onClick={stepLink.goToConfirmation}
+      >
         <Step.Content>
           <Step.Title>Confirmation</Step.Title>
         </Step.Content>
@@ -78,8 +98,9 @@ export default class FormStep extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxStep: 5,
-      step: 0,
+      formBody: [],
+      maxStep: this.props.vrsComponents.length,
+      step: 0, // initial always zero
       /// about me
       name: "",
       email: "",
@@ -122,6 +143,10 @@ export default class FormStep extends Component {
     }
   };
 
+  goToSection = index => {
+    this.setState({ step: index });
+  };
+
   goToAboutMe = () => {
     const { step } = this.state;
     this.setState({ step: 0 });
@@ -148,10 +173,9 @@ export default class FormStep extends Component {
   };
 
   goToConfirmation = () => {
-    const { step } = this.state;
-    this.setState({ step: 5 });
+    const { step, maxStep } = this.state;
+    this.setState({ step: maxStep });
   };
-
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -161,9 +185,31 @@ export default class FormStep extends Component {
     });
   };
 
+  componentDidMount = () => {
+    console.log(this.state.maxStep);
+  };
+
   render() {
-    const stepLink = { goToAboutMe: this.goToAboutMe, goToEducation: this.goToEducation, goToWorkExperience : this.goToWorkExperience,
-    goToInterests: this.goToInterests,goToSkills: this.goToSkills,goToConfirmation: this.goToConfirmation }
+    const arr = this.props.vrsComponents;
+    let temp = [];
+    arr.map((val, index) => {
+      let obj = {};
+      obj[index] = val;
+      temp.push(obj);
+    });
+
+    console.log(temp);
+
+    return <React.Fragment>{}</React.Fragment>;
+    /*
+    const stepLink = {
+      goToAboutMe: this.goToAboutMe,
+      goToEducation: this.goToEducation,
+      goToWorkExperience: this.goToWorkExperience,
+      goToInterests: this.goToInterests,
+      goToSkills: this.goToSkills,
+      goToConfirmation: this.goToConfirmation
+    };
 
     const { step, maxStep } = this.state;
     const vrsComponents = this.props.vrsComponents;
@@ -210,7 +256,14 @@ export default class FormStep extends Component {
         case 0:
           return (
             <React.Fragment>
-              <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
+              <StepIndicator
+                maxStep={maxStep}
+                vrsComponents={vrsComponents}
+                step={step}
+                stepLink={stepLink}
+                maxStep={maxStep}
+              ></StepIndicator>
+
               <Container text>
                 <About
                   submitAndContinue={this.submitAndContinue}
@@ -225,91 +278,123 @@ export default class FormStep extends Component {
 
         case 1:
           return (
-            <React.Fragment> 
-                <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
+            <React.Fragment>
+              <StepIndicator
+                maxStep={maxStep}
+                vrsComponents={vrsComponents}
+                step={step}
+                stepLink={stepLink}
+                maxStep={maxStep}
+              ></StepIndicator>
+
               <Container text>
-          
-            <Education
-              submitAndContinue={this.submitAndContinue}
-              step={step}
-              maxStep={maxStep}
-              nextStep={this.nextStep}
-              previousStep={this.previousStep}
-            ></Education>
-          </Container></React.Fragment>
-           
+                <Education
+                  submitAndContinue={this.submitAndContinue}
+                  step={step}
+                  maxStep={maxStep}
+                  nextStep={this.nextStep}
+                  previousStep={this.previousStep}
+                ></Education>
+              </Container>
+            </React.Fragment>
           );
         case 2:
           return (
-            <React.Fragment> 
-            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
-            <Container text>
-              
-              <WorkExperience
-                submitAndContinue={this.submitAndContinue}
-                step={step}
+            <React.Fragment>
+              <StepIndicator
                 maxStep={maxStep}
-                nextStep={this.nextStep}
-                previousStep={this.previousStep}
-              ></WorkExperience>
-            </Container>
+                vrsComponents={vrsComponents}
+                step={step}
+                stepLink={stepLink}
+                maxStep={maxStep}
+              ></StepIndicator>
+
+              <Container text>
+                <WorkExperience
+                  submitAndContinue={this.submitAndContinue}
+                  step={step}
+                  maxStep={maxStep}
+                  nextStep={this.nextStep}
+                  previousStep={this.previousStep}
+                ></WorkExperience>
+              </Container>
             </React.Fragment>
           );
         case 3:
           return (
-            <React.Fragment> 
-            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
-            <Container text>
-              
-              <Skills
-                submitAndContinue={this.submitAndContinue}
-                step={step}
+            <React.Fragment>
+              <StepIndicator
                 maxStep={maxStep}
-                nextStep={this.nextStep}
-                previousStep={this.previousStep}
-              ></Skills>
-            </Container>
+                vrsComponents={vrsComponents}
+                step={step}
+                stepLink={stepLink}
+                maxStep={maxStep}
+              ></StepIndicator>
+
+              <Container text>
+                <Skills
+                  submitAndContinue={this.submitAndContinue}
+                  step={step}
+                  maxStep={maxStep}
+                  nextStep={this.nextStep}
+                  previousStep={this.previousStep}
+                ></Skills>
+              </Container>
             </React.Fragment>
           );
 
         case 4:
           return (
-            <React.Fragment> 
-            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
-            <Container text>
-              <Interests
-                submitAndContinue={this.submitAndContinue}
-                step={step}
+            <React.Fragment>
+              <StepIndicator
                 maxStep={maxStep}
-                nextStep={this.nextStep}
-                previousStep={this.previousStep}
-              ></Interests>
-            </Container>
+                vrsComponents={vrsComponents}
+                step={step}
+                stepLink={stepLink}
+                maxStep={maxStep}
+              ></StepIndicator>
+
+              <Container text>
+                <Interests
+                  submitAndContinue={this.submitAndContinue}
+                  step={step}
+                  maxStep={maxStep}
+                  nextStep={this.nextStep}
+                  previousStep={this.previousStep}
+                ></Interests>
+              </Container>
             </React.Fragment>
           );
 
         case 5:
           return (
-            <React.Fragment> 
-            <StepIndicator vrsComponents={vrsComponents} step={step} stepLink={stepLink}></StepIndicator>
-            <Container text>
-              <ConfirmationPage
-                updateSelectComponents={this.props.updateSelectComponents}
-                submitAndContinue={this.submitAndContinue}
-                step={step}
+            <React.Fragment>
+              <StepIndicator
                 maxStep={maxStep}
-                nextStep={this.nextStep}
-                previousStep={this.previousStep}
-                goToAboutMe={this.goToAboutMe}
-                goToEducation={this.goToEducation}
-                goToWorkExperience={this.goToWorkExperience}
-                goToSkills={this.goToSkills}
-                goToInterests={this.goToInterests}
-              ></ConfirmationPage>
-            </Container>
+                vrsComponents={vrsComponents}
+                step={step}
+                stepLink={stepLink}
+                maxStep={maxStep}
+              ></StepIndicator>
+
+              <Container text>
+                <ConfirmationPage
+                  updateSelectComponents={this.props.updateSelectComponents}
+                  submitAndContinue={this.submitAndContinue}
+                  step={step}
+                  maxStep={maxStep}
+                  nextStep={this.nextStep}
+                  previousStep={this.previousStep}
+                  goToAboutMe={this.goToAboutMe}
+                  goToEducation={this.goToEducation}
+                  goToWorkExperience={this.goToWorkExperience}
+                  goToSkills={this.goToSkills}
+                  goToInterests={this.goToInterests}
+                ></ConfirmationPage>
+              </Container>
             </React.Fragment>
-          ); 
-      }    
-    }
+          );
+      }
+    }*/
   }
 }

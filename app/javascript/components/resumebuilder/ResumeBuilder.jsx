@@ -23,6 +23,7 @@ export default class ResumeBuilder extends Component {
   stickTopMenu = () => this.setState({ menuFixed: true });
   unStickOverlay = () => this.setState({ overlayFixed: false });
   unStickTopMenu = () => this.setState({ menuFixed: false });
+  
   updateSelectComponents = (bool) => {
     this.setState({selectingComponents: bool});
   }

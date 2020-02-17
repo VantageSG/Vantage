@@ -184,17 +184,19 @@ export default class FormStep extends Component {
   componentDidMount = () => {
     const arr = this.props.vrsComponents;
     let indexedMap = [];
-
     arr.map((val, index) => {
       let obj = {};
       obj[index] = val;
       indexedMap.push(obj);
     });
-
+    // so here i will have
     // [{0:about}, {1:workex},{2:edu}]
 
+    // get the progress bar for this particular vrs array
     const stepBar = this.getProgressBarByName(this.props.vrsComponents);
 
+    //get the formBody
+    // then setstate into this.state.formBody to save
     this.getFormComponentByName(stepBar, indexedMap);
 
     this.setState({ isLoading: false });
@@ -376,6 +378,7 @@ export default class FormStep extends Component {
 
   render() {
     const { isLoading, step, formBody } = this.state;
+    //display based on the components inside formBody
     return (
       <React.Fragment>
         {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}

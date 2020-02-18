@@ -94,6 +94,7 @@ export default class FormStep extends Component {
     super(props);
     this.state = {
       isLoading: false,
+      positionOfComponents: {},
       formBody: [<React.Fragment></React.Fragment>],
       maxStep: this.props.vrsComponents.length,
       step: 0, // initial always zero
@@ -144,28 +145,34 @@ export default class FormStep extends Component {
   };
 
   goToAboutMe = () => {
-    const { step } = this.state;
-    this.setState({ step: 0 });
+    const { step, positionOfComponents } = this.state;
+    const val = positionOfComponents["about"];
+    this.setState({ step: val });
   };
 
   goToEducation = () => {
-    const { step } = this.state;
-    this.setState({ step: 1 });
+    const { step, positionOfComponents } = this.state;
+    const val = positionOfComponents["educations"];
+    this.setState({ step: val });
   };
 
   goToWorkExperience = () => {
-    const { step } = this.state;
-    this.setState({ step: 2 });
+    const { step, positionOfComponents } = this.state;
+    const val = positionOfComponents["workExperiences"];
+    this.setState({ step: val });
   };
 
   goToSkills = () => {
-    const { step } = this.state;
-    this.setState({ step: 3 });
+    const { step, positionOfComponents } = this.state;
+    const val = positionOfComponents["skills"];
+    this.setState({ step: val });
+    console.log(val);
   };
 
   goToInterests = () => {
-    const { step } = this.state;
-    this.setState({ step: 4 });
+    const { step, positionOfComponents } = this.state;
+    const val = positionOfComponents["interests"];
+    this.setState({ step: val });
   };
 
   goToConfirmation = () => {
@@ -175,7 +182,6 @@ export default class FormStep extends Component {
 
   handleChange = event => {
     const { name, value } = event.target;
-    console.log(value);
     this.setState({
       [name]: value
     });
@@ -184,33 +190,35 @@ export default class FormStep extends Component {
   componentDidMount = () => {
     const arr = this.props.vrsComponents;
     let indexedMap = [];
+    let indexedMap2 = new Object();
     arr.map((val, index) => {
       let obj = {};
       obj[index] = val;
       indexedMap.push(obj);
+
+      indexedMap2[val] = index;
     });
     // so here i will have
     // [{0:about}, {1:workex},{2:edu}]
 
     // get the progress bar for this particular vrs array
     const stepBar = this.getProgressBarByName(this.props.vrsComponents);
+    console.table(indexedMap2);
 
     //get the formBody
     // then setstate into this.state.formBody to save
     this.getFormComponentByName(stepBar, indexedMap);
-
-    this.setState({ isLoading: false });
+    this.setState({ isLoading: false, positionOfComponents: indexedMap2 });
   };
 
   getProgressBarByName = vrsComponents => {
     let nameComponentMap = new Object();
-
     nameComponentMap["about"] = (
       <Step
         key="about"
         link
         //active={step == 0 ? true : false}
-        //onClick={stepLink.goToAboutMe}
+        onClick={this.goToAboutMe}
       >
         <Step.Content>
           <Step.Title>About Me</Step.Title>
@@ -222,7 +230,7 @@ export default class FormStep extends Component {
       <Step
         key="educations"
         //active={step == 1 ? true : false}
-        // onClick={stepLink.goToEducation}
+        onClick={this.goToEducation}
       >
         <Step.Content>
           <Step.Title>Education</Step.Title>
@@ -234,7 +242,7 @@ export default class FormStep extends Component {
       <Step
         key="workExperiences"
         //active={step == 2 ? true : false}
-        //onClick={stepLink.goToWorkExperience}
+        onClick={this.goToWorkExperience}
       >
         <Step.Content>
           <Step.Title>Work Experience</Step.Title>
@@ -246,7 +254,7 @@ export default class FormStep extends Component {
       <Step
         key="skills"
         // active={step == 3 ? true : false}
-        //onClick={stepLink.goToSkills}
+        onClick={this.goToSkills}
       >
         <Step.Content>
           <Step.Title>Skills</Step.Title>
@@ -258,7 +266,7 @@ export default class FormStep extends Component {
       <Step
         key="interests"
         // active={step == 4 ? true : false}
-        // onClick={stepLink.goToInterests}
+        onClick={this.goToInterests}
       >
         <Step.Content>
           <Step.Title>Interests</Step.Title>
@@ -270,9 +278,8 @@ export default class FormStep extends Component {
     return (
       <Step.Group fluid size="tiny" widths={widthOfStepper} ordered>
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
-        <Step
-        //onClick={stepLink.goToConfirmation}>
-        >
+        <Step onClick={this.goToConfirmation}>
+          >
           <Step.Content>
             <Step.Title>Confirmation</Step.Title>
           </Step.Content>
@@ -339,6 +346,7 @@ export default class FormStep extends Component {
         ></Interests>
       </Container>
     );
+
     let tempFormBody = [];
     indexedMap.forEach((obj, index) => {
       name = obj[index];
@@ -350,7 +358,7 @@ export default class FormStep extends Component {
       );
       tempFormBody.push(component);
     });
-
+    //push confirmation component
     tempFormBody.push(
       <React.Fragment>
         {progressBar}

@@ -1,4 +1,4 @@
-import UserContext from '../../../../contexts/UserContext'
+import UserContext from "../../../../contexts/UserContext";
 import React, { Component } from "react";
 import {
   List,
@@ -21,8 +21,6 @@ import { getEndPoint } from "./formApi";
 import { isEmpty } from "../../../util/Props";
 import camelcaseKeysDeep from "camelcase-keys-deep";
 import { Link } from "react-router-dom";
-
-
 
 export default class ConfirmationPage extends Component {
   constructor(props) {
@@ -48,28 +46,38 @@ export default class ConfirmationPage extends Component {
   getVrsAttributes() {
     if (!this.state.dataLoaded && this.context.isLoggedIn) {
       axios
-        .get(getEndPoint("",this.context.user.id),{
+        .get(getEndPoint("", this.context.user.id), {
           withCredentials: true
-        }).then( response => {
+        })
+        .then(response => {
           const responseData = camelcaseKeysDeep(response.data);
           if (responseData.about != null || responseData.about != undefined) {
             this.setState({
-              about: responseData.about,
+              about: responseData.about
             });
           }
-          if (responseData.educations != null || responseData.educations != undefined) {
+          if (
+            responseData.educations != null ||
+            responseData.educations != undefined
+          ) {
             this.setState({
-              educations: responseData.educations,
+              educations: responseData.educations
             });
           }
-          if (responseData.workExperiences != null || responseData.workExperiences != undefined) {
+          if (
+            responseData.workExperiences != null ||
+            responseData.workExperiences != undefined
+          ) {
             this.setState({
-              workExperiences: responseData.workExperiences,
+              workExperiences: responseData.workExperiences
             });
           }
-          if (responseData.interests != null || responseData.interests != undefined) {
+          if (
+            responseData.interests != null ||
+            responseData.interests != undefined
+          ) {
             this.setState({
-              interests: responseData.interests,
+              interests: responseData.interests
             });
           }
           if (responseData.skills != null || responseData.skills != undefined) {
@@ -77,15 +85,13 @@ export default class ConfirmationPage extends Component {
               skills: responseData.skills
             });
           }
-        }
-      ).catch((error)=>
-        console.log(error.response)
-      ).then(() => {
-        this.setState({
-          dataLoaded: true
         })
-      }
-      )
+        .catch(error => console.log(error.response))
+        .then(() => {
+          this.setState({
+            dataLoaded: true
+          });
+        });
     }
   }
 
@@ -106,7 +112,9 @@ export default class ConfirmationPage extends Component {
           <Animated animationIn={"fadeIn"} animationOut="fadeOut">
             <List relaxed="very">
               <Header>Review your information</Header>
-              <Button onClick={() => this.props.updateSelectComponents(true)} >Add/remove components</Button>
+              <Button onClick={() => this.props.updateSelectComponents(true)}>
+                Add/remove components
+              </Button>
               <Segment textAlign="left">
                 <Header>About Me</Header>
                 <List.List>
@@ -114,13 +122,6 @@ export default class ConfirmationPage extends Component {
                   <List.Item header={"Email"} content={about.email} />
                   <List.Item header={"Who am I?"} content={about.aboutMe} />
                 </List.List>
-                <Divider></Divider>
-                <Button
-                  style={{ backgroundColor: "#f4a300" }}
-                  onClick={this.props.goToAboutMe}
-                >
-                  Edit About me
-                </Button>
               </Segment>
 
               <Segment textAlign="left">
@@ -134,19 +135,12 @@ export default class ConfirmationPage extends Component {
                           header={"Institute"}
                           content={value.institution}
                         />
-                      
+
                         <Divider></Divider>
                       </React.Fragment>
                     );
                   })}
                 </List.List>
-                <Divider></Divider>
-                <Button
-                  style={{ backgroundColor: "#f4a300" }}
-                  onClick={this.props.goToEducation}
-                >
-                  Edit Education
-                </Button>
               </Segment>
 
               <Segment textAlign="left">
@@ -162,13 +156,6 @@ export default class ConfirmationPage extends Component {
                     );
                   })}
                 </List.List>
-                <Divider></Divider>
-                <Button
-                  style={{ backgroundColor: "#f4a300" }}
-                  onClick={this.props.goToWorkExperience}
-                >
-                  Edit Work Experience
-                </Button>
               </Segment>
               <Segment textAlign="left">
                 <Header>My Skills</Header>
@@ -186,13 +173,6 @@ export default class ConfirmationPage extends Component {
                     );
                   })}
                 </List.List>
-                <Divider></Divider>
-                <Button
-                  style={{ backgroundColor: "#f4a300" }}
-                  onClick={this.props.goToSkills}
-                >
-                  Edit Skills
-                </Button>
               </Segment>
               <Segment textAlign="left">
                 <Header>My Interests</Header>
@@ -206,13 +186,6 @@ export default class ConfirmationPage extends Component {
                     );
                   })}
                 </List.List>
-                <Divider></Divider>
-                <Button
-                  style={{ backgroundColor: "#f4a300" }}
-                  onClick={this.props.goToInterests}
-                >
-                  Edit Interests
-                </Button>
               </Segment>
             </List>
             <Button
@@ -230,4 +203,4 @@ export default class ConfirmationPage extends Component {
   }
 }
 
-ConfirmationPage.contextType = UserContext
+ConfirmationPage.contextType = UserContext;

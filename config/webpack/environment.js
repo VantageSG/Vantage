@@ -9,11 +9,10 @@ const config= {
         extensions: ['.js', '.jsx'],
         alias: {
           "../../theme.config$": path.join(__dirname, "../../app/assets/src/theme.config"),
-          "../semantic-ui/site": path.join(__dirname, "../../app/assets/src/site")
+          "../src/site": path.join(__dirname, "../../app/assets/src/site")
         }
     },
     module: {
-        //CSS, SASS
         rules: [
           {
             test: /\.(less)$/,

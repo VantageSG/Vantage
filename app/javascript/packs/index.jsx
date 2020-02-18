@@ -4,8 +4,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "../components/App";
-
-require("semantic-ui-less/semantic.less");
+import "../../assets/src/semantic.less";
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(

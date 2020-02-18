@@ -4,7 +4,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "../components/App";
-import "../../assets/dist/semantic.min.css";
+import "../../assets/src/semantic.less";
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(

@@ -29,7 +29,7 @@ class Skills extends React.Component {
                 return (
                   <div className="subsection" key={index}>                    
                     <EditableLabel text={skill.name}
-                        inputWidth='200px'
+                        inputWidth='720px'
                         inputHeight='25px'                 
                         onFocusOut={(name) => this.handleSkillsChange(
                           {name: 'name', value: name}, index
@@ -37,7 +37,7 @@ class Skills extends React.Component {
                     />
                     <div className="subsectionDetails">
                       <EditableLabel text={skill.description}
-                          inputWidth='200px'
+                          inputWidth='720px'
                           inputHeight='25px'                 
                           onFocusOut={(description) => this.handleSkillsChange(
                             {name: 'description', value: description}, index

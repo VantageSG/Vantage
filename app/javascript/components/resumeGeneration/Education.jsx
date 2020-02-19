@@ -33,7 +33,7 @@ class Education extends React.Component {
                 <div className="subsection" key={index}>
                   <div className="subsectionHeader">
                     <EditableLabel text={education.institution}
-                        inputWidth='200px'
+                        inputWidth='700px'
                         inputHeight='25px'                 
                         onFocusOut={(institution) => this.handleEducationChange(
                           {name: 'institution', value: institution}, index
@@ -42,7 +42,7 @@ class Education extends React.Component {
                   </div>
                   <div className="subsectionDetails">
                     <EditableLabel text={education.program}
-                      inputWidth='200px'
+                      inputWidth='350px'
                       inputHeight='25px'                 
                       onFocusOut={(program) => this.handleEducationChange(
                         {name: 'program', value: program}, index
@@ -50,7 +50,7 @@ class Education extends React.Component {
                     />
                     <div className="dateDetails">
                       <EditableLabel className="date" text={education.start.toString()}
-                        inputWidth='200px'
+                        inputWidth='80px'
                         inputHeight='25px'                 
                         onFocusOut={(start) => this.handleEducationChange(
                           {name: 'start', value: start}, index
@@ -58,7 +58,7 @@ class Education extends React.Component {
                       />
                       <span>to</span>
                       <EditableLabel className="date" text={education.end.toString()}
-                        inputWidth='200px'
+                        inputWidth='80px'
                         inputHeight='25px'                 
                         onFocusOut={(end) => this.handleEducationChange(
                           {name: 'end', value: end}, index

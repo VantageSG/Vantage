@@ -8,11 +8,9 @@ import {
   Header,
   Message,
   Segment,
-  Icon  
+  Icon
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-
-
 
 // Login Component that consists of Login Form
 class Login extends Component {
@@ -22,7 +20,7 @@ class Login extends Component {
       username: "",
       email: "",
       password: "",
-      error: ""      
+      error: ""
     };
   }
 
@@ -44,12 +42,12 @@ class Login extends Component {
       username: username,
       email: email,
       password: password
-    };    
-    this.context.login(user, this.redirectHome, (error) => {
-      this.setState({        
+    };
+    this.context.login(user, this.redirectHome, error => {
+      this.setState({
         error: error
-      })
-    })    
+      });
+    });
   };
 
   render() {
@@ -66,52 +64,49 @@ class Login extends Component {
             <Header as="h2" color="teal" textAlign="center">
               Log In
             </Header>
-            {this.state.error
-            ? (
+            {this.state.error && (
               <Message negative>
                 <Message.Header>We can't log you in:</Message.Header>
-                <p>{this.state.error}</p>  
-              </Message>              
-              )
-            : (<span></span>)
-            }                
-            <Form size="large" onSubmit={this.handleSubmit}>
-            <Segment stacked>
-              <Form.Input
-                fluid
-                icon="user"
-                iconPosition="left"
-                placeholder="Username"
-                name="username"
-                value={username}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                fluid
-                icon="mail"
-                iconPosition="left"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                fluid
-                icon="lock"
-                iconPosition="left"
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={this.handleChange}
-              />
-              <Button color="teal" fluid size="large" type="submit">
-                submit
-              </Button>
-              <Message>
-                <p>New to us?</p> <Link to="/signup"> Sign Up</Link>
+                <p>{this.state.error}</p>
               </Message>
-            </Segment>
+            )}
+            <Form size="large" onSubmit={this.handleSubmit}>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon="user"
+                  iconPosition="left"
+                  placeholder="Username"
+                  name="username"
+                  value={username}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  fluid
+                  icon="mail"
+                  iconPosition="left"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  fluid
+                  icon="lock"
+                  iconPosition="left"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+                <Button color="teal" fluid size="large" type="submit">
+                  submit
+                </Button>
+                <Message>
+                  <p>New to us?</p> <Link to="/sign-up"> Sign Up</Link>
+                </Message>
+              </Segment>
             </Form>
           </Grid.Column>
         </Grid>

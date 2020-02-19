@@ -126,7 +126,10 @@ class ResumeGeneration extends Component {
         this.generateResumeComponents();
         this.setState({ loading: false });
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        this.getVrsAttributes();
+        alert(error.response.data.error);         
+      });
   };
 
   // determine which resume components should be shown based on state data
@@ -221,7 +224,7 @@ class ResumeGeneration extends Component {
     ) : (
       <React.Fragment>
         <Animated animationIn="fadeIn" animationOut="fadeOut">
-          <Container text style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+          <Container text style={{ marginTop: "5vh", marginBottom: "3vh" }}>
             <Grid centered columns={1}>
               <Grid.Row>
                 <Header as="h1">Your Resume</Header>
@@ -237,23 +240,11 @@ class ResumeGeneration extends Component {
           </Container>
           <br></br>
           <Container text style={{ marginTop: "0vh", marginBottom: "1vh" }}>
-            <React.Fragment>
-              <div id="resume" className="resume">
-                <About
-                  about={this.state.about}
-                  onAboutChange={this.onAboutChange}
-                ></About>
-                <div className="resumeBody">
-                  <DndContainer onDrop={this.onDrop}>
-                    {this.makeItemsDraggable(this.state.resumeComponents)}
-                  </DndContainer>
-                </div>
-              </div>
-
-              <Grid centered columns={1} style={{ marginTop: "1vh" }}>
+            <React.Fragment>              
+              <Grid centered columns={1}>
                 <Grid.Column textAlign="center">
                   <Button as={Link} to="/resume-builder" color="red">
-                    Resume Builder
+                    Edit Resume
                   </Button>
                   <Button onClick={this.saveVrsAttributes} color="green">
                     Save Changes

@@ -21,12 +21,17 @@ class App extends Component {
       isLoggedIn: false,
       user: {},
       loading: true,
-      initialLoading: true
+      initialLoading: true,
+      vrsComponents: []
     };
   }
 
   componentDidMount() {
     this.getLoginStatus();
+  }
+
+  selectedVrsComponents = (vrsComponents) => {
+    this.setState({vrsComponents: vrsComponents})
   }
 
   // sets the login status as App state: user is either logged in or not
@@ -165,14 +170,14 @@ class App extends Component {
                   <Signup />
                 </Route>                            
                 <Route exact path="/resume-builder">
-                  <ResumeBuilder />
+                  <ResumeBuilder 
+                    selectedVrsComponents={this.selectedVrsComponents}
+                    vrsComponents={this.state.vrsComponents}
+                  />
                 </Route>
                 <Route exact path="/resume-generation">
                   <ResumeGeneration/>
-                </Route>
-                <Route exact path="/resume-selector">
-                  <ResumeSelector/>
-                </Route>
+                </Route>                
                 <Route exact path="/theming-layout">
                   <ThemingLayout/>
                 </Route>

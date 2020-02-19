@@ -34,9 +34,9 @@ class MobileNavBar extends Component {
         <Button
           onClick={this.context.logout}
           primary={this.state.fixed}
-          style={{ marginLeft: "1em" }}
+          style={{ marginTop: "0.5em" }}
         >
-          Logout
+          {this.context.user.guest ? "Clear Session" : "Logout"}
         </Button>
       </Menu.Item>
     ) : (

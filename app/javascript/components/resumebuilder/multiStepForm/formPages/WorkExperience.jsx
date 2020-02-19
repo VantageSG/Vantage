@@ -112,13 +112,12 @@ export default class WorkExperience extends Component {
     return decamelizeKeysDeep([Object.assign({}, workExperienceSchema)]);
   }
 
-  nextStepWApiReq = () => {
+  stepApiReq = (callback) => {
     let workExperiences = this.populateEducationState();
-    console.log(workExperiences);
     postForm('workExperiences', 
     workExperiences, 
     this.context.user.id, 
-    this.props.nextStep)
+    callback)
   }
 
 
@@ -243,8 +242,8 @@ export default class WorkExperience extends Component {
           <FormActionButtons
             step={this.props.step}
             maxStep={this.props.maxStep}
-            nextStep={this.nextStepWApiReq}
-            previousStep={this.props.previousStep}
+            nextStep={() => this.stepApiReq(this.props.nextStep)}
+            previousStep={() => this.stepApiReq(this.props.previousStep)}
           />
         </Card.Content>
       </Card>

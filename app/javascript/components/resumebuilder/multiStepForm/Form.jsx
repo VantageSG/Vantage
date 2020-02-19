@@ -84,7 +84,6 @@ export default class FormStep extends Component {
     const { positionOfComponents } = this.state;
     const val = positionOfComponents["skills"];
     this.setState({ step: val });
-    console.log(val);
   };
 
   goToInterests = () => {
@@ -195,7 +194,6 @@ export default class FormStep extends Component {
     nameComponentMap["about"] = (
       <Container text>
         <About
-          submitAndContinue={this.submitAndContinue}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -206,7 +204,6 @@ export default class FormStep extends Component {
     nameComponentMap["educations"] = (
       <Container text>
         <Education
-          submitAndContinue={this.submitAndContinue}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -217,7 +214,6 @@ export default class FormStep extends Component {
     nameComponentMap["workExperiences"] = (
       <Container text>
         <WorkExperience
-          submitAndContinue={this.submitAndContinue}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -228,7 +224,6 @@ export default class FormStep extends Component {
     nameComponentMap["skills"] = (
       <Container text>
         <Skills
-          submitAndContinue={this.submitAndContinue}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -239,7 +234,6 @@ export default class FormStep extends Component {
     nameComponentMap["interests"] = (
       <Container text>
         <Interests
-          submitAndContinue={this.submitAndContinue}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -266,7 +260,6 @@ export default class FormStep extends Component {
         <Container text>
           <ConfirmationPage
             updateSelectComponents={this.props.updateSelectComponents}
-            submitAndContinue={this.submitAndContinue}
             step={step}
             maxStep={maxStep}
             nextStep={this.nextStep}

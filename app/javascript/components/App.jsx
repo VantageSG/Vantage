@@ -30,7 +30,7 @@ class App extends Component {
     this.getLoginStatus();
   }
 
-  selectVrsComponents = (vrsComponents) => {
+  selectedVrsComponents = (vrsComponents) => {
     this.setState({vrsComponents: vrsComponents})
   }
 
@@ -171,7 +171,7 @@ class App extends Component {
                 </Route>                            
                 <Route exact path="/resume-builder">
                   <ResumeBuilder 
-                    selectVrsComponents={this.selectVrsComponents}
+                    selectedVrsComponents={this.selectedVrsComponents}
                     vrsComponents={this.state.vrsComponents}
                   />
                 </Route>

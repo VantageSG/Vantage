@@ -64,13 +64,11 @@ class Login extends Component {
             <Header as="h2" color="teal" textAlign="center">
               Log In
             </Header>
-            {this.state.error ? (
+            {this.state.error && (
               <Message negative>
                 <Message.Header>We can't log you in:</Message.Header>
                 <p>{this.state.error}</p>
               </Message>
-            ) : (
-              <span></span>
             )}
             <Form size="large" onSubmit={this.handleSubmit}>
               <Segment stacked>

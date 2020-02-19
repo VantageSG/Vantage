@@ -31,8 +31,6 @@ class ResumeSelector extends Component {
     this.state = {      
       choices: this.props.vrsComponents.length > 0 ? this.props.vrsComponents : ["about"]
     };
-    console.log(this.state.choices)
-    console.log(this.state.choices.includes("interests"))
     this.state.color = [
       "green",
       this.state.choices.includes("educations") ? "green" : "red",
@@ -95,7 +93,7 @@ class ResumeSelector extends Component {
 
   goToResumeBuilder = () => {
     this.props.updateSelectComponents(false);
-    this.props.selectVrsComponents(this.state.choices);
+    this.props.selectedVrsComponents(this.state.choices);
   }
 
   render() {

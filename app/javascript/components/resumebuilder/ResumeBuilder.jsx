@@ -44,7 +44,7 @@ export default class ResumeBuilder extends Component {
               />
             : <ResumeSelector
                 updateSelectComponents={this.updateSelectComponents}
-                selectVrsComponents={this.props.selectVrsComponents}
+                selectedVrsComponents={this.props.selectedVrsComponents}
                 vrsComponents={this.props.vrsComponents}
               />
           : (

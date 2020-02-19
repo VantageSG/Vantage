@@ -6,7 +6,8 @@ import {
   Button,
   Header,
   Container,
-  Divider
+  Divider,
+  Message
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 import {
@@ -197,9 +198,8 @@ export default class ConfirmationPage extends Component {
               }}
               ></Button>
             )
-            : <Button>Fill up your information</Button>
-            }
-            
+            : <Message negative>Fill up About Me component before submitting</Message>
+            }            
           </Animated>
         </Container>
       </div>

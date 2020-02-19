@@ -177,8 +177,7 @@ export default class FormStep extends Component {
     return (
       <Step.Group fluid size="tiny" widths={widthOfStepper} ordered>
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
-        <Step onClick={this.goToConfirmation}>
-          >
+        <Step onClick={this.goToConfirmation}>          
           <Step.Content>
             <Step.Title>Confirmation</Step.Title>
           </Step.Content>

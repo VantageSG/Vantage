@@ -11,6 +11,7 @@ import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
 import ResumeSelector from '../components/resumebuilder/ResumeSelector';
+import ThemingLayout from "../components/util/ThemingLayout"
 
 // App implements routing and login/logout logic
 class App extends Component {
@@ -177,6 +178,9 @@ class App extends Component {
                 <Route exact path="/resume-generation">
                   <ResumeGeneration/>
                 </Route>                
+                <Route exact path="/theming-layout">
+                  <ThemingLayout/>
+                </Route>
                 <Route component={Error404Page} />
               </Switch>
               )}

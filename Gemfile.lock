@@ -61,7 +61,10 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
+    awesome_print (1.8.0)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -93,6 +96,9 @@ GEM
     faker (2.8.1)
       i18n (>= 1.6, < 1.8)
     ffi (1.11.3)
+    gingerice (1.3.0)
+      addressable
+      awesome_print
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.7.0)
@@ -125,6 +131,7 @@ GEM
     parallel (1.19.1)
     parser (2.6.5.0)
       ast (~> 2.4.0)
+    public_suffix (4.0.3)
     puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.8)
@@ -260,6 +267,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails (~> 4.0)
   faker
+  gingerice
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4)

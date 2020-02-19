@@ -17,6 +17,7 @@ gem 'wkhtmltopdf-binary'
 gem "dotenv-rails" # for ENV vars
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rubocop', '~> 0.77.0', require: false
+gem 'gingerice'
 
 group :test do
   gem 'rspec_junit_formatter'

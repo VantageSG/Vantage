@@ -119,6 +119,63 @@ export default class About extends Component {
     postForm("about", about, this.context.user.id, this.props.nextStep);  
   };
 
+
+  renderAboutMeQns = (aboutValues) => {
+    return ( 
+      <React.Fragment>
+        <Header as="h4">
+          How would you describe your personality in a few words?
+        </Header>
+        <TextArea
+          placeholder=""
+          name="aboutMe1"
+          value={aboutValues.aboutMe1}
+          onChange={this.handleFormChange}
+        />
+        <Header as="h4">
+          What’s the most important thing you would
+            want the recruiter to know about you?
+        </Header>
+        <TextArea
+          placeholder=""
+          name="aboutMe2"
+          value={aboutValues.aboutMe2}
+          onChange={this.handleFormChange}
+        />
+        <Header as="h4">
+          What are you doing now and what 
+            is it that you want to achieve with the opportunity?
+        </Header>
+        <TextArea
+          placeholder=""
+          name="aboutMe3"
+          value={aboutValues.aboutMe3}
+          onChange={this.handleFormChange}
+        />
+        <Header as="h4">
+          How can you help the employer achieve their goals?
+        </Header>
+        <TextArea
+          placeholder=""
+          name="aboutMe4"
+          value={aboutValues.aboutMe4}
+          onChange={this.handleFormChange}
+        />
+      </React.Fragment>
+    )
+  }
+
+  renderAboutMePara = (aboutValues) => {
+    return (
+      <TextArea
+        placeholder="About Me"
+        name="aboutMe"
+        value={aboutValues.aboutMe}
+        onChange={this.handleFormChange}
+      />
+    )
+  }
+
   render() {
     const aboutValues = this.state.about;
     return this.state.isLoading ? (
@@ -175,7 +232,8 @@ export default class About extends Component {
                   any interesting things you notice about the world around you"
                   trigger={<Icon name="question circle" />}
                 />
-                <Header as="h4">
+                {this.renderAboutMeQns(aboutValues)}
+                {/* <Header as="h4">
                   How would you describe your personality in a few words?
                 </Header>
                 <TextArea
@@ -212,7 +270,7 @@ export default class About extends Component {
                   name="aboutMe4"
                   value={aboutValues.aboutMe4}
                   onChange={this.handleFormChange}
-                />
+                /> */}
               </Form>
             </Animated>
           </Segment>

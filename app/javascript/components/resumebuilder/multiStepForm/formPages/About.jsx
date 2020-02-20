@@ -56,7 +56,6 @@ export default class About extends Component {
   };
 
   getDbAbout() {
-    
     if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
@@ -67,7 +66,6 @@ export default class About extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
-          
           this.setState({ 
             isLoading: false
           });

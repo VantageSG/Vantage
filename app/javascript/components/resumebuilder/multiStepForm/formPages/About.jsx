@@ -114,9 +114,9 @@ export default class About extends Component {
     return decamelizeKeysDeep(aboutSchema);
   }
 
-  nextStepWApiReq = () => {
+  stepApiReq = (callback) => {
     let about = this.populateAboutState();
-    postForm("about", about, this.context.user.id, this.props.nextStep);  
+    postForm("about", about, this.context.user.id, callback);  
   };
 
   render() {
@@ -220,8 +220,8 @@ export default class About extends Component {
             <FormActionButtons
               step={this.props.step}
               maxStep={this.props.maxStep}
-              nextStep={this.nextStepWApiReq}
-              previousStep={this.props.previousStep}
+              nextStep={() => this.stepApiReq(this.props.nextStep)}
+              previousStep={() => this.stepApiReq(this.props.previousStep)}
             />
           </Card.Content>
         </Card>

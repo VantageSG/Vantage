@@ -80,12 +80,12 @@ export default class Skills extends Component {
     this.getSkills();
   }
 
-  nextStepWApiReq = () => {
+  stepApiReq = (callback) => {
     let skills = decamelizeKeysDeep(this.state.skills);
     postForm('skills', 
     skills, 
     this.context.user.id, 
-    this.props.nextStep);
+    callback);
   }
 
 
@@ -167,8 +167,8 @@ export default class Skills extends Component {
           <FormActionButtons
             step={this.props.step}
             maxStep={this.props.maxStep}
-            nextStep={this.nextStepWApiReq}
-            previousStep={this.props.previousStep}
+            nextStep={() => this.stepApiReq(this.props.nextStep)}
+            previousStep={() => this.stepApiReq(this.props.previousStep)}
           />
         </Card.Content>
       </Card>

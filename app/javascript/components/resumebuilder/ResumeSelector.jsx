@@ -97,25 +97,24 @@ class ResumeSelector extends Component {
   }
 
   render() {
+    const verboseNameMap = {
+      "about": "About Me",
+      "educations": "Education",
+      "workExperiences": "Work Experiences",
+      "skills": "Skills",
+      "interests": "Interests"
+    }
+
     return (
       <React.Fragment>
         <br></br>
         <Segment>
-          <Grid columns={3} container>
-            <Grid.Row>
-              {" "}
-              <Grid.Column></Grid.Column>
-              <Grid.Column>
-                <Header>Choose your sections</Header>
-              </Grid.Column>
-              <Grid.Column></Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <Header style={{textAlign: "center", textDecoration:"underline", margin:"2em"}}>Choose your Resume Components</Header>
 
           <Grid columns={2} container relaxed="very">
             <Grid.Column>
               <Grid.Row>
-                <Grid columns="2">                  
+                <Grid stackable columns="equal">                  
                   <Grid.Column>
                     <ResumeSelectorButton
                       color={this.state.color[1]}
@@ -134,7 +133,7 @@ class ResumeSelector extends Component {
               </Grid.Row>
 
               <Grid.Row>
-                <Grid columns="equal">
+                <Grid stackable columns="equal">
                   <Grid.Column>
                     <ResumeSelectorButton
                       color={this.state.color[3]}
@@ -155,12 +154,12 @@ class ResumeSelector extends Component {
             <Grid.Column>
               <Card fluid style={{marginBottom:"0",  minHeight: "40vh"}}>
                 <Card.Header textAlign="center">
-                 <Header>Sections</Header>
+                 <Header style={{margin:"1vh"}}>Sections</Header>
                 </Card.Header>
                 {this.state.choices.map((val, index) => {
                   return (
                     <Segment key={index} style={{marginTop: "0", marginBottom: "0"}}>
-                      <Segment.Inline>{val}</Segment.Inline>
+                      <Segment.Inline>{verboseNameMap[val]}</Segment.Inline>
                     </Segment>
                   );
                 })}

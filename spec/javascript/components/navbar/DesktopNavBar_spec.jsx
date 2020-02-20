@@ -29,11 +29,11 @@ describe("Desktop ", () => {
     const loggedInStatus = true;
     const user = {
       "id": 6,
-          "username": "shermzlim",
-          "email": "sherman@email.com",
-          "password_digest": "$2a$12$gC1pwl.RDUYWU0Y.4lzgruZDkapGZEeJOz9EpyLk2CHm7tJ3mh84C",
-          "created_at": "2019-12-30T16:56:51.584Z",
-          "updated_at": "2019-12-30T16:56:51.584Z"
+      "username": "shermzlim",
+      "email": "sherman@email.com",
+      "password_digest": "$2a$12$gC1pwl.RDUYWU0Y.4lzgruZDkapGZEeJOz9EpyLk2CHm7tJ3mh84C",
+      "created_at": "2019-12-30T16:56:51.584Z",
+      "updated_at": "2019-12-30T16:56:51.584Z"
     }
     const containerLoggedIn = renderWithRouter(
     <UserContext.Provider value={{

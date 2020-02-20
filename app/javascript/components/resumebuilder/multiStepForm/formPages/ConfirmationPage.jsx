@@ -6,7 +6,8 @@ import {
   Button,
   Header,
   Container,
-  Divider
+  Divider,
+  Message
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
 import {
@@ -96,8 +97,6 @@ export default class ConfirmationPage extends Component {
   }
 
   render() {
-    // console.table(this.state);
-    // console.table(this.state.education);
     const {
       about,
       educations,
@@ -105,7 +104,7 @@ export default class ConfirmationPage extends Component {
       skills,
       interests
     } = this.state;
-
+    
     return (
       <div>
         <Container textAlign="center">
@@ -120,7 +119,7 @@ export default class ConfirmationPage extends Component {
                 <List.List>
                   <List.Item header={"Name"} content={about.name} />
                   <List.Item header={"Email"} content={about.email} />
-                  <List.Item header={"Who am I?"} content={about.aboutMe} />
+                  <List.Item header={"Introduction"} content={about.aboutMe} />
                 </List.List>
               </Segment>
 
@@ -188,14 +187,19 @@ export default class ConfirmationPage extends Component {
                 </List.List>
               </Segment>
             </List>
-            <Button
+            {this.state.about.name
+            ? (
+              <Button
               as={Link}
               content="Submit"
               to={{
                 pathname: `/resume-generation/`,
                 user: this.context.user
               }}
-            ></Button>
+              ></Button>
+            )
+            : <Message negative>Fill up About Me component before submitting</Message>
+            }            
           </Animated>
         </Container>
       </div>

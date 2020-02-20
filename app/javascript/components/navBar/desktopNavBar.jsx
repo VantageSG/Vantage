@@ -39,7 +39,7 @@ class DesktopNavBar extends Component {
           primary={this.state.fixed}
           style={{ marginLeft: "1em" }}
         >
-          Logout
+          {this.context.user.guest ? "Clear Session" : "Logout"}
         </Button>
       </Menu.Item>
     ) : (
@@ -54,7 +54,7 @@ class DesktopNavBar extends Component {
 
   render() {
     const { children } = this.props;
-  
+    
     return (
       <div>
         <Responsive

@@ -78,11 +78,11 @@ export default class Education extends Component {
     this.getEducations();
   }
 
-  nextStepWApiReq = () => {
+  stepApiReq = (callback) => {
     let educations = decamelizeKeysDeep(this.state.educations);
     postForm('educations', 
     educations, 
-    this.context.user.id, this.props.nextStep);
+    this.context.user.id, callback);
   }
 
   handleFormChange(event, index){
@@ -183,8 +183,8 @@ export default class Education extends Component {
           <FormActionButtons
             step={this.props.step}
             maxStep={this.props.maxStep}
-            nextStep={this.nextStepWApiReq}
-            previousStep={this.props.previousStep}
+            nextStep={() => this.stepApiReq(this.props.nextStep)}
+            previousStep={() => this.stepApiReq(this.props.previousStep)}
           />
         </Card.Content>
       </Card>

@@ -181,7 +181,6 @@ export default class About extends Component {
     
     return this.state.isLoading ? (
      <LoadingSpinner>
-       {console.log(this.state)}
      </LoadingSpinner>
     ) : (
       <div>

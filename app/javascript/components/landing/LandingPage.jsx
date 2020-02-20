@@ -9,8 +9,11 @@ import {
   Divider,
   Placeholder,
   Card,
-  Responsive
+  Responsive,
+  Image,
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import Logo from "../../../assets/images/VantageSGLogo_withname.png"
 import { Animated } from "react-animated-css";
 
 class LandingPage extends Component {
@@ -38,10 +41,23 @@ class LandingPage extends Component {
               }}
             >
               <Segment placeholder style={{ minHeight: "50vh" , backgroundColor: "#f4a300" }} >
-                <Header as="h2"  textAlign="center" icon>
-                  <Icon name="home" />
-                  Welcome To Vantage
-                </Header>
+                <Container
+                textAlign="center"
+                
+                >
+                  <Image
+                  src= {Logo}
+                  size="small"
+                  centered = 'true'
+                  />
+                  <Button
+                  as={Link}
+                  to="/resume-builder"
+                  content="Build your resume"
+                  />
+                   
+                </Container>
+                
               </Segment>
             </Container>
           </Responsive>
@@ -49,52 +65,25 @@ class LandingPage extends Component {
           <Responsive maxWidth={Responsive.onlyTablet.minWidth}>
             <div style={{  backgroundColor: "#f4a300" }}>
               <Segment placeholder style={{ minHeight: "50vh", backgroundColor: "#f4a300" }} >
-                <Header as="h2" textAlign="center" icon>
-                  <Icon name="home" />
-                  Welcome To Vantage
-                </Header>
+                <Container
+                textAlign="center"
+                
+                >
+                  <Image
+                  src= {Logo}
+                  size="small"
+                  centered = 'true'
+                  />
+                  <Button
+                  as={Link}
+                  to="/resume-builder"
+                  content="Build your resume"
+                  />
+                   
+                </Container>
               </Segment>
             </div>
           </Responsive>
-
-          <Container
-            text
-            textAlign="center"
-            style={{ marginTop: "2vh", marginBottom: "2vh" }}
-          >
-            <Grid centered columns={1}>
-              <Grid.Column>
-             
-                <Container fluid textAlign="center">
-                  <Responsive maxWidth={Responsive.onlyTablet.minWidth}>
-                    <Header as="h1" style={{ fontSize: "3em" }}>
-                      VANTAGE
-                    </Header>
-                  </Responsive>
-                  <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-                    <Header as="h1" style={{ fontSize: "5em" }}>
-                      VANTAGE
-                    </Header>
-                  </Responsive>
-                </Container>
-
-                <Card centered fluid style={{ height: "30vh" }}>
-                  <Placeholder fluid>
-                    <Placeholder.Image square />
-                  </Placeholder>
-                  <Card.Content>
-                    <Card.Description>logo will be here</Card.Description>
-                  </Card.Content>
-                </Card>
-                <Container fluid textAlign="center">
-                  <Header as="h3" style={{ fontSize: "2em" }}>
-                    Climb higher with us.
-                  </Header>
-                </Container>
-              </Grid.Column>
-            </Grid>
-          </Container>
-
           <Divider></Divider>
           <Container text textAlign="center" style={{}}>
             <Grid centered columns={1}>

@@ -141,6 +141,45 @@ export default class WorkExperience extends Component {
     this.setState({workExperiences: this.state.workExperiences})
   }
 
+  renderAchievementsQns = (workExperience, index) => {
+    return(
+      <React.Fragment>
+        {console.log(this.state)}
+         <Header as="h4">
+            Briefly share key issues you faced and how you overcame this challenge.
+          </Header>
+          <TextArea
+            placeholder=""
+            name="achievements1"
+            value={workExperience.achievements1}
+            onChange={(event) => this.handleFormChange(event, index)}
+          />
+          <Header as="h4">
+            Were there any significant outcomes of your experience?
+          </Header>
+          <TextArea
+            placeholder=""
+            name="achievements2"
+            value={workExperience.achievements2}
+            onChange={(event) => this.handleFormChange(event, index)}
+          />
+      </React.Fragment>
+    )
+  }
+
+  renderAchievementsPara = (workExperience, index) => {
+    return (
+      <React.Fragment>
+        <TextArea
+          placeholder="Achievements"
+          name="achievements"
+          value={workExperience.achievements}
+          onChange={(event) => this.handleFormChange(event, index)}
+        />
+      </React.Fragment>
+    )
+  }
+
   render() {
     return this.state.isLoading ? (
       <LoadingSpinner></LoadingSpinner>
@@ -209,24 +248,10 @@ export default class WorkExperience extends Component {
                     <Popup content="It's better to start with verbs! e.g. Decreased cost 
                     expenditure by 65% through elimination of low priority projects."
                       trigger={<Icon name="question circle" />} />
-                    <Header as="h4">
-                      Briefly share key issues you faced and how you overcame this challenge.
-                    </Header>
-                    <TextArea
-                      placeholder=""
-                      name="achievements1"
-                      value={workExperience.achievements1}
-                      onChange={(event) => this.handleFormChange(event, index)}
-                    />
-                    <Header as="h4">
-                      Were there any significant outcomes of your experience?
-                    </Header>
-                    <TextArea
-                      placeholder=""
-                      name="achievements2"
-                      value={workExperience.achievements2}
-                      onChange={(event) => this.handleFormChange(event, index)}
-                    />
+                    {
+                      workExperience != undefined && workExperience.achievements != null && workExperience.achievements != "" ?
+                      this.renderAchievementsPara(workExperience, index) : this.renderAchievementsQns(workExperience, index)
+                    }
                   </Form>
                 </Animated>
               </Segment>

@@ -3,8 +3,18 @@
 
 module.exports = {
 
+
+  
   moduleNameMapper: {
     "\\.(css|sass)$": "identity-obj-proxy",
+  },
+
+  transform: {
+    "\\.(png)$": "<rootDir>/spec/javascript/fileTransformer.js",
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.js?$": "babel-jest"
+
+
   },
 
   clearMocks: true,
@@ -17,7 +27,8 @@ module.exports = {
     "jsx", 
     "ts", 
     "tsx", 
-    "node"
+    "node",
+    ".png"
   ],
 
   verbose: true,

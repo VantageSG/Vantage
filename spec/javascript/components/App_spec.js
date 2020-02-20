@@ -37,6 +37,7 @@ describe('User not logged in', () => {
     };
     axios.get.mockImplementationOnce(() => Promise.resolve(data));
     renderWithRouter(<App/>);
+
     await wait(()=>expect(screen.getByText(/shermzlim/i)).toBeInTheDocument());
   })
 })

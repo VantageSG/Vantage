@@ -144,7 +144,6 @@ export default class WorkExperience extends Component {
   renderAchievementsQns = (workExperience, index) => {
     return(
       <React.Fragment>
-        {console.log(this.state)}
          <Header as="h4">
             Briefly share key issues you faced and how you overcame this challenge.
           </Header>

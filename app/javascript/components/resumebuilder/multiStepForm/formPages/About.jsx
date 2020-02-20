@@ -56,7 +56,7 @@ export default class About extends Component {
   };
 
   getDbAbout() {
-
+    
     if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
@@ -67,6 +67,7 @@ export default class About extends Component {
         })
         .then(response => {
           const responseData = camelcaseKeysDeep(response.data.about);
+          
           this.setState({ 
             isLoading: false
           });
@@ -110,7 +111,6 @@ export default class About extends Component {
 
     // Populate aboutSchema with concatenated aboutMe
     aboutSchema.aboutMe = aboutMe;
-    console.log(aboutSchema);
     return decamelizeKeysDeep(aboutSchema);
   }
 
@@ -178,8 +178,11 @@ export default class About extends Component {
 
   render() {
     const aboutValues = this.state.about;
+    
     return this.state.isLoading ? (
-     <LoadingSpinner></LoadingSpinner>
+     <LoadingSpinner>
+       {console.log(this.state)}
+     </LoadingSpinner>
     ) : (
       <div>
         <Card centered fluid>

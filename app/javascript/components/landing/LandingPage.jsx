@@ -92,7 +92,6 @@ class LandingPage extends Component {
                   <Header as="h1" style={{ fontSize: "3.5em" }}>
                     About Us
                   </Header>
-                  <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                     <Divider
                       as="h3"
                       className="header"
@@ -117,7 +116,8 @@ class LandingPage extends Component {
                         textTransform: "uppercase"
                       }}
                     >
-                      <p>We empower students to be better than themselves</p>
+                      <p>We empower students to be <p>
+                        </p> than themselves</p>
                     </Divider>
 
                     <p style={{ fontSize: "1.33em" }}>
@@ -125,7 +125,6 @@ class LandingPage extends Component {
                      we strive to provide well-rounded guidance to job-seeking youths.
 
                     </p>
-                  </Responsive>
                 </Container>
               </Grid.Column>
             </Grid>
@@ -140,11 +139,9 @@ class LandingPage extends Component {
                   <Header as="h1" style={{ fontSize: "3.5em" }}>
                     Our Mission
                   </Header>
-                  <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                     <p style={{ fontSize: "1.33em" }}>
                     To create a guided, intuitive platform that prepares youths to be career-ready
                     </p>
-                  </Responsive>
                 </Container>
               </Grid.Column>
             </Grid>

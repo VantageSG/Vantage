@@ -69,7 +69,7 @@ class MobileNavBar extends Component {
           onHide={this.handleSidebarHide}
           vertical
           visible={sidebarOpened}
-          color="white"
+
        
         >
           <Menu.Item as={Link} to="/">

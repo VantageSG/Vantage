@@ -14,8 +14,9 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/images/VantageSGLogo_withname.png"
-import TeamPic from "../../../assets/images/VantageDSCTeam.jpg"
+
 import { Animated } from "react-animated-css";
+import TeamPic from "../../../assets/images/VantageDSCTeam.jpg"
 import Typist from 'react-typist';
 
 class LandingPage extends Component {

@@ -70,7 +70,7 @@ class DesktopNavBar extends Component {
               columns={3}
               centered
             >
-              <Grid.Row centered color="white">
+              <Grid.Row centered >
                 <Grid.Column textAlign="left" verticalAlign="middle" >
                   <p style={{ marginLeft: "2em", color: "black" }} >VANTAGE SG</p>
                 </Grid.Column>

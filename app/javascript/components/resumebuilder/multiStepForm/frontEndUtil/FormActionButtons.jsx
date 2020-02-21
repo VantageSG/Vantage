@@ -33,7 +33,6 @@ const FormActionButtons = props => {
 };
 
 const ModalConfirm = props => {
-  console.table(props);
   return (
     <Modal
       trigger={

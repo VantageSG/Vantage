@@ -62,39 +62,34 @@ class MobileNavBar extends Component {
         maxWidth={Responsive.onlyMobile.maxWidth}
       >
         <Sidebar
+          
           position="left"
           as={Menu}
           animation="push"
           onHide={this.handleSidebarHide}
           vertical
           visible={sidebarOpened}
-          style={{ backgroundColor: "#f4a300" }}
+          color="white"
+       
         >
           <Menu.Item as={Link} to="/">
             Home
           </Menu.Item>
-
           <Menu.Item as={Link} to="/resume-builder">
             Resume Builder
           </Menu.Item>
-          {this.renderRegistrationButton()}
+          { this.renderRegistrationButton() }
         </Sidebar>
-        <Visibility once={true}>
-          <Segment
-            textAlign="center"
-            style={{
-              minHeight: 20,
-
-              backgroundColor: "#f4a300"
-            }}
-            vertical
-          >
-            <Menu fluid secondary size="small" borderless>
+        <Visibility once={true} >
+         
+          <Menu fluid  size="small" borderless style={{
+            backgroundColor: "#F4DBB3"
+          }}>
               <Menu.Item onClick={this.handleToggle}>
                 <Icon name="sidebar" />
               </Menu.Item>
             </Menu>
-          </Segment>
+     
         </Visibility>
         <div className="site-content">{children}</div>
         <div style={{ margin: "5em 0em 0em", padding: "5em 0em" }} vertical="true">

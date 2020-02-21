@@ -107,8 +107,7 @@ class ResumeSelector extends Component {
 
     return (
       <React.Fragment>
-        <br></br>
-        <Segment>
+        <Segment style={{ backgroundColor: "#f5c05d"}}>
           <Header style={{textAlign: "center", textDecoration:"underline", margin:"2em"}}>Choose your Resume Components</Header>
 
           <Grid columns={2} container relaxed="very">

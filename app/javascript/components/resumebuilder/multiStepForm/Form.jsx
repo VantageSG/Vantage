@@ -174,7 +174,7 @@ export default class FormStep extends Component {
     );
     const widthOfStepper = vrsComponents.length + 1;
     return (
-      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered>
+      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered style={{ backgroundColor: "#f5c05d"}}>
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
         <Step onClick={this.goToConfirmation}>          
           <Step.Content>
@@ -307,7 +307,10 @@ export default class FormStep extends Component {
     //display based on the components inside formBody
     return (
       <React.Fragment>
-        {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}
+        <div style={{ backgroundColor: "#f5c05d",paddingTop: "20px", paddingBottom: "50px "}}>
+          {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}
+        </div>
+       
       </React.Fragment>
     );
   }

@@ -31,13 +31,15 @@ export default class ResumeBuilder extends Component {
   render() {
     const { menuFixed, overlayFixed } = this.state;
     return (
-      <Container fluid>
+      
+      <React.Fragment >
         <GuestUserModal />
-        <br />
-        <br />
+
+
         {this.context.isLoggedIn
           ? this.props.vrsComponents.length > 0 && !this.state.selectingComponents
-            ? <FormStep
+            ?
+            <FormStep
                 updateSelectComponents={this.updateSelectComponents}
                 vrsComponents={this.props.vrsComponents}
                 user={this.context.user}
@@ -51,7 +53,7 @@ export default class ResumeBuilder extends Component {
           <React.Fragment></React.Fragment>
         )}
         <Visibility offset={80} once={false}></Visibility>
-      </Container>
+      </React.Fragment>
     );
   }
 }

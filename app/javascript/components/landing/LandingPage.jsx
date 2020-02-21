@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../../assets/images/VantageSGLogo_withname.png"
 import TeamPic from "../../../assets/images/VantageDSCTeam.jpg"
 import { Animated } from "react-animated-css";
+import Typist from 'react-typist';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -40,22 +41,42 @@ class LandingPage extends Component {
                 minHeight: "50vh",
               }}
             >
+            
               <Segment placeholder style={{ minHeight: "50vh", backgroundColor: "#34558B" }} >
-                <Container
+                <Grid>
+                  <Grid.Row>
+                    <Container
+
+                    >
+                      <Image
+                        src={Logo}
+                        size="small"
+                        centered='true'
+                      />
+                      <Typist>
+                 
+                          Climb Higher
+                          <br></br>
+                          With
+                          <br></br>
+                          Us
+                    
+                      </Typist>
+                      <br></br>
+                      <Button
+                        style={{ backgroundColor: "#f5c05d"}}
+                        as={Link}
+                        to="/resume-builder"
+                        content="Build your resume"
+                      />
+                    </Container>
+                   
+                  </Grid.Row>
+                </Grid>
+                  </Segment>
+                 
               
-                >
-                  <Image
-                    src={Logo}
-                    size="small"
-                    centered='true'
-                  />
-                  <Button
-                    as={Link}
-                    to="/resume-builder"
-                    content="Build your resume"
-                  />
-                </Container>
-              </Segment>
+             
             </Container>
           </Responsive>
           <Responsive maxWidth={Responsive.onlyTablet.minWidth}>

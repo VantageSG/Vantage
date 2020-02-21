@@ -56,7 +56,7 @@ class DesktopNavBar extends Component {
     const { children } = this.props;
 
     return (
-      <div>
+      <div style={{ overflow: "hidden"}}>
         <Responsive
           getWidth={getWidth}
           minWidth={Responsive.onlyTablet.minWidth}

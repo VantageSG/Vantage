@@ -43,20 +43,20 @@ class DesktopNavBar extends Component {
         </Button>
       </Menu.Item>
     ) : (
-      <React.Fragment>
-        <Menu.Item as={Link} to="/login" fitted>
-          Login
+        <React.Fragment>
+          <Menu.Item as={Link} to="/login" fitted>
+            Login
         </Menu.Item>
-        <Menu.Item as={Link} to="/sign-up" fitted>Sign Up</Menu.Item>
-      </React.Fragment>
-    );
+          <Menu.Item as={Link} to="/sign-up" fitted>Sign Up</Menu.Item>
+        </React.Fragment>
+      );
   };
 
   render() {
     const { children } = this.props;
-    
+
     return (
-      <div>
+      <div style={{ overflow: "hidden"}}>
         <Responsive
           getWidth={getWidth}
           minWidth={Responsive.onlyTablet.minWidth}
@@ -65,25 +65,24 @@ class DesktopNavBar extends Component {
             <Grid
               style={{
                 minHeight: 20,
-                padding: "1em 0em",                
-                backgroundColor: "#f4a300"
+                paddingTop: '1em',
               }}
               columns={3}
               centered
             >
-              <Grid.Row centered>
+              <Grid.Row centered >
                 <Grid.Column textAlign="left" verticalAlign="middle" >
-              <p style={{marginLeft:"1em"}} >VANTAGE SG</p>
+                  <p style={{ marginLeft: "2em", color: "black" }} >VANTAGE SG</p>
                 </Grid.Column>
                 <Grid.Column textAlign="left">
                   {" "}
-                  <Menu borderless secondary size="small" compact style={{marginleft:"auto", marginRight: "auto"}}>
+                  <Menu borderless secondary size="small" compact style={{ marginleft: "auto", marginRight: "auto" }}>
                     <Menu.Item as={Link} to="/" fitted>
                       Home
-                    </Menu.Item>                   
+                    </Menu.Item>
                     <Menu.Item as={Link} to="/resume-builder" fitted>
                       Resume Builder
-                    </Menu.Item>                         
+                    </Menu.Item>
                   </Menu>
                 </Grid.Column>
                 <Grid.Column textAlign="left">
@@ -99,7 +98,7 @@ class DesktopNavBar extends Component {
           </Container>
           <Segment
             style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
-            
+
             vertical
           >
             <Container textAlign="center">

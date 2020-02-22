@@ -11,6 +11,7 @@ module.exports = {
 
   transform: {
     "\\.(png)$": "<rootDir>/spec/javascript/fileTransformer.js",
+    "\\.(jpg)$": "<rootDir>/spec/javascript/fileTransformer.js",
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.js?$": "babel-jest"
 

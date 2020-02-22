@@ -54,14 +54,16 @@ class LandingPage extends Component {
                         size="small"
                         centered='true'
                       />
-                      <Typist>
-                 
-                          Climb Higher
-                          <br></br>
-                          With
-                          <br></br>
-                          Us
-                    
+                      <Typist
+                        startDelay={1000}
+                        avgTypingDelay={150}
+                        cursor={{
+                          hideWhenDone: true,
+                          hideWhenDoneDelay: 1000,
+                        }}
+                      >
+                        Climb Higher With Us
+                  
                       </Typist>
                       <br></br>
                       <Button

@@ -10,14 +10,14 @@ import {
   Placeholder,
   Card,
   Responsive,
-  Image,
+  Image
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import Logo from "../../../assets/images/VantageSGLogo_withname.png"
+import Logo from "../../../assets/images/VantageSGLogo_withname.png";
 
 import { Animated } from "react-animated-css";
-import TeamPic from "../../../assets/images/VantageDSCTeam.jpg"
-import Typist from 'react-typist';
+import TeamPic from "../../../assets/images/VantageDSCTeam.jpg";
+import Typist from "react-typist";
 
 class LandingPage extends Component {
   constructor(props) {
@@ -39,148 +39,133 @@ class LandingPage extends Component {
                 marginLeft: "0em",
                 marginTop: "1em",
                 marginBottom: "auto",
-                minHeight: "50vh",
+                minHeight: "50vh"
               }}
             >
-            
-              <Segment placeholder style={{ minHeight: "50vh", backgroundColor: "#34558B" }} >
+              <Segment
+                placeholder
+                style={{ minHeight: "50vh", backgroundColor: "#283A76" }}
+              >
                 <Grid>
                   <Grid.Row>
-                    <Container
-
-                    >
-                      <Image
-                        src={Logo}
-                        size="small"
-                        centered='true'
-                      />
+                    <Container>
+                      <Image src={Logo} size="small" centered="true" />
                       <Typist
-                        startDelay={1000}
-                        avgTypingDelay={150}
+                        avgTypingDelay={70}
                         cursor={{
-                          hideWhenDone: true,
-                          hideWhenDoneDelay: 1000,
+                          show: false
                         }}
                       >
-                        Climb Higher With Us
-                  
+                        <Header 
+                        as='h1'>Climb Higher With Us</Header>
                       </Typist>
                       <br></br>
                       <Button
-                        style={{ backgroundColor: "#f5c05d"}}
+                        style={{ backgroundColor: "#F6B690" }}
                         as={Link}
                         to="/resume-builder"
                         content="Build your resume"
                       />
                     </Container>
-                   
                   </Grid.Row>
                 </Grid>
-                  </Segment>
-                 
-              
-             
+              </Segment>
             </Container>
           </Responsive>
           <Responsive maxWidth={Responsive.onlyTablet.minWidth}>
-            <div style={{ backgroundColor: "#34558B" }}>
-              <Segment placeholder style={{
-                borderColor: "#34558B",
-                border: "0px !important",
-                minHeight: "50vh",
-                backgroundColor: "#34558B"
-              }}>
-                <Container
-                  textAlign="center"
-                >
-                  <Image
-                    src={Logo}
-                    size="small"
-                    centered='true'
-                  />
+            <div >
+              <Segment
+                placeholder
+                style={{
+                  borderColor: "#34558B",
+                  border: "0px !important",
+                  minHeight: "50vh",
+                  backgroundColor: "#283A76"
+                }}
+              >
+                <Container textAlign="center">
+                  <Image src={Logo} size="small" centered="true" />
                   <Button
                     as={Link}
                     to="/resume-builder"
+                    style = {{
+                      backgroundColor: '#F6B690'
+                    }}
                     content="Build your resume"
                   />
-
                 </Container>
               </Segment>
             </div>
           </Responsive>
-          
-          <div style={{ marginTop: "30px", backgroundColor: "#f5c05d", paddingTop: "100px", paddingBottom: "100px"}} >
-            <Container fluid textAlign="left" >
+
+          <div
+            style={{
+              marginTop: "30px",
+              backgroundColor: "#FFF2D6",
+              paddingTop: "100px",
+              paddingBottom: "100px"
+            }}
+          >
+            <Container fluid textAlign="left">
               <Grid centered columns={3} stackable>
                 <Grid.Row>
-              
                   <Grid.Column mobile={16} tablet={6} computer={3}>
-                  <Container fluid textAlign="left" >
-                    <Header as="h1" style={{ fontSize: "2.0em" }}>
-                      About Us
-                  </Header>
-                  
-           
-                    <p style={{ fontSize: "1.10em" }}>
-                      We aim to create a career readiness platform that will empower youths to
-                      transition into the workforce/ seamlessly kickstart their career / move into a career.
-                    </p>
-                  
-                      <p>We empower students to be <p>
-                      </p> than themselves</p>
-                
+                    <Container fluid textAlign="left">
+                      <Header as="h1" style={{ fontSize: "2.0em" }}>
+                        About Us
+                      </Header>
 
-                    <p style={{ fontSize: "1.10em" }}>
-                      With our interactive resume builder, pre-career employment assessment and curated industry information,
-                       we strive to provide well-rounded guidance to job-seeking youths.
-  
-                    </p>
-                  </Container>
+                      <p style={{ fontSize: "1.10em" }}>
+                        Here at Vantage SG, we empower youths to transition into
+                        the workforce and seamlessly kick start their career.
+                      </p>
+
+                      <p>
+                        With our intuitive and guided resume builder specially
+                        made to suit first-timers, we strive to provide
+                        well-rounded guidance to job-seeking youths.
+                      </p>
+                    </Container>
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={6} computer={4}>
                     <Container fluid textAlign="left">
+                    <Header as="h1" style={{ fontSize: "2.0em" }}>
+                      A project launched as a part of DSC NUS.
+                      </Header>
+
+                      <p style={{ fontSize: "1.10em" }}>
+                      Developer Student Club (DSC) is a technical community that combines all the university students, and all the other students who learn, share ideas and come up with viable projects that are likely to solve day to day universe problems.
+                      </p>
                       <Header as="h1" style={{ fontSize: "2.0em" }}>
                         Our Mission
-                  </Header>
+                      </Header>
                       <p style={{ fontSize: "1.10em" }}>
-                        To create a guided, intuitive platform that prepares youths to be career-ready
-                    </p>
+                        To create a guided, intuitive platform that prepares
+                        youths to be career-ready
+                      </p>
                     </Container>
-                    <Divider/>
-                    <Container fluid textAlign="left" >
+                    <Divider />
+                    <Container fluid textAlign="left">
                       <Header as="h1" style={{ fontSize: "2.0em" }}>
                         Our Vision
-                  </Header>
+                      </Header>
 
                       <p style={{ fontSize: "1.10em" }}>
-                        To empower all youths to seamlessly transition into the workforce
-    
-                  </p>
-
-                      <p style={{ fontSize: "1.10em" }}>
-                        Realising the potential of each individual, we strive to
-                        create a wide range of opportunities for Singaporean youths
-                        - regardless of their financial and educational background.
-                  </p>
-
+                        To empower all youths to seamlessly transition into the
+                        workforce
+                      </p>
                     </Container>
-
                   </Grid.Column>
-                  <Grid.Column mobile={16} tablet={14} computer={5} >
-                    <Image src={TeamPic} style={{  backgroundColor: '#fff',
-    padding: '4px'}}>
-
-                    </Image>
+                  <Grid.Column mobile={16} tablet={14} computer={5}>
+                    <Image
+                      src={TeamPic}
+                      style={{ backgroundColor: "#fff", padding: "4px" }}
+                    ></Image>
                   </Grid.Column>
-              
                 </Grid.Row>
-             
               </Grid>
             </Container>
           </div>
-    
-
-
         </Animated>
       </div>
     );

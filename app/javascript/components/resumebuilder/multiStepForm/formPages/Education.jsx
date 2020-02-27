@@ -122,7 +122,7 @@ export default class Education extends Component {
                       onClick={()=>this.handleRemoveForm(index)}
                     />
                   }
-                  <Header as="h3">Where did u study?</Header>
+                  <Header as="h3">Where did you study?</Header>
                   <Form>
                     <Form.Input
                       fluid

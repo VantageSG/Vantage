@@ -53,7 +53,6 @@ class GuestUserModal extends Component{
           </Button.Group>
             
             <Button
-            primary
             content='Continue as Guest'
             onClick={() => this.continueAsGuest()}
           />

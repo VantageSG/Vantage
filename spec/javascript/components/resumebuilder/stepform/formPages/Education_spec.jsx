@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 describe('Default Login page', () => {
   renderWithRouter(<Education/>);
   it('should have "Where did you study"', () => {
-    expect(screen.getByText(/Where did u study?/i)).toBeInTheDocument();
+    expect(screen.getByText(/Where did you study?/i)).toBeInTheDocument();
   });
   it('should have Institution Name text', () => {
     expect(screen.getByText(/Institution Name/i)).toBeInTheDocument();

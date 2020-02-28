@@ -163,10 +163,10 @@ export default class ConfirmationPage extends Component {
                     return (
                       <React.Fragment key={i}>
                         <List.Item
-                          header={"Name of Skill"}
-                          content={value.skillName}
+                          header={value.name}
                           description={value.description}
                         />
+                        {console.log(value)}
                         <Divider></Divider>
                       </React.Fragment>
                     );

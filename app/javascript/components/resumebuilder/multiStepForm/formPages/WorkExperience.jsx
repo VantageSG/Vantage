@@ -225,7 +225,7 @@ export default class WorkExperience extends Component {
                         icon="calendar"
                         label="Start Date"
                         iconPosition="left"
-                        placeholder="Start date"
+                        placeholder="Start Date"
                         name="start"
                         value={workExperience.start.toString()}
                         onChange={(event) => this.handleFormChange(event, index)}
@@ -234,8 +234,8 @@ export default class WorkExperience extends Component {
                         fluid
                         icon="calendar"
                         iconPosition="left"
-                        label="End date"
-                        placeholder="End date"
+                        label="End Date"
+                        placeholder="End Date"
                         name="end"
                         value={workExperience.end.toString()}
                         onChange={(event) => this.handleFormChange(event, index)}

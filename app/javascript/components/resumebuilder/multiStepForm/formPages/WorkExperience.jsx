@@ -29,6 +29,7 @@ const workExperienceSchemaWQns = {
   end: "",
   achievements1: "",
   achievements2:"",
+  achievements3:"",
   referees: [],
 };
 
@@ -144,21 +145,30 @@ export default class WorkExperience extends Component {
     return(
       <React.Fragment>
          <Header as="h4">
-            Briefly share key issues you faced and how you overcame this challenge.
+            What did you do?
           </Header>
           <TextArea
-            placeholder=""
+            placeholder="Memorised the restaurant’s wine stock and meal pairing"
             name="achievements1"
             value={workExperience.achievements1}
             onChange={(event) => this.handleFormChange(event, index)}
           />
           <Header as="h4">
-            Were there any significant outcomes of your experience?
+            What was the purpose?
           </Header>
           <TextArea
-            placeholder=""
+            placeholder="To increase customer satisfaction"
             name="achievements2"
             value={workExperience.achievements2}
+            onChange={(event) => this.handleFormChange(event, index)}
+          />
+          <Header as="h4">
+            What was the result / impact?
+          </Header>
+          <TextArea
+            placeholder="Resulting in average of $170 daily for wine sales"
+            name="achievements3"
+            value={workExperience.achievements3}
             onChange={(event) => this.handleFormChange(event, index)}
           />
       </React.Fragment>

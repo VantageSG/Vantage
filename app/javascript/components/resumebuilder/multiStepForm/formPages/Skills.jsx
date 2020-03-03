@@ -130,7 +130,7 @@ export default class Skills extends Component {
                   <Form>
                     <Form.Input
                       fluid
-                      placeholder="Enter skill"
+                      placeholder="What are you good at?"
                       label="Skill"
                       name="name"
                       value={skills.name}
@@ -143,10 +143,10 @@ export default class Skills extends Component {
                       [e.g. Volunteering experience/language proficiency/certifications/hobby]"
                       trigger={<Icon name="question circle" />} />
                     <Header as="h4">
-                      How do you think this will stand out to the recruiter?
+                      How did this skill impact others?
                     </Header>
                     <TextArea
-                      placeholder="Describe it"
+                      placeholder="Performed at secondary school graduation ceremony"
                       name="description"
                       value={skills.description}
                       onChange={(event) => this.handleFormChange(event, index)}

@@ -8,7 +8,4 @@ describe('Default Login page', () => {
   it('should have "What are some interests you have?"', () => {
     expect(screen.getByText(/What are some interests you have?/i)).toBeInTheDocument();
   });
-  it('should have Enter Interest placeholder', () => {
-    expect(screen.getByPlaceholderText(/Enter Interest/i)).toBeInTheDocument();
-  });
 })

@@ -52,8 +52,8 @@ describe('Work Experience field', () => {
       >
         <WorkExperience/>)
       </UserContext.Provider>);
-    await wait (() => expect(screen.getByText(/Briefly share key issues you faced and how you overcame this challenge./i)).toBeInTheDocument())
-    await wait (() => expect(screen.getByText(/Were there any significant outcomes of your experience?/i)).toBeInTheDocument())
+    await wait (() => expect(screen.getByText(/What did you do?/i)).toBeInTheDocument())
+    await wait (() => expect(screen.getByText(/What was the purpose?/i)).toBeInTheDocument())
   });
   it ('should have a para for about me for old users', async () => {
 

@@ -126,7 +126,7 @@ export default class Interests extends Component {
                   <Form>
                     <Form.Input
                       fluid
-                      placeholder="Enter Interest"
+                      placeholder="Eg. Rap, Photography, Body building"
                       label="Interest"
                       name="name"
                       value={interest.name}

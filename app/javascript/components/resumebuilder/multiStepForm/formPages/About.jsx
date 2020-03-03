@@ -125,36 +125,34 @@ export default class About extends Component {
           How would you describe your personality in a few words?
         </Header>
         <TextArea
-          placeholder=""
+          placeholder="I am a hard worker who takes pride in my work."
           name="aboutMe1"
           value={aboutValues.aboutMe1}
           onChange={this.handleFormChange}
         />
         <Header as="h4">
-          What’s the most important thing you would
-            want the recruiter to know about you?
+          What are you most passionate about?
         </Header>
         <TextArea
-          placeholder=""
+          placeholder="I am passionate about social media."
           name="aboutMe2"
           value={aboutValues.aboutMe2}
           onChange={this.handleFormChange}
         />
         <Header as="h4">
-          What are you doing now and what 
-            is it that you want to achieve with the opportunity?
+          What drives you?
         </Header>
         <TextArea
-          placeholder=""
+          placeholder="I like to make people happy."
           name="aboutMe3"
           value={aboutValues.aboutMe3}
           onChange={this.handleFormChange}
         />
         <Header as="h4">
-          How can you help the employer achieve their goals?
+          What makes you different from other candidates?
         </Header>
         <TextArea
-          placeholder=""
+          placeholder="I am willing to go the extra mile to get job done."
           name="aboutMe4"
           value={aboutValues.aboutMe4}
           onChange={this.handleFormChange}

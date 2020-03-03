@@ -55,9 +55,9 @@ describe('About Me field', () => {
       
     );
     await wait (() => expect(screen.getByText(/How would you describe your personality in a few words?/i)).toBeInTheDocument())
-    await wait (() => expect(screen.getByText(/What’s the most important thing you would want the recruiter to know about you?/i)).toBeInTheDocument())
-    await wait (() => expect(screen.getByText(/What are you doing now and what is it that you want to achieve with the opportunity?/i)).toBeInTheDocument())
-    await wait (() => expect(screen.getByText(/How can you help the employer achieve their goals?/i)).toBeInTheDocument())
+    await wait (() => expect(screen.getByText(/What are you most passionate about?/i)).toBeInTheDocument())
+    await wait (() => expect(screen.getByText(/What drives you?/i)).toBeInTheDocument())
+    await wait (() => expect(screen.getByText(/What makes you different from other candidates?/i)).toBeInTheDocument())
   });
   it ('should have a para for about me for old users', async () => {
 

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import {
   Container,
   Visibility,
+  Grid
 } from "semantic-ui-react";
 
 import FormStep from "./multiStepForm/Form";

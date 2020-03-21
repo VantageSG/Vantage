@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Container, Step, Icon, Responsive } from "semantic-ui-react";
+import { Container, Step, Icon, Responsive, Grid } from "semantic-ui-react";
 import About from "./formPages/About";
+import AboutContainer from "./formPages/About/AboutContainer"
 import Education from "./formPages/Education";
 import WorkExperience from "./formPages/WorkExperience";
 import Skills from "./formPages/Skills";
@@ -174,7 +175,7 @@ export default class FormStep extends Component {
     );
     const widthOfStepper = vrsComponents.length + 1;
     return (
-      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered style={{ backgroundColor: "#f5c05d"}}>
+      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered style={{ backgroundColor: "#f5c05d", maxHeight:'100px'}}>
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
         <Step onClick={this.goToConfirmation}>          
           <Step.Content>
@@ -193,7 +194,7 @@ export default class FormStep extends Component {
     let nameComponentMap = new Object();
     nameComponentMap["about"] = (
       <Container text>
-        <About
+        <AboutContainer
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -307,9 +308,14 @@ export default class FormStep extends Component {
     //display based on the components inside formBody
     return (
       <React.Fragment>
-        <div style={{ backgroundColor: "#f5c05d",paddingTop: "20px", paddingBottom: "50px "}}>
+        <Grid 
+          style={{ backgroundColor: "#f5c05d",paddingTop: "20px", paddingBottom: "50px ", height:'100vh'}}
+          verticalAlign="middle"
+          textAlign="center"
+          stretched
+        >
           {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}
-        </div>
+        </Grid>
        
       </React.Fragment>
     );

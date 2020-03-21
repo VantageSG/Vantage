@@ -9,6 +9,7 @@ import {
   Popup,
   TextArea,
 } from "semantic-ui-react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import FormActionButtons from "../frontEndUtil/FormActionButtons";
 import { Animated } from "react-animated-css";
@@ -173,6 +174,12 @@ export default class About extends Component {
   }
 
   render() {
+
+    <BrowserRouter>
+      <Route exact path="/test">
+        <FormActionButtons/>
+      </Route>
+    </BrowserRouter>
     const aboutValues = this.state.about;
     
     return this.state.isLoading ? (

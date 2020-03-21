@@ -6,6 +6,7 @@ class Api::V1::Resumes::AboutsController < Api::V1::Resumes::BaseVrsController
   end
 
   def clear_component_data
+    
     if @resume.about
       @resume.about.destroy()
     end
@@ -14,7 +15,6 @@ class Api::V1::Resumes::AboutsController < Api::V1::Resumes::BaseVrsController
   def update_component
     # Grammar formatting for about_me before posting to DB
     text = params[:about][:about_me]
-
     parser = Gingerice::Parser.new
     result = parser.parse text
     params[:about][:about_me] = result['result']

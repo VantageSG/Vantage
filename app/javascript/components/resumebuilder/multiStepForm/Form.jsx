@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Container, Step, Icon, Responsive, Grid } from "semantic-ui-react";
 import About from "./formPages/About";
-import AboutContainer from "./formPages/About/AboutContainer"
+import SingleSegmentContainer from "./formPages/Segment/SingleSegmentContainer"
+import MultipleSegmentContainer from "./formPages/Segment/MultipleSegmentContainer"
 import Education from "./formPages/Education";
 import WorkExperience from "./formPages/WorkExperience";
 import Skills from "./formPages/Skills";
@@ -194,7 +195,62 @@ export default class FormStep extends Component {
     let nameComponentMap = new Object();
     nameComponentMap["about"] = (
       <Container text>
-        <AboutContainer
+        <MultipleSegmentContainer
+          segmentName= "workExperiences"
+          segmentLabel = "Work Experience"
+          dynamicAnswerAttributeName= "achievements"
+          mainAttribute = {{
+            title: "",
+            company: "",
+            start: "",
+            end: "",
+            achievements: ""
+          }}
+          mainQuestions = {[
+            {
+              label: "Where have you worked before?",
+              type: "text",
+              name: "company",
+              placeholder: "Name of company you worked at before."
+            },
+            {
+              label: "Name of Position",
+              type: "text",
+              name: "title",
+              placeholder: "What is your job title? Refer to your contract if you do not know."
+            },
+            {
+              label: "Start Date",
+              type: "text",
+              name: "start",
+              placeholder: "Start Date."
+            },
+            {
+              label: "End Date",
+              type: "text",
+              name: "end",
+              placeholder: "End Date."
+            }
+          ]}
+          dynamicQuestions = {
+            [
+              {
+                label: "What did you do?",
+                type: "text",
+                placeholder: "I am a hard worker who takes pride in my work."
+              },
+              {
+                label: "What was the purpose?",
+                type: "text",
+                placeholder: "I am passionate about social media."
+              },
+              {
+                label: "What was the result / impact?",
+                type: "text",
+                placeholder: "I like to make people happy.."
+              }
+            ]
+          }
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}

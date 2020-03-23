@@ -20,24 +20,6 @@ import decamelizeKeysDeep from "decamelize-keys-deep";
 import QuestionActionButton from "../QuestionActionButton";
 import { tsCallSignatureDeclaration } from "@babel/types";
 
-const aboutSchemaWQns = {
-  name: "",
-  email: "",
-  contactNumber: "",
-  aboutMe1: "",
-  aboutMe2: "",
-  aboutMe3: "",
-  aboutMe4: ""
-};
-
-// Create new object with only 1 aboutMe field
-const aboutSchema = {
-  name: "",
-  email: "",
-  contactNumber: "",
-  aboutMe: ""
-};
-
 var mainQuestions = [
   {
     label: "Name",
@@ -89,57 +71,50 @@ var dynamicQuestions = [
   }
 ];
 
-export default class About extends Component {
+export default class SingleSegmentContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataLoaded: false,
-      about: {
-        name: "",
-        email: "",
-        contactNumber: "",
-        aboutMe: "",
+      segmentData: {
         concatAnswer: ""
       },
       aboutQnStep: 0,
       dynamicAnswers: [],
-      isLoading: false
+      isLoading: true
     };
   }
 
   handleFormChange = event => {
     const { name, value } = event.target;
     this.setState({
-      about: {
-        ...this.state.about,
+      segmentData: {
+        ...this.state.segmentData,
         [name]: value
       }
     });
   };
 
-  getDbAbout() {
+  getSegmentData() {
     if (!this.state.dataLoaded && this.context.isLoggedIn) {
       if (!this.state.isLoading) {
         this.setState({ isLoading: true });
       }
       axios
-        .get(getEndPoint("about", this.context.user.id), {
+        .get(getEndPoint(this.props.segmentName, this.context.user.id), {
           withCredentials: true
         })
         .then(response => {
-          const responseData = camelcaseKeysDeep(response.data.about);
+          const responseData = camelcaseKeysDeep(response.data[this.props.segmentName]);
           this.setState({
             isLoading: false
           });
           if (responseData != null && responseData != undefined) {
             this.setState({
-              about: responseData
+              segmentData: responseData
             });
 
             if (responseData[concatQn.name] != null && responseData[concatQn.name] && undefined || responseData[concatQn.name].length > 0  ) {
-              this.setState({
-                concatAnswer: responseData[concatQn.name]
-              })
               if (dynamicQuestions.length>1) {
                 mainQuestions.push(concatQn)
                 dynamicQuestions=[]
@@ -159,44 +134,53 @@ export default class About extends Component {
   }
 
   componentDidUpdate() {
-    this.getDbAbout();
+    this.getSegmentData();
   }
 
   componentDidMount() {
-    this.getDbAbout();
+    this.setState({
+      segmentData: {
+        ...this.state.dasegmentDatata,
+        ...this.props.mainAttribute
+      }
+    }, () => {
+      this.getSegmentData();
+    })
+    
   }
 
   concatDynamicAnswer = () => {
-    let aboutMe = "";
+    let concatDynamicAnswer = "";
 
     this.state.dynamicAnswers.map(answer => {
-      aboutMe += answer + " ";
+      concatDynamicAnswer += answer + " ";
     });
 
-    return aboutMe
+    return concatDynamicAnswer
 
   };
 
-  getCompleteAbout() {
+  getCompleteSegmentData() {
 
-    let aboutMe = this.concatDynamicAnswer()
-    if (aboutMe.length > 0) {
+    let concatDynamicAnswer = this.concatDynamicAnswer()
+    if (concatDynamicAnswer.length > 0) {
       this.setState({
-        about: {
-          ...this.state.about,
-          aboutMe: aboutMe
+        segmentData: {
+          ...this.state.segmentData,
+          [concatQn.name]: concatDynamicAnswer
         }
       }, 
       () => {
-        return decamelizeKeysDeep(this.state.about)
+        console.log(this.state)
+        return decamelizeKeysDeep(this.state.segmentData)
       });
     }
     
-    return decamelizeKeysDeep(this.state.about);
+    return decamelizeKeysDeep(this.state.segmentData);
   }
 
   stepApiReq = callback => {
-    postForm("about", this.getCompleteAbout(), this.context.user.id, callback);
+    postForm(this.props.segmentName, this.getCompleteSegmentData(), this.context.user.id, callback);
   };
 
   // New
@@ -221,19 +205,11 @@ export default class About extends Component {
     }
   };
 
-  submitSegment = () => {
-    postForm(
-      "about",
-      decamelizeKeysDeep(this.state.about),
-      this.context.user.id
-    );
-  };
-
   onMainQuestionChange = e => {
     const { name, value } = e.target;
     this.setState({
-      about: {
-        ...this.state.about,
+      segmentData: {
+        ...this.state.segmentData,
         [name]: value
       }
     });
@@ -261,7 +237,8 @@ export default class About extends Component {
   };
 
   render() {
-    const aboutValues = this.state.about;
+    const segmentValues = this.state.segmentData;
+    console.log(this.state)
     return this.state.isLoading ? (
       <LoadingSpinner></LoadingSpinner>
     ) : (
@@ -277,7 +254,7 @@ export default class About extends Component {
                   validator={this.getCurrQn().validator}
                   name={this.getCurrQn().name}
                   onChange={this.onMainQuestionChange}
-                  value={aboutValues[this.getCurrQn().name] || ""}
+                  value={segmentValues[this.getCurrQn().name] || ""}
                   placeholder={this.getCurrQn().placeholder}
                 />
                 <QuestionActionButton
@@ -322,12 +299,12 @@ export default class About extends Component {
           <Segment
           textAlign="center"
           >
-            <h1> About Summary </h1>
+            <h1> {this.props.segmentName} Summary </h1>
             {mainQuestions.map((question, index) => {
               const label = question.label;
               const name = question.name;
-              const about = this.state.about;
-              const answer = about[name];
+              const segmentData = this.state.segmentData;
+              const answer = segmentData[name];
 
               return (
                 <Card centered key={index} onClick={() => this.onClickMainQn(index)}>
@@ -364,4 +341,4 @@ export default class About extends Component {
   }
 }
 
-About.contextType = UserContext;
+SingleSegmentContainer.contextType = UserContext;

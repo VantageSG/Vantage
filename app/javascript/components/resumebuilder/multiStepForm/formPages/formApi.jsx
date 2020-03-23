@@ -21,7 +21,7 @@ function postForm(vrsAttribute, vrsValue ,userID, callBack) {
   const endPoint = getEndPoint(vrsAttribute, userID);
 
   var jsonVariable = {};
-
+  console.log(vrsValue)
   jsonVariable[vrsAttribute] = vrsValue;
 
   axios

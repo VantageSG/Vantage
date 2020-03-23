@@ -120,24 +120,38 @@ export default class SingleSegmentContainer extends Component {
 
     let concatDynamicAnswer = this.concatDynamicAnswer()
     if (concatDynamicAnswer.length > 0) {
-      this.setState({
-        segmentData: {
-          ...this.state.segmentData,
-          [this.props.concatQn.name]: concatDynamicAnswer
-        }
-      }, 
-      () => {
-        console.log(this.state)
-        return decamelizeKeysDeep(this.state.segmentData)
-      });
+        return decamelizeKeysDeep(concatDynamicAnswer)
+    } else {
+      return decamelizeKeysDeep(this.state.segmentData[this.props.concatQn.name]);
     }
-    
-    return decamelizeKeysDeep(this.state.segmentData);
   }
 
   stepApiReq = callback => {
-    postForm(this.props.segmentName, this.getCompleteSegmentData(), this.context.user.id, callback);
+    
+    const segmentData = this.state.segmentData
+    console.log(segmentData)
+    segmentData[this.props.concatQn.name] = this.getCompleteSegmentData()
+    console.log(segmentData)
+    this.setState({
+      isLoading: true
+    }, () => {
+      postForm(this.props.segmentName, segmentData, this.context.user.id, callback).then( 
+        (status) => {
+          if (status == 200) {
+            callback()
+          } else {
+            this.setState({
+              isLoading: false,
+              segmentCount: 1,
+              aboutQnStep: 0
+            })
+          }
+        }
+      )
+    })
   };
+
+  
 
   // New
 

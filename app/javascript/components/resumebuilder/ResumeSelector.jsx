@@ -29,7 +29,7 @@ class ResumeSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {      
-      choices: this.props.vrsComponents.length > 0 ? this.props.vrsComponents : ["about"]
+      choices: this.props.vrsComponents.length > 0 ? this.props.vrsComponents : ["about", "educations", "workExperiences", "skills", "interests"]
     };
     this.state.color = [
       "green",

@@ -23,8 +23,8 @@ function postForm(vrsAttribute, vrsValue ,userID, callBack) {
   var jsonVariable = {};
   console.log(vrsValue)
   jsonVariable[vrsAttribute] = vrsValue;
-
-  axios
+  return(
+    axios
     .post(endPoint, 
       jsonVariable,
       { withCredentials: true }
@@ -32,16 +32,17 @@ function postForm(vrsAttribute, vrsValue ,userID, callBack) {
     )
     .then(response => {
       if (response.status === 200){
-        console.log('Success')
-        callBack()
+        return response.status
       } else {
         console.log('fail')
       }
     })
     .catch(error => {
-      console.log(error)
       alert(error.response.data.error)
+      return error.response.data.status
     })
+  )
+ 
 }
 
 export { postForm as postForm};

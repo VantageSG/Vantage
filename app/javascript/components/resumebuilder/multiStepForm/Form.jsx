@@ -9,6 +9,7 @@ import WorkExperience from "./formPages/SegmentContent/WorkExperience.json"
 import Education from "./formPages/SegmentContent/Education.json"
 import Skills from "./formPages/SegmentContent/Skills.json"
 import Interests from "./formPages/SegmentContent/Interests.json"
+import { combinator } from "postcss-selector-parser";
 
 export default class FormStep extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ export default class FormStep extends Component {
 
   ////////////////////// steps to increment
   nextStep = () => {
+    
     const { step } = this.state;
     this.setState({ step: step + 1 });
   };
@@ -194,7 +196,7 @@ export default class FormStep extends Component {
     const { step, maxStep } = this.state;
     let nameComponentMap = new Object();
     nameComponentMap["about"] = (
-      <Container text>
+      <Container text key={0}>
         <SingleSegmentContainer
           mainQuestions={About["mainQuestions"]}
           dynamicQuestions={About["dynamicQuestions"]}
@@ -210,7 +212,7 @@ export default class FormStep extends Component {
       </Container>
     );
     nameComponentMap["educations"] = (
-      <Container text>
+      <Container text key={1}>
         <MultipleSegmentContainer
           mainQuestions={Education["mainQuestions"]}
           dynamicQuestions={Education["dynamicQuestions"]}
@@ -226,7 +228,7 @@ export default class FormStep extends Component {
       </Container>
     );
     nameComponentMap["workExperiences"] = (
-      <Container text>
+      <Container text key={2}>
         <MultipleSegmentContainer
           mainQuestions={WorkExperience["mainQuestions"]}
           dynamicQuestions={WorkExperience["dynamicQuestions"]}
@@ -242,7 +244,7 @@ export default class FormStep extends Component {
       </Container>
     );
     nameComponentMap["skills"] = (
-      <Container text>
+      <Container text key={3}>
         <MultipleSegmentContainer
           mainQuestions={Skills["mainQuestions"]}
           dynamicQuestions={Skills["dynamicQuestions"]}
@@ -258,7 +260,7 @@ export default class FormStep extends Component {
       </Container>
     );
     nameComponentMap["interests"] = (
-      <Container text>
+      <Container text key={4}>
         <MultipleSegmentContainer
           mainQuestions={Interests["mainQuestions"]}
           dynamicQuestions={Interests["dynamicQuestions"]}
@@ -332,10 +334,16 @@ export default class FormStep extends Component {
     });
   };
 
+  reRenderCompoenent (component) {
+    return component
+  }
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   render() {
+    
     const { isLoading, step, formBody } = this.state;
+    
     //display based on the components inside formBody
     return (
       <React.Fragment>
@@ -345,7 +353,9 @@ export default class FormStep extends Component {
           textAlign="center"
           stretched
         >
-          {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}
+          {isLoading ? <LoadingSpinner></LoadingSpinner> : 
+            this.reRenderCompoenent(formBody[step])
+          }
         </Grid>
        
       </React.Fragment>

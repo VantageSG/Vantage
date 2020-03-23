@@ -20,7 +20,7 @@ import camelcaseKeysDeep from "camelcase-keys-deep";
 import decamelizeKeysDeep from "decamelize-keys-deep";
 import QuestionActionButton from "../QuestionActionButton";
 
-export default class SingleSegmentContainer extends Component {
+export default class MultipleSegmentContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ export default class SingleSegmentContainer extends Component {
       segmentData: [],
       aboutQnStep: 0,
       dynamicAnswers: [],
-      isLoading: true
+      isLoading: false
     };
   }
   getSegmentData() {
@@ -140,7 +140,29 @@ export default class SingleSegmentContainer extends Component {
   }
 
   stepApiReq = callback => {
-    postForm(this.props.segmentName, this.getCompleteSegmentData(), this.context.user.id, callback);
+    this.setState({
+      isLoading: true
+    }, () => {
+      postForm(this.props.segmentName, this.getCompleteSegmentData(), this.context.user.id, callback).then( 
+        (status) => {
+          console.log(status)
+          if (status == 200) {
+            this.setState({
+              isComplete: false,
+              
+            })
+            callback()
+          } else {
+            this.setState({
+              isComplete: false,
+              segmentCount: 1,
+              aboutQnStep: 0
+            })
+          }
+          
+        }
+      )
+    })
   };
 
   // New
@@ -188,6 +210,7 @@ export default class SingleSegmentContainer extends Component {
 
   onClickMainQn = index => {
     this.setState({
+      isComplete: false,
       aboutQnStep: index
     });
   };
@@ -255,11 +278,14 @@ export default class SingleSegmentContainer extends Component {
 
   onClickDynamicQn = index => {
     this.setState({
+      isComplete: false,
       aboutQnStep: index + this.state.mainQuestions.length
     });
   };
 
   render() {
+    console.log(this.props.segmentLabel)
+    console.log(this.state)
     var segmentValues
     if (this.state.segmentData.length > 0 ) {
       segmentValues = this.state.segmentData[this.state.segmentCount - 1]
@@ -357,7 +383,7 @@ export default class SingleSegmentContainer extends Component {
             {
               this.state.isComplete ?
               <FormActionButtons
-              previousStep={this.prevAboutQn}
+              previousStep={this.props.previousStep}
               maxStep={this.props.maxStep}
               step={this.props.step}
               nextStep={() => this.stepApiReq(this.props.nextStep)}
@@ -399,4 +425,4 @@ export default class SingleSegmentContainer extends Component {
   }
 }
 
-SingleSegmentContainer.contextType = UserContext;
+MultipleSegmentContainer.contextType = UserContext;

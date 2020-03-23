@@ -83,7 +83,7 @@ class MobileNavBar extends Component {
         <Visibility once={true} >
          
           <Menu fluid  size="small" borderless style={{
-            backgroundColor: "#F4DBB3"
+            backgroundColor: "transparent"
           }}>
               <Menu.Item onClick={this.handleToggle}>
                 <Icon name="sidebar" />

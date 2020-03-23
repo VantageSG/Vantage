@@ -6,7 +6,6 @@ class Api::V1::Resumes::AboutsController < Api::V1::Resumes::BaseVrsController
   end
 
   def clear_component_data
-    
     if @resume.about
       @resume.about.destroy()
     end

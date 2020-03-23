@@ -26,8 +26,7 @@ export default class SingleSegmentContainer extends Component {
       dataLoaded: false,
       mainQuestions: [],
       dynamicQuestions: [],
-      segmentData: {
-      },
+      segmentData: {},
       aboutQnStep: 0,
       dynamicAnswers: [],
       isLoading: true
@@ -54,7 +53,9 @@ export default class SingleSegmentContainer extends Component {
           withCredentials: true
         })
         .then(response => {
-          const responseData = camelcaseKeysDeep(response.data[this.props.segmentName]);
+          const responseData = camelcaseKeysDeep(
+            response.data[this.props.segmentName]
+          );
           this.setState({
             isLoading: false
           });
@@ -63,15 +64,20 @@ export default class SingleSegmentContainer extends Component {
               segmentData: responseData
             });
 
-            if (responseData[this.props.concatQn.name] != null && responseData[this.props.concatQn.name] && undefined || responseData[this.props.concatQn.name].length > 0  ) {
-              if (this.state.dynamicQuestions.length>1) {
+            if (
+              (responseData[this.props.concatQn.name] != null &&
+                responseData[this.props.concatQn.name] &&
+                undefined) ||
+              responseData[this.props.concatQn.name].length > 0
+            ) {
+              if (this.state.dynamicQuestions.length > 1) {
                 this.setState({
                   mainQuestions: [
                     ...this.state.mainQuestions,
                     this.props.concatQn
                   ],
                   dynamicQuestions: []
-                })
+                });
               }
             }
           }
@@ -92,17 +98,19 @@ export default class SingleSegmentContainer extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      segmentData: {
-        ...this.state.dasegmentDatata,
-        ...this.props.mainAttribute
+    this.setState(
+      {
+        segmentData: {
+          ...this.state.dasegmentDatata,
+          ...this.props.mainAttribute
+        },
+        mainQuestions: this.props.mainQuestions,
+        dynamicQuestions: this.props.dynamicQuestions
       },
-      mainQuestions: this.props.mainQuestions,
-      dynamicQuestions: this.props.dynamicQuestions
-    }, () => {
-      this.getSegmentData();
-    })
-    
+      () => {
+        this.getSegmentData();
+      }
+    );
   }
 
   concatDynamicAnswer = () => {
@@ -112,46 +120,49 @@ export default class SingleSegmentContainer extends Component {
       concatDynamicAnswer += answer + " ";
     });
 
-    return concatDynamicAnswer
-
+    return concatDynamicAnswer;
   };
 
   getCompleteSegmentData() {
-
-    let concatDynamicAnswer = this.concatDynamicAnswer()
+    let concatDynamicAnswer = this.concatDynamicAnswer();
     if (concatDynamicAnswer.length > 0) {
-        return decamelizeKeysDeep(concatDynamicAnswer)
+      return decamelizeKeysDeep(concatDynamicAnswer);
     } else {
-      return decamelizeKeysDeep(this.state.segmentData[this.props.concatQn.name]);
+      return decamelizeKeysDeep(
+        this.state.segmentData[this.props.concatQn.name]
+      );
     }
   }
 
   stepApiReq = callback => {
-    
-    const segmentData = this.state.segmentData
-    console.log(segmentData)
-    segmentData[this.props.concatQn.name] = this.getCompleteSegmentData()
-    console.log(segmentData)
-    this.setState({
-      isLoading: true
-    }, () => {
-      postForm(this.props.segmentName, segmentData, this.context.user.id, callback).then( 
-        (status) => {
+    const segmentData = this.state.segmentData;
+    console.log(segmentData);
+    segmentData[this.props.concatQn.name] = this.getCompleteSegmentData();
+    console.log(segmentData);
+    this.setState(
+      {
+        isLoading: true
+      },
+      () => {
+        postForm(
+          this.props.segmentName,
+          segmentData,
+          this.context.user.id,
+          callback
+        ).then(status => {
           if (status == 200) {
-            callback()
+            callback();
           } else {
             this.setState({
               isLoading: false,
               segmentCount: 1,
               aboutQnStep: 0
-            })
+            });
           }
-        }
-      )
-    })
+        });
+      }
+    );
   };
-
-  
 
   // New
 
@@ -171,7 +182,9 @@ export default class SingleSegmentContainer extends Component {
     if (this.state.aboutQnStep < this.state.mainQuestions.length) {
       return this.state.mainQuestions[this.state.aboutQnStep];
     } else {
-      return this.state.dynamicQuestions[this.state.aboutQnStep - this.state.mainQuestions.length];
+      return this.state.dynamicQuestions[
+        this.state.aboutQnStep - this.state.mainQuestions.length
+      ];
     }
   };
 
@@ -208,13 +221,14 @@ export default class SingleSegmentContainer extends Component {
 
   render() {
     const segmentValues = this.state.segmentData;
-    console.log(this.state)
+    console.log(this.state);
     return this.state.isLoading ? (
       <LoadingSpinner></LoadingSpinner>
     ) : (
       <>
         {this.state.aboutQnStep <
-          this.state.mainQuestions.length + this.state.dynamicQuestions.length && (
+          this.state.mainQuestions.length +
+            this.state.dynamicQuestions.length && (
           <Card centered fluid>
             {this.state.aboutQnStep < this.state.mainQuestions.length && (
               <>
@@ -228,7 +242,10 @@ export default class SingleSegmentContainer extends Component {
                   placeholder={this.getCurrQn().placeholder}
                 />
                 <QuestionActionButton
-                  maxStep={this.state.mainQuestions.length + this.state.dynamicQuestions.length}
+                  maxStep={
+                    this.state.mainQuestions.length +
+                    this.state.dynamicQuestions.length
+                  }
                   qnStep={this.state.aboutQnStep}
                   nextFn={this.nextAboutQn}
                   prevFn={this.prevAboutQn}
@@ -237,12 +254,15 @@ export default class SingleSegmentContainer extends Component {
             )}
             {this.state.aboutQnStep >= this.state.mainQuestions.length &&
               this.state.aboutQnStep <
-                this.state.mainQuestions.length + this.state.dynamicQuestions.length && (
+                this.state.mainQuestions.length +
+                  this.state.dynamicQuestions.length && (
                 <>
                   <Question
                     label={this.getCurrQn().label}
                     type={this.getCurrQn().type}
-                    name={this.state.aboutQnStep - this.state.mainQuestions.length}
+                    name={
+                      this.state.aboutQnStep - this.state.mainQuestions.length
+                    }
                     validator={this.getCurrQn().validator}
                     onChange={this.onDynamicQuestionChange}
                     value={
@@ -254,7 +274,10 @@ export default class SingleSegmentContainer extends Component {
                   />
 
                   <QuestionActionButton
-                    maxStep={this.state.mainQuestions.length + this.state.dynamicQuestions.length}
+                    maxStep={
+                      this.state.mainQuestions.length +
+                      this.state.dynamicQuestions.length
+                    }
                     qnStep={this.state.aboutQnStep}
                     nextFn={this.nextAboutQn}
                     prevFn={this.prevAboutQn}
@@ -265,10 +288,9 @@ export default class SingleSegmentContainer extends Component {
         )}
 
         {this.state.aboutQnStep ==
-          this.state.mainQuestions.length + this.state.dynamicQuestions.length && (
-          <Segment
-          textAlign="center"
-          >
+          this.state.mainQuestions.length +
+            this.state.dynamicQuestions.length && (
+          <Segment textAlign="center">
             <h1> {this.props.segmentLabel} Summary </h1>
             {this.state.mainQuestions.map((question, index) => {
               const label = question.label;
@@ -277,7 +299,11 @@ export default class SingleSegmentContainer extends Component {
               const answer = segmentData[name];
 
               return (
-                <Card centered key={index} onClick={() => this.onClickMainQn(index)}>
+                <Card
+                  centered
+                  key={index}
+                  onClick={() => this.onClickMainQn(index)}
+                >
                   <Card.Content>
                     <Card.Header>{label}</Card.Header>
                     <Card.Description>{answer}</Card.Description>
@@ -288,7 +314,11 @@ export default class SingleSegmentContainer extends Component {
 
             {this.state.dynamicQuestions.map((question, index) => {
               return (
-                <Card key={index} centered onClick={() => this.onClickDynamicQn(index)}>
+                <Card
+                  key={index}
+                  centered
+                  onClick={() => this.onClickDynamicQn(index)}
+                >
                   <Card.Content>
                     <Card.Header>{question.label}</Card.Header>
                     <Card.Description>

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Container, Step, Icon, Responsive, Grid } from "semantic-ui-react";
-import SingleSegmentContainer from "./formPages/Segment/SingleSegmentContainer"
-import MultipleSegmentContainer from "./formPages/Segment/MultipleSegmentContainer"
+import SingleSegmentContainer from "./formPages/Segment/SingleSegmentContainer";
+import MultipleSegmentContainer from "./formPages/Segment/MultipleSegmentContainer";
 import ConfirmationPage from "./formPages/ConfirmationPage";
 import LoadingSpinner from "../../util/LoadingSpinner";
-import About from "./formPages/SegmentContent/About.json"
-import WorkExperience from "./formPages/SegmentContent/WorkExperience.json"
-import Education from "./formPages/SegmentContent/Education.json"
-import Skills from "./formPages/SegmentContent/Skills.json"
-import Interests from "./formPages/SegmentContent/Interests.json"
+import About from "./formPages/SegmentContent/About.json";
+import WorkExperience from "./formPages/SegmentContent/WorkExperience.json";
+import Education from "./formPages/SegmentContent/Education.json";
+import Skills from "./formPages/SegmentContent/Skills.json";
+import Interests from "./formPages/SegmentContent/Interests.json";
 import { combinator } from "postcss-selector-parser";
 
 export default class FormStep extends Component {
@@ -52,7 +52,6 @@ export default class FormStep extends Component {
 
   ////////////////////// steps to increment
   nextStep = () => {
-    
     const { step } = this.state;
     this.setState({ step: step + 1 });
   };
@@ -178,9 +177,15 @@ export default class FormStep extends Component {
     );
     const widthOfStepper = vrsComponents.length + 1;
     return (
-      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered style={{ backgroundColor: "#f5c05d", maxHeight:'100px'}}>
+      <Step.Group
+        fluid
+        size="tiny"
+        widths={widthOfStepper}
+        ordered
+        style={{ backgroundColor: "#f5c05d", maxHeight: "100px" }}
+      >
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
-        <Step onClick={this.goToConfirmation}>          
+        <Step onClick={this.goToConfirmation}>
           <Step.Content>
             <Step.Title>Confirmation</Step.Title>
           </Step.Content>
@@ -334,30 +339,36 @@ export default class FormStep extends Component {
     });
   };
 
-  reRenderCompoenent (component) {
-    return component
+  reRenderCompoenent(component) {
+    return component;
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   render() {
-    
     const { isLoading, step, formBody } = this.state;
-    
+
     //display based on the components inside formBody
     return (
       <React.Fragment>
-        <Grid 
-          style={{ backgroundColor: "#f5c05d",paddingTop: "20px", paddingBottom: "50px ", height:'100vh'}}
+        <Grid
+          style={{
+            backgroundColor: "#f5c05d",
+            paddingTop: "20px",
+            paddingBottom: "50px ",
+            height: "100vh",
+            overflow: "auto"
+          }}
           verticalAlign="middle"
           textAlign="center"
           stretched
         >
-          {isLoading ? <LoadingSpinner></LoadingSpinner> : 
+          {isLoading ? (
+            <LoadingSpinner></LoadingSpinner>
+          ) : (
             this.reRenderCompoenent(formBody[step])
-          }
+          )}
         </Grid>
-       
       </React.Fragment>
     );
   }

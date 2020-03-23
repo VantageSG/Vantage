@@ -1,0 +1,62 @@
+{
+  "mainQuestions": [
+    {
+      "label": "Where have you worked before?",
+      "type": "text",
+      "name": "company",
+      "placeholder": "Name of company you worked at before."
+    },
+    {
+      "label": "Name of Position",
+      "type": "text",
+      "name": "title",
+      "placeholder": "What is your job title? Refer to your contract if you do not know."
+    },
+    {
+      "label": "Start Date",
+      "type": "text",
+      "name": "start",
+      "placeholder": "Start Date."
+    },
+    {
+      "label": "End Date",
+      "type": "text",
+      "name": "end",
+      "placeholder": "End Date."
+    }
+  ],
+  "concatQn": {
+    "label": "Achievements",
+    "type": "text",
+    "name": "achievements",
+    "placeholder": "Describe yourself in a achievements words"
+  },
+  
+  "dynamicQuestions": [
+    {
+      "label": "What did you do?",
+      "type": "text",
+      "placeholder": "I am a hard worker who takes pride in my work."
+    },
+    {
+      "label": "What was the purpose?",
+      "type": "text",
+      "placeholder": "I am passionate about social media."
+    },
+    {
+      "label": "What was the result / impact?",
+      "type": "text",
+      "placeholder": "I like to make people happy.."
+    }
+  ]
+,
+  "segmentLabel": "Work Experience",
+  "segmentName": "workExperiences",
+  "mainAttribute": {
+    "title": "",
+    "company": "",
+    "start": "",
+    "end": "",
+    "achievements": ""
+  }
+}

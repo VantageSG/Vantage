@@ -1,0 +1,60 @@
+{
+  "mainQuestions": [
+    {
+      "label": "Name",
+      "type": "text",
+      "name": "name",
+      "placeholder": "Enter your name here."
+    },
+    {
+      "label": "Email",
+      "type": "text",
+      "name": "email",
+      "placeholder": "Enter your email here."
+    },
+    {
+      "label": "Contact Number",
+      "type": "text",
+      "name": "contactNumber",
+      "placeholder": "Enter your Contact number here."
+    }
+  ],
+  
+  "concatQn": {
+    "label": "Describe Yourself",
+    "type": "text",
+    "name": "aboutMe",
+    "placeholder": "Describe yourself in a few words"
+  },
+  
+  "dynamicQuestions": [
+    {
+      "label": "How would you describe your personality in a few words?",
+      "type": "text",
+      "placeholder": "I am a hard worker who takes pride in my work."
+    },
+    {
+      "label": "What are you most passionate about?",
+      "type": "text",
+      "placeholder": "I am passionate about social media."
+    },
+    {
+      "label": "What drives you?",
+      "type": "text",
+      "placeholder": "I like to make people happy.."
+    },
+    {
+      "label": "What makes you different from other candidates?",
+      "type": "text",
+      "placeholder": "I am willing to go the extra mile to get job done."
+    }
+  ],
+  "segmentLabel": "About",
+  "segmentName": "about",
+  "mainAttribute": {
+    "name": "",
+    "email": "",
+    "contactNumber": "",
+    "aboutMe": ""
+  }
+}

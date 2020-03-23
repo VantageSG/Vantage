@@ -20,13 +20,6 @@ import camelcaseKeysDeep from "camelcase-keys-deep";
 import decamelizeKeysDeep from "decamelize-keys-deep";
 import QuestionActionButton from "../QuestionActionButton";
 
-const concatQn = {
-  label: "Achievements",
-  type: "text",
-  name: "achievements",
-  placeholder: "Describe yourself in a few words"
-}
-
 export default class SingleSegmentContainer extends Component {
   constructor(props) {
     super(props);
@@ -79,21 +72,21 @@ export default class SingleSegmentContainer extends Component {
       currSegmentData = this.state.segmentData[this.state.segmentCount-1]
     }
     if ( currSegmentData != undefined &&
-      concatQn.name in currSegmentData &&
-      currSegmentData[concatQn.name].length > 0 &&
+      this.props.concatQn.name in currSegmentData &&
+      currSegmentData[this.props.concatQn.name].length > 0 &&
       this.state.dynamicQuestions.length > 0
       ) {
       this.setState ({
         mainQuestions: [
           ...this.state.mainQuestions,
-          concatQn
+          this.props.concatQn
         ],
         dynamicQuestions: []
       })
     } else if (
       ((currSegmentData == undefined )||
-      (concatQn.name in currSegmentData &&
-      currSegmentData[concatQn.name].length == 0) )&&
+      (this.props.concatQn.name in currSegmentData &&
+      currSegmentData[this.props.concatQn.name].length == 0) )&&
       this.state.dynamicQuestions.length != this.props.dynamicQuestions.length) {
         this.setState({
           mainQuestions: this.props.mainQuestions,
@@ -137,7 +130,7 @@ export default class SingleSegmentContainer extends Component {
     const concatDynamicAnswer = this.concatDynamicAnswer()
     if (concatDynamicAnswer.length > 0) {
       let currSegmentData = this.state.segmentData
-      currSegmentData[this.state.segmentCount-1][concatQn.name] = concatDynamicAnswer
+      currSegmentData[this.state.segmentCount-1][this.props.concatQn.name] = concatDynamicAnswer
       return decamelizeKeysDeep(currSegmentData)
     } else {
       return decamelizeKeysDeep(this.state.segmentData);

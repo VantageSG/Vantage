@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Container, Step, Icon, Responsive, Grid } from "semantic-ui-react";
-import About from "./formPages/About";
 import SingleSegmentContainer from "./formPages/Segment/SingleSegmentContainer"
 import MultipleSegmentContainer from "./formPages/Segment/MultipleSegmentContainer"
-import Education from "./formPages/Education";
-import WorkExperience from "./formPages/WorkExperience";
-import Skills from "./formPages/Skills";
-import Interests from "./formPages/Interests";
 import ConfirmationPage from "./formPages/ConfirmationPage";
 import LoadingSpinner from "../../util/LoadingSpinner";
+import About from "./formPages/SegmentContent/About.json"
+import WorkExperience from "./formPages/SegmentContent/WorkExperience.json"
+import Education from "./formPages/SegmentContent/Education.json"
+import Skills from "./formPages/SegmentContent/Skills.json"
+import Interests from "./formPages/SegmentContent/Interests.json"
 
 export default class FormStep extends Component {
   constructor(props) {
@@ -195,62 +195,13 @@ export default class FormStep extends Component {
     let nameComponentMap = new Object();
     nameComponentMap["about"] = (
       <Container text>
-        <MultipleSegmentContainer
-          segmentName= "workExperiences"
-          segmentLabel = "Work Experience"
-          dynamicAnswerAttributeName= "achievements"
-          mainAttribute = {{
-            title: "",
-            company: "",
-            start: "",
-            end: "",
-            achievements: ""
-          }}
-          mainQuestions = {[
-            {
-              label: "Where have you worked before?",
-              type: "text",
-              name: "company",
-              placeholder: "Name of company you worked at before."
-            },
-            {
-              label: "Name of Position",
-              type: "text",
-              name: "title",
-              placeholder: "What is your job title? Refer to your contract if you do not know."
-            },
-            {
-              label: "Start Date",
-              type: "text",
-              name: "start",
-              placeholder: "Start Date."
-            },
-            {
-              label: "End Date",
-              type: "text",
-              name: "end",
-              placeholder: "End Date."
-            }
-          ]}
-          dynamicQuestions = {
-            [
-              {
-                label: "What did you do?",
-                type: "text",
-                placeholder: "I am a hard worker who takes pride in my work."
-              },
-              {
-                label: "What was the purpose?",
-                type: "text",
-                placeholder: "I am passionate about social media."
-              },
-              {
-                label: "What was the result / impact?",
-                type: "text",
-                placeholder: "I like to make people happy.."
-              }
-            ]
-          }
+        <SingleSegmentContainer
+          mainQuestions={About["mainQuestions"]}
+          dynamicQuestions={About["dynamicQuestions"]}
+          concatQn={About["concatQn"]}
+          segmentName={About["segmentName"]}
+          mainAttribute={About["mainAttribute"]}
+          segmentLabel={About["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -260,42 +211,66 @@ export default class FormStep extends Component {
     );
     nameComponentMap["educations"] = (
       <Container text>
-        <Education
+        <MultipleSegmentContainer
+          mainQuestions={Education["mainQuestions"]}
+          dynamicQuestions={Education["dynamicQuestions"]}
+          concatQn={Education["concatQn"]}
+          segmentName={Education["segmentName"]}
+          mainAttribute={Education["mainAttribute"]}
+          segmentLabel={Education["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></Education>
+        />
       </Container>
     );
     nameComponentMap["workExperiences"] = (
       <Container text>
-        <WorkExperience
+        <MultipleSegmentContainer
+          mainQuestions={WorkExperience["mainQuestions"]}
+          dynamicQuestions={WorkExperience["dynamicQuestions"]}
+          concatQn={WorkExperience["concatQn"]}
+          segmentName={WorkExperience["segmentName"]}
+          mainAttribute={WorkExperience["mainAttribute"]}
+          segmentLabel={WorkExperience["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></WorkExperience>
+        />
       </Container>
     );
     nameComponentMap["skills"] = (
       <Container text>
-        <Skills
+        <MultipleSegmentContainer
+          mainQuestions={Skills["mainQuestions"]}
+          dynamicQuestions={Skills["dynamicQuestions"]}
+          concatQn={Skills["concatQn"]}
+          segmentName={Skills["segmentName"]}
+          mainAttribute={Skills["mainAttribute"]}
+          segmentLabel={Skills["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></Skills>
+        />
       </Container>
     );
     nameComponentMap["interests"] = (
       <Container text>
-        <Interests
+        <MultipleSegmentContainer
+          mainQuestions={Interests["mainQuestions"]}
+          dynamicQuestions={Interests["dynamicQuestions"]}
+          concatQn={Interests["concatQn"]}
+          segmentName={Interests["segmentName"]}
+          mainAttribute={Interests["mainAttribute"]}
+          segmentLabel={Interests["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></Interests>
+        />
       </Container>
     );
 

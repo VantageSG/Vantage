@@ -153,7 +153,6 @@ export default class MultipleSegmentContainer extends Component {
           this.context.user.id,
           callback
         ).then(status => {
-          console.log(status);
           if (status == 200) {
             this.setState({
               isLoading: false
@@ -197,7 +196,7 @@ export default class MultipleSegmentContainer extends Component {
   };
 
   onMainQuestionChange = e => {
-    const { name, value } = event.target;
+    const { name, value } = e.target;
     const currSegmentData = this.state.segmentData;
     currSegmentData[this.state.segmentCount - 1] = {
       ...currSegmentData[this.state.segmentCount - 1],
@@ -291,8 +290,6 @@ export default class MultipleSegmentContainer extends Component {
   };
 
   render() {
-    console.log(this.props.segmentLabel);
-    console.log(this.state);
     var segmentValues;
     if (this.state.segmentData.length > 0) {
       segmentValues = this.state.segmentData[this.state.segmentCount - 1];

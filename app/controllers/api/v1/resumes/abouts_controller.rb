@@ -1,4 +1,5 @@
 require 'gingerice'
+require 'marky_markov'
 
 class Api::V1::Resumes::AboutsController < Api::V1::Resumes::BaseVrsController
   def get_component_format
@@ -12,6 +13,12 @@ class Api::V1::Resumes::AboutsController < Api::V1::Resumes::BaseVrsController
   end
 
   def update_component
+    puts "Hello"
+    # Markov Model sentence generation
+    markov = MarkyMarkov::TemporaryDictionary.new
+    markov.parse_string "This is an idea of a perfect dictionary that is not related to the user input."
+    puts markov.generate_n_words 12
+    markov.clear!
     # Grammar formatting for about_me before posting to DB
     text = params[:about][:about_me]
     parser = Gingerice::Parser.new

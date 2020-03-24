@@ -57,7 +57,6 @@ export default class SingleSegmentContainer extends Component {
             response.data[this.props.segmentName]
           );
           this.setState({
-            isLoading: false
           });
           if (responseData != null && responseData != undefined) {
             this.setState({
@@ -87,6 +86,7 @@ export default class SingleSegmentContainer extends Component {
         })
         .then(() => {
           this.setState({
+            isLoading: false,
             dataLoaded: true
           });
         });
@@ -136,9 +136,7 @@ export default class SingleSegmentContainer extends Component {
 
   stepApiReq = callback => {
     const segmentData = this.state.segmentData;
-    console.log(segmentData);
     segmentData[this.props.concatQn.name] = this.getCompleteSegmentData();
-    console.log(segmentData);
     this.setState(
       {
         isLoading: true
@@ -221,7 +219,6 @@ export default class SingleSegmentContainer extends Component {
 
   render() {
     const segmentValues = this.state.segmentData;
-    console.log(this.state);
     return this.state.isLoading ? (
       <LoadingSpinner></LoadingSpinner>
     ) : (

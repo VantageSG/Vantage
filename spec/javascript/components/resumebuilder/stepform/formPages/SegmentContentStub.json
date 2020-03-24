@@ -1,0 +1,55 @@
+{
+  "mainQuestions": [
+    {
+      "label": "qn1 label",
+      "type": "text",
+      "name": "qn1",
+      "placeholder": "qn1 placeholder"
+    },
+    {
+      "label": "qn2 label",
+      "type": "text",
+      "name": "qn2",
+      "placeholder": "qn2 placeholder"
+    },
+    {
+      "label": "qn3 label",
+      "type": "text",
+      "name": "qn3",
+      "placeholder": "qn3 placeholder"
+    }
+  ],
+  
+  "concatQn": {
+    "label": "concatQn label",
+    "type": "text",
+    "name": "concatQn",
+    "placeholder": "concatQn placeholder"
+  },
+  
+  "dynamicQuestions": [
+    {
+      "label": "dynamic qn 1 label",
+      "type": "text",
+      "placeholder": "dynamic qn 1 placeholder"
+    },
+    {
+      "label": "dynamic qn 2 label",
+      "type": "text",
+      "placeholder": "dynamic qn 2 placeholder"
+    },
+    {
+      "label": "dynamic qn 3 label",
+      "type": "text",
+      "placeholder": "dynamic qn 3 placeholder"
+    }
+  ],
+  "segmentLabel": "Segment Content Stub",
+  "segmentName": "segmentContentStub",
+  "mainAttribute": {
+    "qn1": "",
+    "qn2": "",
+    "qn3": "",
+    "concatQn": ""
+  }
+}

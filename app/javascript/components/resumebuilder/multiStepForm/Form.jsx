@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { Container, Step, Icon, Responsive } from "semantic-ui-react";
-import About from "./formPages/About";
-import Education from "./formPages/Education";
-import WorkExperience from "./formPages/WorkExperience";
-import Skills from "./formPages/Skills";
-import Interests from "./formPages/Interests";
+import { Container, Step, Icon, Responsive, Grid } from "semantic-ui-react";
+import SingleSegmentContainer from "./formPages/Segment/SingleSegmentContainer";
+import MultipleSegmentContainer from "./formPages/Segment/MultipleSegmentContainer";
 import ConfirmationPage from "./formPages/ConfirmationPage";
 import LoadingSpinner from "../../util/LoadingSpinner";
+import About from "./formPages/SegmentContent/About.json";
+import WorkExperience from "./formPages/SegmentContent/WorkExperience.json";
+import Education from "./formPages/SegmentContent/Education.json";
+import Skills from "./formPages/SegmentContent/Skills.json";
+import Interests from "./formPages/SegmentContent/Interests.json";
+import { combinator } from "postcss-selector-parser";
 
 export default class FormStep extends Component {
   constructor(props) {
@@ -174,9 +177,15 @@ export default class FormStep extends Component {
     );
     const widthOfStepper = vrsComponents.length + 1;
     return (
-      <Step.Group fluid size="tiny" widths={widthOfStepper} ordered style={{ backgroundColor: "#f5c05d"}}>
+      <Step.Group
+        fluid
+        size="tiny"
+        widths={widthOfStepper}
+        ordered
+        style={{ backgroundColor: "#f5c05d", maxHeight: "100px" }}
+      >
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
-        <Step onClick={this.goToConfirmation}>          
+        <Step onClick={this.goToConfirmation}>
           <Step.Content>
             <Step.Title>Confirmation</Step.Title>
           </Step.Content>
@@ -192,8 +201,14 @@ export default class FormStep extends Component {
     const { step, maxStep } = this.state;
     let nameComponentMap = new Object();
     nameComponentMap["about"] = (
-      <Container text>
-        <About
+      <Container text key={0}>
+        <SingleSegmentContainer
+          mainQuestions={About["mainQuestions"]}
+          dynamicQuestions={About["dynamicQuestions"]}
+          concatQn={About["concatQn"]}
+          segmentName={About["segmentName"]}
+          mainAttribute={About["mainAttribute"]}
+          segmentLabel={About["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
@@ -202,43 +217,67 @@ export default class FormStep extends Component {
       </Container>
     );
     nameComponentMap["educations"] = (
-      <Container text>
-        <Education
+      <Container text key={1}>
+        <MultipleSegmentContainer
+          mainQuestions={Education["mainQuestions"]}
+          dynamicQuestions={Education["dynamicQuestions"]}
+          concatQn={Education["concatQn"]}
+          segmentName={Education["segmentName"]}
+          mainAttribute={Education["mainAttribute"]}
+          segmentLabel={Education["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></Education>
+        />
       </Container>
     );
     nameComponentMap["workExperiences"] = (
-      <Container text>
-        <WorkExperience
+      <Container text key={2}>
+        <MultipleSegmentContainer
+          mainQuestions={WorkExperience["mainQuestions"]}
+          dynamicQuestions={WorkExperience["dynamicQuestions"]}
+          concatQn={WorkExperience["concatQn"]}
+          segmentName={WorkExperience["segmentName"]}
+          mainAttribute={WorkExperience["mainAttribute"]}
+          segmentLabel={WorkExperience["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></WorkExperience>
+        />
       </Container>
     );
     nameComponentMap["skills"] = (
-      <Container text>
-        <Skills
+      <Container text key={3}>
+        <MultipleSegmentContainer
+          mainQuestions={Skills["mainQuestions"]}
+          dynamicQuestions={Skills["dynamicQuestions"]}
+          concatQn={Skills["concatQn"]}
+          segmentName={Skills["segmentName"]}
+          mainAttribute={Skills["mainAttribute"]}
+          segmentLabel={Skills["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></Skills>
+        />
       </Container>
     );
     nameComponentMap["interests"] = (
-      <Container text>
-        <Interests
+      <Container text key={4}>
+        <MultipleSegmentContainer
+          mainQuestions={Interests["mainQuestions"]}
+          dynamicQuestions={Interests["dynamicQuestions"]}
+          concatQn={Interests["concatQn"]}
+          segmentName={Interests["segmentName"]}
+          mainAttribute={Interests["mainAttribute"]}
+          segmentLabel={Interests["segmentLabel"]}
           step={step}
           maxStep={maxStep}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
-        ></Interests>
+        />
       </Container>
     );
 
@@ -300,17 +339,36 @@ export default class FormStep extends Component {
     });
   };
 
+  reRenderCompoenent(component) {
+    return component;
+  }
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   render() {
     const { isLoading, step, formBody } = this.state;
+
     //display based on the components inside formBody
     return (
       <React.Fragment>
-        <div style={{ backgroundColor: "#f5c05d",paddingTop: "20px", paddingBottom: "50px "}}>
-          {isLoading ? <LoadingSpinner></LoadingSpinner> : formBody[step]}
-        </div>
-       
+        <Grid
+          style={{
+            backgroundColor: "#f5c05d",
+            paddingTop: "20px",
+            paddingBottom: "50px ",
+            height: "100vh",
+            overflow: "auto"
+          }}
+          verticalAlign="middle"
+          textAlign="center"
+          stretched
+        >
+          {isLoading ? (
+            <LoadingSpinner></LoadingSpinner>
+          ) : (
+            this.reRenderCompoenent(formBody[step])
+          )}
+        </Grid>
       </React.Fragment>
     );
   }

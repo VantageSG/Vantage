@@ -1,0 +1,47 @@
+{
+  "mainQuestions": [
+    {
+      "label": "Institution Name",
+      "type": "text",
+      "name": "institution",
+      "placeholder": "Institution Name"
+    },
+    {
+      "label": "Program",
+      "type": "text",
+      "name": "program",
+      "placeholder": "Program"
+    },
+    {
+      "label": "Start Date",
+      "type": "text",
+      "name": "start",
+      "placeholder": "Start Date"
+    }, 
+    {
+      "label": "End date",
+      "type": "text",
+      "name": "end",
+      "placeholder": "End date"
+    }
+  ],
+  
+  "concatQn": {
+    "label": "",
+    "type": "",
+    "name": "",
+    "placeholder": ""
+  },
+  
+  "dynamicQuestions": [
+  ],
+  "segmentLabel": "Educations",
+  "segmentName": "educations",
+  "mainAttribute": {
+    "program": "",
+    "institution": "",
+    "start": "",
+    "end": "",
+    "grade": ""
+  }
+}

@@ -1,0 +1,63 @@
+.formBox {
+    max-width: 450px;
+    margin: auto;
+    margin-top: 4%;
+    text-align: center;
+    padding: 30px;
+    padding-bottom: 15px;
+    font-family: Helvetica;
+    background-color: rgb(25, 79, 130, 0.5);
+}
+
+.header {
+    color: white;
+    font-size: 1.6em;
+    margin-bottom: 35px;
+    font-weight: 300;
+}
+
+.errorMessage {
+    color: #EF5350;
+    text-align: left;
+    margin-top: -10px;
+}
+
+.submitButton {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 40px;
+    cursor: pointer;
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
+
+button:focus {outline:0;}
+
+.footerMessageBox {
+}
+
+.footerMessage {
+    font-size: 0.9em;
+    color: white;
+}
+
+span:hover.footerMessage {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dotSpacing {
+    height: 2.8px;
+    width: 2.5px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    vertical-align: center;
+}

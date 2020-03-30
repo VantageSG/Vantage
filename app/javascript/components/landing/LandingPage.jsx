@@ -41,9 +41,9 @@ class LandingPage extends Component {
             <Grid.Column computer={10} tablet={11} mobile={12}>
               <div className="landingMessageBox">
                 <h1 className="landingMessage" >CLIMB HIGHER<br></br> WITH VANTAGE SG</h1>
-                <h2 className="landingMessage">Build your <span className="landingMessage">PERSONALISED RESUME</span><br></br> with guidance from us now</h2>
+                <h2 className="landingMessage">Transform your story to a professional resume <br/>Try our Speech-to-Text function now</h2>
                 <Link to="/resume-builder">
-                  <button className="landingButton landingMessage">Resume Builder</button>
+                  <button className="landingButton landingMessage">Build Your Resume Now</button>
                 </Link>
               </div>
             </Grid.Column>

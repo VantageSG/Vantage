@@ -16,8 +16,8 @@ h1.landingMessage {
 
 h2.landingMessage {
     font-weight: 150;
-    font-size: 2.3em;
-    color: #5C5656FD;
+    font-size: 1.9em;
+    color: #194F82;
 }
 
 span.landingMessage {
@@ -30,10 +30,10 @@ button.landingButton {
     color: white;
     font-size: 2.5em;
     font-weight: 100;
-    padding: 0.5em;
+    padding: 0.6em;
     padding-left: 1em;
     padding-right: 1em;
-    margin-top: 4vh;
+    margin-top: 4.5vh;
     border-radius: 40px;
     cursor: pointer;
 }
@@ -52,6 +52,11 @@ button.landingButton {
     padding-right: 3em;
 }
 
+@media screen and (min-width: 700px) {
+    .contactUsBox {
+        box-shadow: 40px 40px rgba(0, 0, 0, 0.3);
+    }
+}
 .contactUsContent {
     font-family: PT Sans Caption;
 }

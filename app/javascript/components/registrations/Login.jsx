@@ -81,7 +81,7 @@ class Login extends Component {
             value={password}
             onChange={this.handleChange}
           />
-          <button className="submitButton">Log In</button>
+          <button data-testid="loginButton" className="submitButton">Log In</button>
           <p className="footerMessageBox">
             <Link to="/">
               <span className="footerMessage">

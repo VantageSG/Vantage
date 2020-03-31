@@ -144,49 +144,51 @@ class App extends Component {
     )
 
     return (
-        <BrowserRouter>
-          <UserContext.Provider value={{
-            isLoggedIn: this.state.isLoggedIn,
-            user: this.state.user,
-            login: this.login,
-            logout: this.logout,
-            signup: this.signup,
-            continueAsGuest: this.continueAsGuest
-          }}>
-            {this.state.loading ? loader : <span></span>}
-            <ResponsiveContainer                      
-            >
-              {this.state.initialLoading
-              ? loader
-              :(              
-              <Switch>              
-                <Route exact path="/">
-                  <Home />
-                </Route>
-                <Route exact path="/login">
-                  <Login />
-                </Route>
-                <Route exact path="/sign-up" >
-                  <Signup />
-                </Route>                            
-                <Route exact path="/resume-builder">
-                  <ResumeBuilder 
-                    selectedVrsComponents={this.selectedVrsComponents}
-                    vrsComponents={this.state.vrsComponents}
-                  />
-                </Route>
-                <Route exact path="/resume-generation">
-                  <ResumeGeneration/>
-                </Route>                
-                <Route exact path="/theming-layout">
-                  <ThemingLayout/>
-                </Route>
-                <Route component={Error404Page} />
-              </Switch>
-              )}
-            </ResponsiveContainer>
-          </UserContext.Provider>
-        </BrowserRouter>
+        <div className="appBackground">
+          <BrowserRouter>
+            <UserContext.Provider value={{
+              isLoggedIn: this.state.isLoggedIn,
+              user: this.state.user,
+              login: this.login,
+              logout: this.logout,
+              signup: this.signup,
+              continueAsGuest: this.continueAsGuest
+            }}>
+              {this.state.loading ? loader : <span></span>}
+              <ResponsiveContainer                      
+              >
+                {this.state.initialLoading
+                ? loader
+                :(              
+                <Switch>              
+                  <Route exact path="/">
+                    <Home />
+                  </Route>
+                  <Route exact path="/login">
+                    <Login />
+                  </Route>
+                  <Route exact path="/sign-up" >
+                    <Signup />
+                  </Route>                            
+                  <Route exact path="/resume-builder">
+                    <ResumeBuilder 
+                      selectedVrsComponents={this.selectedVrsComponents}
+                      vrsComponents={this.state.vrsComponents}
+                    />
+                  </Route>
+                  <Route exact path="/resume-generation">
+                    <ResumeGeneration/>
+                  </Route>                
+                  <Route exact path="/theming-layout">
+                    <ThemingLayout/>
+                  </Route>
+                  <Route component={Error404Page} />
+                </Switch>
+                )}
+              </ResponsiveContainer>
+            </UserContext.Provider>
+          </BrowserRouter>
+        </div>
     );
   }
 }

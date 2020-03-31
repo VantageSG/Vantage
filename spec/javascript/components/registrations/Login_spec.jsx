@@ -13,7 +13,7 @@ describe('Default Login page', () => {
     expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
   });
   it('should have Submit button', () => {
-    expect(screen.getByText(/Submit/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/loginButton/i).textContent).toBe("Log In")
   });
 })
 

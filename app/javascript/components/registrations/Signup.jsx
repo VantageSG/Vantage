@@ -1,16 +1,11 @@
 import UserContext from "../../contexts/UserContext";
 import React, { Component } from "react";
 import {
-  Button,
   Form,
-  Grid,
-  Header,
-  Segment,
-  Icon,
-  Message
+  Message,
 } from "semantic-ui-react";
 import { Animated } from "react-animated-css";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 
 class Signup extends Component {
@@ -53,85 +48,63 @@ class Signup extends Component {
   render() {    
     const { username, email, password, password_confirmation } = this.state;    
     return (      
-      <Animated animationIn="fadeIn" isVisible={true}>
-        <Grid
-          textAlign="center"
-          style={{ marginTop: "2em" }}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Icon name="edit" size="massive" />
-            <Header as="h2" color="teal" textAlign="center">
-              Sign Up
-            </Header>
-            {this.state.errors.length > 0
-            ? (
-              <Message
-                error
-                header='There was some errors with your submission'
-                list={this.state.errors}
-              />       
+      <div className="formBox">
+        <h2 className="header">Sign up with Vantage</h2>
+        {this.state.errors.length > 0
+        ? (
+          <p className="errorMessage">We can't sign you up:
+          <ul>
+            {this.state.errors.map(msg => {
+              return (
+                <li>{msg}</li>
               )
-            : (<span></span>)
-            }
-            <Form size="large" onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  name="username"
-                  value={username}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  placeholder="Email"
-                  name="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="password confirmation"
-                  type="password"
-                  name="password_confirmation"
-                  value={password_confirmation}
-                  onChange={this.handleChange}
-                />
-
-                <Button color="teal" fluid size="large" type="submit">
-                  Sign Up
-                </Button>
-                <br></br>
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  icon="home"
-                  content="home"
-                  onClick={this.redirectHome}
-                ></Button>
-              </Segment>
-            </Form>
-          </Grid.Column>
-        </Grid>
-      </Animated>
+            })}
+          </ul>
+          </p> 
+          )
+        : (<span></span>)
+        }
+        <Form size="large" onSubmit={this.handleSubmit}>
+            <Form.Input
+              fluid
+              placeholder="Username"
+              name="username"
+              value={username}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              placeholder="Password Confirmation"
+              type="password"
+              name="password_confirmation"
+              value={password_confirmation}
+              onChange={this.handleChange}
+            />
+            <button className="submitButton">Sign Up</button>
+          <p className="footerMessageBox">
+            <Link to="/login">
+              <span className="footerMessage">
+                Already have an account?
+              </span>
+            </Link>
+          </p>
+        </Form>
+      </div>
     );
   }
 }

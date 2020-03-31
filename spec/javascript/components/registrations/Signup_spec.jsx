@@ -14,7 +14,7 @@ describe('Login page', () => {
     expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
   });
   it('should have password confirmation', () => {
-    expect(screen.getByPlaceholderText("password confirmation")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Password Confirmation")).toBeInTheDocument();
   });
 })
 

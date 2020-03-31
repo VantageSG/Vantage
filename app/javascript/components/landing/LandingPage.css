@@ -1,0 +1,90 @@
+.landingMessage {
+    font-family: Helvetica;
+}
+
+div.landingMessageBox {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-top: 18%;
+}
+
+h1.landingMessage {
+    font-weight: 550;
+    font-size: 4.3em;
+    color: white;
+}
+
+h2.landingMessage {
+    font-weight: 150;
+    font-size: 1.9em;
+    color: #194F82;
+}
+
+span.landingMessage {
+    text-decoration: underline;
+}
+
+button.landingButton {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    font-size: 2.5em;
+    font-weight: 100;
+    padding: 0.6em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 4.5vh;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.clipboardImage {
+    margin-top: 15%;
+    max-height: 85vh;
+    float: right;
+}
+
+.contactUsBox {
+    background-color: rgb(42, 57, 116);
+    margin-top: 15%;
+    padding: 3em;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+@media screen and (min-width: 700px) {
+    .contactUsBox {
+        box-shadow: 40px 40px rgba(0, 0, 0, 0.3);
+    }
+}
+.contactUsContent {
+    font-family: PT Sans Caption;
+}
+
+h2.contactUsContent {
+    color: white;
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+h3.contactUsContent {
+    margin-top: 15%;
+    font-size: 1.3em;
+    color: rgb(116, 121, 136);
+}
+
+p.contactUsContent {
+    color: rgb(116, 121, 136);
+}
+
+div.contactUsForm {
+    margin-top: 20%;
+}
+
+.formSubmitButton {
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+    float: right;
+    cursor: pointer;
+}

@@ -53,64 +53,50 @@ class Login extends Component {
   render() {
     const { username, email, password } = this.state;
     return (
-      <Animated animationIn="fadeIn" isVisible={true}>
-        <Grid
-          textAlign="center"
-          style={{ marginTop: "2em" }}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Icon name="user" size="massive" />
-            <Header as="h2" color="teal" textAlign="center">
-              Log In
-            </Header>
-            {this.state.error && (
-              <Message negative>
-                <Message.Header>We can't log you in:</Message.Header>
-                <p>{this.state.error}</p>
-              </Message>
-            )}
-            <Form size="large" onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  name="username"
-                  value={username}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  placeholder="Email"
-                  name="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-                <Button color="teal" fluid size="large" type="submit">
-                  submit
-                </Button>
-                <Message>
-                  <p>New to us?</p> <Link to="/sign-up"> Sign Up</Link>
-                </Message>
-              </Segment>
-            </Form>
-          </Grid.Column>
-        </Grid>
-      </Animated>
+      <div className="formBox">
+        <h2 className="header">Log in to Vantage</h2>
+        {this.state.error && (
+          <p className="errorMessage">We encountered an error logging you in: {this.state.error}</p>
+        )}
+        <Form size="large" onSubmit={this.handleSubmit}>
+          <Form.Input
+            fluid
+            placeholder="Username"
+            name="username"
+            value={username}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            fluid
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            fluid
+            placeholder="Password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={this.handleChange}
+          />
+          <button data-testid="loginButton" className="submitButton">Log In</button>
+          <p className="footerMessageBox">
+            <Link to="/">
+              <span className="footerMessage">
+                Forgot Password?
+              </span>
+            </Link>
+            <span className="dotSpacing"></span>
+            <Link to="/sign-up">
+              <span className="footerMessage">
+                Sign Up for Vantage
+              </span>
+            </Link>
+          </p>
+        </Form>
+      </div>
     );
   }
 }

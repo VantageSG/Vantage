@@ -1,172 +1,112 @@
 import React, { Component } from "react";
 import {
-  Header,
   Grid,
-  Icon,
-  Segment,
-  Container,
-  Button,
-  Divider,
-  Placeholder,
-  Card,
+  Image,
   Responsive,
-  Image
+  Form,
+  Icon
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import Logo from "../../../assets/images/VantageSGLogo_withname.png";
 
-import { Animated } from "react-animated-css";
-import TeamPic from "../../../assets/images/VantageDSCTeam.jpg";
-import Typist from "react-typist";
+import Clipboard from "../../../assets/images/resumeClipboard.svg";
 
 class LandingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      name: "",
+      email: "",
+      message: ""
     };
+  }
+
+  handleFormChange = event => {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
+  }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    const { name, email, message } = this.state;
+    alert("Your message has been sent.");
+    this.setState({name: "", email: "", message: ""})
   }
 
   render() {
     return (
       <div>
-        <Animated animationIn="fadeIn" isVisible={true}>
-          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-            <Container
-              fluid
-              textAlign="center"
-              style={{
-                marginLeft: "0em",
-                marginTop: "1em",
-                marginBottom: "auto",
-                minHeight: "50vh"
-              }}
-            >
-              <Segment
-                placeholder
-                style={{ minHeight: "50vh", backgroundColor: "#283A76" }}
-              >
+        <Grid>
+          <Grid.Row>
+            <Grid.Column computer={1}></Grid.Column>
+            <Grid.Column computer={10} tablet={11} mobile={12}>
+              <div className="landingMessageBox">
+                <h1 className="landingMessage" >CLIMB HIGHER<br></br> WITH VANTAGE SG</h1>
+                <h2 className="landingMessage">Transform your story to a professional resume <br/>Try our Speech-to-Text function now</h2>
+                <Link to="/resume-builder">
+                  <button className="landingButton landingMessage">Build Your Resume Now</button>
+                </Link>
+              </div>
+            </Grid.Column>
+            <Grid.Column computer={5} tablet={1} mobile={1}>
+              <Responsive {...Responsive.onlyComputer}>
+                <Image
+                  src={Clipboard}
+                  className="clipboardImage"
+                ></Image>
+              </Responsive>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column computer={1}></Grid.Column>
+            <Grid.Column computer={10} tablet={12} mobile={14}>
+              <div className="contactUsBox">
                 <Grid>
-                  <Grid.Row>
-                    <Container>
-                      <Image src={Logo} size="small" centered="true" />
-                      <Typist
-                        avgTypingDelay={70}
-                        cursor={{
-                          show: false
-                        }}
-                      >
-                        <Header 
-                        as='h1'>Climb Higher With Us</Header>
-                      </Typist>
-                      <br></br>
-                      <Button
-                        style={{ backgroundColor: "#F6B690" }}
-                        as={Link}
-                        to="/resume-builder"
-                        content="Build your resume"
-                      />
-                    </Container>
-                  </Grid.Row>
-                </Grid>
-              </Segment>
-            </Container>
-          </Responsive>
-          <Responsive maxWidth={Responsive.onlyTablet.minWidth}>
-            <div >
-              <Segment
-                placeholder
-                style={{
-                  borderColor: "#34558B",
-                  border: "0px !important",
-                  minHeight: "50vh",
-                  backgroundColor: "#283A76"
-                }}
-              >
-                <Container textAlign="center">
-                  <Image src={Logo} size="small" centered="true" />
-                  <Button
-                    as={Link}
-                    to="/resume-builder"
-                    style = {{
-                      backgroundColor: '#F6B690'
-                    }}
-                    content="Build your resume"
-                  />
-                </Container>
-              </Segment>
-            </div>
-          </Responsive>
-
-          <div
-            style={{
-              marginTop: "30px",
-              backgroundColor: "#FFF2D6",
-              paddingTop: "100px",
-              paddingBottom: "100px"
-            }}
-          >
-            <Container fluid textAlign="left">
-              <Grid centered columns={3} stackable>
                 <Grid.Row>
-                  <Grid.Column mobile={16} tablet={6} computer={3}>
-                    <Container fluid textAlign="left">
-                      <Header as="h1" style={{ fontSize: "2.0em" }}>
-                        About Us
-                      </Header>
-
-                      <p style={{ fontSize: "1.10em" }}>
-                        Here at Vantage SG, we empower youths to transition into
-                        the workforce and seamlessly kick start their career.
-                      </p>
-
-                      <p>
-                        With our intuitive and guided resume builder specially
-                        made to suit first-timers, we strive to provide
-                        well-rounded guidance to job-seeking youths.
-                      </p>
-                    </Container>
+                  <Grid.Column computer={8} tablet={8} mobile={16}>
+                    <h2 className="contactUsContent">CONTACT</h2>
+                    <h3 className="contactUsContent">ADDRESS</h3>
+                    <p className="contactUsContent">70 Pasir Panjang Rd<br/> Singapore 117371</p>
+                    <h3 className="contactUsContent">CONTACT US</h3>
+                    <p className="contactUsContent">
+                      <Icon name="phone"></Icon> 91210991 <br/>
+                      <Icon name="envelope outline"></Icon> vantage@gmail.com
+                    </p>
                   </Grid.Column>
-                  <Grid.Column mobile={16} tablet={6} computer={4}>
-                    <Container fluid textAlign="left">
-                    <Header as="h1" style={{ fontSize: "2.0em" }}>
-                      A project launched as a part of DSC NUS.
-                      </Header>
-
-                      <p style={{ fontSize: "1.10em" }}>
-                      Developer Student Club (DSC) is a technical community that combines all the university students, and all the other students who learn, share ideas and come up with viable projects that are likely to solve day to day universe problems.
-                      </p>
-                      <Header as="h1" style={{ fontSize: "2.0em" }}>
-                        Our Mission
-                      </Header>
-                      <p style={{ fontSize: "1.10em" }}>
-                        To create a guided, intuitive platform that prepares
-                        youths to be career-ready
-                      </p>
-                    </Container>
-                    <Divider />
-                    <Container fluid textAlign="left">
-                      <Header as="h1" style={{ fontSize: "2.0em" }}>
-                        Our Vision
-                      </Header>
-
-                      <p style={{ fontSize: "1.10em" }}>
-                        To empower all youths to seamlessly transition into the
-                        workforce
-                      </p>
-                    </Container>
-                  </Grid.Column>
-                  <Grid.Column mobile={16} tablet={14} computer={5}>
-                    <Image
-                      src={TeamPic}
-                      style={{ backgroundColor: "#fff", padding: "4px" }}
-                    ></Image>
+                  <Grid.Column computer={8} tablet={8} mobile={16}>
+                    <div className="contactUsForm">
+                      <Form onSubmit={this.handleFormSubmit}>
+                          <Form.Input
+                            fluid
+                            placeholder="Name"
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleFormChange}
+                          />
+                          <Form.Input
+                            fluid
+                            placeholder="Email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleFormChange}
+                          />
+                          <Form.TextArea
+                            fluid
+                            placeholder="Message"
+                            name="message"
+                            value={this.state.message}
+                            onChange={this.handleFormChange}
+                            rows={6}
+                          />
+                          <button className="formSubmitButton">Send</button>
+                      </Form>
+                    </div>
                   </Grid.Column>
                 </Grid.Row>
-              </Grid>
-            </Container>
-          </div>
-        </Animated>
+                </Grid>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }

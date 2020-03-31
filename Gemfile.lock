@@ -64,6 +64,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
+    attach (1.0.5)
+      records_manipulator (>= 1.0, < 2.0)
     awesome_print (1.8.0)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -178,6 +180,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    records_manipulator (1.0.1)
     rspec-core (3.9.0)
       rspec-support (~> 3.9.0)
     rspec-expectations (3.9.0)
@@ -260,6 +263,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  attach (~> 1.0.1)
   bcrypt
   bootsnap (>= 1.4.2)
   byebug
@@ -293,4 +297,4 @@ RUBY VERSION
    ruby 2.6.4p104
 
 BUNDLED WITH
-   2.1.2
+   2.1.4

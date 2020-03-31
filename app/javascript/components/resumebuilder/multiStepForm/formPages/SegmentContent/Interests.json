@@ -1,0 +1,25 @@
+{
+  "mainQuestions": [
+    {
+      "label": "What are some interests you have?",
+      "type": "text",
+      "name": "name",
+      "placeholder": "Eg. Rap, Photography, Body building?"
+    }
+  ],
+  "concatQn": {
+    "label": "",
+    "type": "",
+    "name": "",
+    "placeholder": ""
+  },
+  
+  "dynamicQuestions": [
+  ]
+,
+  "segmentLabel": "Interests",
+  "segmentName": "interests",
+  "mainAttribute": {
+    "name": ""
+  }
+}

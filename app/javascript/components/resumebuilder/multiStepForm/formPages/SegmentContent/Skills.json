@@ -1,0 +1,37 @@
+{
+  "mainQuestions": [
+    {
+      "label": "Skill",
+      "type": "text",
+      "name": "name",
+      "placeholder": "What are you good at?"
+    }
+  ],
+  "concatQn": {
+    "label": "Description",
+    "type": "text",
+    "name": "description",
+    "placeholder": "Describe the impact of your skill words"
+  },
+  
+  "dynamicQuestions": [
+    {
+      "label": "How did this skill impact others?",
+      "type": "text",
+      "placeholder": "Tell us how you picked up the skill and what you love about being able to do this! [e.g. Volunteering experience/language proficiency/certifications/hobby]"
+    },
+    {
+      "label": "Was there any quantifiable impact of it? Leave blank if no",
+      "type": "text",
+      "placeholder": "I am passionate about social media."
+    }
+  ]
+,
+  "segmentLabel": "Skills",
+  "segmentName": "skills",
+  "mainAttribute": {
+    "name": "",
+    "description": "",
+    "link": ""
+  }
+}

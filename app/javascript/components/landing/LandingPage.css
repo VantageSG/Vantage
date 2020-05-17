@@ -38,6 +38,10 @@ button.landingButton {
     cursor: pointer;
 }
 
+button:hover.landingButton {
+  opacity: 85%;
+}
+
 .clipboardImage {
     margin-top: 15%;
     max-height: 85vh;

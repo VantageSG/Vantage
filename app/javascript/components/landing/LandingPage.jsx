@@ -34,7 +34,7 @@ class LandingPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <Grid>
           <Grid.Row>
             <Grid.Column computer={1}></Grid.Column>
@@ -90,7 +90,7 @@ class LandingPage extends Component {
                             onChange={this.handleFormChange}
                           />
                           <Form.TextArea
-                            fluid
+                            fluid="true"
                             placeholder="Message"
                             name="message"
                             value={this.state.message}

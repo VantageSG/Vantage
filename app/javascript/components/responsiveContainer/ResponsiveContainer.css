@@ -1,5 +1,5 @@
 .container {
-  padding-bottom: 10vh;
+  
 }
 
 .header {
@@ -57,12 +57,12 @@ ul.navbar-menu li a:hover {
   padding: 20px 8%;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
 
 .mobile-header:hover {
-  background-color: rgba(0, 0, 0, 0.07);
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 i {
@@ -81,17 +81,17 @@ ul.mobile-navbar-menu {
 
 ul.mobile-navbar-menu li {
   display: block;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
   cursor: pointer;
 }
 
 ul.mobile-navbar-menu li a {
   color: white;
+  display: block;
+  padding: 20px 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-ul.mobile-navbar-menu li:hover {
+ul.mobile-navbar-menu li a:hover {
   opacity: 60%;
   background-color: rgba(0, 0, 0, 0.05);
 }

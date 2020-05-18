@@ -8,7 +8,7 @@ import { Responsive } from "semantic-ui-react";
 import PadLockIcon from "../../../assets/images/padLockIcon.png";
 
 
-// Provides responsive navbar and footer of App
+// Provides responsive navbar of App
 class ResponsiveContainer extends React.Component {
   constructor(props) {
     super(props);

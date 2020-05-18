@@ -4,7 +4,6 @@ import {
   Container,
   Icon,
   Sidebar,
-  Visibility
 } from "semantic-ui-react";
 import VantageLogo from "../../../assets/images/VantageLogo.png";
 import "./ResponsiveContainer.css";
@@ -18,10 +17,6 @@ class MobileNavBar extends Component {
     };
   }
 
-  handleSidebarHide = () => {
-    this.setState({ sidebarOpened: false });
-  }
-
   render() {
     return (
       <Sidebar.Pushable>
@@ -29,10 +24,13 @@ class MobileNavBar extends Component {
           position="left"
           animation="push"
           onHide={() => this.setState({ sidebarOpened: false })}
-          vertical
+          vertical="true"
           visible={this.state.sidebarOpened}       
         >
           <ul className="mobile-navbar-menu">
+            <li>
+              <Link to="/" as="a">Home</Link>
+            </li>
             <li>
               <Link to="/resume-builder" as="a">Build Resume</Link>
             </li>
@@ -42,17 +40,15 @@ class MobileNavBar extends Component {
             {this.props.renderRegistrationButton()}
           </ul>          
         </Sidebar>
-          <Visibility once={true}>
-          <div className="mobile-header" onClick={() => this.setState({ sidebarOpened: true })}>
-            <div className="logo">
-              <img src={VantageLogo} alt="logo"/>
-            </div>
-            <div>
-              <Icon as="i" size="big" name="sidebar"/>
-            </div>
+        <div className="mobile-header" onClick={() => this.setState({ sidebarOpened: true })}>
+          <div className="logo">
+            <img src={VantageLogo} alt="logo"/>
           </div>
-        </Visibility>
-        <Container fluid>
+          <div>
+            <Icon as="i" size="big" name="sidebar"/>
+          </div>
+        </div>
+        <Container fluid={true}>
           {this.props.children}
         </Container>
       </Sidebar.Pushable>

@@ -10,6 +10,6 @@
     background: -ms-linear-gradient(45deg, rgba(62,165,206,1) 57%, rgba(51,159,205,1) 57%, rgba(51,159,205,1) 72%, rgba(51,159,205,1) 100%);
     background: linear-gradient(45deg, rgba(62,165,206,1) 57%, rgba(51,159,205,1) 57%, rgba(51,159,205,1) 72%, rgba(51,159,205,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3ea5ce', endColorstr='#339fcd', GradientType=1 );
-    height: 100%;
     min-height: 100vh;
+    height: 100%;
 }

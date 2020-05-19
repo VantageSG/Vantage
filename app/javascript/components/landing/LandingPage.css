@@ -1,3 +1,8 @@
+
+div.container {
+  padding-bottom: 40px;
+}
+
 .landingMessage {
     font-family: Helvetica;
 }
@@ -36,6 +41,10 @@ button.landingButton {
     margin-top: 4.5vh;
     border-radius: 40px;
     cursor: pointer;
+}
+
+button:hover.landingButton {
+  opacity: 85%;
 }
 
 .clipboardImage {

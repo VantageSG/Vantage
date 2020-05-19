@@ -6,11 +6,10 @@ import { Dimmer, Loader } from "semantic-ui-react";
 import Home from "./Home";
 import Login from "./registrations/Login";
 import Signup from "./registrations/Signup";
-import ResponsiveContainer from "./navBar/NavBar";
+import ResponsiveContainer from "./responsiveContainer/ResponsiveContainer";
 import Error404Page from "../components/error/Error404Page";
 import ResumeBuilder from "../components/resumebuilder/ResumeBuilder";
 import ResumeGeneration from "../components/resumeGeneration/ResumeGeneration";
-import ResumeSelector from '../components/resumebuilder/ResumeSelector';
 import ThemingLayout from "../components/util/ThemingLayout"
 
 // App implements routing and login/logout logic

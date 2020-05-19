@@ -226,7 +226,12 @@ export default class SingleSegmentContainer extends Component {
         {this.state.aboutQnStep <
           this.state.mainQuestions.length +
             this.state.dynamicQuestions.length && (
-          <Card centered fluid>
+          <Card 
+          style={{
+            minWidth: 400
+          }}
+          
+          centered fluid>
             {this.state.aboutQnStep < this.state.mainQuestions.length && (
               <>
                 <Question

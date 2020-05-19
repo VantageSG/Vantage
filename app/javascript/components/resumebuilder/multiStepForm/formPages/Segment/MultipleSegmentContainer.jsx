@@ -302,7 +302,9 @@ export default class MultipleSegmentContainer extends Component {
         {this.state.aboutQnStep <
           this.state.mainQuestions.length +
             this.state.dynamicQuestions.length && (
-          <Card centered fluid>
+          <Card centered fluid style={{
+            minWidth: 400
+          }}>
             {this.state.aboutQnStep < this.state.mainQuestions.length && (
               <>
                 <Question
@@ -380,6 +382,9 @@ export default class MultipleSegmentContainer extends Component {
                   centered
                   key={index}
                   onClick={() => this.onClickMainQn(index)}
+                  style={{
+                    minWidth: 400
+                  }}
                 >
                   <Card.Content>
                     <Card.Header>{label}</Card.Header>

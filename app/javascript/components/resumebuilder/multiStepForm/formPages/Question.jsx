@@ -15,7 +15,9 @@ export default class Question extends Component {
   render () {
     return (
       <React.Fragment>
-        <Segment>
+        <Segment
+          
+        >
           <Form>
               <Form.Input
                 fluid

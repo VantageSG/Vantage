@@ -107,10 +107,11 @@ class ResumeSelector extends Component {
 
     return (
       <React.Fragment>
-        <Segment style={{ backgroundColor: "#f5c05d"}}>
+
+        <Segment style={{ backgroundColor: "#339FCD"}}>
           <Header style={{textAlign: "center", textDecoration:"underline", margin:"2em"}}>Choose your Resume Components</Header>
 
-          <Grid columns={2} container relaxed="very">
+          <Grid columns={2} container >
             <Grid.Column>
               <Grid.Row>
                 <Grid stackable columns="equal">                  
@@ -150,7 +151,7 @@ class ResumeSelector extends Component {
                 </Grid>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column style={{minWidt:"400px"}}>
               <Card fluid style={{marginBottom:"0",  minHeight: "40vh"}}>
                 <Card.Header textAlign="center">
                  <Header style={{margin:"1vh"}}>Sections</Header>
@@ -163,7 +164,7 @@ class ResumeSelector extends Component {
                   );
                 })}
               </Card>
-              <Button attached='bottom' onClick={this.goToResumeBuilder}>Build my Resume</Button>
+              <Button attached='bottom' fluid onClick={this.goToResumeBuilder}>Build my Resume</Button>
             </Grid.Column>
           </Grid>
         </Segment>

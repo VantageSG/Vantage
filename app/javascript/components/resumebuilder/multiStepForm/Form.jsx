@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Step, Icon, Responsive, Grid } from "semantic-ui-react";
+import { Container, Step, Icon, Responsive, Grid, GridColumn, Header } from "semantic-ui-react";
 import SingleSegmentContainer from "./formPages/Segment/SingleSegmentContainer";
 import MultipleSegmentContainer from "./formPages/Segment/MultipleSegmentContainer";
 import ConfirmationPage from "./formPages/ConfirmationPage";
@@ -10,6 +10,7 @@ import Education from "./formPages/SegmentContent/Education.json";
 import Skills from "./formPages/SegmentContent/Skills.json";
 import Interests from "./formPages/SegmentContent/Interests.json";
 import { combinator } from "postcss-selector-parser";
+import "./Form.css"
 
 export default class FormStep extends Component {
   constructor(props) {
@@ -121,10 +122,12 @@ export default class FormStep extends Component {
         //active={step == 0 ? true : false}
         onClick={this.goToAboutMe}
       >
-        <Step.Content>
+        <Responsive as={Step.Content} minWidth={992}>
           <Step.Title>About Me</Step.Title>
-          <Step.Description>Tell us about yourself!</Step.Description>
-        </Step.Content>
+          <Step.Description
+          className="step-description"
+          >Tell us about yourself!</Step.Description>
+        </Responsive>
       </Step>
     );
     nameComponentMap["educations"] = (
@@ -133,10 +136,11 @@ export default class FormStep extends Component {
         //active={step == 1 ? true : false}
         onClick={this.goToEducation}
       >
-        <Step.Content>
+      <Responsive as={Step.Content} minWidth={992}>
+
           <Step.Title>Education</Step.Title>
           <Step.Description>List your Education!</Step.Description>
-        </Step.Content>
+        </Responsive>
       </Step>
     );
     nameComponentMap["workExperiences"] = (
@@ -145,10 +149,11 @@ export default class FormStep extends Component {
         //active={step == 2 ? true : false}
         onClick={this.goToWorkExperience}
       >
-        <Step.Content>
+                <Responsive as={Step.Content} minWidth={992}>
+
           <Step.Title>Work Experience</Step.Title>
           <Step.Description>Past Work Experience</Step.Description>
-        </Step.Content>
+        </Responsive>
       </Step>
     );
     nameComponentMap["skills"] = (
@@ -157,10 +162,11 @@ export default class FormStep extends Component {
         // active={step == 3 ? true : false}
         onClick={this.goToSkills}
       >
-        <Step.Content>
+                <Responsive as={Step.Content} minWidth={992}>
+
           <Step.Title>Skills</Step.Title>
           <Step.Description>Share your skills</Step.Description>
-        </Step.Content>
+        </Responsive>
       </Step>
     );
     nameComponentMap["interests"] = (
@@ -169,28 +175,42 @@ export default class FormStep extends Component {
         // active={step == 4 ? true : false}
         onClick={this.goToInterests}
       >
-        <Step.Content>
+                <Responsive as={Step.Content} minWidth={992}>
+
           <Step.Title>Interests</Step.Title>
           <Step.Description>What Hobbies do you have?</Step.Description>
-        </Step.Content>
+        </Responsive>
       </Step>
     );
     const widthOfStepper = vrsComponents.length + 1;
     return (
-      <Step.Group
+      <Grid.Row>
+        <Responsive maxWidth={453}>
+          <Header style={{
+            color: "#FFFFFF"
+          }} size="huge">
+            You are editing {vrsComponents[this.state.step].toUpperCase() } section
+          </Header>
+        </Responsive>
+        <Responsive as={Step.Group} minWidth={453}
         fluid
-        size="tiny"
-        widths={widthOfStepper}
+        size="mini"
         ordered
-        style={{ backgroundColor: "#f5c05d", maxHeight: "100px" }}
+        unstackable
+        top
+        className="step-group"
+        style={{ backgroundColor: "#339FCD", maxHeight: "100px" }}
       >
         {vrsComponents.map(componentName => nameComponentMap[componentName])}
         <Step onClick={this.goToConfirmation}>
-          <Step.Content>
+        <Responsive as={Step.Content} minWidth={992}>
+
             <Step.Title>Confirmation</Step.Title>
-          </Step.Content>
+          </Responsive>
         </Step>
-      </Step.Group>
+      </Responsive>
+      </Grid.Row>
+      
     );
   };
 
@@ -347,13 +367,13 @@ export default class FormStep extends Component {
 
   render() {
     const { isLoading, step, formBody } = this.state;
-
+    console.log(this.state)
     //display based on the components inside formBody
     return (
       <React.Fragment>
         <Grid
           style={{
-            backgroundColor: "#f5c05d",
+            backgroundColor: "#339FCD",
             paddingTop: "20px",
             paddingBottom: "50px ",
             height: "100vh",

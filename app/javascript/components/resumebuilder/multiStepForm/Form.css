@@ -1,0 +1,11 @@
+@meida screen and (max-width: 1124px)
+
+{
+  .step-description { display: none;}
+  .step-group { display: none; }
+}
+
+@media screen and (max-width: 453) 
+{
+  .step-group { display: none; }
+}

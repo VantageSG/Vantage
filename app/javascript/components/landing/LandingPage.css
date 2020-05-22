@@ -41,10 +41,11 @@ button.landingButton {
     margin-top: 4.5vh;
     border-radius: 40px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover.landingButton {
-  opacity: 85%;
+  opacity: 0.8;
 }
 
 .clipboardImage {

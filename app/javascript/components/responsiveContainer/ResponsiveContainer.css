@@ -43,7 +43,7 @@ ul.navbar-menu li a {
 }
 
 ul.navbar-menu li a:hover {
-  opacity: 80%;
+  opacity: 0.8;
 }
 
 @media (min-width: 991px) {
@@ -92,6 +92,6 @@ ul.mobile-navbar-menu li a {
 }
 
 ul.mobile-navbar-menu li a:hover {
-  opacity: 60%;
+  opacity: 0.6;
   background-color: rgba(0, 0, 0, 0.05);
 }

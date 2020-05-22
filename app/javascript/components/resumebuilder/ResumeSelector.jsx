@@ -1,174 +1,87 @@
 import React, { Component } from "react";
 import UserContext from "../../contexts/UserContext";
-import {
-  Grid,
-  Image,
-  Header,
-  Container,
-  Card,
-  Segment,
-  Button,
-  Label
-
-} from "semantic-ui-react";
-import "./category.css";
+import "./ResumeSelector.css";
+import { Icon } from "semantic-ui-react";
 import {Link, withRouter} from "react-router-dom"
 
-const ResumeSelectorButton = props => {
-  return (
-    <Button
-      className="selector-cat"
-      color={props.color}
-      content={props.label}
-      onClick={props.onClick}
-    ></Button>
-  );
-};
+
+const defaultVrsComponents = ["about", "educations", "workExperiences", "skills", "interests"];
 
 class ResumeSelector extends Component {
   constructor(props) {
     super(props);
+    // by default everything will be selected
     this.state = {      
-      choices: this.props.vrsComponents.length > 0 ? this.props.vrsComponents : ["about", "educations", "workExperiences", "skills", "interests"]
+      selected: {
+        about: true,
+        educations: true,
+        workExperiences: true,
+        skills: true,
+        interests: true
+      }
     };
-    this.state.color = [
-      "green",
-      this.state.choices.includes("educations") ? "green" : "red",
-      this.state.choices.includes("workExperiences") ? "green" : "red",
-      this.state.choices.includes("skills") ? "green" : "red",
-      this.state.choices.includes("interests") ? "green" : "red",
-    ]
+    // if it is not the first time user is selecting, indicate those that are not selected
+    if (this.props.vrsComponents.length > 0) {
+      defaultVrsComponents.filter(c => !this.props.vrsComponents.includes(c)).forEach(
+        (c) => this.state.selected[c] = false
+      )
+    }
   }
 
-  /* Functions to handle on change */
-  handleColorChange = (index, value) => {
-    let color = [...this.state.color];
-    let resumeElemSet = new Set(this.state.choices);
-    if (color[index] === "green") {
-      color[index] = "red";
-      resumeElemSet.delete(value);
-    } else {
-      color[index] = "green";
-      resumeElemSet.add(value);
-    }
-    return [color, resumeElemSet];
-  };
-
-  onAboutChange = index => {
-    let array = this.handleColorChange(index, "about");
-    this.setState({
-      color: array[0],
-      choices: Array.from(array[1])
-    });
-  };
-
-  onEducationChange = index => {
-    let array = this.handleColorChange(index, "educations");
-    this.setState({
-      color: array[0],
-      choices: Array.from(array[1])
-    });
-  };
-  onWorkExperiencesChange = index => {
-    let array = this.handleColorChange(index, "workExperiences");
-    this.setState({
-      color: array[0],
-      choices: Array.from(array[1])
-    });
-  };
-  onSkillsChange = index => {
-    let array = this.handleColorChange(index, "skills");
-    this.setState({
-      color: array[0],
-      choices: Array.from(array[1])
-    });
-  };
-  onInterestsChange = index => {
-    let array = this.handleColorChange(index, "interests");
-    this.setState({
-      color: array[0],
-      choices: Array.from(array[1])
-    });
-  };
-
   goToResumeBuilder = () => {
-    this.props.updateSelectComponents(false);
-    this.props.selectedVrsComponents(this.state.choices);
+    const selectedComponents = defaultVrsComponents.filter(
+      c => this.state.selected[c]
+    )
+    console.log(selectedComponents)
+    if (selectedComponents.length == 0) {
+      alert("Please select at least 1 component");
+    } else {
+      this.props.updateSelectComponents(false);    
+      this.props.selectedVrsComponents(selectedComponents);
+    }    
   }
 
   render() {
-    const verboseNameMap = {
-      "about": "About Me",
-      "educations": "Education",
-      "workExperiences": "Work Experiences",
-      "skills": "Skills",
-      "interests": "Interests"
-    }
-
     return (
-      <React.Fragment>
-
-        <Segment style={{ backgroundColor: "#339FCD"}}>
-          <Header style={{textAlign: "center", textDecoration:"underline", margin:"2em"}}>Choose your Resume Components</Header>
-
-          <Grid columns={2} container >
-            <Grid.Column>
-              <Grid.Row>
-                <Grid stackable columns="equal">                  
-                  <Grid.Column>
-                    <ResumeSelectorButton
-                      color={this.state.color[1]}
-                      label="Education"
-                      onClick={() => this.onEducationChange(1)}
-                    ></ResumeSelectorButton>
-                  </Grid.Column>
-                  <Grid.Column> 
-                    <ResumeSelectorButton
-                      color={this.state.color[2]}
-                      label="Work Experiences"
-                      onClick={() => this.onWorkExperiencesChange(2)}
-                    ></ResumeSelectorButton>
-                  </Grid.Column>
-                </Grid>
-              </Grid.Row>
-
-              <Grid.Row>
-                <Grid stackable columns="equal">
-                  <Grid.Column>
-                    <ResumeSelectorButton
-                      color={this.state.color[3]}
-                      label="Skills"
-                      onClick={() => this.onSkillsChange(3)}
-                    ></ResumeSelectorButton>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <ResumeSelectorButton
-                      color={this.state.color[4]}
-                      label="Interests"
-                      onClick={() => this.onInterestsChange(4)}
-                    ></ResumeSelectorButton>
-                  </Grid.Column>
-                </Grid>
-              </Grid.Row>
-            </Grid.Column>
-            <Grid.Column style={{minWidt:"400px"}}>
-              <Card fluid style={{marginBottom:"0",  minHeight: "40vh"}}>
-                <Card.Header textAlign="center">
-                 <Header style={{margin:"1vh"}}>Sections</Header>
-                </Card.Header>
-                {this.state.choices.map((val, index) => {
-                  return (
-                    <Segment key={index} style={{marginTop: "0", marginBottom: "0"}}>
-                      <Segment.Inline>{verboseNameMap[val]}</Segment.Inline>
-                    </Segment>
-                  );
-                })}
-              </Card>
-              <Button attached='bottom' fluid onClick={this.goToResumeBuilder}>Build my Resume</Button>
-            </Grid.Column>
-          </Grid>
-        </Segment>
-      </React.Fragment>
+      <div className="resume-selector-container">
+        <h1>Select your Resume Sections</h1>
+        <p>*Click on the sections to select/unselect</p>
+        <div className="resume-components-group">
+          <button
+            className={this.state.selected.about ? 'selected' : 'unselected'}
+            onClick={() => this.setState({ selected: {...this.state.selected, about: !this.state.selected.about} })}
+          >
+            About Me
+          </button>
+          <button
+            className={this.state.selected.educations ? 'selected' : 'unselected'}
+            onClick={() => this.setState({ selected: {...this.state.selected, educations: !this.state.selected.educations} })}
+          >
+            Education
+          </button>
+          <button
+            className={this.state.selected.workExperiences ? 'selected' : 'unselected'}
+            onClick={() => this.setState({ selected: {...this.state.selected, workExperiences: !this.state.selected.workExperiences} })}
+          >
+            Work Experiences
+          </button>
+          <button
+            className={this.state.selected.skills ? 'selected' : 'unselected'}
+            onClick={() => this.setState({ selected: {...this.state.selected, skills: !this.state.selected.skills} })}
+          >
+            Skills
+          </button>
+          <button
+            className={this.state.selected.interests ? 'selected' : 'unselected'}
+            onClick={() => this.setState({ selected: {...this.state.selected, interests: !this.state.selected.interests} })}
+          >
+            Interests
+          </button>
+        </div>
+        <button className="build-resume" onClick={this.goToResumeBuilder}>
+          Build your Resume <Icon name="paper plane" />
+        </button>
+      </div>
     );
   }
 }

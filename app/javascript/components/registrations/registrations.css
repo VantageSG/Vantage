@@ -22,7 +22,7 @@
     margin-top: -10px;
 }
 
-.submitButton {
+button.submitButton {
     background-color: transparent;
     border-color: white;
     color: white;
@@ -35,7 +35,11 @@
     margin-bottom: 7px;
 }
 
-button:focus {outline:0;}
+button:hover.submitButton, button:focus.submitButton {
+  opacity: 0.8;
+  outline: none;
+}
+
 
 .footerMessageBox {
 }
@@ -60,4 +64,36 @@ span:hover.footerMessage {
     margin-top: 3px;
     margin-bottom: 3px;
     vertical-align: center;
+}
+
+.modal-message {
+  font-size: 20px;
+  font-family: Helvetica;
+  text-align: center;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-group a {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    border: 1px solid white;
+    text-align: center;
+    font-size: 1.1em;
+    border-radius: 40px;
+    cursor: pointer;
+    padding: 12px;
+    margin: 5px;
+    width: 25%;
+    transition: 0.3s;
+}
+
+.btn-group a:hover, a:focus {
+  outline: none;
+  color: white;
+  border: 1px solid rgba(62,165,206,1)
 }

@@ -1,0 +1,67 @@
+
+.resume-selector-container {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: Helvetica;
+  color: white;
+}
+
+.resume-selector-container h1 {
+  font-size: 35px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.resume-selector-container p {
+  font-size: 16px;
+}
+
+.resume-components-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 70%;
+  margin-top: 5vh;
+}
+
+.resume-components-group button, button.build-resume {
+  background-color: transparent;
+  font-size: 2.2em;
+  font-weight: 100;
+  padding: 12px 28px;
+  margin: 12px;
+  border-radius: 40px;
+  cursor: pointer;
+  color: black;
+}
+
+button.build-resume {
+  margin-top: 5vh;
+  color: white;
+  border: 1px solid white;
+}
+
+button:hover.build-resume, button:focus.build-resume {
+  opacity: 0.8;
+}
+
+button.selected {
+  border: 2px solid #71c970;
+}
+
+button:hover.selected, button:focus.selected {
+  border: 2px solid #86df89;
+  outline: none;
+}
+
+button.unselected {
+  border: 2px solid rgb(117, 117, 117);
+}
+
+button:hover.unselected, button:focus.unselected {
+  border: 2px solid rgb(145, 145, 145);
+  outline: none;
+}

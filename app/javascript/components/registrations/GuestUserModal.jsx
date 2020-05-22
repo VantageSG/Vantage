@@ -1,22 +1,18 @@
 import UserContext from '../../contexts/UserContext';
 import React, {Component} from 'react'
 import { Link } from "react-router-dom";
-import { isEmpty } from "../util/Props"
-import { Button, Modal } from 'semantic-ui-react'
+import { Modal } from 'semantic-ui-react'
 import { withRouter } from "react-router-dom";
 
 
-class GuestUserModal extends Component{
-
-  continueAsGuest() {
-    this.context.continueAsGuest(()=>{});
-  }
+class GuestUserModal extends Component {
 
   render(){
     return(
       <div>
         <Modal 
-        size="tiny"
+        basic
+        size="small"
         closeOnEscape={false}
         closeOnDimmerClick={false}
         closeOnDocumentClick={false}
@@ -26,36 +22,30 @@ class GuestUserModal extends Component{
         >
         <Modal.Content >
           <Modal.Description>
-            <p>
-              Sign up/login to save your data for future use.
+            <p className="modal-message">
+              Sign up for an account or log in to continue.
+              <br />
+              If you do not want to keep your resume on the<br/>
+              site, you can continue as a guest user.
             </p>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button.Group
-          floated='left'
-          >
-            <Button 
-            data-testid="SignUp"
-            color="teal"
-            content='Sign Up'
-            as={Link}
-            to="/sign-up"
-            />  
-            <Button.Or/>
-            <Button
-              data-testid="Login"
-              color="teal"
-              content='Login'
-              as={Link}
+          <div className="btn-group">
+            <Link
               to="/login"
-            />
-          </Button.Group>
-            
-            <Button
-            content='Continue as Guest'
-            onClick={() => this.continueAsGuest()}
-          />
+              data-testid="Login"
+            >
+              Log in
+            </Link>
+            <Link
+              to="/sign-up"
+              data-testid="SignUp"
+            >
+              Sign up
+            </Link>
+            <a onClick={() => this.context.continueAsGuest(() => {})}>Guest User</a>
+          </div>
         </Modal.Actions>
       </Modal>
       </div>

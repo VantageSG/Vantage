@@ -44,7 +44,12 @@ class GuestUserModal extends Component {
             >
               Sign up
             </Link>
-            <a onClick={() => this.context.continueAsGuest(() => {})}>Guest User</a>
+            <a 
+              data-testid="guestUser"
+              onClick={() => this.context.continueAsGuest(() => {})}
+            >
+              Guest User
+            </a>
           </div>
         </Modal.Actions>
       </Modal>

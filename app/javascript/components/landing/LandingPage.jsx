@@ -65,11 +65,11 @@ class LandingPage extends Component {
                   <Grid.Column computer={8} tablet={8} mobile={16}>
                     <h2 className="contactUsContent">CONTACT</h2>
                     <h3 className="contactUsContent">ADDRESS</h3>
-                    <p className="contactUsContent">70 Pasir Panjang Rd<br/> Singapore 117371</p>
+                    <p className="contactUsContent">Lorem Ipsum #01-111<br/> Singapore 000000</p>
                     <h3 className="contactUsContent">CONTACT US</h3>
                     <p className="contactUsContent">
-                      <Icon name="phone"></Icon> 91210991 <br/>
-                      <Icon name="envelope outline"></Icon> vantage@gmail.com
+                      <Icon name="phone"></Icon> 987654321 <br/>
+                      <Icon name="envelope outline"></Icon> vantage-sg@gmail.com
                     </p>
                   </Grid.Column>
                   <Grid.Column computer={8} tablet={8} mobile={16}>

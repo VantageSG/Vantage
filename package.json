@@ -27,6 +27,7 @@
     "react-router-dom": "^5.1.2",
     "react-semantic-ui": "^0.2.0",
     "react-smooth-dnd": "^0.11.1",
+    "react-speech-recognition": "^2.0.4",
     "react-typist": "^2.0.5",
     "react-uuid": "^1.0.2",
     "react_ujs": "^2.6.0",

@@ -14,12 +14,20 @@ import {
   Button
 } from "semantic-ui-react";
 import QuestionActionButton from "./QuestionActionButton";
-const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
+let recognition = null
 
-recognition.continous = true;
-recognition.interimResults = true;
-recognition.lang = "en-US";
+if (process.env.NODE_ENV == 'test') {
+
+} else {
+  const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continous = true;
+  recognition.interimResults = true;
+  recognition.lang = "en-US"; 
+}
+
+
+
 
 export default class Question extends Component {
   constructor() {

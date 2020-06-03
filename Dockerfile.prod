@@ -25,7 +25,8 @@ RUN apt-get -y update && \
 # Copy the Gemfile and install the the RubyGems.
 # This is a separate step so that bundle install wont run again unless Gemfile has changed
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler -v 2.0.2 && bundle install --jobs 20 --retry 5 
+RUN sudo gem install bundler -v 2.0.2 
+RUN bundle install --jobs 20 --retry 5 
 
 # Cache yarn install as much as possible unless any of them changes
 COPY yarn.lock package.json ./

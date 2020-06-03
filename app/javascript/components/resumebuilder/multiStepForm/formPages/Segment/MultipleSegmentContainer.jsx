@@ -195,8 +195,7 @@ export default class MultipleSegmentContainer extends Component {
     }
   };
 
-  onMainQuestionChange = e => {
-    const { name, value } = e.target;
+  onMainQuestionChange = (name, value) => {
     const currSegmentData = this.state.segmentData;
     currSegmentData[this.state.segmentCount - 1] = {
       ...currSegmentData[this.state.segmentCount - 1],
@@ -207,8 +206,7 @@ export default class MultipleSegmentContainer extends Component {
     });
   };
 
-  onDynamicQuestionChange = e => {
-    const { name, value } = e.target;
+  onDynamicQuestionChange = (name, value) => {
     let currDynamicAnswers = [...this.state.dynamicAnswers];
     currDynamicAnswers[name] = value;
     this.setState({

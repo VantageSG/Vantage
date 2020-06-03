@@ -186,7 +186,8 @@ export default class SingleSegmentContainer extends Component {
     }
   };
 
-  onMainQuestionChange = (name, value) => {
+  onMainQuestionChange = e => {
+    const { name, value } = e.target;
     this.setState({
       segmentData: {
         ...this.state.segmentData,
@@ -195,7 +196,8 @@ export default class SingleSegmentContainer extends Component {
     });
   };
 
-  onDynamicQuestionChange = (name, value) => {
+  onDynamicQuestionChange = e => {
+    const { name, value } = e.target;
     let currDynamicAnswers = [...this.state.dynamicAnswers];
     currDynamicAnswers[name] = value;
     this.setState({

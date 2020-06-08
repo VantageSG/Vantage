@@ -30,6 +30,7 @@
     "react-typist": "^2.0.5",
     "react-uuid": "^1.0.2",
     "react_ujs": "^2.6.0",
+    "reactstrap": "^8.4.1",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.3.0",

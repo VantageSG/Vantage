@@ -7,7 +7,7 @@ import {
   Icon
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-
+import Team from "./Team"
 import Clipboard from "../../../assets/images/resumeClipboard.svg";
 
 class LandingPage extends Component {
@@ -56,57 +56,14 @@ class LandingPage extends Component {
               </Responsive>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={1}></Grid.Column>
-            <Grid.Column computer={10} tablet={12} mobile={14}>
-              <div className="contactUsBox">
-                <Grid>
-                <Grid.Row>
-                  <Grid.Column computer={8} tablet={8} mobile={16}>
-                    <h2 className="contactUsContent">CONTACT</h2>
-                    <h3 className="contactUsContent">ADDRESS</h3>
-                    <p className="contactUsContent">Lorem Ipsum #01-111<br/> Singapore 000000</p>
-                    <h3 className="contactUsContent">CONTACT US</h3>
-                    <p className="contactUsContent">
-                      <Icon name="phone"></Icon> 987654321 <br/>
-                      <Icon name="envelope outline"></Icon> vantage-sg@gmail.com
-                    </p>
-                  </Grid.Column>
-                  <Grid.Column computer={8} tablet={8} mobile={16}>
-                    <div className="contactUsForm">
-                      <Form onSubmit={this.handleFormSubmit}>
-                          <Form.Input
-                            fluid
-                            placeholder="Name"
-                            name="name"
-                            value={this.state.name}
-                            onChange={this.handleFormChange}
-                          />
-                          <Form.Input
-                            fluid
-                            placeholder="Email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleFormChange}
-                          />
-                          <Form.TextArea
-                            fluid="true"
-                            placeholder="Message"
-                            name="message"
-                            value={this.state.message}
-                            onChange={this.handleFormChange}
-                            rows={6}
-                          />
-                          <button className="formSubmitButton">Send</button>
-                      </Form>
-                    </div>
-                  </Grid.Column>
-                </Grid.Row>
-                </Grid>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
+
+          
         </Grid>
+        <Team
+            style={{
+              marginLeft:"10px"
+            }}
+          />
       </div>
     );
   }

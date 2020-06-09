@@ -13,6 +13,7 @@ module.exports = {
     "\\.(png)$": "<rootDir>/spec/javascript/fileTransformer.js",
     "\\.(svg)$": "<rootDir>/spec/javascript/fileTransformer.js",
     "\\.(jpg)$": "<rootDir>/spec/javascript/fileTransformer.js",
+    "\\.(jpeg)$": "<rootDir>/spec/javascript/fileTransformer.js",
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.js?$": "babel-jest"
 

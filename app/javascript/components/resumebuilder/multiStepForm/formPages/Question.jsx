@@ -14,20 +14,16 @@ import {
   Button
 } from "semantic-ui-react";
 import QuestionActionButton from "./QuestionActionButton";
-let recognition = null
+let recognition = null;
 
-if (process.env.NODE_ENV == 'test') {
-
+if (process.env.NODE_ENV == "test" || !("webkitSpeechRecognition" in window)) {
 } else {
   const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
   recognition = new SpeechRecognition();
   recognition.continous = true;
   recognition.interimResults = true;
-  recognition.lang = "en-US"; 
+  recognition.lang = "en-US";
 }
-
-
-
 
 export default class Question extends Component {
   constructor() {
@@ -48,7 +44,7 @@ export default class Question extends Component {
     );
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     recognition.stop();
     recognition.onend = () => {
       console.log("Stopped listening per click");
@@ -84,9 +80,9 @@ export default class Question extends Component {
         if (event.results[i].isFinal) finalTranscript += transcript + " ";
         else interimTranscript += transcript;
       }
-      
-      this.props.onChange(this.props.name, interimTranscript)
-      this.props.onChange(this.props.name, finalTranscript)
+
+      this.props.onChange(this.props.name, interimTranscript);
+      this.props.onChange(this.props.name, finalTranscript);
       //-------------------------COMMANDS------------------------------------
 
       const transcriptArr = finalTranscript.split(" ");
@@ -111,18 +107,18 @@ export default class Question extends Component {
   }
 
   onTypingChange = e => {
-    let name = e.target.name
-    let value = e.target.value
-    this.props.onChange(name, value)
-  }
+    let name = e.target.name;
+    let value = e.target.value;
+    this.props.onChange(name, value);
+  };
 
   renderMicroPhoneColor = () => {
     if (this.state.listening) {
-      return 'green'
+      return "green";
     } else {
-      return 'grey'
+      return "grey";
     }
-  }
+  };
 
   render() {
     return (
@@ -139,20 +135,25 @@ export default class Question extends Component {
                   value={this.props.value}
                   onChange={this.onTypingChange}
                 />
+                {!("webkitSpeechRecognition" in window) && (
+                  <label>
+                    Open in Google Chrome Desktop to use text to speech function
+                  </label>
+                )}
               </Form.Field>
-              <Form.Field>
-                <label>Use Voice to Text</label>
-                <Button
-                  color={this.renderMicroPhoneColor()}
-                  onClick={this.toggleListen}
-                >
-                  <Icon
-                  name='microphone'
-                  >
-                    
-                  </Icon>
-                </Button>
-              </Form.Field>
+              {"webkitSpeechRecognition" in window && (
+                <Form.Field>
+                  <>
+                    <label>Use Voice to Text</label>
+                    <Button
+                      color={this.renderMicroPhoneColor()}
+                      onClick={this.toggleListen}
+                    >
+                      <Icon name="microphone"></Icon>
+                    </Button>
+                  </>
+                </Form.Field>
+              )}
             </Form.Group>
           </Form>
         </Segment>

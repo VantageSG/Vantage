@@ -90,21 +90,7 @@ class PageTeam extends Component {
               </Card.Content>
             </Card>
           </Grid.Column>
-          <Grid.Column
-          style={{
-            margin: "auto"
-          }}
-          computer={4} tablet={6} mobile={12} textAlign="center">
-            <Card >
-              <Image src={rachel} wrapped ui={false} />
-              <Card.Content>
-                <Card.Header>Rachel Lo</Card.Header>
-                <Card.Meta>
-                  <span className="date">Partnerships Executive</span>
-                </Card.Meta>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
+          
         </Grid.Row>
         <Grid.Row
         columns={12}
@@ -155,21 +141,7 @@ class PageTeam extends Component {
               </Card.Content>
             </Card>
           </Grid.Column>
-          <Grid.Column
-          style={{
-            margin: "auto"
-          }}
-          computer={4} tablet={6} mobile={12} textAlign="center">
-            <Card >
-              <Image src={colin} wrapped ui={false} />
-              <Card.Content>
-                <Card.Header>Ng Kwok Lun Colin</Card.Header>
-                <Card.Meta>
-                  <span className="date">UI/UX Designer</span>
-                </Card.Meta>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
+          
         </Grid.Row>
         <Grid.Row
         centered
@@ -190,6 +162,36 @@ class PageTeam extends Component {
                 <Card.Header>Sherman Lim Jun Hong</Card.Header>
                 <Card.Meta>
                   <span className="date">Fullstack Software Engineer</span>
+                </Card.Meta>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column
+          style={{
+            margin: "auto"
+          }}
+          computer={4} tablet={6} mobile={12} textAlign="center">
+            <Card >
+              <Image src={rachel} wrapped ui={false} />
+              <Card.Content>
+                <Card.Header>Rachel Lo</Card.Header>
+                <Card.Meta>
+                  <span className="date">Partnerships Executive</span>
+                </Card.Meta>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column
+          style={{
+            margin: "auto"
+          }}
+          computer={4} tablet={6} mobile={12} textAlign="center">
+            <Card >
+              <Image src={colin} wrapped ui={false} />
+              <Card.Content>
+                <Card.Header>Ng Kwok Lun Colin</Card.Header>
+                <Card.Meta>
+                  <span className="date">UI/UX Designer</span>
                 </Card.Meta>
               </Card.Content>
             </Card>

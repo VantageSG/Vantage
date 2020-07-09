@@ -4,6 +4,7 @@ import {
   Container,
   Icon,
   Sidebar,
+  Grid
 } from "semantic-ui-react";
 import VantageLogo from "../../../assets/images/VantageLogo.png";
 import "./ResponsiveContainer.css";
@@ -34,9 +35,6 @@ class MobileNavBar extends Component {
             <li>
               <Link to="/resume-builder" as="a">Build Resume</Link>
             </li>
-            <li>
-              <Link to="/" as="a">Contact Us</Link>
-            </li>
             {this.props.renderRegistrationButton()}
           </ul>          
         </Sidebar>
@@ -51,6 +49,17 @@ class MobileNavBar extends Component {
         <Container fluid={true}>
           {this.props.children}
         </Container>
+        <nav className="navbar">
+        <Grid>
+          <Grid.Row centered>
+            <Grid.Column computer={8} tablet={8} mobile={8} textAlign="center">
+              <span className="landingMessage">
+                Contact Us: ext.head.biz.c.dscnus@gmail.com
+              </span>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </nav>
       </Sidebar.Pushable>
     );
   }

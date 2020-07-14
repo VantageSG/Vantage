@@ -45,10 +45,14 @@ export default class Question extends Component {
   }
 
   componentWillUnmount() {
-    recognition.stop();
-    recognition.onend = () => {
-      console.log("Stopped listening per click");
-    };
+    if (process.env.NODE_ENV == "test" || !("webkitSpeechRecognition" in window)) {
+    } else {
+      recognition.stop();
+      recognition.onend = () => {
+        console.log("Stopped listening per click");
+      };
+    }
+    
   }
 
   handleListen() {
